@@ -1,0 +1,100 @@
+/* ==========================================================================
+   Design tokens
+   --------------------------------------------------------------------------
+   Direction: a darkroom, not a document. Near-black ground, one cold light,
+   type set large and tight. The only colour in the page comes from the live
+   WebGL scene — everything printed stays monochrome so the render leads.
+
+   Single source of truth: no file below this one may hard-code a raw value.
+   ========================================================================== */
+
+:root {
+  /* --- Ground ---------------------------------------------------------- */
+  --c-void: #08080a;        /* page floor */
+  --c-ground: #0c0c10;      /* default section */
+  --c-ground-2: #101016;    /* alternating band */
+  --c-well: #16161d;        /* media wells, cards */
+  --c-raised: #1c1c25;      /* hover state of a card */
+
+  /* --- Ink -------------------------------------------------------------
+     Measured against --c-ground: ink 16.8:1, dim 7.4:1, faint 4.6:1.
+     Nothing below --c-ink-faint carries text.                             */
+  --c-ink: #f4f2ee;
+  --c-ink-dim: #a8a6a1;
+  --c-ink-faint: #7b7973;
+
+  --c-line: rgba(244, 242, 238, 0.12);
+  --c-line-soft: rgba(244, 242, 238, 0.06);
+
+  /* --- Light -----------------------------------------------------------
+     One accent, borrowed from the rim light in the hero render. Used for
+     rules, indices and focus — never as a large fill.                     */
+  --c-accent: #6d97ff;
+  --c-accent-deep: #3a63d8;
+  --c-accent-glow: rgba(109, 151, 255, 0.18);
+
+  /* --- Type ------------------------------------------------------------ */
+  --f-body: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --f-mono: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, Consolas, monospace;
+
+  /* One oversized element per screen; everything else stays quiet. */
+  --t-hero: clamp(2.75rem, 8.5vw, 8rem);
+  --t-h1: clamp(2.1rem, 5vw, 4rem);
+  --t-h2: clamp(1.6rem, 3.2vw, 2.6rem);
+  --t-h3: clamp(1.1rem, 1.7vw, 1.4rem);
+  --t-lead: clamp(1.0625rem, 1.45vw, 1.35rem);
+  --t-body: clamp(0.9375rem, 1vw, 1.0625rem);
+  --t-small: 0.875rem;
+  --t-label: 0.6875rem;
+
+  --lh-display: 1.02;
+  --lh-snug: 1.18;
+  --lh-normal: 1.65;
+
+  --ls-display: -0.035em;
+  --ls-label: 0.18em;
+
+  /* --- Space -----------------------------------------------------------
+     A 4px base. Section rhythm is deliberately large: space is the main
+     premium signal on a dark ground.                                      */
+  --s-1: 0.25rem;
+  --s-2: 0.5rem;
+  --s-3: 0.75rem;
+  --s-4: 1rem;
+  --s-6: 1.5rem;
+  --s-8: 2rem;
+  --s-12: 3rem;
+  --s-16: 4rem;
+  --s-24: 6rem;
+  --s-32: 8rem;
+  --s-section: clamp(5rem, 11vw, 10rem);
+
+  /* --- Measure ---------------------------------------------------------- */
+  --w-page: 1320px;
+  --w-text: 62ch;
+  --pad-x: clamp(1.25rem, 5vw, 4.5rem);
+
+  /* --- Surface ---------------------------------------------------------- */
+  --r-sm: 6px;
+  --r-md: 12px;
+  --r-lg: 20px;
+
+  --shadow-card: 0 1px 0 rgba(244, 242, 238, 0.05) inset,
+                 0 24px 60px -30px rgba(0, 0, 0, 0.9);
+
+  /* --- Motion ----------------------------------------------------------
+     Slow and eased. Nothing bounces; this is a studio, not an app.        */
+  --e-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --e-io: cubic-bezier(0.65, 0, 0.35, 1);
+  --d-fast: 180ms;
+  --d-base: 420ms;
+  --d-slow: 900ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --d-fast: 1ms;
+    --d-base: 1ms;
+    --d-slow: 1ms;
+  }
+}

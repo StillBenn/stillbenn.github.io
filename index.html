@@ -1,0 +1,289 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bünyamin Katkat — 3D &amp; Web Developer</title>
+<meta name="description" content="I build interactive 3D websites, product configurators and Telegram bots with Three.js, WebGL and Python — running code, not mockups.">
+<link rel="canonical" href="https://stillbenn.github.io/">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Bünyamin Katkat">
+<meta property="og:title" content="Bünyamin Katkat — 3D &amp; Web Developer">
+<meta property="og:description" content="Interactive 3D websites, product configurators and Telegram bots. Three.js · WebGL · Python.">
+<meta property="og:url" content="https://stillbenn.github.io/">
+<meta property="og:image" content="https://stillbenn.github.io/img/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Bünyamin Katkat — 3D &amp; Web Developer">
+<meta name="twitter:description" content="Interactive 3D websites, product configurators and Telegram bots.">
+<meta name="twitter:image" content="https://stillbenn.github.io/img/og.png">
+
+<meta name="theme-color" content="#08080a">
+<link rel="icon" href="./img/favicon.svg" type="image/svg+xml">
+
+<link rel="preload" href="./fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="./css/tokens.css">
+<link rel="stylesheet" href="./css/base.css">
+<link rel="stylesheet" href="./css/site.css">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Bünyamin Katkat",
+  "url": "https://stillbenn.github.io/",
+  "jobTitle": "3D & Web Developer",
+  "knowsLanguage": ["en", "tr", "ru"],
+  "knowsAbout": ["Three.js", "WebGL", "3D product configurators", "Interactive web", "Python", "Telegram bots"],
+  "sameAs": ["https://github.com/StillBenn"]
+}
+</script>
+</head>
+
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="wrap site-header__inner">
+    <a class="brand" href="#top" aria-label="Bünyamin Katkat — home">
+      Bünyamin Katkat<span class="brand__mark">.</span>
+    </a>
+
+    <nav class="nav" aria-label="Primary">
+      <a class="nav__link" href="#work">Work</a>
+      <a class="nav__link" href="#services" data-optional>Services</a>
+      <a class="nav__link" href="#about" data-optional>About</a>
+      <a class="nav__link" href="#contact">Contact</a>
+
+      <div class="lang" role="group" aria-label="Language">
+        <button class="lang__btn" type="button" data-lang="en" aria-pressed="true">EN</button>
+        <button class="lang__btn" type="button" data-lang="tr" aria-pressed="false">TR</button>
+        <button class="lang__btn" type="button" data-lang="ru" aria-pressed="false">RU</button>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- ===== Hero ========================================================== -->
+  <section class="hero" id="top">
+    <canvas class="hero__canvas" aria-hidden="true"></canvas>
+
+    <div class="wrap hero__inner">
+      <span class="label hero__eyebrow">3D &amp; Web Developer</span>
+
+      <h1 class="hero__title">
+        <span>Real-time 3D,</span>
+        <span><em>on the open web.</em></span>
+      </h1>
+
+      <p class="lead hero__lead">
+        I build interactive 3D websites, product configurators and Telegram bots.
+        Not videos, not mockups — running code you can open on your phone right now.
+      </p>
+
+      <div class="hero__actions">
+        <a class="btn btn--primary" href="#work">See the work</a>
+        <a class="btn btn--ghost" href="#contact">Start a project</a>
+      </div>
+    </div>
+
+    <span class="label hero__scroll">Scroll</span>
+  </section>
+
+  <!-- ===== Work ========================================================== -->
+  <section class="section" id="work">
+    <div class="wrap">
+      <div class="section__head reveal">
+        <span class="label">Selected work</span>
+        <h2 class="section__title">Things that actually run.</h2>
+        <p class="lead">
+          Every project below is live. Open it, rotate it, break it — that is the point.
+        </p>
+      </div>
+
+      <div class="work">
+
+        <!-- 01 -->
+        <article class="project reveal">
+          <div class="project__media">
+            <img src="./img/work/configurator-1.jpg" alt="3D armchair configurator rendered in sand fabric on an oak frame" width="1400" height="1050" loading="lazy" decoding="async">
+          </div>
+          <div class="project__body">
+            <span class="label project__index">01 — Product configurator</span>
+            <h3 class="project__title">Armchair configurator</h3>
+            <p class="project__desc">
+              A real-time 3D configurator: six fabrics, four frame finishes, two sizes,
+              with the price and lead time recalculating as the customer builds the
+              product. Runs in the browser, no plugin, works on a phone.
+            </p>
+            <ul class="project__stack">
+              <li>Three.js</li><li>WebGL</li><li>PBR materials</li><li>Vanilla JS</li>
+            </ul>
+            <div class="project__links">
+              <a class="btn btn--primary" href="https://stillbenn.github.io/threejs-chair-configurator/" target="_blank" rel="noopener">Open live</a>
+              <a class="btn btn--ghost" href="https://github.com/StillBenn/threejs-chair-configurator" target="_blank" rel="noopener">Source</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- 02 -->
+        <article class="project reveal">
+          <div class="project__media">
+            <img src="./img/work/mrd-1.png" alt="MRD Group corporate website home page" width="1200" height="630" loading="lazy" decoding="async">
+          </div>
+          <div class="project__body">
+            <span class="label project__index">02 — Corporate site</span>
+            <h3 class="project__title">MRD Group</h3>
+            <p class="project__desc">
+              A corporate site for a Gaziantep-based group working across retail,
+              construction and energy. Three languages from a single set of pages,
+              a 3D building model on the construction section, and a design system
+              built on tokens rather than one-off values.
+            </p>
+            <ul class="project__stack">
+              <li>Three.js</li><li>Design tokens</li><li>i18n (TR/RU/EN)</li><li>Static</li>
+            </ul>
+            <div class="project__links">
+              <a class="btn btn--primary" href="https://stillbenn.github.io/mrd-group/" target="_blank" rel="noopener">Open live</a>
+              <a class="btn btn--ghost" href="https://github.com/StillBenn/mrd-group" target="_blank" rel="noopener">Source</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- 03 -->
+        <article class="project reveal">
+          <div class="project__media">
+            <img src="./img/work/bot-1.png" alt="Telegram order bot interface showing a furniture catalog" width="1280" height="769" loading="lazy" decoding="async">
+          </div>
+          <div class="project__body">
+            <span class="label project__index">03 — Automation</span>
+            <h3 class="project__title">Furniture shop order bot</h3>
+            <p class="project__desc">
+              A Telegram bot that carries a catalog, a cart and a five-step checkout,
+              with an admin panel and Excel export behind it. Built so an order can
+              never be silently lost — every step is validated and persisted.
+            </p>
+            <ul class="project__stack">
+              <li>Python</li><li>aiogram 3</li><li>SQLite</li><li>Excel export</li>
+            </ul>
+            <div class="project__links">
+              <a class="btn btn--ghost" href="https://github.com/StillBenn/telegram-bot-nord" target="_blank" rel="noopener">Source</a>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Services ====================================================== -->
+  <section class="section section--alt" id="services">
+    <div class="wrap">
+      <div class="section__head reveal">
+        <span class="label">What I do</span>
+        <h2 class="section__title">Three things, done properly.</h2>
+      </div>
+
+      <div class="services">
+        <article class="service reveal">
+          <span class="label service__note">01</span>
+          <h3 class="service__title">Interactive 3D websites</h3>
+          <p class="service__desc">
+            A live WebGL scene that reacts to the cursor and animates on scroll —
+            the kind of site people remember. Performance-budgeted so it still
+            loads fast on a mid-range phone.
+          </p>
+        </article>
+
+        <article class="service reveal">
+          <span class="label service__note">02</span>
+          <h3 class="service__title">3D product configurators</h3>
+          <p class="service__desc">
+            Let customers build your product themselves — colour, material, size —
+            and watch the price update live. People who try a product on buy it
+            more often.
+          </p>
+        </article>
+
+        <article class="service reveal">
+          <span class="label service__note">03</span>
+          <h3 class="service__title">Telegram bots &amp; automation</h3>
+          <p class="service__desc">
+            Order flows, catalogs, notifications and admin panels in Python.
+            The unglamorous work that quietly removes hours from your week.
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== About ========================================================= -->
+  <section class="section" id="about">
+    <div class="wrap">
+      <div class="about">
+        <div class="about__body reveal">
+          <span class="label">About</span>
+          <h2 class="section__title">I work where 3D meets the web.</h2>
+          <p>
+            Most developers pick one side. I sit on the seam: enough graphics to
+            build a scene that looks like a product render, enough web engineering
+            to ship it as a fast, accessible, maintainable site.
+          </p>
+          <p>
+            I hand over <strong>full source code</strong> and stay reachable after
+            delivery. I also study information security, so the code I write is
+            not the thing that gets you breached.
+          </p>
+          <p>
+            Fixed scope, fixed price, and a live preview link before final delivery —
+            you judge the work on your own phone, not on a screenshot.
+          </p>
+        </div>
+
+        <ul class="facts reveal">
+          <li class="fact"><span class="fact__key">Based in</span><span class="fact__val">Moscow · Türkiye</span></li>
+          <li class="fact"><span class="fact__key">Languages</span><span class="fact__val">English · Türkçe · Русский</span></li>
+          <li class="fact"><span class="fact__key">Core stack</span><span class="fact__val">Three.js · WebGL · JS</span></li>
+          <li class="fact"><span class="fact__key">Also</span><span class="fact__val">Python · aiogram · SQLite</span></li>
+          <li class="fact"><span class="fact__key">Delivery</span><span class="fact__val">Source code included</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Contact ======================================================= -->
+  <section class="section contact" id="contact">
+    <div class="wrap reveal">
+      <span class="label">Contact</span>
+      <h2 class="contact__title">Tell me what you want to build.</h2>
+      <p class="lead">
+        Send the idea in a couple of sentences. I will tell you honestly whether
+        it fits, roughly what it takes, and what it would cost — before you commit
+        to anything.
+      </p>
+
+      <div class="contact__actions">
+        <a class="btn btn--primary" href="mailto:bunyamin.katkatt@gmail.com">bunyamin.katkatt@gmail.com</a>
+        <a class="btn btn--ghost" href="https://github.com/StillBenn" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap site-footer__inner">
+    <span>Bünyamin Katkat — 3D &amp; Web Developer</span>
+    <span>Built with Three.js, by hand.</span>
+  </div>
+</footer>
+
+<script src="./js/i18n.js" defer></script>
+<script src="./js/site.js" defer></script>
+<script type="module" src="./js/hero.js"></script>
+</body>
+</html>
