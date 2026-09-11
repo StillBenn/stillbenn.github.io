@@ -68,6 +68,41 @@ function init(canvas) {
   );
   subject.add(core);
 
+  /* A fresnel shell just outside the sphere. Point lights put a specular
+     wherever they happen to fall; this puts light exactly on the silhouette,
+     so the subject keeps a readable edge at every angle and never sinks into
+     the near-black page. Drawn back-side and added, so it only ever brightens. */
+  subject.add(new THREE.Mesh(
+    new THREE.SphereGeometry(1.34, 96, 96),
+    new THREE.ShaderMaterial({
+      transparent: true,
+      blending: THREE.AdditiveBlending,
+      side: THREE.BackSide,
+      depthWrite: false,
+      uniforms: { uColor: { value: new THREE.Color(0x6d97ff) } },
+      vertexShader: `
+        varying vec3 vN;
+        varying vec3 vView;
+        void main() {
+          vN = normalize(normalMatrix * normal);
+          vec4 mv = modelViewMatrix * vec4(position, 1.0);
+          vView = normalize(-mv.xyz);
+          gl_Position = projectionMatrix * mv;
+        }
+      `,
+      fragmentShader: `
+        uniform vec3 uColor;
+        varying vec3 vN;
+        varying vec3 vView;
+        void main() {
+          float f = 1.0 - abs(dot(normalize(vN), normalize(vView)));
+          f = pow(clamp(f, 0.0, 1.0), 3.2);
+          gl_FragColor = vec4(uColor * f * 1.35, f);
+        }
+      `
+    })
+  ));
+
   const ring = new THREE.Mesh(
     new THREE.TorusGeometry(1.95, 0.05, 36, 220),
     new THREE.MeshStandardMaterial({
@@ -131,9 +166,9 @@ function init(canvas) {
     const halfW = halfH * camera.aspect;
 
     const wide = w >= 900;
-    subject.position.x = wide ? halfW * 0.62 : 0;
+    subject.position.x = wide ? halfW * 0.70 : 0;
     subject.position.y = wide ? 0.05 : -1.05;
-    subject.scale.setScalar(wide ? 0.92 : 0.68);
+    subject.scale.setScalar(wide ? 0.88 : 0.66);
   }
 
   /* --- Pointer ----------------------------------------------------------
