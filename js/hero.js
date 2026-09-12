@@ -80,7 +80,7 @@ function init(canvas) {
           float glow = pow(max(0.0, 1.0 - d), 3.4);
           float pulse = 0.92 + 0.08 * sin(uTime * 0.7);
           vec3 warm = mix(vec3(1.0, 0.86, 0.66), vec3(0.55, 0.62, 1.0), d);
-          gl_FragColor = vec4(warm * 3.9, glow * 1.28 * pulse);
+          gl_FragColor = vec4(warm * 2.9, glow * 0.95 * pulse);
         }
       `
     })
@@ -112,11 +112,11 @@ function init(canvas) {
     /* Pushed further right and lifted above the lead paragraph: the
        headline is set in a serif now and runs wider than the old grotesque
        did, and a galaxy sitting under a line of type reads as a smudge. */
-    subject.position.x = wide ? halfW * 0.58 : 0;
+    subject.position.x = wide ? halfW * 0.63 : 0;
     /* On a phone the copy takes the whole width, so the galaxy drops below
        it rather than sitting behind the paragraph. */
-    subject.position.y = wide ? 0.62 : -2.4;
-    subject.scale.setScalar(wide ? 0.90 : 0.52);
+    subject.position.y = wide ? 0.88 : -2.4;
+    subject.scale.setScalar(wide ? 0.72 : 0.46);
   }
 
   /* --- Pointer ----------------------------------------------------------
@@ -260,9 +260,16 @@ function init(canvas) {
     geo.setAttribute("aScale", new THREE.BufferAttribute(scale, 1));
     geo.setAttribute("aSeed", new THREE.BufferAttribute(seed, 1));
 
+    /* Both the point size and the brightness track the pixel ratio. Additive
+       blending accumulates per DEVICE pixel, so the same cloud that reads as
+       a faint dust on a Retina panel burns out to a white blob on a 1x
+       monitor. Measured on both: the gain has to scale with the ratio, not
+       be tuned once on whichever screen happened to be in front of me. */
+    const dpr = Math.min(window.devicePixelRatio, 2);
     const uniforms = {
       uTime: { value: 0 },
-      uSize: { value: 46 * Math.min(window.devicePixelRatio, 2) }
+      uSize: { value: 46 * dpr },
+      uGain: { value: 1.9 * dpr }
     };
 
     const mat = new THREE.ShaderMaterial({
@@ -288,6 +295,7 @@ function init(canvas) {
         }
       `,
       fragmentShader: `
+        uniform float uGain;
         varying vec3 vColor;
         varying float vFade;
         void main() {
@@ -298,7 +306,7 @@ function init(canvas) {
           a = pow(a, 1.7);
           /* Additive output is colour*alpha, and alpha is already small for
              a soft disc — without a gain the cloud renders almost black. */
-          gl_FragColor = vec4(vColor * 4.4, a * vFade);
+          gl_FragColor = vec4(vColor * uGain, a * vFade);
         }
       `
     });
@@ -332,9 +340,11 @@ function init(canvas) {
     geo.setAttribute("aScale", new THREE.BufferAttribute(scale, 1));
     geo.setAttribute("aSeed", new THREE.BufferAttribute(seed, 1));
 
+    const sdpr = Math.min(window.devicePixelRatio, 2);
     const uniforms = {
       uTime: { value: 0 },
-      uSize: { value: 60 * Math.min(window.devicePixelRatio, 2) }
+      uSize: { value: 60 * sdpr },
+      uGain: { value: 1.15 * sdpr }
     };
 
     const mat = new THREE.ShaderMaterial({
@@ -358,12 +368,13 @@ function init(canvas) {
         }
       `,
       fragmentShader: `
+        uniform float uGain;
         varying float vTwinkle;
         void main() {
           float d = length(gl_PointCoord - 0.5);
           float a = smoothstep(0.5, 0.0, d);
           a = pow(a, 2.6);
-          gl_FragColor = vec4(vec3(0.82, 0.87, 1.0) * 1.8, a * vTwinkle * 0.9);
+          gl_FragColor = vec4(vec3(0.82, 0.87, 1.0) * uGain, a * vTwinkle * 0.9);
         }
       `
     });
