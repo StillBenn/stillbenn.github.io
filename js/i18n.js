@@ -51,16 +51,19 @@
       "Every project below is live. Open it, rotate it, break it — that is the point.":
         "Aşağıdaki her proje canlı. Açın, döndürün, zorlayın — amaç tam olarak bu.",
 
+      "02 — Interactive site": "02 — İnteraktif site",
+      "A cafe site where the product is the interface. One 3D cup is driven by both the page scroll and a live configurator — size, colour, sleeve and lid, with the price following along. Drag to turn it.":
+        "Ürünün kendisinin arayüz olduğu bir kafe sitesi. Tek bir 3B bardağı hem sayfa kaydırması hem canlı yapılandırıcı sürüyor — ölçü, renk, kolluk ve kapak; fiyat da anında güncelleniyor. Sürükleyerek döndürebilirsiniz.",
       "01 — Product configurator": "01 — Ürün yapılandırıcı",
       "Armchair configurator": "Koltuk yapılandırıcı",
       "A real-time 3D configurator: six fabrics, four frame finishes, two sizes, with the price and lead time recalculating as the customer builds the product. Runs in the browser, no plugin, works on a phone.":
         "Gerçek zamanlı 3B yapılandırıcı: altı kumaş, dört gövde kaplaması, iki ölçü; müşteri ürünü kurdukça fiyat ve teslim süresi anında güncelleniyor. Tarayıcıda çalışır, eklenti istemez, telefonda da açılır.",
 
-      "02 — Corporate site": "02 — Kurumsal site",
+      "03 — Corporate site": "03 — Kurumsal site",
       "A corporate site for a Gaziantep-based group working across retail, construction and energy. Three languages from a single set of pages, a 3D building model on the construction section, and a design system built on tokens rather than one-off values.":
         "Market, inşaat ve enerji alanlarında çalışan Gaziantep merkezli bir grup için kurumsal site. Tek sayfa takımından üç dil, inşaat bölümünde 3B bina modeli ve tek seferlik değerler yerine token'lara dayanan bir tasarım sistemi.",
 
-      "03 — Automation": "03 — Otomasyon",
+      "04 — Automation": "04 — Otomasyon",
       "Furniture shop order bot": "Mobilya mağazası sipariş botu",
       "A Telegram bot that carries a catalog, a cart and a five-step checkout, with an admin panel and Excel export behind it. Built so an order can never be silently lost — every step is validated and persisted.":
         "Katalog, sepet ve beş adımlı sipariş akışı taşıyan; arkasında yönetici paneli ve Excel dışa aktarımı olan bir Telegram botu. Hiçbir sipariş sessizce kaybolmasın diye kuruldu — her adım doğrulanır ve kaydedilir.",
@@ -149,16 +152,19 @@
       "Every project below is live. Open it, rotate it, break it — that is the point.":
         "Каждый проект ниже — живой. Откройте, покрутите, попробуйте сломать: в этом и смысл.",
 
+      "02 — Interactive site": "02 — Интерактивный сайт",
+      "A cafe site where the product is the interface. One 3D cup is driven by both the page scroll and a live configurator — size, colour, sleeve and lid, with the price following along. Drag to turn it.":
+        "Сайт кофейни, где интерфейсом служит сам товар. Один 3D-стакан ведут и прокрутка страницы, и живой конфигуратор — размер, цвет, держатель и крышка, а цена меняется следом. Стакан можно крутить мышью.",
       "01 — Product configurator": "01 — Конфигуратор товара",
       "Armchair configurator": "Конфигуратор кресла",
       "A real-time 3D configurator: six fabrics, four frame finishes, two sizes, with the price and lead time recalculating as the customer builds the product. Runs in the browser, no plugin, works on a phone.":
         "3D-конфигуратор в реальном времени: шесть тканей, четыре отделки каркаса, два размера, а цена и срок пересчитываются прямо по ходу сборки. Работает в браузере, без плагинов, в том числе на телефоне.",
 
-      "02 — Corporate site": "02 — Корпоративный сайт",
+      "03 — Corporate site": "03 — Корпоративный сайт",
       "A corporate site for a Gaziantep-based group working across retail, construction and energy. Three languages from a single set of pages, a 3D building model on the construction section, and a design system built on tokens rather than one-off values.":
         "Корпоративный сайт группы из Газиантепа, работающей в ритейле, строительстве и энергетике. Три языка на одном наборе страниц, 3D-модель здания в разделе строительства и дизайн-система на токенах вместо разовых значений.",
 
-      "03 — Automation": "03 — Автоматизация",
+      "04 — Automation": "04 — Автоматизация",
       "Furniture shop order bot": "Бот заказов мебельного магазина",
       "A Telegram bot that carries a catalog, a cart and a five-step checkout, with an admin panel and Excel export behind it. Built so an order can never be silently lost — every step is validated and persisted.":
         "Telegram-бот с каталогом, корзиной и оформлением заказа в пять шагов, с админ-панелью и выгрузкой в Excel. Сделан так, чтобы заказ не терялся молча: каждый шаг проверяется и сохраняется.",
