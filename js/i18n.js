@@ -111,6 +111,9 @@
       /* footer */
       "Bünyamin Katkat — 3D & Web Developer ": "Bünyamin Katkat — 3B ve Web Geliştirici ",
       "Built with Three.js, by hand.": "Three.js ile, elle yazıldı.",
+      /* WhatsApp and Telegram are brand names and stay as they are in every
+         language; only the generic label needs translating. */
+      "Email": "E-posta",
 
       /* alt text */
       "3D armchair configurator rendered in sand fabric on an oak frame":
@@ -212,6 +215,7 @@
       /* footer */
       "Bünyamin Katkat — 3D & Web Developer ": "Бюнямин Каткат — 3D и веб-разработчик ",
       "Built with Three.js, by hand.": "Собрано на Three.js, вручную.",
+      "Email": "Почта",
 
       /* alt text */
       "3D armchair configurator rendered in sand fabric on an oak frame":

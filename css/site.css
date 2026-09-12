@@ -279,6 +279,22 @@
   background: rgba(245, 243, 239, 0.05);
 }
 
+/* The two channels that actually get answered in minutes. Each keeps its own
+   brand colour for the hover only: a page-wide pair of green and blue pills
+   would wreck a monochrome layout, but a mark the eye already knows is worth
+   more than a fourth grey button. */
+.btn__icon {
+  width: 16px; height: 16px;
+  fill: currentColor;
+  flex: none;
+  opacity: 0.75;
+  transition: opacity var(--d-fast) var(--e-out);
+}
+.btn:hover .btn__icon { opacity: 1; }
+
+.btn--wa:hover { color: #4ade80; border-color: rgba(74, 222, 128, 0.5); }
+.btn--tg:hover { color: #6db3f2; border-color: rgba(109, 179, 242, 0.5); }
+
 /* --- Section scaffolding -------------------------------------------------- */
 
 .section {
@@ -512,6 +528,25 @@
   font-size: var(--t-fine);
   color: var(--c-ink-faint);
 }
+
+.site-footer__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-5);
+}
+.site-footer__links a {
+  position: relative;
+  color: var(--c-ink-dim);
+}
+.site-footer__links a::after {
+  content: "";
+  position: absolute; left: 0; right: 0; bottom: -3px;
+  height: 1px; background: var(--c-accent);
+  transform: scaleX(0); transform-origin: left;
+  transition: transform var(--d-base) var(--e-out);
+}
+.site-footer__links a:hover { color: var(--c-ink); }
+.site-footer__links a:hover::after { transform: scaleX(1); }
 
 /* --- Scroll reveal -------------------------------------------------------- */
 
