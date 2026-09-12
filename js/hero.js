@@ -147,6 +147,16 @@ function init(canvas) {
     if (!running) renderer.render(scene, camera);
   });
 
+  /* The canvas can change size without the window ever resizing — a
+     stylesheet arriving late, a mobile URL bar sliding away, a container
+     reflowing. Watching the element itself is the only reliable signal. */
+  if ("ResizeObserver" in window) {
+    new ResizeObserver(() => {
+      layout();
+      if (!running) renderer.render(scene, camera);
+    }).observe(canvas);
+  }
+
   function frame() {
     if (!running) return;
     requestAnimationFrame(frame);
