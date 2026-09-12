@@ -49,9 +49,17 @@
 <div class="grain" aria-hidden="true"></div>
 
 <header class="site-header">
-  <div class="wrap site-header__inner">
+  <div class="site-header__inner">
+    <!-- The wordmark. An orbit, not an initial: it is the one mark that says
+         what the work is before a single word is read, and it rhymes with the
+         galaxy behind the hero. -->
     <a class="brand" href="#top" aria-label="Bünyamin Katkat — home">
-      Bünyamin Katkat<span class="brand__mark">.</span>
+      <svg class="brand__glyph" viewBox="0 0 32 32" aria-hidden="true">
+        <ellipse cx="16" cy="16" rx="14.2" ry="5.6" transform="rotate(-26 16 16)"/>
+        <ellipse cx="16" cy="16" rx="14.2" ry="5.6" transform="rotate(34 16 16)"/>
+        <circle class="brand__core" cx="16" cy="16" r="3.4"/>
+      </svg>
+      <span class="brand__name">Bünyamin Katkat</span>
     </a>
 
     <nav class="nav" aria-label="Primary">

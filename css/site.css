@@ -26,24 +26,45 @@
   box-shadow: 0 1px 0 var(--c-line-soft);
 }
 
+/* The bar is full-bleed, not inside the page container: a wordmark that
+   stops short of the corner reads as a heading inside the content, and a
+   logo belongs to the window. */
 .site-header__inner {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: var(--s-6);
+  width: 100%;
+  padding-inline: var(--pad-x);
 }
 
 .brand {
   display: inline-flex;
-  align-items: baseline;
-  gap: 1px;
-  font-family: var(--f-display);
-  font-size: 1.15rem;
-  letter-spacing: -0.015em;
+  align-items: center;
+  gap: var(--s-3);
   /* The name is the logo — wrapping it across two lines breaks the bar. */
   white-space: nowrap;
 }
-.brand__mark { color: var(--c-accent); }
+.brand__name {
+  font-family: var(--f-display);
+  font-size: 1.2rem;
+  letter-spacing: -0.012em;
+  line-height: 1;
+}
+.brand__glyph {
+  width: 26px; height: 26px;
+  flex: none;
+  overflow: visible;
+  fill: none;
+  stroke: var(--c-ink-dim);
+  stroke-width: 1.1;
+  transition: stroke var(--d-base) var(--e-out), transform 1.1s var(--e-out);
+}
+.brand__core { fill: var(--c-accent); stroke: none; }
+.brand:hover .brand__glyph {
+  stroke: var(--c-accent);
+  transform: rotate(180deg);
+}
 .brand:hover { color: var(--c-ink); }
 
 .nav {
@@ -76,7 +97,8 @@
 /* At phone width the bar carries the name, two links and the language
    switch — everything shrinks together rather than one part wrapping. */
 @media (max-width: 520px) {
-  .brand { font-size: 1rem; }
+  .brand__name { font-size: 1rem; }
+  .brand__glyph { width: 22px; height: 22px; }
   .nav { gap: var(--s-4); }
   .nav__link { font-size: var(--t-fine); }
   .lang__btn { padding: 3px 7px; }
@@ -341,7 +363,10 @@
     grid-template-columns: 1.15fr 1fr;
     gap: clamp(var(--s-8), 5vw, var(--s-20));
   }
-  /* Alternate which side the media sits on, so the eye keeps moving. */
+  /* Alternate which side the media sits on, so the eye keeps moving — and
+     mirror the track sizes with it, or every second screenshot is rendered
+     smaller than the one above it for no reason the reader can see. */
+  .project:nth-child(even) { grid-template-columns: 1fr 1.15fr; }
   .project:nth-child(even) .project__media { order: 2; }
 }
 
