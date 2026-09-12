@@ -1,15 +1,20 @@
 /* ==========================================================================
    Hero — the live WebGL scene behind the title
    --------------------------------------------------------------------------
-   The scene is the portfolio's first argument: a visitor should see real-time
-   3D before reading a word about it. So it renders immediately, reacts to the
-   cursor, and costs nothing when it is off screen.
+   A spiral galaxy turning inside a field of stars. The scene is the
+   portfolio's first argument: a visitor should see real-time 3D before
+   reading a word about it.
 
    Decisions worth knowing:
-   · The environment map is generated from a canvas gradient rather than loaded
-     from an HDR file — it reflects convincingly on metal, weighs nothing and
-     removes a network request from the critical path.
-   · Rendering stops when the hero scrolls away or the tab is hidden. A idle
+   · The galaxy is one BufferGeometry of ~18k points drawn in a single call.
+     Building it as individual meshes would be thousands of draw calls for
+     the same picture.
+   · Both point clouds use a custom shader rather than PointsMaterial, so a
+     particle can carry its own size, colour and twinkle phase, and can be
+     drawn as a soft disc instead of a hard square.
+   · Additive blending with depthWrite off: stars behind the core brighten it
+     instead of z-fighting with it, which is how light actually accumulates.
+   · Rendering stops when the hero scrolls away or the tab is hidden. An idle
      WebGL loop is the easiest way to drain a laptop battery on a portfolio.
    · With reduced motion requested the scene still draws, but only once: the
      visitor gets the image without the movement.
@@ -32,124 +37,65 @@ function init(canvas) {
   }
 
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-  renderer.toneMapping = THREE.ACESFilmicToneMapping;
-  renderer.toneMappingExposure = 1.32;
+  /* No tone mapping: ACES is built for HDR PBR and simply crushes the
+     highlights of an additive point cloud, which is the whole picture here. */
+  renderer.toneMapping = THREE.NoToneMapping;
 
   const scene = new THREE.Scene();
-  const camera = new THREE.PerspectiveCamera(34, 1, 0.1, 100);
-  camera.position.set(0, 0.3, 7.1);
-
-  /* --- Environment ------------------------------------------------------
-     A vertical gradient, mapped as an equirectangular sky. Cool at the top,
-     near-black at the bottom — the same light a product photographer would
-     put above a dark set. */
-  const pmrem = new THREE.PMREMGenerator(renderer);
-  scene.environment = pmrem.fromEquirectangular(gradientEnv()).texture;
+  const camera = new THREE.PerspectiveCamera(38, 1, 0.1, 200);
+  camera.position.set(0, 2.9, 10.4);
+  camera.lookAt(0, 0, 0);
 
   /* --- Subject ----------------------------------------------------------
-     An obsidian sphere inside a chrome ring. The sphere reads as mass, the
-     ring catches the rim lights and gives the eye an edge to track while it
-     turns. */
+     The galaxy sits in its own group so the whole system can be placed and
+     tilted without touching the geometry. */
   const subject = new THREE.Group();
+  subject.rotation.x = 0.42;          /* seen from slightly above */
+  subject.rotation.z = -0.18;
   scene.add(subject);
 
-  const core = new THREE.Mesh(
-    new THREE.SphereGeometry(1.3, 96, 96),
-    new THREE.MeshPhysicalMaterial({
-      /* Dark, but not black: the sphere has to catch enough of the gradient
-         sky for its curvature to read. A true black reads as a hole. */
-      color: 0x39435a,
-      metalness: 1,
-      roughness: 0.21,
-      clearcoat: 1,
-      clearcoatRoughness: 0.05,
-      envMapIntensity: 2.2
-    })
-  );
-  subject.add(core);
+  const galaxy = buildGalaxy();
+  subject.add(galaxy.points);
 
-  /* A fresnel shell just outside the sphere. Point lights put a specular
-     wherever they happen to fall; this puts light exactly on the silhouette,
-     so the subject keeps a readable edge at every angle and never sinks into
-     the near-black page. Drawn back-side and added, so it only ever brightens. */
-  subject.add(new THREE.Mesh(
-    new THREE.SphereGeometry(1.34, 96, 96),
+  /* The arms alone leave the centre looking hollow. A soft additive disc
+     standing in for the core's unresolved starlight fixes that far more
+     cheaply than piling on more particles. */
+  const core = new THREE.Mesh(
+    new THREE.PlaneGeometry(4.2, 4.2),
     new THREE.ShaderMaterial({
-      transparent: true,
-      blending: THREE.AdditiveBlending,
-      side: THREE.BackSide,
-      depthWrite: false,
-      uniforms: { uColor: { value: new THREE.Color(0x6d97ff) } },
+      transparent: true, depthWrite: false, blending: THREE.AdditiveBlending,
+      uniforms: { uTime: { value: 0 } },
       vertexShader: `
-        varying vec3 vN;
-        varying vec3 vView;
+        varying vec2 vUv;
         void main() {
-          vN = normalize(normalMatrix * normal);
-          vec4 mv = modelViewMatrix * vec4(position, 1.0);
-          vView = normalize(-mv.xyz);
-          gl_Position = projectionMatrix * mv;
+          vUv = uv;
+          gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
         }
       `,
       fragmentShader: `
-        uniform vec3 uColor;
-        varying vec3 vN;
-        varying vec3 vView;
+        uniform float uTime;
+        varying vec2 vUv;
         void main() {
-          float f = 1.0 - abs(dot(normalize(vN), normalize(vView)));
-          f = pow(clamp(f, 0.0, 1.0), 3.2);
-          gl_FragColor = vec4(uColor * f * 1.35, f);
+          float d = length(vUv - 0.5) * 2.0;
+          float glow = pow(max(0.0, 1.0 - d), 3.4);
+          float pulse = 0.92 + 0.08 * sin(uTime * 0.7);
+          vec3 warm = mix(vec3(1.0, 0.86, 0.66), vec3(0.55, 0.62, 1.0), d);
+          gl_FragColor = vec4(warm * 3.4, glow * 1.15 * pulse);
         }
       `
     })
-  ));
-
-  const ring = new THREE.Mesh(
-    new THREE.TorusGeometry(1.95, 0.05, 36, 220),
-    new THREE.MeshStandardMaterial({
-      color: 0xeef3fa,
-      metalness: 1,
-      roughness: 0.06,
-      envMapIntensity: 3.2
-    })
   );
-  ring.rotation.x = Math.PI * 0.46;
-  subject.add(ring);
+  core.rotation.x = -Math.PI / 2;   /* lies flat in the galactic plane */
+  subject.add(core);
 
-  /* A second, thinner ring on a different axis — one ring reads as a prop,
-     two read as a system. */
-  const ringB = new THREE.Mesh(
-    new THREE.TorusGeometry(2.45, 0.014, 24, 200),
-    new THREE.MeshStandardMaterial({
-      color: 0x6d97ff,
-      metalness: 1,
-      roughness: 0.2,
-      envMapIntensity: 1.6
-    })
-  );
-  ringB.rotation.set(Math.PI * 0.62, 0, Math.PI * 0.18);
-  subject.add(ringB);
-
-  subject.add(dustField());
-
-  /* --- Light ------------------------------------------------------------ */
-  const key = new THREE.DirectionalLight(0xffffff, 2.0);
-  key.position.set(4, 7, 5);
-  scene.add(key);
-
-  scene.add(new THREE.HemisphereLight(0x44556b, 0x08080a, 0.4));
-
-  /* Two rims in front for shape, and one behind the subject to separate its
-     silhouette from the near-black page. Without the back light the sphere
-     reads as a hole punched in the layout rather than as an object. */
-  scene.add(rim(0x4a7cff, 26, -5.2, 2.0, 3.2));
-  /* Kept low and well away from the blue rim: two speculars of similar size
-     sitting side by side on a sphere read as a face. */
-  scene.add(rim(0xbfd0ff, 11, 5.6, -2.4, 1.6));
-  scene.add(rim(0x8fb0ff, 34, -1.4, 1.2, -4.5));
+  const stars = buildStars();
+  scene.add(stars.points);
 
   /* --- Layout -----------------------------------------------------------
-     The subject sits right of the type on wide screens and drops to centre
-     on narrow ones, where the copy needs the full width. */
+     The galaxy sits right of the type on wide screens and drops to centre
+     on narrow ones, where the copy needs the full width. Its offset is
+     measured against the visible frame, so the composition holds on a
+     laptop and on an ultrawide alike. */
   function layout() {
     const w = canvas.clientWidth;
     const h = canvas.clientHeight;
@@ -159,21 +105,18 @@ function init(canvas) {
     camera.aspect = w / h;
     camera.updateProjectionMatrix();
 
-    /* Place the subject against the visible frame rather than at a fixed
-       world offset, so it sits in the same part of the composition on a
-       laptop and on an ultrawide instead of drifting off the edge. */
     const halfH = Math.tan(THREE.MathUtils.degToRad(camera.fov / 2)) * camera.position.z;
     const halfW = halfH * camera.aspect;
 
     const wide = w >= 900;
-    subject.position.x = wide ? halfW * 0.70 : 0;
-    subject.position.y = wide ? 0.05 : -1.05;
-    subject.scale.setScalar(wide ? 0.88 : 0.66);
+    subject.position.x = wide ? halfW * 0.52 : 0;
+    subject.position.y = wide ? 0 : -1.4;
+    subject.scale.setScalar(wide ? 0.78 : 0.56);
   }
 
   /* --- Pointer ----------------------------------------------------------
-     Parallax is damped towards a target rather than applied directly, so a
-     fast flick glides instead of snapping. */
+     Damped towards a target rather than applied directly, so a fast flick
+     glides instead of snapping. */
   const pointer = { x: 0, y: 0, tx: 0, ty: 0 };
 
   if (!reduced) {
@@ -210,12 +153,20 @@ function init(canvas) {
 
     const t = clock.getElapsedTime();
 
-    pointer.x += (pointer.tx - pointer.x) * 0.045;
-    pointer.y += (pointer.ty - pointer.y) * 0.045;
+    pointer.x += (pointer.tx - pointer.x) * 0.04;
+    pointer.y += (pointer.ty - pointer.y) * 0.04;
 
-    subject.rotation.y = t * 0.16 + pointer.x * 0.32;
-    subject.rotation.x = Math.sin(t * 0.22) * 0.07 + pointer.y * 0.16;
-    ringB.rotation.z = Math.PI * 0.18 + t * 0.09;
+    galaxy.uniforms.uTime.value = t;
+    stars.uniforms.uTime.value = t;
+    core.material.uniforms.uTime.value = t;
+
+    /* The galaxy turns on its own axis; the pointer only nudges the whole
+       system, so the spiral never looks like it is being dragged. */
+    galaxy.points.rotation.y = t * 0.055;
+    subject.rotation.y = pointer.x * 0.22;
+    subject.rotation.x = 0.42 + pointer.y * 0.10;
+
+    stars.points.rotation.y = t * 0.006;
 
     renderer.render(scene, camera);
   }
@@ -231,64 +182,177 @@ function init(canvas) {
   /* First paint, then reveal — the canvas fades in only once there is
      something on it, so the hero never flashes an empty black box. */
   layout();
-  subject.rotation.set(0.3, 0.6, 0);
   renderer.render(scene, camera);
   requestAnimationFrame(() => canvas.classList.add("is-ready"));
   start();
 
-  /* --- helpers --------------------------------------------------------- */
+  /* --- Galaxy -----------------------------------------------------------
+     Points are laid along a number of spiral branches. Three things stop it
+     reading as a maths exercise:
+       · radius^1.5 packs stars towards the core, as mass actually does;
+       · the scatter is raised to a power so most stars hug the arm and only
+         a few stray, which is what gives arms a soft edge;
+       · colour is mixed by radius, so the core burns warm and the rim goes
+         cold without any per-star bookkeeping. */
+  function buildGalaxy() {
+    const COUNT = 18000;
+    const BRANCHES = 4;
+    const RADIUS = 6.2;
+    const SPIN = 1.05;
 
-  function rim(color, intensity, x, y, z) {
-    const l = new THREE.PointLight(color, intensity, 40);
-    l.position.set(x, y, z);
-    return l;
-  }
+    const inner = new THREE.Color(0xfff0d6);   /* core: warm, almost white */
+    const mid = new THREE.Color(0xbccaff);
+    const outer = new THREE.Color(0x8f7ce8);   /* rim: cold violet */
 
-  function gradientEnv() {
-    const c = document.createElement("canvas");
-    c.width = 32;
-    c.height = 256;
-    const g = c.getContext("2d");
-    /* This gradient is the only thing the metal has to reflect, so it carries
-       a genuine bright band near the top — a dim sky renders dark chrome as a
-       black ball. Bright to near-black over a short distance also gives the
-       surface a clean horizon line to catch. */
-    const grad = g.createLinearGradient(0, 0, 0, 256);
-    grad.addColorStop(0.00, "#ffffff");
-    grad.addColorStop(0.18, "#cfe0ff");
-    grad.addColorStop(0.38, "#5d76ad");
-    grad.addColorStop(0.60, "#1a2030");
-    grad.addColorStop(1.00, "#05060a");
-    g.fillStyle = grad;
-    g.fillRect(0, 0, 32, 256);
+    const pos = new Float32Array(COUNT * 3);
+    const col = new Float32Array(COUNT * 3);
+    const scale = new Float32Array(COUNT);
+    const seed = new Float32Array(COUNT);
 
-    const tex = new THREE.CanvasTexture(c);
-    tex.mapping = THREE.EquirectangularReflectionMapping;
-    tex.colorSpace = THREE.SRGBColorSpace;
-    return tex;
-  }
+    const c = new THREE.Color();
 
-  /* A thin shell of points. Gives the empty space around the subject some
-     depth without reading as "particles". */
-  function dustField() {
-    const n = 320;
-    const pos = new Float32Array(n * 3);
-    for (let i = 0; i < n; i++) {
-      const r = 3.2 + Math.random() * 2.6;
-      const theta = Math.random() * Math.PI * 2;
-      const phi = Math.acos(2 * Math.random() - 1);
-      pos[i * 3] = r * Math.sin(phi) * Math.cos(theta);
-      pos[i * 3 + 1] = r * Math.cos(phi) * 0.55;
-      pos[i * 3 + 2] = r * Math.sin(phi) * Math.sin(theta);
+    for (let i = 0; i < COUNT; i++) {
+      const i3 = i * 3;
+
+      const r = Math.pow(Math.random(), 1.5) * RADIUS;
+      const branch = ((i % BRANCHES) / BRANCHES) * Math.PI * 2;
+      const spin = r * SPIN;
+
+      /* Scatter shrinks near the core and widens outward, like a real arm. */
+      const spread = 0.18 + r * 0.075;
+      const sx = Math.pow(Math.random(), 2.6) * (Math.random() < 0.5 ? 1 : -1) * spread;
+      const sy = Math.pow(Math.random(), 2.6) * (Math.random() < 0.5 ? 1 : -1) * spread * 0.42;
+      const sz = Math.pow(Math.random(), 2.6) * (Math.random() < 0.5 ? 1 : -1) * spread;
+
+      pos[i3] = Math.cos(branch + spin) * r + sx;
+      pos[i3 + 1] = sy;
+      pos[i3 + 2] = Math.sin(branch + spin) * r + sz;
+
+      const k = r / RADIUS;
+      if (k < 0.45) c.copy(inner).lerp(mid, k / 0.45);
+      else c.copy(mid).lerp(outer, (k - 0.45) / 0.55);
+      col[i3] = c.r; col[i3 + 1] = c.g; col[i3 + 2] = c.b;
+
+      /* A few bright stars among many faint ones reads far better than a
+         uniform dust of identical dots. */
+      scale[i] = 0.35 + Math.pow(Math.random(), 3.2) * 2.6;
+      seed[i] = Math.random() * Math.PI * 2;
     }
+
     const geo = new THREE.BufferGeometry();
     geo.setAttribute("position", new THREE.BufferAttribute(pos, 3));
-    return new THREE.Points(geo, new THREE.PointsMaterial({
-      color: 0x8fa5cc,
-      size: 0.018,
+    geo.setAttribute("color", new THREE.BufferAttribute(col, 3));
+    geo.setAttribute("aScale", new THREE.BufferAttribute(scale, 1));
+    geo.setAttribute("aSeed", new THREE.BufferAttribute(seed, 1));
+
+    const uniforms = {
+      uTime: { value: 0 },
+      uSize: { value: 38 * Math.min(window.devicePixelRatio, 2) }
+    };
+
+    const mat = new THREE.ShaderMaterial({
+      uniforms,
       transparent: true,
-      opacity: 0.55,
-      depthWrite: false
-    }));
+      depthWrite: false,
+      blending: THREE.AdditiveBlending,
+      vertexColors: true,
+      vertexShader: `
+        uniform float uTime;
+        uniform float uSize;
+        attribute float aScale;
+        attribute float aSeed;
+        varying vec3 vColor;
+        varying float vFade;
+        void main() {
+          vec4 mv = modelViewMatrix * vec4(position, 1.0);
+          gl_Position = projectionMatrix * mv;
+          /* Size falls off with distance so the cloud reads as depth. */
+          gl_PointSize = uSize * aScale / -mv.z;
+          vColor = color;
+          vFade = 0.65 + 0.35 * sin(uTime * 0.9 + aSeed);
+        }
+      `,
+      fragmentShader: `
+        varying vec3 vColor;
+        varying float vFade;
+        void main() {
+          /* Soft disc: a hard square point is the giveaway of a naive
+             particle system. */
+          float d = length(gl_PointCoord - 0.5);
+          float a = smoothstep(0.5, 0.0, d);
+          a = pow(a, 1.7);
+          /* Additive output is colour*alpha, and alpha is already small for
+             a soft disc — without a gain the cloud renders almost black. */
+          gl_FragColor = vec4(vColor * 2.7, a * vFade);
+        }
+      `
+    });
+
+    return { points: new THREE.Points(geo, mat), uniforms };
+  }
+
+  /* --- Starfield --------------------------------------------------------
+     A shell of distant stars, well outside the galaxy, that twinkles slowly
+     and drifts. It gives the empty half of the frame something to hold. */
+  function buildStars() {
+    const COUNT = 1400;
+    const pos = new Float32Array(COUNT * 3);
+    const scale = new Float32Array(COUNT);
+    const seed = new Float32Array(COUNT);
+
+    for (let i = 0; i < COUNT; i++) {
+      const i3 = i * 3;
+      const r = 16 + Math.random() * 34;
+      const theta = Math.random() * Math.PI * 2;
+      const phi = Math.acos(2 * Math.random() - 1);
+      pos[i3] = r * Math.sin(phi) * Math.cos(theta);
+      pos[i3 + 1] = r * Math.cos(phi) * 0.8;
+      pos[i3 + 2] = r * Math.sin(phi) * Math.sin(theta);
+      scale[i] = 0.5 + Math.pow(Math.random(), 3.0) * 2.4;
+      seed[i] = Math.random() * Math.PI * 2;
+    }
+
+    const geo = new THREE.BufferGeometry();
+    geo.setAttribute("position", new THREE.BufferAttribute(pos, 3));
+    geo.setAttribute("aScale", new THREE.BufferAttribute(scale, 1));
+    geo.setAttribute("aSeed", new THREE.BufferAttribute(seed, 1));
+
+    const uniforms = {
+      uTime: { value: 0 },
+      uSize: { value: 60 * Math.min(window.devicePixelRatio, 2) }
+    };
+
+    const mat = new THREE.ShaderMaterial({
+      uniforms,
+      transparent: true,
+      depthWrite: false,
+      blending: THREE.AdditiveBlending,
+      vertexShader: `
+        uniform float uTime;
+        uniform float uSize;
+        attribute float aScale;
+        attribute float aSeed;
+        varying float vTwinkle;
+        void main() {
+          vec4 mv = modelViewMatrix * vec4(position, 1.0);
+          gl_Position = projectionMatrix * mv;
+          gl_PointSize = uSize * aScale / -mv.z;
+          /* Two detuned sines: the pattern never visibly repeats. */
+          vTwinkle = 0.45 + 0.55 * (0.5 + 0.5 * sin(uTime * 1.7 + aSeed))
+                                 * (0.6 + 0.4 * sin(uTime * 0.41 + aSeed * 2.3));
+        }
+      `,
+      fragmentShader: `
+        varying float vTwinkle;
+        void main() {
+          float d = length(gl_PointCoord - 0.5);
+          float a = smoothstep(0.5, 0.0, d);
+          a = pow(a, 2.6);
+          gl_FragColor = vec4(vec3(0.82, 0.87, 1.0) * 1.8, a * vTwinkle * 0.9);
+        }
+      `
+    });
+
+    return { points: new THREE.Points(geo, mat), uniforms };
   }
 }
