@@ -38,34 +38,41 @@
   padding-inline: var(--pad-x);
 }
 
+/* The wordmark. Capitals have no ascenders or descenders to give the eye a
+   shape to hold, so a caps logotype lives or dies on its tracking: set solid
+   it reads as a cramped word, opened up it reads as a mark. The serif keeps
+   it from looking like a button label. */
 .brand {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--s-3);
+  position: relative;
+  display: inline-block;
   /* The name is the logo — wrapping it across two lines breaks the bar. */
   white-space: nowrap;
+  color: var(--c-ink);
 }
 .brand__name {
   font-family: var(--f-display);
-  font-size: 1.2rem;
-  letter-spacing: -0.012em;
+  font-size: clamp(0.95rem, 1.2vw, 1.15rem);
+  font-weight: 500;
+  font-optical-sizing: auto;
+  letter-spacing: 0.17em;
   line-height: 1;
+  /* Letter-spacing is added AFTER the last letter too. Pulling that phantom
+     column back keeps the mark optically flush with everything below it. */
+  margin-right: -0.17em;
 }
-.brand__glyph {
-  width: 26px; height: 26px;
-  flex: none;
-  overflow: visible;
-  fill: none;
-  stroke: var(--c-ink-dim);
-  stroke-width: 1.1;
-  transition: stroke var(--d-base) var(--e-out), transform 1.1s var(--e-out);
+/* The same underline the navigation uses, so the logo belongs to the bar
+   rather than sitting on it. */
+.brand::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0.17em; bottom: -6px;
+  height: 1px;
+  background: var(--c-accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--d-base) var(--e-out);
 }
-.brand__core { fill: var(--c-accent); stroke: none; }
-.brand:hover .brand__glyph {
-  stroke: var(--c-accent);
-  transform: rotate(180deg);
-}
-.brand:hover { color: var(--c-ink); }
+.brand:hover::after { transform: scaleX(1); }
 
 .nav {
   display: flex;
@@ -96,12 +103,18 @@
 
 /* At phone width the bar carries the name, two links and the language
    switch — everything shrinks together rather than one part wrapping. */
+/* A phone has 335px of bar. A wordmark, two text links and a three-way
+   language switch need 334 of it — measured, and one pixel of slack is not
+   a layout, it is a layout about to break on the first font fallback.
+
+   So the links go, not the wordmark's legibility. Nothing is actually lost:
+   the hero's own buttons lead to the work and to the contact block, and the
+   footer carries every link again. A cramped bar reads as broken; a clean
+   one reads as a decision. */
 @media (max-width: 520px) {
-  .brand__name { font-size: 1rem; }
-  .brand__glyph { width: 22px; height: 22px; }
-  .nav { gap: var(--s-4); }
-  .nav__link { font-size: var(--t-fine); }
-  .lang__btn { padding: 3px 7px; }
+  .brand__name { font-size: 0.82rem; letter-spacing: 0.11em; margin-right: -0.11em; }
+  .brand::after { right: 0.11em; bottom: -5px; }
+  .nav__link { display: none; }
 }
 
 /* Language switch */
@@ -127,6 +140,14 @@
 .lang__btn[aria-pressed="true"] {
   background: var(--c-ink);
   color: var(--c-void);
+}
+
+/* Placed after the rules above on purpose: an identical-specificity override
+   only wins if it comes later in the file. Tucked into the earlier phone
+   block it lost silently, and the switch kept being pushed off the edge. */
+@media (max-width: 520px) {
+  .lang { padding: 2px; }
+  .lang__btn { padding: 3px 6px; font-size: 0.625rem; letter-spacing: 0.03em; }
 }
 
 /* --- Hero ----------------------------------------------------------------- */

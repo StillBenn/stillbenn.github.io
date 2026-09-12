@@ -27,7 +27,7 @@
 <link rel="preload" href="./fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="./css/tokens.css?v=2">
 <link rel="stylesheet" href="./css/base.css?v=2">
-<link rel="stylesheet" href="./css/site.css?v=2">
+<link rel="stylesheet" href="./css/site.css?v=4">
 
 <script type="application/ld+json">
 {
@@ -50,16 +50,12 @@
 
 <header class="site-header">
   <div class="site-header__inner">
-    <!-- The wordmark. An orbit, not an initial: it is the one mark that says
-         what the work is before a single word is read, and it rhymes with the
-         galaxy behind the hero. -->
+    <!-- The wordmark is the name and nothing else. Written out in capitals
+         rather than transformed with CSS: uppercasing depends on locale, and
+         in an English document the browser turns the Turkish i into a plain
+         I. The name keeps its dotted İ because that is how it is spelled. -->
     <a class="brand" href="#top" aria-label="Bünyamin Katkat — home">
-      <svg class="brand__glyph" viewBox="0 0 32 32" aria-hidden="true">
-        <ellipse cx="16" cy="16" rx="14.2" ry="5.6" transform="rotate(-26 16 16)"/>
-        <ellipse cx="16" cy="16" rx="14.2" ry="5.6" transform="rotate(34 16 16)"/>
-        <circle class="brand__core" cx="16" cy="16" r="3.4"/>
-      </svg>
-      <span class="brand__name">Bünyamin Katkat</span>
+      <span class="brand__name">BÜNYAMİN KATKAT</span>
     </a>
 
     <nav class="nav" aria-label="Primary">
