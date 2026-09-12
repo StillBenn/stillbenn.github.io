@@ -23,6 +23,7 @@
 <meta name="theme-color" content="#08080a">
 <link rel="icon" href="./img/favicon.svg" type="image/svg+xml">
 
+<link rel="preload" href="./fonts/newsreader-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="./fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="./css/tokens.css">
 <link rel="stylesheet" href="./css/base.css">
@@ -44,6 +45,8 @@
 
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
+
+<div class="grain" aria-hidden="true"></div>
 
 <header class="site-header">
   <div class="wrap site-header__inner">
@@ -73,7 +76,7 @@
     <canvas class="hero__canvas" aria-hidden="true"></canvas>
 
     <div class="wrap hero__inner">
-      <span class="label hero__eyebrow">3D &amp; Web Developer</span>
+      <span class="label label--rule hero__eyebrow">3D &amp; Web Developer</span>
 
       <h1 class="hero__title">
         <span>Real-time 3D,</span>
@@ -98,7 +101,7 @@
   <section class="section" id="work">
     <div class="wrap">
       <div class="section__head reveal">
-        <span class="label">Selected work</span>
+        <span class="label label--rule">Selected work</span>
         <h2 class="section__title">Things that actually run.</h2>
         <p class="lead">
           Every project below is live. Open it, rotate it, break it — that is the point.
@@ -113,7 +116,7 @@
             <img src="./img/work/configurator-1.jpg" alt="3D armchair configurator rendered in sand fabric on an oak frame" width="1400" height="1050" loading="lazy" decoding="async">
           </div>
           <div class="project__body">
-            <span class="label project__index">01 — Product configurator</span>
+            <span class="label label--rule project__index">01 — Product configurator</span>
             <h3 class="project__title">Armchair configurator</h3>
             <p class="project__desc">
               A real-time 3D configurator: six fabrics, four frame finishes, two sizes,
@@ -136,7 +139,7 @@
             <img src="./img/work/cafe-1.png" alt="A 3D coffee cup with a kraft sleeve, configured in the browser" width="1400" height="1050" loading="lazy" decoding="async">
           </div>
           <div class="project__body">
-            <span class="label project__index">02 — Interactive site</span>
+            <span class="label label--rule project__index">02 — Interactive site</span>
             <h3 class="project__title">Nordic Roast</h3>
             <p class="project__desc">
               A cafe site where the product is the interface. One 3D cup is driven
@@ -159,7 +162,7 @@
             <img src="./img/work/mrd-1.png" alt="MRD Group corporate website home page" width="1200" height="630" loading="lazy" decoding="async">
           </div>
           <div class="project__body">
-            <span class="label project__index">03 — Corporate site</span>
+            <span class="label label--rule project__index">03 — Corporate site</span>
             <h3 class="project__title">MRD Group</h3>
             <p class="project__desc">
               A corporate site for a Gaziantep-based group working across retail,
@@ -183,7 +186,7 @@
             <img src="./img/work/bot-1.png" alt="Telegram order bot interface showing a furniture catalog" width="1280" height="769" loading="lazy" decoding="async">
           </div>
           <div class="project__body">
-            <span class="label project__index">04 — Automation</span>
+            <span class="label label--rule project__index">04 — Automation</span>
             <h3 class="project__title">Furniture shop order bot</h3>
             <p class="project__desc">
               A Telegram bot that carries a catalog, a cart and a five-step checkout,
@@ -207,13 +210,13 @@
   <section class="section section--alt" id="services">
     <div class="wrap">
       <div class="section__head reveal">
-        <span class="label">What I do</span>
+        <span class="label label--rule">What I do</span>
         <h2 class="section__title">Three things, done properly.</h2>
       </div>
 
       <div class="services">
         <article class="service reveal">
-          <span class="label service__note">01</span>
+          <span class="service__note">01</span>
           <h3 class="service__title">Interactive 3D websites</h3>
           <p class="service__desc">
             A live WebGL scene that reacts to the cursor and animates on scroll —
@@ -223,7 +226,7 @@
         </article>
 
         <article class="service reveal">
-          <span class="label service__note">02</span>
+          <span class="service__note">02</span>
           <h3 class="service__title">3D product configurators</h3>
           <p class="service__desc">
             Let customers build your product themselves — colour, material, size —
@@ -233,7 +236,7 @@
         </article>
 
         <article class="service reveal">
-          <span class="label service__note">03</span>
+          <span class="service__note">03</span>
           <h3 class="service__title">Telegram bots &amp; automation</h3>
           <p class="service__desc">
             Order flows, catalogs, notifications and admin panels in Python.
@@ -249,7 +252,7 @@
     <div class="wrap">
       <div class="about">
         <div class="about__body reveal">
-          <span class="label">About</span>
+          <span class="label label--rule">About</span>
           <h2 class="section__title">I work where 3D meets the web.</h2>
           <p>
             Most developers pick one side. I sit on the seam: enough graphics to
@@ -281,7 +284,7 @@
   <!-- ===== Contact ======================================================= -->
   <section class="section contact" id="contact">
     <div class="wrap reveal">
-      <span class="label">Contact</span>
+      <span class="label label--rule">Contact</span>
       <h2 class="contact__title">Tell me what you want to build.</h2>
       <p class="lead">
         Send the idea in a couple of sentences. I will tell you honestly whether

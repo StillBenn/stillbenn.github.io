@@ -2,8 +2,9 @@
    Base — reset, fonts, typographic primitives
    ========================================================================== */
 
-/* Latin first so the common case paints immediately; latin-ext carries the
-   Turkish glyphs (ı ğ ş İ) and only downloads when such a character appears. */
+/* Both faces are self-hosted and split by script. The latin-ext slice only
+   downloads when a Turkish or Cyrillic-adjacent glyph actually appears, so
+   the English default pays nothing for the other two languages. */
 @font-face {
   font-family: "Inter";
   src: url("../fonts/inter-latin.woff2") format("woff2");
@@ -21,6 +22,23 @@
                  U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
 
+@font-face {
+  font-family: "Newsreader";
+  src: url("../fonts/newsreader-latin.woff2") format("woff2");
+  font-weight: 200 800;
+  font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+2000-206F,
+                 U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215;
+}
+@font-face {
+  font-family: "Newsreader";
+  src: url("../fonts/newsreader-latin-ext.woff2") format("woff2");
+  font-weight: 200 800;
+  font-display: swap;
+  unicode-range: U+0100-02AF, U+0304, U+0308, U+0329, U+1E00-1E9F, U+1EF2-1EFF,
+                 U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
 *, *::before, *::after { box-sizing: border-box; }
 
 html {
@@ -33,81 +51,56 @@ html {
 
 body {
   margin: 0;
-  background: var(--c-void);
+  background: var(--c-ground);
   color: var(--c-ink);
   font-family: var(--f-body);
   font-size: var(--t-body);
   line-height: var(--lh-normal);
   font-feature-settings: "kern" 1, "liga" 1, "cv11" 1;
   -webkit-font-smoothing: antialiased;
-  text-rendering: optimizeLegibility;
   overflow-x: hidden;
 }
 
-h1, h2, h3, h4 {
+/* Headlines are the serif voice. Optical sizing lets the variable face thin
+   its own strokes as it grows — which is why a serif at 9rem stays a
+   headline instead of turning into a slab. */
+h1, h2, h3 {
   margin: 0;
-  font-weight: 500;
+  font-family: var(--f-display);
+  font-weight: 400;
+  font-optical-sizing: auto;
   line-height: var(--lh-snug);
   letter-spacing: var(--ls-display);
   text-wrap: balance;
 }
-
 p { margin: 0; text-wrap: pretty; }
 ul, ol { margin: 0; padding: 0; list-style: none; }
 
-img, svg, canvas, video {
-  display: block;
-  max-width: 100%;
-  height: auto;
-}
+img, svg, canvas { display: block; max-width: 100%; }
 
-a {
-  color: inherit;
-  text-decoration: none;
-  transition: color var(--d-fast) var(--e-out);
-}
+a { color: inherit; text-decoration: none; transition: color var(--d-fast) var(--e-out); }
+button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
 
-button {
-  font: inherit;
-  color: inherit;
-  background: none;
-  border: 0;
-  cursor: pointer;
-}
-
-::selection {
-  background: var(--c-accent);
-  color: var(--c-void);
-}
+::selection { background: var(--c-accent); color: var(--c-void); }
 
 :focus-visible {
   outline: 2px solid var(--c-accent);
   outline-offset: 3px;
-  border-radius: 2px;
+  border-radius: 3px;
 }
 
 .skip-link {
-  position: absolute;
-  left: -9999px;
-  top: 0;
-  z-index: 999;
+  position: absolute; left: -9999px; top: 0; z-index: 999;
   padding: var(--s-3) var(--s-6);
-  background: var(--c-ink);
-  color: var(--c-void);
+  background: var(--c-ink); color: var(--c-void);
   font-size: var(--t-small);
 }
-.skip-link:focus {
-  left: var(--s-4);
-  top: var(--s-4);
-}
+.skip-link:focus { left: var(--s-4); top: var(--s-4); }
 
 .visually-hidden {
-  position: absolute;
-  width: 1px; height: 1px;
-  margin: -1px; padding: 0;
-  overflow: hidden;
-  clip-path: inset(50%);
-  white-space: nowrap;
+  position: absolute; width: 1px; height: 1px;
+  margin: -1px; padding: 0; overflow: hidden;
+  clip-path: inset(50%); white-space: nowrap;
 }
 
 /* --- Shared primitives ---------------------------------------------------- */
@@ -120,24 +113,39 @@ button {
 }
 
 .label {
-  display: block;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-3);
   font-family: var(--f-mono);
   font-size: var(--t-label);
   letter-spacing: var(--ls-label);
   text-transform: uppercase;
   color: var(--c-ink-faint);
 }
+/* A short rule before the caption turns a floating line into set type, and
+   it costs one pseudo-element. */
+.label--rule::before {
+  content: "";
+  width: 28px; height: 1px;
+  background: var(--c-accent);
+  flex: none;
+}
 
 .lead {
   font-size: var(--t-lead);
-  line-height: 1.55;
+  line-height: 1.6;
   color: var(--c-ink-dim);
   max-width: var(--w-text);
 }
 
-.rule {
-  height: 1px;
-  background: var(--c-line-soft);
-  border: 0;
-  margin: 0;
+/* Film grain. A flat near-black ground is the single clearest tell of a
+   template; a whisper of noise reads as a photographed surface. Generated
+   inline, not downloaded. */
+.grain {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  pointer-events: none;
+  opacity: 0.32;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.3'/%3E%3C/svg%3E");
 }

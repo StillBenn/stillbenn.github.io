@@ -80,7 +80,7 @@ function init(canvas) {
           float glow = pow(max(0.0, 1.0 - d), 3.4);
           float pulse = 0.92 + 0.08 * sin(uTime * 0.7);
           vec3 warm = mix(vec3(1.0, 0.86, 0.66), vec3(0.55, 0.62, 1.0), d);
-          gl_FragColor = vec4(warm * 3.4, glow * 1.15 * pulse);
+          gl_FragColor = vec4(warm * 3.9, glow * 1.28 * pulse);
         }
       `
     })
@@ -109,9 +109,14 @@ function init(canvas) {
     const halfW = halfH * camera.aspect;
 
     const wide = w >= 900;
-    subject.position.x = wide ? halfW * 0.52 : 0;
-    subject.position.y = wide ? 0 : -1.4;
-    subject.scale.setScalar(wide ? 0.78 : 0.56);
+    /* Pushed further right and lifted above the lead paragraph: the
+       headline is set in a serif now and runs wider than the old grotesque
+       did, and a galaxy sitting under a line of type reads as a smudge. */
+    subject.position.x = wide ? halfW * 0.58 : 0;
+    /* On a phone the copy takes the whole width, so the galaxy drops below
+       it rather than sitting behind the paragraph. */
+    subject.position.y = wide ? 0.62 : -2.4;
+    subject.scale.setScalar(wide ? 0.90 : 0.52);
   }
 
   /* --- Pointer ----------------------------------------------------------
@@ -257,7 +262,7 @@ function init(canvas) {
 
     const uniforms = {
       uTime: { value: 0 },
-      uSize: { value: 38 * Math.min(window.devicePixelRatio, 2) }
+      uSize: { value: 46 * Math.min(window.devicePixelRatio, 2) }
     };
 
     const mat = new THREE.ShaderMaterial({
@@ -293,7 +298,7 @@ function init(canvas) {
           a = pow(a, 1.7);
           /* Additive output is colour*alpha, and alpha is already small for
              a soft disc — without a gain the cloud renders almost black. */
-          gl_FragColor = vec4(vColor * 2.7, a * vFade);
+          gl_FragColor = vec4(vColor * 4.4, a * vFade);
         }
       `
     });

@@ -1,5 +1,9 @@
 /* ==========================================================================
    Site — header, hero, work, services, about, contact
+   --------------------------------------------------------------------------
+   The page is a dark room with one light source in it. Everything printed is
+   near-monochrome and set on a wide rhythm; the only saturated thing on the
+   screen is the live render in the hero.
    ========================================================================== */
 
 /* --- Header --------------------------------------------------------------- */
@@ -8,10 +12,18 @@
   position: fixed;
   inset: 0 0 auto 0;
   z-index: 50;
-  padding-block: var(--s-4);
-  background: linear-gradient(to bottom, rgba(8, 8, 10, 0.85), rgba(8, 8, 10, 0));
-  backdrop-filter: blur(6px);
-  transition: background var(--d-base) var(--e-out);
+  padding-block: var(--s-5);
+  background: linear-gradient(to bottom, rgba(7, 7, 10, 0.9), rgba(7, 7, 10, 0));
+  transition: padding var(--d-base) var(--e-out),
+              background var(--d-base) var(--e-out);
+}
+/* Once the page has moved, the bar stops being a gradient over a render and
+   becomes a real surface with an edge. */
+.site-header.is-stuck {
+  padding-block: var(--s-3);
+  background: rgba(10, 10, 14, 0.78);
+  backdrop-filter: blur(14px) saturate(1.3);
+  box-shadow: 0 1px 0 var(--c-line-soft);
 }
 
 .site-header__inner {
@@ -25,8 +37,9 @@
   display: inline-flex;
   align-items: baseline;
   gap: 1px;
-  font-weight: 600;
-  letter-spacing: -0.02em;
+  font-family: var(--f-display);
+  font-size: 1.15rem;
+  letter-spacing: -0.015em;
   /* The name is the logo — wrapping it across two lines breaks the bar. */
   white-space: nowrap;
 }
@@ -39,10 +52,22 @@
   gap: clamp(var(--s-4), 2.5vw, var(--s-8));
 }
 .nav__link {
+  position: relative;
   font-size: var(--t-small);
   color: var(--c-ink-dim);
+  padding-block: 2px;
+}
+/* The underline is drawn from the left rather than faded in: a fade reads as
+   a hover state, a draw reads as a deliberate mark. */
+.nav__link::after {
+  content: "";
+  position: absolute; left: 0; right: 0; bottom: 0;
+  height: 1px; background: var(--c-accent);
+  transform: scaleX(0); transform-origin: left;
+  transition: transform var(--d-base) var(--e-out);
 }
 .nav__link:hover { color: var(--c-ink); }
+.nav__link:hover::after { transform: scaleX(1); }
 
 @media (max-width: 640px) {
   .nav__link[data-optional] { display: none; }
@@ -51,9 +76,9 @@
 /* At phone width the bar carries the name, two links and the language
    switch — everything shrinks together rather than one part wrapping. */
 @media (max-width: 520px) {
-  .brand { font-size: 0.875rem; }
+  .brand { font-size: 1rem; }
   .nav { gap: var(--s-4); }
-  .nav__link { font-size: 0.8125rem; }
+  .nav__link { font-size: var(--t-fine); }
   .lang__btn { padding: 3px 7px; }
 }
 
@@ -64,11 +89,11 @@
   gap: 1px;
   padding: 2px;
   border: 1px solid var(--c-line);
-  border-radius: 999px;
+  border-radius: var(--r-pill);
 }
 .lang__btn {
   padding: 4px 10px;
-  border-radius: 999px;
+  border-radius: var(--r-pill);
   font-family: var(--f-mono);
   font-size: var(--t-label);
   letter-spacing: 0.06em;
@@ -101,21 +126,23 @@
   width: 100%;
   height: 100%;
   opacity: 0;
-  transition: opacity 1.4s var(--e-out);
+  transition: opacity 1.6s var(--e-out);
 }
 .hero__canvas.is-ready { opacity: 1; }
 
-/* Keeps the type legible over the brightest part of the render. */
+/* Keeps the type legible over the brightest part of the render. Held back
+   deliberately on the right: the galaxy is the one piece of colour on the
+   page, and an even scrim across the whole width buries it. */
 .hero::after {
   content: "";
   position: absolute;
   inset: 0;
   background: linear-gradient(
     100deg,
-    rgba(8, 8, 10, 0.94) 0%,
-    rgba(8, 8, 10, 0.80) 36%,
-    rgba(8, 8, 10, 0.10) 64%,
-    rgba(8, 8, 10, 0.26) 100%
+    rgba(7, 7, 10, 0.96) 0%,
+    rgba(7, 7, 10, 0.82) 34%,
+    rgba(7, 7, 10, 0.16) 56%,
+    rgba(7, 7, 10, 0) 100%
   );
   pointer-events: none;
 }
@@ -126,10 +153,10 @@
   .hero::after {
     background: linear-gradient(
       to bottom,
-      rgba(8, 8, 10, 0.92) 0%,
-      rgba(8, 8, 10, 0.86) 46%,
-      rgba(8, 8, 10, 0.32) 78%,
-      rgba(8, 8, 10, 0.5) 100%
+      rgba(7, 7, 10, 0.95) 0%,
+      rgba(7, 7, 10, 0.92) 52%,
+      rgba(7, 7, 10, 0.58) 78%,
+      rgba(7, 7, 10, 0.3) 100%
     );
   }
 }
@@ -150,8 +177,7 @@
 .hero__title {
   font-size: var(--t-hero);
   line-height: var(--lh-display);
-  font-weight: 500;
-  max-width: 16ch;
+  max-width: 15ch;
 }
 .hero__title span {
   display: block;
@@ -160,9 +186,11 @@
 }
 .hero__title span:nth-child(1) { animation-delay: 320ms; }
 .hero__title span:nth-child(2) { animation-delay: 440ms; }
+/* The second line is the quiet half of the sentence, so it is set in italic
+   and stepped down in weight rather than shouted in a second colour. */
 .hero__title em {
-  font-style: normal;
-  color: var(--c-ink-faint);
+  font-style: italic;
+  color: var(--c-ink-dim);
 }
 
 .hero__lead {
@@ -197,9 +225,6 @@
   left: var(--pad-x);
   bottom: var(--s-8);
   z-index: 2;
-  display: inline-flex;
-  align-items: center;
-  gap: var(--s-3);
 }
 .hero__scroll::before {
   content: "";
@@ -207,11 +232,11 @@
   height: 1px;
   background: var(--c-ink-faint);
   transform-origin: left;
-  animation: sweep 2.6s var(--e-io) infinite;
+  animation: sweep 2.8s var(--e-io) infinite;
 }
 @keyframes sweep {
-  0%, 100% { transform: scaleX(0.35); opacity: 0.5; }
-  50%      { transform: scaleX(1);    opacity: 1; }
+  0%, 100% { transform: scaleX(0.3); opacity: 0.4; }
+  50%      { transform: scaleX(1);   opacity: 1; }
 }
 
 /* --- Buttons -------------------------------------------------------------- */
@@ -220,17 +245,20 @@
   display: inline-flex;
   align-items: center;
   gap: var(--s-2);
-  padding: 0.85em 1.5em;
-  border-radius: 999px;
+  padding: 0.9em 1.7em;
+  border-radius: var(--r-pill);
   font-size: var(--t-small);
   font-weight: 500;
+  letter-spacing: -0.005em;
   border: 1px solid var(--c-line);
   transition: background var(--d-fast) var(--e-out),
               border-color var(--d-fast) var(--e-out),
               color var(--d-fast) var(--e-out),
+              box-shadow var(--d-fast) var(--e-out),
               transform var(--d-fast) var(--e-out);
 }
 .btn:hover { transform: translateY(-2px); }
+.btn:active { transform: translateY(0); }
 
 .btn--primary {
   background: var(--c-ink);
@@ -241,12 +269,14 @@
   background: var(--c-accent);
   border-color: var(--c-accent);
   color: var(--c-void);
+  box-shadow: 0 0 0 1px var(--c-accent-glow), 0 14px 40px -16px var(--c-accent);
 }
 
-.btn--ghost { color: var(--c-ink-dim); }
+.btn--ghost { color: var(--c-ink-dim); background: rgba(245, 243, 239, 0.02); }
 .btn--ghost:hover {
   color: var(--c-ink);
   border-color: var(--c-ink-dim);
+  background: rgba(245, 243, 239, 0.05);
 }
 
 /* --- Section scaffolding -------------------------------------------------- */
@@ -254,17 +284,28 @@
 .section {
   padding-block: var(--s-section);
   background: var(--c-ground);
+  position: relative;
 }
 .section--alt { background: var(--c-ground-2); }
 
+/* A hairline across the full page at the top of each section. It is the
+   cheapest way to make a long scroll feel typeset instead of stacked. */
+.section::before {
+  content: "";
+  position: absolute;
+  inset: 0 var(--pad-x) auto;
+  height: 1px;
+  background: var(--c-line-hair);
+}
+
 .section__head {
   display: grid;
-  gap: var(--s-4);
-  margin-bottom: var(--s-16);
+  gap: var(--s-5);
+  margin-bottom: var(--s-20);
 }
 .section__title {
   font-size: var(--t-h1);
-  font-weight: 500;
+  max-width: 20ch;
 }
 
 /* --- Work ----------------------------------------------------------------- */
@@ -282,7 +323,7 @@
 @media (min-width: 900px) {
   .project {
     grid-template-columns: 1.15fr 1fr;
-    gap: clamp(var(--s-8), 5vw, var(--s-16));
+    gap: clamp(var(--s-8), 5vw, var(--s-20));
   }
   /* Alternate which side the media sits on, so the eye keeps moving. */
   .project:nth-child(even) .project__media { order: 2; }
@@ -295,6 +336,12 @@
   background: var(--c-well);
   border: 1px solid var(--c-line-soft);
   box-shadow: var(--shadow-card);
+  transition: border-color var(--d-base) var(--e-out),
+              transform var(--d-base) var(--e-out);
+}
+.project:hover .project__media {
+  border-color: var(--c-line);
+  transform: translateY(-4px);
 }
 .project__media img {
   width: 100%;
@@ -306,16 +353,26 @@
   object-fit: contain;
   transition: transform var(--d-slow) var(--e-out);
 }
-.project:hover .project__media img { transform: scale(1.03); }
+.project:hover .project__media img { transform: scale(1.02); }
+
+/* A cold sheen across the well, so the image sits in the room's light
+   instead of floating as a pasted rectangle. */
+.project__media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(150deg, rgba(126, 163, 255, 0.07), rgba(126, 163, 255, 0) 44%);
+}
 
 .project__index {
-  margin-bottom: var(--s-4);
+  margin-bottom: var(--s-5);
   color: var(--c-accent);
 }
 
 .project__title {
   font-size: var(--t-h2);
-  margin-bottom: var(--s-4);
+  margin-bottom: var(--s-5);
 }
 
 .project__desc {
@@ -330,9 +387,10 @@
   margin-top: var(--s-6);
 }
 .project__stack li {
-  padding: 0.35em 0.8em;
-  border: 1px solid var(--c-line);
-  border-radius: 999px;
+  padding: 0.4em 0.85em;
+  border: 1px solid var(--c-line-soft);
+  border-radius: var(--r-pill);
+  background: rgba(245, 243, 239, 0.025);
   font-family: var(--f-mono);
   font-size: var(--t-label);
   letter-spacing: 0.06em;
@@ -346,47 +404,40 @@
   margin-top: var(--s-8);
 }
 
-/* --- Services ------------------------------------------------------------- */
+/* --- Services ------------------------------------------------------------
+   Three columns separated by hairlines rather than three boxes. Boxed cards
+   are the default look of a template; a ruled column is how a printed page
+   would set the same three items. */
 
-.services {
-  display: grid;
-  gap: var(--s-4);
-}
+.services { display: grid; gap: var(--s-12); }
 @media (min-width: 860px) {
-  .services { grid-template-columns: repeat(3, 1fr); }
+  .services { grid-template-columns: repeat(3, 1fr); gap: var(--s-10); }
 }
 
 .service {
   display: flex;
   flex-direction: column;
-  gap: var(--s-4);
-  padding: clamp(var(--s-6), 3vw, var(--s-12));
-  background: var(--c-well);
-  border: 1px solid var(--c-line-soft);
-  border-radius: var(--r-md);
-  transition: background var(--d-base) var(--e-out),
-              border-color var(--d-base) var(--e-out),
-              transform var(--d-base) var(--e-out);
+  gap: var(--s-5);
+  padding-top: var(--s-6);
+  border-top: 1px solid var(--c-line);
+  transition: border-color var(--d-base) var(--e-out);
 }
-.service:hover {
-  background: var(--c-raised);
-  border-color: var(--c-line);
-  transform: translateY(-4px);
+.service:hover { border-color: var(--c-accent); }
+.service__note {
+  font-family: var(--f-display);
+  font-size: clamp(1.6rem, 2.4vw, 2.1rem);
+  letter-spacing: -0.02em;
+  text-transform: none;
+  color: var(--c-accent);
+  line-height: 1;
 }
 .service__title {
   font-size: var(--t-h3);
-  font-weight: 500;
 }
 .service__desc {
   color: var(--c-ink-dim);
   font-size: var(--t-small);
   flex: 1;
-}
-.service__note {
-  font-family: var(--f-mono);
-  font-size: var(--t-label);
-  letter-spacing: 0.08em;
-  color: var(--c-accent);
 }
 
 /* --- About ---------------------------------------------------------------- */
@@ -400,6 +451,7 @@
 }
 
 .about__body { display: grid; gap: var(--s-6); }
+.about__body .section__title { margin-block: var(--s-2) var(--s-2); }
 .about__body p { color: var(--c-ink-dim); max-width: var(--w-text); }
 .about__body strong { color: var(--c-ink); font-weight: 500; }
 
@@ -409,10 +461,10 @@
   grid-template-columns: 1fr auto;
   gap: var(--s-4);
   padding-block: var(--s-4);
-  border-top: 1px solid var(--c-line-soft);
+  border-top: 1px solid var(--c-line-hair);
   font-size: var(--t-small);
 }
-.fact:last-child { border-bottom: 1px solid var(--c-line-soft); }
+.fact:last-child { border-bottom: 1px solid var(--c-line-hair); }
 .fact__key { color: var(--c-ink-faint); }
 .fact__val { text-align: right; }
 
@@ -420,11 +472,21 @@
 
 .contact { background: var(--c-void); }
 
+/* A single pool of light behind the closing statement. The page opened with
+   a light source; it should not end on a flat rectangle. */
+.contact::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(60% 70% at 22% 40%, var(--c-accent-glow), transparent 70%);
+}
+.contact .wrap { position: relative; z-index: 1; }
+
 .contact__title {
   font-size: var(--t-h1);
-  font-weight: 500;
-  max-width: 18ch;
-  margin-bottom: var(--s-8);
+  max-width: 17ch;
+  margin-block: var(--s-6) var(--s-8);
 }
 
 .contact__actions {
@@ -447,7 +509,7 @@
   align-items: center;
   justify-content: space-between;
   gap: var(--s-4);
-  font-size: var(--t-small);
+  font-size: var(--t-fine);
   color: var(--c-ink-faint);
 }
 
@@ -455,7 +517,7 @@
 
 .reveal {
   opacity: 0;
-  transform: translateY(24px);
+  transform: translateY(26px);
   transition: opacity var(--d-slow) var(--e-out),
               transform var(--d-slow) var(--e-out);
 }
