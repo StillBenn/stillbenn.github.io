@@ -299,7 +299,11 @@
 .project__media img {
   width: 100%;
   aspect-ratio: 4 / 3;
-  object-fit: cover;
+  /* Card images are authored at 4:3, so contain and cover render the same
+     thing. contain is the safer default: an image added at the wrong ratio
+     later gets letterboxed against the well instead of silently having its
+     edges cropped off — which is exactly how a logo loses its first letter. */
+  object-fit: contain;
   transition: transform var(--d-slow) var(--e-out);
 }
 .project:hover .project__media img { transform: scale(1.03); }
