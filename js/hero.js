@@ -136,6 +136,10 @@ function init(canvas) {
      must be visible. */
   let onScreen = true;
   let running = false;
+  /* A page opened in a background tab starts hidden, where rAF never fires.
+     Assuming otherwise leaves the loop believing it is running, so the real
+     start is skipped when the tab finally appears. */
+  let pageVisible = !document.hidden;
   const clock = new THREE.Clock();
 
   new IntersectionObserver(([entry]) => {
@@ -144,7 +148,8 @@ function init(canvas) {
   }, { threshold: 0 }).observe(canvas);
 
   document.addEventListener("visibilitychange", () => {
-    document.hidden ? stop() : (onScreen && start());
+    pageVisible = !document.hidden;
+    pageVisible ? (onScreen && start()) : stop();
   });
 
   window.addEventListener("resize", () => {
@@ -187,7 +192,7 @@ function init(canvas) {
   }
 
   function start() {
-    if (running || reduced) return;
+    if (running || reduced || !pageVisible) return;
     running = true;
     clock.getDelta();
     requestAnimationFrame(frame);
@@ -198,7 +203,10 @@ function init(canvas) {
      something on it, so the hero never flashes an empty black box. */
   layout();
   renderer.render(scene, camera);
-  requestAnimationFrame(() => canvas.classList.add("is-ready"));
+  /* The scene is already drawn by the line above, so the reveal can be armed
+     straight away. Waiting on a rAF callback meant a page opened in a
+     background tab never revealed the canvas at all. */
+  canvas.classList.add("is-ready");
   start();
 
   /* --- Galaxy -----------------------------------------------------------
