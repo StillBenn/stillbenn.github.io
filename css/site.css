@@ -234,7 +234,33 @@
     align-items: flex-start;
   }
   .hero__inner {
-    padding-block: var(--s-32) var(--s-10);
+    /* Ust dolgu sabit degil, ekran yuksekligine gore esniyor. Instagram ve
+       benzeri uygulama-ici tarayicilar ustte kendi cubugunu gosterir; sayfaya
+       kalan yukseklik telefonunkinden ~150px daha az olur. Sabit 128px orada
+       orantisiz buyuk bir bosluk birakiyordu.
+       Alt sinir, sabit basligi (69px) gecip nefes payi birakacak kadar. */
+    padding-block: clamp(5.6rem, 3.4rem + 6svh, 7rem) var(--s-10);
+  }
+
+  /* "SCROLL" gostergesi sayfanin en altinda, yani perdenin en sacik oldugu
+     (0.30) yerde duruyor - tam da galaksinin parlak koluna denk geliyor ve
+     okunmuyordu. Yaziyi tasimak yerine ALTINA kendi kucuk perdesi konuldu:
+     galaksi gorunur kalir, yazi da okunur. */
+  .hero::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 22svh;
+    background: linear-gradient(
+      to top,
+      rgba(7, 7, 10, 0.85) 0%,
+      rgba(7, 7, 10, 0.45) 45%,
+      rgba(7, 7, 10, 0) 100%
+    );
+    pointer-events: none;
+    z-index: 1;
   }
 }
 
