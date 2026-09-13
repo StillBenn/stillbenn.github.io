@@ -60,8 +60,8 @@
         "Gerçek zamanlı 3B yapılandırıcı: altı kumaş, dört gövde kaplaması, iki ölçü; müşteri ürünü kurdukça fiyat ve teslim süresi anında güncelleniyor. Tarayıcıda çalışır, eklenti istemez, telefonda da açılır.",
 
       "03 — Corporate site": "03 — Kurumsal site",
-      "A corporate site for a Gaziantep-based group working across retail, construction and energy. Three languages from a single set of pages, a 3D building model on the construction section, and a design system built on tokens rather than one-off values.":
-        "Market, inşaat ve enerji alanlarında çalışan Gaziantep merkezli bir grup için kurumsal site. Tek sayfa takımından üç dil, inşaat bölümünde 3B bina modeli ve tek seferlik değerler yerine token'lara dayanan bir tasarım sistemi.",
+      "A corporate site for a fictional holding working across retail, construction and energy. Three languages from a single set of pages, a 3D building model on the construction section, and a design system built on tokens rather than one-off values.":
+        "Market, inşaat ve enerji alanlarında çalışan kurgusal bir holding için kurumsal site. Tek sayfa takımından üç dil, inşaat bölümünde 3B bina modeli ve tek seferlik değerler yerine token'lara dayanan bir tasarım sistemi.",
 
       "04 — Automation": "04 — Otomasyon",
       "Furniture shop order bot": "Mobilya mağazası sipariş botu",
@@ -118,7 +118,7 @@
       /* alt text */
       "3D armchair configurator rendered in sand fabric on an oak frame":
         "Meşe gövde üzerinde kum rengi kumaşla render alınmış 3B koltuk yapılandırıcı",
-      "MRD Group corporate website home page": "MRD Group kurumsal web sitesi ana sayfası",
+      "Tarven Group corporate website home page": "Tarven Group kurumsal web sitesi ana sayfası",
       "Telegram order bot interface showing a furniture catalog":
         "Mobilya kataloğunu gösteren Telegram sipariş botu arayüzü",
       "Bünyamin Katkat — home": "Bünyamin Katkat — ana sayfa",
@@ -164,8 +164,8 @@
         "3D-конфигуратор в реальном времени: шесть тканей, четыре отделки каркаса, два размера, а цена и срок пересчитываются прямо по ходу сборки. Работает в браузере, без плагинов, в том числе на телефоне.",
 
       "03 — Corporate site": "03 — Корпоративный сайт",
-      "A corporate site for a Gaziantep-based group working across retail, construction and energy. Three languages from a single set of pages, a 3D building model on the construction section, and a design system built on tokens rather than one-off values.":
-        "Корпоративный сайт группы из Газиантепа, работающей в ритейле, строительстве и энергетике. Три языка на одном наборе страниц, 3D-модель здания в разделе строительства и дизайн-система на токенах вместо разовых значений.",
+      "A corporate site for a fictional holding working across retail, construction and energy. Three languages from a single set of pages, a 3D building model on the construction section, and a design system built on tokens rather than one-off values.":
+        "Корпоративный сайт вымышленного холдинга, работающего в ритейле, строительстве и энергетике. Три языка на одном наборе страниц, 3D-модель здания в разделе строительства и дизайн-система на токенах вместо разовых значений.",
 
       "04 — Automation": "04 — Автоматизация",
       "Furniture shop order bot": "Бот заказов мебельного магазина",
@@ -220,7 +220,7 @@
       /* alt text */
       "3D armchair configurator rendered in sand fabric on an oak frame":
         "3D-конфигуратор кресла: песочная ткань на дубовом каркасе",
-      "MRD Group corporate website home page": "Главная страница корпоративного сайта MRD Group",
+      "Tarven Group corporate website home page": "Главная страница корпоративного сайта Tarven Group",
       "Telegram order bot interface showing a furniture catalog":
         "Интерфейс Telegram-бота заказов с каталогом мебели",
       "Bünyamin Katkat — home": "Бюнямин Каткат — главная",
