@@ -211,6 +211,33 @@
   padding-block: calc(var(--s-32) + var(--s-8)) var(--s-24);
 }
 
+/* Telefonda hero'nun dikey yerlesimi.
+
+   Yukaridaki `.hero` zaten `align-items: center` ile blogu dikey ortaliyor.
+   `.hero__inner`'in 160px'lik ust dolgusu ise MASAUSTU kompozisyonu icin
+   olculmustu: orada metin galaksinin YANINDA durur ve dolgu sadece sekil verir.
+   Telefonda ise metin sahnenin USTUNE biniyor, dolgu ortalamanin UZERINE
+   ekleniyor ve blok alt yariya itiliyor.
+
+   Olculdu (390x844): goz hizasindaki ilk satir 263px asagidan basliyordu ve
+   butonlar, perdenin en zayif oldugu (0.30) en parlak bolgeye dusuyordu -
+   "Start a project" bu yuzden okunmuyordu. Perde yukaridan asagi koyudan
+   aciga gidiyor; icerik de yukarida olmali.
+
+   Cozum: ustten hizala, dolgu yalnizca sabit basligi gececek kadar. Boylece
+   metin koyu bantta kaliyor, galaksi de altta temiz bir zemin olarak duruyor.
+
+   Bu blok BILEREK `.hero__inner`'dan SONRA: ayni ozgullukteki gecersiz kilma
+   ancak dosyada sonra gelirse kazanir (bkz. dil secici notu). */
+@media (max-width: 899px) {
+  .hero {
+    align-items: flex-start;
+  }
+  .hero__inner {
+    padding-block: var(--s-32) var(--s-10);
+  }
+}
+
 .hero__eyebrow {
   margin-bottom: var(--s-6);
   opacity: 0;
@@ -608,4 +635,32 @@
 }
 @media (prefers-reduced-motion: reduce) {
   .reveal { opacity: 1; transform: none; transition: none; }
+}
+
+/* --- Telefonda dokunma hedefleri -------------------------------------------
+
+   Olculdu (390px): dil butonlari 23px, altbilgi baglantilari 22px yuksekti.
+   Apple ve Google'in esigi 44px; bu boyutlar parmakla isabet ettirilemiyor.
+
+   Cozum dolguyu buyutmek DEGIL - o, basligin ve altbilginin gorunumunu
+   bozardi. Gorunmez bir psodo-eleman ile yalnizca DOKUNMA ALANI buyutuluyor;
+   piksel olarak hicbir sey degismiyor.
+
+   `.site-footer__links a` zaten `::after`'i alt cizgi icin kullaniyor,
+   o yuzden orada `::before` kullanildi. */
+@media (pointer: coarse) {
+  .lang__btn {
+    position: relative;
+  }
+  .lang__btn::after {
+    content: "";
+    position: absolute;
+    inset: -11px -4px;
+  }
+
+  .site-footer__links a::before {
+    content: "";
+    position: absolute;
+    inset: -11px -8px;
+  }
 }
