@@ -239,7 +239,7 @@
        kalan yukseklik telefonunkinden ~150px daha az olur. Sabit 128px orada
        orantisiz buyuk bir bosluk birakiyordu.
        Alt sinir, sabit basligi (69px) gecip nefes payi birakacak kadar. */
-    padding-block: clamp(5.6rem, 3.4rem + 6svh, 7rem) var(--s-10);
+    padding-block: clamp(4.8rem, 2.6rem + 6svh, 6.2rem) var(--s-8);
   }
 
   /* "SCROLL" gostergesi sayfanin en altinda, yani perdenin en sacik oldugu
