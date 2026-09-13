@@ -689,4 +689,12 @@
     position: absolute;
     inset: -11px -8px;
   }
+
+  /* Marka baglantisi 26px yuksekti. `.brand::after` zaten alt cizgi icin
+     kullanildigindan burada da ::before is goruyor. */
+  .brand::before {
+    content: "";
+    position: absolute;
+    inset: -10px -8px;
+  }
 }
