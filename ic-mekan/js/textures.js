@@ -246,8 +246,14 @@ export function materials() {
 
   const oak     = wood([196, 158, 112], [104, 68, 36], { rows: 7 });
   const walnut  = wood([116, 76, 50], [48, 26, 14], { rows: 7, roughLo: 128, roughHi: 186 });
+  const smoked  = wood([88, 72, 60], [30, 22, 16], { rows: 7, roughLo: 140, roughHi: 196 });
   const marble  = stone([238, 236, 232], [150, 152, 156], { scale: 4, sharp: 7, roughBase: 26, roughVein: 60 });
+  /* Calacatta: the veins are warm, not grey. One channel of difference is
+     what separates the expensive slab from the ordinary one. */
+  const calacatta = stone([244, 241, 234], [178, 146, 96], { scale: 4, sharp: 6, roughBase: 22, roughVein: 54 });
+  const verde   = stone([48, 70, 58], [176, 192, 156], { scale: 4, sharp: 5, roughBase: 24, roughVein: 58 });
   const granite = stone([38, 38, 41], [128, 128, 134], { scale: 6, sharp: 3, grain: 0.22, roughBase: 34, roughVein: 66 });
+  const traver  = stone([216, 200, 174], [186, 164, 132], { scale: 6, sharp: 2, grain: 0.16, roughBase: 96, roughVein: 138 });
   const micro   = cement([172, 168, 162], { strength: 20, rough: 208 });
   const plaster = cement([236, 232, 226], { strength: 10, rough: 224 });
 
@@ -265,29 +271,39 @@ export function materials() {
     floor: {
       oak:    Object.assign(T(oak,    [3.0, 3.0]), { metalness: 0.0, roughness: 0.62 }),
       walnut: Object.assign(T(walnut, [3.0, 3.0]), { metalness: 0.0, roughness: 0.66 }),
+      smoked: Object.assign(T(smoked, [3.0, 3.0]), { metalness: 0.0, roughness: 0.70 }),
       marble: Object.assign(T(marble, [1.6, 1.6]), { metalness: 0.0, roughness: 0.16 }),
+      traver: Object.assign(T(traver, [2.2, 2.2]), { metalness: 0.0, roughness: 0.55 }),
       micro:  Object.assign(T(micro,  [4.0, 4.0]), { metalness: 0.0, roughness: 0.78 })
     },
     counter: {
-      marble:  Object.assign(T(marble,  [0.40, 0.40]), { metalness: 0.0,  roughness: 0.14 }),
-      granite: Object.assign(T(granite, [0.46, 0.46]), { metalness: 0.05, roughness: 0.22 }),
-      oak:     Object.assign(T(oak,     [0.55, 0.55]), { metalness: 0.0,  roughness: 0.52 }),
-      compact: Object.assign(T(micro,   [0.60, 0.60]), { metalness: 0.0,  roughness: 0.46, color: 0x4a4a4e })
+      marble:    Object.assign(T(marble,    [0.40, 0.40]), { metalness: 0.0,  roughness: 0.14 }),
+      calacatta: Object.assign(T(calacatta, [0.38, 0.38]), { metalness: 0.0,  roughness: 0.12 }),
+      granite:   Object.assign(T(granite,   [0.46, 0.46]), { metalness: 0.05, roughness: 0.22 }),
+      verde:     Object.assign(T(verde,     [0.40, 0.40]), { metalness: 0.0,  roughness: 0.15 }),
+      oak:       Object.assign(T(oak,       [0.55, 0.55]), { metalness: 0.0,  roughness: 0.52 }),
+      compact:   Object.assign(T(micro,     [0.60, 0.60]), { metalness: 0.0,  roughness: 0.46, color: 0x4a4a4e })
     },
     /* The splashback needs its OWN texture instances, not just its own
        material: a texture's repeat lives on the texture, so sharing the
        worktop's maps would stretch the same veins up the wall and the eye
        reads that immediately as wallpaper. */
     splash: {
-      marble:  Object.assign(T(marble,  [0.40, 0.40]), { metalness: 0.0,  roughness: 0.16 }),
-      granite: Object.assign(T(granite, [0.46, 0.46]), { metalness: 0.05, roughness: 0.24 }),
-      oak:     Object.assign(T(oak,     [0.55, 0.55]), { metalness: 0.0,  roughness: 0.54 }),
-      compact: Object.assign(T(micro,   [0.60, 0.60]),  { metalness: 0.0,  roughness: 0.48, color: 0x4a4a4e })
+      marble:    Object.assign(T(marble,    [0.40, 0.40]), { metalness: 0.0,  roughness: 0.16 }),
+      calacatta: Object.assign(T(calacatta, [0.38, 0.38]), { metalness: 0.0,  roughness: 0.14 }),
+      granite:   Object.assign(T(granite,   [0.46, 0.46]), { metalness: 0.05, roughness: 0.24 }),
+      verde:     Object.assign(T(verde,     [0.40, 0.40]), { metalness: 0.0,  roughness: 0.17 }),
+      oak:       Object.assign(T(oak,       [0.55, 0.55]), { metalness: 0.0,  roughness: 0.54 }),
+      compact:   Object.assign(T(micro,     [0.60, 0.60]), { metalness: 0.0,  roughness: 0.48, color: 0x4a4a4e })
     },
     front: {
       lakeWhite:   { color: 0xf2f0ec, metalness: 0.02, roughness: 0.10, clearcoat: 1.00 },
       lakeAnthra:  { color: 0x34363a, metalness: 0.04, roughness: 0.12, clearcoat: 1.00 },
+      lakeSage:    { color: 0x6f7d6b, metalness: 0.03, roughness: 0.11, clearcoat: 1.00 },
+      lakeInk:     { color: 0x232b3a, metalness: 0.04, roughness: 0.11, clearcoat: 1.00 },
       membraneWal: Object.assign(T(walnut, [0.85, 0.85]), { metalness: 0.0, roughness: 0.58, clearcoat: 0.0 }),
+      membraneSmk: Object.assign(T(smoked, [0.85, 0.85]), { metalness: 0.0, roughness: 0.60, clearcoat: 0.0 }),
+      cashmere:    { color: 0xd8cebd, metalness: 0.02, roughness: 0.30, clearcoat: 0.25 },
       acrylicGrey: { color: 0x8d9096, metalness: 0.10, roughness: 0.18, clearcoat: 0.60 }
     },
     plaster: T(plaster, [2.0, 2.0])

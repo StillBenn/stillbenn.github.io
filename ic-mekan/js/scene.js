@@ -31,9 +31,13 @@ import { materials } from "./textures.js";
 import { buildEnvironment } from "./env.js";
 import * as P from "./props.js";
 
-const W = 7.0;        // room width  (x: -3.5 .. 3.5)
-const D = 5.6;        // room depth  (z: -2.8 .. 2.8)
-const H = 2.85;       // ceiling height
+/* The room is deliberately generous. In a 5.6 m deep room the camera simply
+   cannot stand far enough back: the pull-back is limited by the far wall, so
+   every angle ends up cramped no matter how the orbit is tuned. Depth is the
+   fix, not lens width — a wider lens just bends the walls. */
+const W = 7.6;        // room width  (x: -3.8 .. 3.8)
+const D = 6.8;        // room depth  (z: -3.4 .. 3.4)
+const H = 2.90;       // ceiling height
 
 export function createRoom(canvas) {
   const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -49,7 +53,7 @@ export function createRoom(canvas) {
 
   const scene = new THREE.Scene();
   const camera = new THREE.PerspectiveCamera(44, 1, 0.08, 80);
-  const target = new THREE.Vector3(0.15, 0.98, -0.55);
+  const target = new THREE.Vector3(0.10, 1.05, -1.30);
 
   const M = materials();
   const roles = { floor: [], counter: [], splash: [], front: [], wall: [], shade: [] };
@@ -259,7 +263,7 @@ export function createRoom(canvas) {
 
   /* ----------------------------------------------------------------- island */
   const isW = 2.5, isD = 0.98, isH = 0.9;
-  const isX = 0.25, isZ = 0.55;
+  const isX = 0.25, isZ = -0.72;
 
   const isKick = new THREE.Mesh(new THREE.BoxGeometry(isW - 0.12, toe, isD - 0.12), carcass);
   isKick.position.set(isX, toe / 2, isZ);
@@ -282,20 +286,46 @@ export function createRoom(canvas) {
 
   /* The worktop overhangs on the stool side — that overhang is the whole
      reason an island reads as somewhere you sit rather than a block. */
-  const isTop = new THREE.Mesh(P.panel(isW + 0.1, isD + 0.42, 0.045, 0.007, "y"), counterMat);
+  const isTopW = isW + 0.1, isTopD = isD + 0.42;
+  const isTop = new THREE.Mesh(P.panel(isTopW, isTopD, 0.045, 0.007, "y"), counterMat);
   isTop.position.set(isX, isH + 0.0225, isZ + 0.16);
   isTop.castShadow = isTop.receiveShadow = true;
   scene.add(isTop);
+
+  /* Waterfall ends: the stone turns the corner and runs to the floor. This is
+     the single detail that separates a fitted island from a box with a slab
+     on it, and it doubles the surface the client's stone choice is shown on. */
+  [-1, 1].forEach(sgn => {
+    const wf = new THREE.Mesh(
+      P.panel(isTopD, isH + 0.045, 0.045, 0.007, "z"), counterMat);
+    wf.rotation.y = Math.PI / 2;
+    wf.position.set(isX + sgn * (isTopW / 2 - 0.0225), (isH + 0.045) / 2, isZ + 0.16);
+    wf.castShadow = wf.receiveShadow = true;
+    scene.add(wf);
+  });
+
+  /* Reeded panel on the seating side, in the cabinet-front material. Two
+     reasons: a 2.5 m flat slab is where a render looks cheapest, and until
+     now the fronts faced away from the default camera, so choosing a front
+     changed almost nothing on screen. */
+  const flute = P.fluted(isW - 0.10, isH - toe - 0.02, frontMat, 0.019);
+  flute.position.set(isX, toe + (isH - toe) / 2 - 0.01, isZ + isD / 2 + 0.006);
+  scene.add(flute);
 
   /* --------------------------------------------------------------- styling */
   const oakMat = new THREE.MeshStandardMaterial();
   applyMaterial(oakMat, M.counter.oak);
 
+  /* Cognac leather: it is the one warm note against all the stone, and warm
+     against cool is what stops a monochrome kitchen looking like a showroom
+     photograph nobody lives in. */
   const seatMat = new THREE.MeshStandardMaterial({
-    color: 0x2c2e31, roughness: 0.55, envMapIntensity: 1.1
+    color: 0x6e4229, roughness: 0.52, envMapIntensity: 1.15
   });
+  /* Blackened steel, not bright tube. Light grey tubing was reading as the
+     cheapest thing in the room. */
   const legMat = new THREE.MeshStandardMaterial({
-    color: 0x9a9ea3, roughness: 0.28, metalness: 0.9, envMapIntensity: 1.4
+    color: 0x35383c, roughness: 0.34, metalness: 0.88, envMapIntensity: 1.5
   });
   [-0.45, 0.62].forEach(dx => {
     const s = P.stool(seatMat, legMat);
@@ -304,22 +334,39 @@ export function createRoom(canvas) {
     scene.add(s);
   });
 
+  /* Dark ceramic on purpose: the pale bowl disappeared against pale marble
+     from a high angle. Tone separation is what keeps an object readable, not
+     size. */
   const bowlMesh = P.bowl(new THREE.MeshStandardMaterial({
-    color: 0xe8e3d9, roughness: 0.33, envMapIntensity: 1.2
+    color: 0x2f3336, roughness: 0.28, metalness: 0.04, envMapIntensity: 1.35
   }));
-  bowlMesh.position.set(isX - 0.55, isH + 0.045, isZ + 0.1);
+  bowlMesh.position.set(isX - 0.30, isH + 0.045, isZ + 0.14);
   scene.add(bowlMesh);
 
-  const boardMesh = P.board(oakMat);
-  boardMesh.position.set(isX + 0.55, isH + 0.056, isZ + 0.06);
-  boardMesh.rotation.y = -0.22;
-  scene.add(boardMesh);
+  const trayMesh = P.tray(
+    new THREE.MeshStandardMaterial({ color: 0x2a2c2f, roughness: 0.34, metalness: 0.05, envMapIntensity: 1.3 }),
+    new THREE.MeshStandardMaterial({ color: 0xb08d52, roughness: 0.26, metalness: 0.95, envMapIntensity: 1.7 })
+  );
+  trayMesh.position.set(isX + 0.62, isH + 0.053, isZ + 0.04);
+  trayMesh.rotation.y = -0.18;
+  scene.add(trayMesh);
+
+  const carafeMesh = P.carafe();
+  carafeMesh.position.set(isX + 0.56, isH + 0.062, isZ + 0.02);
+  scene.add(carafeMesh);
+
+  const vaseMesh = P.vase(
+    new THREE.MeshStandardMaterial({ color: 0xcfc7b8, roughness: 0.42, envMapIntensity: 1.2 }),
+    new THREE.MeshStandardMaterial({ color: 0x9c8c6e, roughness: 0.85 })
+  );
+  vaseMesh.position.set(isX - 0.92, isH + 0.045, isZ - 0.05);
+  scene.add(vaseMesh);
 
   const plantMesh = P.plant(
     new THREE.MeshStandardMaterial({ color: 0xb9b1a4, roughness: 0.82 }),
     new THREE.MeshStandardMaterial({ color: 0x3f5c3a, roughness: 0.66 })
   );
-  plantMesh.position.set(tallX - 0.05, 0, D / 2 - 1.5);
+  plantMesh.position.set(tallX - 0.05, 0, D / 2 - 1.9);
   plantMesh.scale.setScalar(1.55);
   scene.add(plantMesh);
 
@@ -328,7 +375,7 @@ export function createRoom(canvas) {
   scene.add(bookStack);
 
   const artB = P.art(0.7, 0.92, ["#b9c2bd", "#7d8a84", "#4f5b55"]);
-  artB.position.set(-W / 2 + 0.03, 1.5, D / 2 - 1.15);
+  artB.position.set(-W / 2 + 0.03, 1.52, D / 2 - 1.5);
   artB.rotation.y = Math.PI / 2;
   scene.add(artB);
 
@@ -349,10 +396,22 @@ export function createRoom(canvas) {
     scene.add(cord);
 
     const shade = new THREE.Mesh(
-      new THREE.CylinderGeometry(0.075, 0.17, 0.19, 40, 1, true), shadeMat);
+      new THREE.CylinderGeometry(0.075, 0.185, 0.21, 44, 1, true), shadeMat);
     shade.position.set(x, H - 0.87, isZ + 0.16);
     shade.castShadow = true;
     scene.add(shade);
+
+    /* Brass inside the shade. A lamp that is the same colour inside and out
+       reads as a plastic cone; the warm lining is the detail that says the
+       fitting cost something. */
+    const liner = new THREE.Mesh(
+      new THREE.CylinderGeometry(0.071, 0.178, 0.20, 44, 1, true),
+      new THREE.MeshStandardMaterial({
+        color: 0xc49a5c, roughness: 0.24, metalness: 0.95,
+        side: THREE.BackSide, envMapIntensity: 1.8
+      }));
+    liner.position.copy(shade.position);
+    scene.add(liner);
 
     const glow = new THREE.Mesh(new THREE.CircleGeometry(0.16, 32), glowMat);
     glow.position.set(x, H - 0.965, isZ + 0.16);
@@ -385,10 +444,14 @@ export function createRoom(canvas) {
   scene.add(bounce);
 
   /* ---------------------------------------------------------------- orbit */
-  const AZ = [-0.10, 1.45], PO = [1.06, 1.52], DIST = [2.6, 6.4];
+  /* A deliberately NARROW band. Every angle inside it is a photograph an
+     architect would actually take: slightly above eye level, looking a little
+     down, with both the window wall and the run in shot. A wide orbit range
+     is not freedom, it is a hundred ways to frame the room badly. */
+  const AZ = [0.24, 1.16], PO = [1.36, 1.53], DIST = [3.4, 6.0];
   const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
 
-  let azT = 0.72, poT = 1.26, dT = 5.3;
+  let azT = 0.78, poT = 1.47, dT = 5.4;
   let az = azT, po = poT, dist = dT;
   let needs = true;
 
@@ -397,8 +460,8 @@ export function createRoom(canvas) {
      the position instead makes the camera slide along walls, which is what
      made the earlier version feel broken. */
   const INNER = {
-    min: new THREE.Vector3(-W / 2 + 0.4, 0.75, -D / 2 + 0.5),
-    max: new THREE.Vector3(W / 2 - 0.4, H - 0.35, D / 2 - 0.3)
+    min: new THREE.Vector3(-W / 2 + 0.45, 0.85, -D / 2 + 0.5),
+    max: new THREE.Vector3(W / 2 - 0.45, H - 0.40, D / 2 - 0.35)
   };
   function maxRadius(dir) {
     let t = Infinity;
@@ -515,6 +578,6 @@ export function createRoom(canvas) {
     setFront(key) { roles.front.forEach(m => applyMaterial(m, M.front[key])); needs = true; },
     setWall(hex) { wallTarget.set(hex); needs = true; },
     setEvening(on) { eveningT = on ? 1 : 0; needs = true; },
-    resetView() { azT = 0.72; poT = 1.26; dT = 5.3; needs = true; }
+    resetView() { azT = 0.78; poT = 1.47; dT = 5.4; needs = true; }
   };
 }
