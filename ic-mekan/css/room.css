@@ -1,0 +1,261 @@
+/* ==========================================================================
+   Interior configurator — layout
+   --------------------------------------------------------------------------
+   Two columns on a desk, two stacked blocks on a phone. The render always
+   gets the larger half: the options are the argument, but the room is the
+   proof, and a client who has to scroll to find the room does not believe it.
+
+   Tokens (colour, type, spacing) come from the parent site so this page and
+   larisel.com are visibly the same studio.
+   ========================================================================== */
+
+.room-page {
+  min-height: 100svh;
+  background: var(--c-bg, #08080a);
+  color: var(--c-ink, #f5f3ef);
+  overflow-x: hidden;
+}
+
+/* --- Bar ------------------------------------------------------------------ */
+.room-bar {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.9rem clamp(1rem, 3vw, 2rem);
+  background: rgba(10, 10, 14, 0.72);
+  backdrop-filter: blur(14px) saturate(1.3);
+  box-shadow: 0 1px 0 var(--c-line-soft, rgba(245, 243, 239, 0.06));
+}
+.room-bar__brand {
+  position: relative;
+  font-family: var(--f-display, Georgia, serif);
+  font-size: 0.98rem;
+  letter-spacing: 0.06em;
+  color: var(--c-ink, #f5f3ef);
+  text-decoration: none;
+  white-space: nowrap;
+}
+.room-bar__brand:hover { opacity: 0.78; }
+
+.lang { display: flex; gap: 0.15rem; }
+.lang__btn {
+  position: relative;
+  padding: 0.3rem 0.5rem;
+  border: 0;
+  border-radius: 999px;
+  background: none;
+  font-family: var(--f-mono, monospace);
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  color: var(--c-ink-faint, #7c7a74);
+  cursor: pointer;
+}
+.lang__btn[aria-pressed="true"] {
+  color: var(--c-bg, #08080a);
+  background: var(--c-ink, #f5f3ef);
+}
+
+/* --- Layout --------------------------------------------------------------- */
+.room {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 24rem;
+  gap: 0;
+  /* A fixed height, not a minimum: with min-height the panel's own content
+     stretches the grid row and the whole page scrolls, taking the render off
+     the screen. The render must never leave the viewport on a desktop — it
+     is the argument the page is making. */
+  height: calc(100svh - 3.35rem);
+}
+
+.room__view { position: relative; min-height: 46svh; }
+.stage {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 46svh;
+  cursor: grab;
+  touch-action: pan-y;
+}
+.stage.is-grabbing { cursor: grabbing; }
+
+.room__hint {
+  position: absolute;
+  left: 50%;
+  bottom: 1rem;
+  transform: translateX(-50%);
+  margin: 0;
+  padding: 0.35rem 0.8rem;
+  border-radius: 999px;
+  background: rgba(10, 10, 14, 0.55);
+  backdrop-filter: blur(8px);
+  font-family: var(--f-mono, monospace);
+  font-size: 0.64rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--c-ink-dim, #a9a7a2);
+  pointer-events: none;
+}
+
+/* --- Panel ---------------------------------------------------------------- */
+.room__panel {
+  padding: clamp(1.4rem, 2.2vw, 2rem) clamp(1.1rem, 2vw, 1.7rem) 3rem;
+  border-left: 1px solid var(--c-line-soft, rgba(245, 243, 239, 0.06));
+  background: rgba(255, 255, 255, 0.014);
+  overflow-y: auto;
+}
+
+.room__kicker {
+  margin: 0 0 0.5rem;
+  font-family: var(--f-mono, monospace);
+  font-size: 0.64rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--c-ink-faint, #7c7a74);
+}
+.room__title {
+  margin: 0 0 0.6rem;
+  font-family: var(--f-display, Georgia, serif);
+  font-weight: 400;
+  font-size: clamp(1.45rem, 2.1vw, 1.85rem);
+  line-height: 1.18;
+  letter-spacing: -0.01em;
+}
+.room__lead {
+  margin: 0 0 1.6rem;
+  font-size: 0.86rem;
+  line-height: 1.6;
+  color: var(--c-ink-dim, #a9a7a2);
+}
+
+.opt { margin-bottom: 1.35rem; }
+.opt__h {
+  margin: 0 0 0.55rem;
+  font-family: var(--f-mono, monospace);
+  font-size: 0.63rem;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--c-ink-faint, #7c7a74);
+}
+.opt__row { display: flex; flex-wrap: wrap; gap: 0.45rem; }
+
+/* A swatch is a real sample plus its trade name. The name is what the client
+   repeats back on the phone, so it must be readable, not a tooltip. */
+.sw {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.3rem 0.6rem 0.3rem 0.32rem;
+  border: 1px solid var(--c-line, rgba(245, 243, 239, 0.12));
+  border-radius: 999px;
+  background: none;
+  color: var(--c-ink-dim, #a9a7a2);
+  font: inherit;
+  font-size: 0.74rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
+}
+.sw:hover { border-color: var(--c-ink-faint, #7c7a74); color: var(--c-ink, #f5f3ef); }
+.sw[aria-pressed="true"] {
+  border-color: var(--c-ink, #f5f3ef);
+  color: var(--c-ink, #f5f3ef);
+  background: rgba(245, 243, 239, 0.06);
+}
+.sw__chip {
+  width: 1.15rem;
+  height: 1.15rem;
+  border-radius: 999px;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.35);
+  flex: none;
+}
+
+.chip {
+  padding: 0.38rem 0.8rem;
+  border: 1px solid var(--c-line, rgba(245, 243, 239, 0.12));
+  border-radius: 999px;
+  background: none;
+  color: var(--c-ink-dim, #a9a7a2);
+  font: inherit;
+  font-size: 0.74rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
+}
+.chip:hover { border-color: var(--c-ink-faint, #7c7a74); color: var(--c-ink, #f5f3ef); }
+.chip[aria-pressed="true"] {
+  border-color: var(--c-ink, #f5f3ef);
+  color: var(--c-bg, #08080a);
+  background: var(--c-ink, #f5f3ef);
+}
+.chip--ghost { margin-left: auto; color: var(--c-ink-faint, #7c7a74); }
+
+.opt--summary { padding-top: 0.4rem; border-top: 1px solid var(--c-line-hair, rgba(245, 243, 239, 0.035)); }
+.summary {
+  margin: 0;
+  font-family: var(--f-mono, monospace);
+  font-size: 0.72rem;
+  line-height: 1.7;
+  color: var(--c-ink, #f5f3ef);
+}
+
+.room__note {
+  margin: 1.4rem 0 1.1rem;
+  font-size: 0.74rem;
+  line-height: 1.6;
+  color: var(--c-ink-faint, #7c7a74);
+}
+.room__cta {
+  display: inline-block;
+  padding: 0.62rem 1.1rem;
+  border-radius: 999px;
+  background: var(--c-ink, #f5f3ef);
+  color: var(--c-bg, #08080a);
+  font-size: 0.8rem;
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+.room__cta:hover { opacity: 0.86; }
+
+/* --- Phone ----------------------------------------------------------------
+   The room goes on top and keeps a fixed share of the screen; the panel
+   scrolls under it. Measured on a 390x844 screen: below about 46svh the
+   worktop and the fronts stop being distinguishable, which defeats the page. */
+@media (max-width: 899px) {
+  .room {
+    grid-template-columns: 1fr;
+    height: auto;
+  }
+  .room__view {
+    position: sticky;
+    top: 3.2rem;
+    z-index: 5;
+    height: 52svh;
+    min-height: 0;
+    background: var(--c-bg, #08080a);
+    box-shadow: 0 1px 0 var(--c-line-soft, rgba(245, 243, 239, 0.06));
+  }
+  .stage { min-height: 0; }
+  .room__panel {
+    border-left: 0;
+    padding-inline: clamp(1rem, 4vw, 1.5rem);
+  }
+  .room__title { font-size: clamp(1.35rem, 6vw, 1.7rem); }
+}
+
+/* Touch targets: the swatches are pill-sized but the language buttons are
+   small type, so they get an invisible hit area rather than more padding —
+   padding would move the bar. */
+@media (pointer: coarse) {
+  .lang__btn { position: relative; }
+  .lang__btn::after { content: ""; position: absolute; inset: -11px -6px; }
+  .room-bar__brand::before { content: ""; position: absolute; inset: -12px -8px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sw, .chip, .room__cta { transition: none; }
+}

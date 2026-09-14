@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>İç mekân malzeme konfigüratörü — Bünyamin Katkat</title>
+<meta name="description" content="Tarayıcıda gerçek zamanlı 3B iç mekân: zemin, tezgâh, dolap kapağı ve duvar rengi anında değişir. Telefondan açılır, uygulama gerekmez.">
+<link rel="canonical" href="https://larisel.com/ic-mekan/">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Bünyamin Katkat">
+<meta property="og:title" content="İç mekân malzeme konfigüratörü">
+<meta property="og:description" content="Render göndermek yerine linki gönderin: müşteri zemini, tezgâhı ve kapağı kendi seçsin.">
+<meta property="og:url" content="https://larisel.com/ic-mekan/">
+<meta property="og:image" content="https://larisel.com/img/og.png">
+<meta name="twitter:card" content="summary_large_image">
+
+<meta name="theme-color" content="#08080a">
+<link rel="icon" href="../img/favicon.svg" type="image/svg+xml">
+
+<link rel="preload" href="../fonts/newsreader-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../css/tokens.css?v=2">
+<link rel="stylesheet" href="../css/base.css?v=2">
+<link rel="stylesheet" href="./css/room.css?v=1">
+</head>
+
+<body class="room-page">
+
+<header class="room-bar">
+  <a class="room-bar__brand" href="/">Bünyamin Katkat</a>
+  <div class="lang" role="group" aria-label="Language">
+    <button class="lang__btn" type="button" data-lang="tr" aria-pressed="true">TR</button>
+    <button class="lang__btn" type="button" data-lang="en" aria-pressed="false">EN</button>
+    <button class="lang__btn" type="button" data-lang="ru" aria-pressed="false">RU</button>
+  </div>
+</header>
+
+<main class="room">
+
+  <div class="room__view">
+    <canvas class="stage" aria-label="3D interior"></canvas>
+    <p class="room__hint" data-t="drag">Sürükleyerek çevirin</p>
+  </div>
+
+  <aside class="room__panel">
+    <p class="room__kicker" data-t="kicker">İç mekân · malzeme konfigüratörü</p>
+    <h1 class="room__title" data-t="title">Mekânı müşteri kendi seçsin.</h1>
+    <p class="room__lead" data-t="lead">Render göndermek yerine linki gönderin.</p>
+
+    <section class="opt">
+      <h2 class="opt__h" data-t="floor">Zemin</h2>
+      <div class="opt__row" id="opt-floor"></div>
+    </section>
+
+    <section class="opt">
+      <h2 class="opt__h" data-t="counter">Tezgâh</h2>
+      <div class="opt__row" id="opt-counter"></div>
+    </section>
+
+    <section class="opt">
+      <h2 class="opt__h" data-t="front">Dolap kapağı</h2>
+      <div class="opt__row" id="opt-front"></div>
+    </section>
+
+    <section class="opt">
+      <h2 class="opt__h" data-t="wall">Duvar rengi</h2>
+      <div class="opt__row" id="opt-wall"></div>
+    </section>
+
+    <section class="opt">
+      <h2 class="opt__h" data-t="light">Işık</h2>
+      <div class="opt__row opt__row--chips">
+        <button class="chip" type="button" data-light="day" aria-pressed="true"><span data-t="day">Gündüz</span></button>
+        <button class="chip" type="button" data-light="evening" aria-pressed="false"><span data-t="evening">Akşam</span></button>
+        <button class="chip chip--ghost" type="button" id="reset"><span data-t="reset">Görünümü sıfırla</span></button>
+      </div>
+    </section>
+
+    <section class="opt opt--summary">
+      <h2 class="opt__h" data-t="summary">Seçilenler</h2>
+      <p class="summary" id="summary"></p>
+    </section>
+
+    <p class="room__note" data-t="note"></p>
+    <a class="room__cta" href="/#contact"><span data-t="cta">Bu işi kendi projeniz için isteyin</span></a>
+  </aside>
+
+</main>
+
+<noscript>
+  <p style="padding:2rem;color:#f5f3ef">Bu sayfa gerçek zamanlı 3B kullanıyor; görüntülemek için JavaScript gerekiyor.</p>
+</noscript>
+
+<script type="module" src="./js/ui.js?v=1"></script>
+</body>
+</html>
