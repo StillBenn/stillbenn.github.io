@@ -215,20 +215,20 @@ export function materials() {
       micro:  Object.assign(T(micro,  [4.0, 4.0]), { metalness: 0.0, roughness: 0.78 })
     },
     counter: {
-      marble:  Object.assign(T(marble,  [3.2, 1.1]), { metalness: 0.0,  roughness: 0.14 }),
-      granite: Object.assign(T(granite, [3.2, 1.1]), { metalness: 0.05, roughness: 0.22 }),
-      oak:     Object.assign(T(oak,     [2.6, 0.9]), { metalness: 0.0,  roughness: 0.52 }),
-      compact: Object.assign(T(micro,   [3.0, 1.0]), { metalness: 0.0,  roughness: 0.46, color: 0x4a4a4e })
+      marble:  Object.assign(T(marble,  [1.7, 0.75]), { metalness: 0.0,  roughness: 0.14 }),
+      granite: Object.assign(T(granite, [1.7, 0.75]), { metalness: 0.05, roughness: 0.22 }),
+      oak:     Object.assign(T(oak,     [1.9, 0.7]), { metalness: 0.0,  roughness: 0.52 }),
+      compact: Object.assign(T(micro,   [2.0, 0.8]), { metalness: 0.0,  roughness: 0.46, color: 0x4a4a4e })
     },
     /* The splashback needs its OWN texture instances, not just its own
        material: a texture's repeat lives on the texture, so sharing the
        worktop's maps would stretch the same veins up the wall and the eye
        reads that immediately as wallpaper. */
     splash: {
-      marble:  Object.assign(T(marble,  [3.2, 0.55]), { metalness: 0.0,  roughness: 0.16 }),
-      granite: Object.assign(T(granite, [3.2, 0.55]), { metalness: 0.05, roughness: 0.24 }),
-      oak:     Object.assign(T(oak,     [2.6, 0.45]), { metalness: 0.0,  roughness: 0.54 }),
-      compact: Object.assign(T(micro,   [3.0, 0.5]),  { metalness: 0.0,  roughness: 0.48, color: 0x4a4a4e })
+      marble:  Object.assign(T(marble,  [1.5, 0.42]), { metalness: 0.0,  roughness: 0.16 }),
+      granite: Object.assign(T(granite, [1.5, 0.42]), { metalness: 0.05, roughness: 0.24 }),
+      oak:     Object.assign(T(oak,     [1.6, 0.36]), { metalness: 0.0,  roughness: 0.54 }),
+      compact: Object.assign(T(micro,   [1.8, 0.40]),  { metalness: 0.0,  roughness: 0.48, color: 0x4a4a4e })
     },
     front: {
       lakeWhite:   { color: 0xf2f0ec, metalness: 0.02, roughness: 0.10, clearcoat: 1.00 },

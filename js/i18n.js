@@ -51,19 +51,24 @@
       "Every project below is live. Open it, rotate it, break it — that is the point.":
         "Aşağıdaki her proje canlı. Açın, döndürün, zorlayın — amaç tam olarak bu.",
 
-      "02 — Interactive site": "02 — İnteraktif site",
+      "03 — Interactive site": "02 — İnteraktif site",
       "A cafe site where the product is the interface. One 3D cup is driven by both the page scroll and a live configurator — size, colour, sleeve and lid, with the price following along. Drag to turn it.":
         "Ürünün kendisinin arayüz olduğu bir kafe sitesi. Tek bir 3B bardağı hem sayfa kaydırması hem canlı yapılandırıcı sürüyor — ölçü, renk, kolluk ve kapak; fiyat da anında güncelleniyor. Sürükleyerek döndürebilirsiniz.",
+      "02 — Interior configurator": "02 — İç mekân yapılandırıcı",
+      "Interior materials": "İç mekân malzemeleri",
+      "A room the client changes while standing in it: floor, worktop, cabinet fronts and wall colour, with a daylight-to-evening switch. Every material is generated in code, so nothing is downloaded and it opens on a phone.":
+        "Müşterinin içinde dururken değiştirdiği bir oda: zemin, tezgâh, dolap kapağı ve duvar rengi; gündüzden akşama geçen ışık. Bütün malzemeler kodla üretiliyor, hiçbir şey indirilmiyor ve telefonda açılıyor.",
+
       "01 — Product configurator": "01 — Ürün yapılandırıcı",
       "Armchair configurator": "Koltuk yapılandırıcı",
       "A real-time 3D configurator: six fabrics, four frame finishes, two sizes, with the price and lead time recalculating as the customer builds the product. Runs in the browser, no plugin, works on a phone.":
         "Gerçek zamanlı 3B yapılandırıcı: altı kumaş, dört gövde kaplaması, iki ölçü; müşteri ürünü kurdukça fiyat ve teslim süresi anında güncelleniyor. Tarayıcıda çalışır, eklenti istemez, telefonda da açılır.",
 
-      "03 — Corporate site": "03 — Kurumsal site",
+      "04 — Corporate site": "03 — Kurumsal site",
       "A corporate site for a fictional holding working across retail, construction and energy. Three languages from a single set of pages, a 3D building model on the construction section, and a design system built on tokens rather than one-off values.":
         "Market, inşaat ve enerji alanlarında çalışan kurgusal bir holding için kurumsal site. Tek sayfa takımından üç dil, inşaat bölümünde 3B bina modeli ve tek seferlik değerler yerine token'lara dayanan bir tasarım sistemi.",
 
-      "04 — Automation": "04 — Otomasyon",
+      "05 — Automation": "04 — Otomasyon",
       "Furniture shop order bot": "Mobilya mağazası sipariş botu",
       "A Telegram bot that carries a catalog, a cart and a five-step checkout, with an admin panel and Excel export behind it. Built so an order can never be silently lost — every step is validated and persisted.":
         "Katalog, sepet ve beş adımlı sipariş akışı taşıyan; arkasında yönetici paneli ve Excel dışa aktarımı olan bir Telegram botu. Hiçbir sipariş sessizce kaybolmasın diye kuruldu — her adım doğrulanır ve kaydedilir.",
@@ -118,6 +123,8 @@
       /* alt text */
       "3D armchair configurator rendered in sand fabric on an oak frame":
         "Meşe gövde üzerinde kum rengi kumaşla render alınmış 3B koltuk yapılandırıcı",
+      "A kitchen interior configured in the browser: marble worktop, gloss fronts, oak floor":
+        "Tarayıcıda yapılandırılan bir mutfak iç mekânı: mermer tezgâh, lake kapaklar, meşe zemin",
       "Tarven Group corporate website home page": "Tarven Group kurumsal web sitesi ana sayfası",
       "Telegram order bot interface showing a furniture catalog":
         "Mobilya kataloğunu gösteren Telegram sipariş botu arayüzü",
@@ -155,19 +162,24 @@
       "Every project below is live. Open it, rotate it, break it — that is the point.":
         "Каждый проект ниже — живой. Откройте, покрутите, попробуйте сломать: в этом и смысл.",
 
-      "02 — Interactive site": "02 — Интерактивный сайт",
+      "03 — Interactive site": "02 — Интерактивный сайт",
       "A cafe site where the product is the interface. One 3D cup is driven by both the page scroll and a live configurator — size, colour, sleeve and lid, with the price following along. Drag to turn it.":
         "Сайт кофейни, где интерфейсом служит сам товар. Один 3D-стакан ведут и прокрутка страницы, и живой конфигуратор — размер, цвет, держатель и крышка, а цена меняется следом. Стакан можно крутить мышью.",
+      "02 — Interior configurator": "02 — Конфигуратор интерьера",
+      "Interior materials": "Материалы интерьера",
+      "A room the client changes while standing in it: floor, worktop, cabinet fronts and wall colour, with a daylight-to-evening switch. Every material is generated in code, so nothing is downloaded and it opens on a phone.":
+        "Комната, которую клиент меняет, находясь внутри: пол, столешница, фасады и цвет стен, плюс переключение дневного и вечернего света. Все материалы генерируются кодом — ничего не скачивается, открывается с телефона.",
+
       "01 — Product configurator": "01 — Конфигуратор товара",
       "Armchair configurator": "Конфигуратор кресла",
       "A real-time 3D configurator: six fabrics, four frame finishes, two sizes, with the price and lead time recalculating as the customer builds the product. Runs in the browser, no plugin, works on a phone.":
         "3D-конфигуратор в реальном времени: шесть тканей, четыре отделки каркаса, два размера, а цена и срок пересчитываются прямо по ходу сборки. Работает в браузере, без плагинов, в том числе на телефоне.",
 
-      "03 — Corporate site": "03 — Корпоративный сайт",
+      "04 — Corporate site": "03 — Корпоративный сайт",
       "A corporate site for a fictional holding working across retail, construction and energy. Three languages from a single set of pages, a 3D building model on the construction section, and a design system built on tokens rather than one-off values.":
         "Корпоративный сайт вымышленного холдинга, работающего в ритейле, строительстве и энергетике. Три языка на одном наборе страниц, 3D-модель здания в разделе строительства и дизайн-система на токенах вместо разовых значений.",
 
-      "04 — Automation": "04 — Автоматизация",
+      "05 — Automation": "04 — Автоматизация",
       "Furniture shop order bot": "Бот заказов мебельного магазина",
       "A Telegram bot that carries a catalog, a cart and a five-step checkout, with an admin panel and Excel export behind it. Built so an order can never be silently lost — every step is validated and persisted.":
         "Telegram-бот с каталогом, корзиной и оформлением заказа в пять шагов, с админ-панелью и выгрузкой в Excel. Сделан так, чтобы заказ не терялся молча: каждый шаг проверяется и сохраняется.",
@@ -220,6 +232,8 @@
       /* alt text */
       "3D armchair configurator rendered in sand fabric on an oak frame":
         "3D-конфигуратор кресла: песочная ткань на дубовом каркасе",
+      "A kitchen interior configured in the browser: marble worktop, gloss fronts, oak floor":
+        "Кухонный интерьер, собранный в браузере: мраморная столешница, глянцевые фасады, дубовый пол",
       "Tarven Group corporate website home page": "Главная страница корпоративного сайта Tarven Group",
       "Telegram order bot interface showing a furniture catalog":
         "Интерфейс Telegram-бота заказов с каталогом мебели",

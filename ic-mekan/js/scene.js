@@ -41,7 +41,7 @@ export function createRoom(canvas) {
 
   const scene = new THREE.Scene();
   const camera = new THREE.PerspectiveCamera(42, 1, 0.1, 60);
-  const target = new THREE.Vector3(-0.15, 0.95, -1.10);
+  const target = new THREE.Vector3(-0.15, 1.02, -1.10);
 
   const M = materials();
   const roles = { floor: null, counter: [], splash: [], front: [], wall: [], shade: [] };
@@ -255,7 +255,7 @@ export function createRoom(canvas) {
   scene.add(fill);
 
   /* ------------------------------------------------------------- controls */
-  let dist = 4.2, azim = 0.74, polar = 1.40;
+  let dist = 4.2, azim = 0.74, polar = 1.43;
   const AZ_MIN = -0.25, AZ_MAX = 1.32;
   const PO_MIN = 1.06, PO_MAX = 1.62;
   let needs = true;
