@@ -49,7 +49,7 @@ export function createRoom(canvas) {
 
   const scene = new THREE.Scene();
   const camera = new THREE.PerspectiveCamera(44, 1, 0.08, 80);
-  const target = new THREE.Vector3(0.15, 1.02, -0.75);
+  const target = new THREE.Vector3(0.15, 0.98, -0.55);
 
   const M = materials();
   const roles = { floor: [], counter: [], splash: [], front: [], wall: [], shade: [] };
@@ -259,7 +259,7 @@ export function createRoom(canvas) {
 
   /* ----------------------------------------------------------------- island */
   const isW = 2.5, isD = 0.98, isH = 0.9;
-  const isX = 0.25, isZ = 0.15;
+  const isX = 0.25, isZ = 0.55;
 
   const isKick = new THREE.Mesh(new THREE.BoxGeometry(isW - 0.12, toe, isD - 0.12), carcass);
   isKick.position.set(isX, toe / 2, isZ);
@@ -388,7 +388,7 @@ export function createRoom(canvas) {
   const AZ = [-0.10, 1.45], PO = [1.06, 1.52], DIST = [2.6, 6.4];
   const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
 
-  let azT = 0.72, poT = 1.33, dT = 5.0;
+  let azT = 0.72, poT = 1.26, dT = 5.3;
   let az = azT, po = poT, dist = dT;
   let needs = true;
 
@@ -515,6 +515,6 @@ export function createRoom(canvas) {
     setFront(key) { roles.front.forEach(m => applyMaterial(m, M.front[key])); needs = true; },
     setWall(hex) { wallTarget.set(hex); needs = true; },
     setEvening(on) { eveningT = on ? 1 : 0; needs = true; },
-    resetView() { azT = 0.72; poT = 1.33; dT = 5.0; needs = true; }
+    resetView() { azT = 0.72; poT = 1.26; dT = 5.3; needs = true; }
   };
 }

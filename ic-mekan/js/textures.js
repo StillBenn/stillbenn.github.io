@@ -24,21 +24,27 @@ function hash(x, y, seed) {
 }
 const smooth = t => t * t * (3 - 2 * t);
 
-function noise2(x, y, seed) {
+/* `per` makes the lattice wrap, which makes the texture SEAMLESS. Without it
+   a stone slab shows a hard straight line wherever the UVs wrap — on the
+   island worktop that line read as two mismatched slabs lying on top of each
+   other, which is exactly the kind of detail that makes a render look fake. */
+function noise2(x, y, seed, per) {
   const xi = Math.floor(x), yi = Math.floor(y);
   const xf = x - xi, yf = y - yi;
   const u = smooth(xf), v = smooth(yf);
-  const a = hash(xi, yi, seed),     b = hash(xi + 1, yi, seed);
-  const c = hash(xi, yi + 1, seed), d = hash(xi + 1, yi + 1, seed);
+  const w = n => per ? ((n % per) + per) % per : n;
+  const x0 = w(xi), x1 = w(xi + 1), y0 = w(yi), y1 = w(yi + 1);
+  const a = hash(x0, y0, seed), b = hash(x1, y0, seed);
+  const c = hash(x0, y1, seed), d = hash(x1, y1, seed);
   return (a * (1 - u) + b * u) * (1 - v) + (c * (1 - u) + d * u) * v;
 }
 
 /* Layered noise — one octave looks like blur, four looks like a material. */
-function fbm(x, y, seed, octaves) {
+function fbm(x, y, seed, octaves, per) {
   let sum = 0, amp = 0.5, freq = 1;
   const n = octaves || 4;
   for (let i = 0; i < n; i++) {
-    sum += noise2(x * freq, y * freq, seed + i * 17) * amp;
+    sum += noise2(x * freq, y * freq, seed + i * 17, per ? per * freq : 0) * amp;
     amp *= 0.5; freq *= 2;
   }
   return sum;
@@ -136,9 +142,11 @@ function stone(base, vein, opts) {
   for (let y = 0; y < S; y++) {
     for (let x = 0; x < S; x++) {
       const u = (x / S) * scale, v = (y / S) * scale;
-      /* Warp the field so veins run diagonally instead of on a grid. */
-      const w = fbm(u * 0.7 + 4, v * 0.7, 91, 3);
-      const n = fbm(u + w * 1.6, v * 2.4 + w * 2.2, 13, 5);
+      /* Warp the field so veins run diagonally instead of on a grid. Both
+         fields wrap on the same integer period, so warping keeps the result
+         seamless: n(u + w(u)) is periodic when n and w are. */
+      const w = fbm(u + 4, v, 91, 3, scale);
+      const n = fbm(u + w * 1.6, v * 2 + w * 2.2, 13, 5, scale);
       let t = Math.pow(1 - Math.abs(n * 2 - 1), sharp);
       if (grain) t = Math.max(t, hash(x, y, 3) * grain);
       const i = (y * S + x) * 4;
@@ -169,7 +177,7 @@ function cement(base, opts) {
 
   for (let y = 0; y < S; y++) {
     for (let x = 0; x < S; x++) {
-      const n = fbm((x / S) * 7, (y / S) * 7, 57, 4) - 0.5;
+      const n = fbm((x / S) * 6, (y / S) * 6, 57, 4, 6) - 0.5;
       const fine = (hash(x, y, 9) - 0.5) * 0.35;
       const d = (n + fine) * strength;
       const i = (y * S + x) * 4;
@@ -238,8 +246,8 @@ export function materials() {
 
   const oak     = wood([196, 158, 112], [104, 68, 36], { rows: 7 });
   const walnut  = wood([116, 76, 50], [48, 26, 14], { rows: 7, roughLo: 128, roughHi: 186 });
-  const marble  = stone([238, 236, 232], [150, 152, 156], { scale: 2.4, sharp: 7, roughBase: 26, roughVein: 60 });
-  const granite = stone([38, 38, 41], [128, 128, 134], { scale: 6.0, sharp: 3, grain: 0.22, roughBase: 34, roughVein: 66 });
+  const marble  = stone([238, 236, 232], [150, 152, 156], { scale: 4, sharp: 7, roughBase: 26, roughVein: 60 });
+  const granite = stone([38, 38, 41], [128, 128, 134], { scale: 6, sharp: 3, grain: 0.22, roughBase: 34, roughVein: 66 });
   const micro   = cement([172, 168, 162], { strength: 20, rough: 208 });
   const plaster = cement([236, 232, 226], { strength: 10, rough: 224 });
 
@@ -261,25 +269,25 @@ export function materials() {
       micro:  Object.assign(T(micro,  [4.0, 4.0]), { metalness: 0.0, roughness: 0.78 })
     },
     counter: {
-      marble:  Object.assign(T(marble,  [1.7, 0.75]), { metalness: 0.0,  roughness: 0.14 }),
-      granite: Object.assign(T(granite, [1.7, 0.75]), { metalness: 0.05, roughness: 0.22 }),
-      oak:     Object.assign(T(oak,     [1.9, 0.7]), { metalness: 0.0,  roughness: 0.52 }),
-      compact: Object.assign(T(micro,   [2.0, 0.8]), { metalness: 0.0,  roughness: 0.46, color: 0x4a4a4e })
+      marble:  Object.assign(T(marble,  [0.40, 0.40]), { metalness: 0.0,  roughness: 0.14 }),
+      granite: Object.assign(T(granite, [0.46, 0.46]), { metalness: 0.05, roughness: 0.22 }),
+      oak:     Object.assign(T(oak,     [0.55, 0.55]), { metalness: 0.0,  roughness: 0.52 }),
+      compact: Object.assign(T(micro,   [0.60, 0.60]), { metalness: 0.0,  roughness: 0.46, color: 0x4a4a4e })
     },
     /* The splashback needs its OWN texture instances, not just its own
        material: a texture's repeat lives on the texture, so sharing the
        worktop's maps would stretch the same veins up the wall and the eye
        reads that immediately as wallpaper. */
     splash: {
-      marble:  Object.assign(T(marble,  [1.5, 0.42]), { metalness: 0.0,  roughness: 0.16 }),
-      granite: Object.assign(T(granite, [1.5, 0.42]), { metalness: 0.05, roughness: 0.24 }),
-      oak:     Object.assign(T(oak,     [1.6, 0.36]), { metalness: 0.0,  roughness: 0.54 }),
-      compact: Object.assign(T(micro,   [1.8, 0.40]),  { metalness: 0.0,  roughness: 0.48, color: 0x4a4a4e })
+      marble:  Object.assign(T(marble,  [0.40, 0.40]), { metalness: 0.0,  roughness: 0.16 }),
+      granite: Object.assign(T(granite, [0.46, 0.46]), { metalness: 0.05, roughness: 0.24 }),
+      oak:     Object.assign(T(oak,     [0.55, 0.55]), { metalness: 0.0,  roughness: 0.54 }),
+      compact: Object.assign(T(micro,   [0.60, 0.60]),  { metalness: 0.0,  roughness: 0.48, color: 0x4a4a4e })
     },
     front: {
       lakeWhite:   { color: 0xf2f0ec, metalness: 0.02, roughness: 0.10, clearcoat: 1.00 },
       lakeAnthra:  { color: 0x34363a, metalness: 0.04, roughness: 0.12, clearcoat: 1.00 },
-      membraneWal: Object.assign(T(walnut, [0.9, 0.9]), { metalness: 0.0, roughness: 0.58, clearcoat: 0.0 }),
+      membraneWal: Object.assign(T(walnut, [0.85, 0.85]), { metalness: 0.0, roughness: 0.58, clearcoat: 0.0 }),
       acrylicGrey: { color: 0x8d9096, metalness: 0.10, roughness: 0.18, clearcoat: 0.60 }
     },
     plaster: T(plaster, [2.0, 2.0])

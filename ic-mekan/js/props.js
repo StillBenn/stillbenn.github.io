@@ -40,6 +40,20 @@ export function panel(w, h, t, r, axis) {
     curveSegments: 6
   });
   g.translate(0, 0, -(t - bev * 2) / 2);
+
+  /* ExtrudeGeometry writes UVs in the shape's own coordinates, not 0..1 like
+     a PlaneGeometry. Swapping BoxGeometry for this profile silently changed
+     the texture scale and marble started tiling visibly across the worktop.
+     UVs are rewritten in METRES, so a texture's `repeat` means "tiles per
+     metre" on every panel regardless of its size, and the aspect ratio of
+     the stone never stretches. */
+  const pos = g.attributes.position;
+  const uv = g.attributes.uv;
+  for (let i = 0; i < pos.count; i++) {
+    uv.setXY(i, pos.getX(i), pos.getY(i));
+  }
+  uv.needsUpdate = true;
+
   if (axis === "y") g.rotateX(-Math.PI / 2);
   g.computeVertexNormals();
   return g;
