@@ -187,6 +187,47 @@ function cement(base, opts) {
   return { color: col.c, rough: rgh.c };
 }
 
+
+/* --- Normal maps -----------------------------------------------------------
+   A roughness map tells light how sharply to scatter; it cannot tell light
+   which way the surface is tilted. Without a normal map, wood grain and
+   plaster are perfectly flat planes with a pattern painted on — which is
+   precisely the "printed sticker" look that makes a 3D room read as cheap.
+
+   The height field is the colour's own luminance: grain is darker than the
+   board, a plaster dimple is darker than its surround. Sobel over that gives
+   a believable surface without authoring a second texture by hand. */
+function normalFrom(canvas, strength) {
+  const S = canvas.width;
+  const src = canvas.getContext("2d").getImageData(0, 0, S, S).data;
+  const out = makeCanvas(S);
+  const img = out.ctx.createImageData(S, S);
+  const k = strength == null ? 2.0 : strength;
+  const L = (x, y) => {
+    const xi = (x + S) % S, yi = (y + S) % S;
+    const i = (yi * S + xi) * 4;
+    return (src[i] * 0.299 + src[i + 1] * 0.587 + src[i + 2] * 0.114) / 255;
+  };
+  for (let y = 0; y < S; y++) {
+    for (let x = 0; x < S; x++) {
+      const dx = (L(x - 1, y - 1) + 2 * L(x - 1, y) + L(x - 1, y + 1))
+               - (L(x + 1, y - 1) + 2 * L(x + 1, y) + L(x + 1, y + 1));
+      const dy = (L(x - 1, y - 1) + 2 * L(x, y - 1) + L(x + 1, y - 1))
+               - (L(x - 1, y + 1) + 2 * L(x, y + 1) + L(x + 1, y + 1));
+      let nx = dx * k, ny = dy * k, nz = 1;
+      const len = Math.hypot(nx, ny, nz);
+      nx /= len; ny /= len; nz /= len;
+      const i = (y * S + x) * 4;
+      img.data[i]     = (nx * 0.5 + 0.5) * 255;
+      img.data[i + 1] = (ny * 0.5 + 0.5) * 255;
+      img.data[i + 2] = (nz * 0.5 + 0.5) * 255;
+      img.data[i + 3] = 255;
+    }
+  }
+  out.ctx.putImageData(img, 0, 0);
+  return out.c;
+}
+
 /* --- Catalogue ------------------------------------------------------------
    Deliberately the vocabulary a Turkish kitchen or interior firm already uses
    with its own customers: lake, membran, akrilik, kompakt lamine. */
@@ -202,10 +243,15 @@ export function materials() {
   const micro   = cement([172, 168, 162], { strength: 20, rough: 208 });
   const plaster = cement([236, 232, 226], { strength: 10, rough: 224 });
 
-  const T = (set, rep) => ({
-    map: toTexture(set.color, rep, true),
-    roughnessMap: toTexture(set.rough, rep, false)
-  });
+  const T = (set, rep, nStrength) => {
+    set.normal = set.normal || normalFrom(set.color, nStrength);
+    return {
+      map: toTexture(set.color, rep, true),
+      roughnessMap: toTexture(set.rough, rep, false),
+      normalMap: toTexture(set.normal, rep, false),
+      normalScale: nStrength == null ? 0.6 : Math.min(1.0, nStrength * 0.32)
+    };
+  };
 
   cache = {
     floor: {
