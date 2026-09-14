@@ -47,12 +47,15 @@ export function buildEnvironment(renderer, opts) {
   const walls = new THREE.Color(0xe8e2d8).lerp(new THREE.Color(0x6a5540), evening);
   const floor = new THREE.Color(0xc9a97e).lerp(new THREE.Color(0x4a3626), evening);
 
-  panel(env, 20, 0.1, 20, 0, 9, 0, roof, evening ? 0.45 : 1.15);    // ceiling
-  panel(env, 20, 0.1, 20, 0, -9, 0, floor, evening ? 0.10 : 0.38);  // floor bounce
+  /* Aksamda tavan parlakligi dusuk tutulmali. Yuksek birakinca butun oda
+     esit aydinlaniyor, sarkitlarin altinda isik havuzu olusmuyor ve gece
+     "isiklari yanmis gunduz" gibi okunuyor - dramanin oldugu yer bu. */
+  panel(env, 20, 0.1, 20, 0, 9, 0, roof, evening ? 0.15 : 1.15);    // ceiling
+  panel(env, 20, 0.1, 20, 0, -9, 0, floor, evening ? 0.06 : 0.38);  // floor bounce
   panel(env, 0.1, 20, 20, -10, 0, 0, sky, evening ? 0.12 : 1.9);    // window side
-  panel(env, 0.1, 20, 20, 10, 0, 0, walls, evening ? 0.10 : 0.45);
-  panel(env, 20, 20, 0.1, 0, 0, -10, walls, evening ? 0.10 : 0.42);
-  panel(env, 20, 20, 0.1, 0, 0, 10, walls, evening ? 0.10 : 0.50);
+  panel(env, 0.1, 20, 20, 10, 0, 0, walls, evening ? 0.06 : 0.45);
+  panel(env, 20, 20, 0.1, 0, 0, -10, walls, evening ? 0.06 : 0.42);
+  panel(env, 20, 20, 0.1, 0, 0, 10, walls, evening ? 0.07 : 0.50);
 
   /* One bright slab standing in for the window itself. A single strong
      source is what gives gloss fronts a readable highlight instead of an
@@ -62,7 +65,7 @@ export function buildEnvironment(renderer, opts) {
   if (evening > 0.05) {
     /* Warm pools where the pendants are, so metal and gloss pick up the
        lamps rather than reflecting a uniform brown. */
-    panel(env, 3.2, 0.1, 3.2, 0, 3.0, 1.5, new THREE.Color(0xffb774), 3.4 * evening);
+    panel(env, 3.2, 0.1, 3.2, 0, 3.0, 1.5, new THREE.Color(0xffb774), 4.4 * evening);
   }
 
   const pmrem = new THREE.PMREMGenerator(renderer);

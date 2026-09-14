@@ -386,7 +386,9 @@ export function createRoom(canvas) {
     side: THREE.DoubleSide
   });
   roles.shade.push(shadeMat);
-  const glowMat = new THREE.MeshBasicMaterial({ color: 0xffd9a6, toneMapped: false });
+  /* toneMapped:false, rengi ne olursa olsun ekrana saf beyaz basiyordu.
+     Ton eslemesine dahil edilince ampul sicak kaliyor ve patlamiyor. */
+  const glowMat = new THREE.MeshBasicMaterial({ color: 0xffc07a });
   const pendants = [];
   [-0.62, 0.62].forEach(dx => {
     const x = isX + dx;
@@ -413,13 +415,17 @@ export function createRoom(canvas) {
     liner.position.copy(shade.position);
     scene.add(liner);
 
-    const glow = new THREE.Mesh(new THREE.CircleGeometry(0.16, 32), glowMat);
+    const glow = new THREE.Mesh(new THREE.CircleGeometry(0.135, 32), glowMat);
     glow.position.set(x, H - 0.965, isZ + 0.16);
     glow.rotation.x = -Math.PI / 2;
     glow.visible = false;
     scene.add(glow);
 
-    const bulb = new THREE.PointLight(0xffb877, 0, 5.5, 2);
+    /* Menzil kisa tutuldu. 5,5 m'lik bir nokta isik adadan 3 m oteye,
+       duvar dolaplarina kadar ulasiyor ve parlak lake yuzeyde kucuk ama cok
+       parlak bir leke biraktiriyordu: ekranda dolaba yapismis isik topu gibi
+       goruluyordu. Sarkitin isigi masa boyunu aydinlatmali, mutfagi degil. */
+    const bulb = new THREE.PointLight(0xffb877, 0, 2.2, 2);
     bulb.position.set(x, H - 1.0, isZ + 0.16);
     scene.add(bulb);
     pendants.push({ bulb: bulb, glow: glow });
@@ -442,6 +448,12 @@ export function createRoom(canvas) {
   const bounce = new THREE.DirectionalLight(0xffffff, 0.22);
   bounce.position.set(4, 2.2, 5);
   scene.add(bounce);
+
+  /* Aksam dolgusu. HemisphereLight yalnizca dagilimli katki verir, parlak
+     yuzeyde leke uretmez; odayi kaldirmak icin nokta isigi zorlamak yerine
+     bunu kullanmak, lekelerin asil caresi. */
+  const warmFill = new THREE.HemisphereLight(0xffd2a0, 0x241a12, 0);
+  scene.add(warmFill);
 
   /* ---------------------------------------------------------------- orbit */
   /* A deliberately NARROW band. Every angle inside it is a photograph an
@@ -545,12 +557,13 @@ export function createRoom(canvas) {
       evening += (eveningT - evening) * (reduced ? 1 : 0.075);
       sun.intensity = 2.1 * (1 - evening) + 0.03;
       bounce.intensity = 0.22 * (1 - evening) + 0.02;
+      warmFill.intensity = 0.20 * evening;
       skyMat.color.lerpColors(SKY_DAY, SKY_NIGHT, evening);
       pendants.forEach(p => {
-        p.bulb.intensity = 5.2 * evening;
+        p.bulb.intensity = 3.4 * evening;
         p.glow.visible = evening > 0.15;
       });
-      roles.shade[0].emissiveIntensity = 1.3 * evening;
+      roles.shade[0].emissiveIntensity = 0.42 * evening;
       renderer.toneMappingExposure = 1.05 + evening * 0.06;
       const wantNight = evening > 0.5;
       if (wantNight !== envIsNight) {
