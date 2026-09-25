@@ -23,7 +23,7 @@
   var DICT = {
     tr: {
       /* head */
-      "Bünyamin Katkat — 3D & Web Developer": "Bünyamin Katkat — 3B ve Web Geliştirici",
+      "Larisel — 3D & Web Studio": "Larisel — 3B ve Web Stüdyosu",
       "I build interactive 3D websites, product configurators and Telegram bots with Three.js, WebGL and Python — running code, not mockups.":
         "Three.js, WebGL ve Python ile interaktif 3B web siteleri, ürün yapılandırıcıları ve Telegram botları geliştiriyorum — maket değil, çalışan kod.",
 
@@ -114,7 +114,7 @@
         "Fikri birkaç cümleyle yazın. Size dürüstçe söyleyeyim: uygun mu, kabaca ne kadar sürer ve ne kadara mal olur — hiçbir şeye söz vermeden önce.",
 
       /* footer */
-      "Bünyamin Katkat — 3D & Web Developer ": "Bünyamin Katkat — 3B ve Web Geliştirici ",
+      "Larisel — 3D & Web Studio ": "Larisel — 3B ve Web Stüdyosu ",
       "Built with Three.js, by hand.": "Three.js ile, elle yazıldı.",
       /* WhatsApp and Telegram are brand names and stay as they are in every
          language; only the generic label needs translating. */
@@ -128,13 +128,13 @@
       "Tarven Group corporate website home page": "Tarven Group kurumsal web sitesi ana sayfası",
       "Telegram order bot interface showing a furniture catalog":
         "Mobilya kataloğunu gösteren Telegram sipariş botu arayüzü",
-      "Bünyamin Katkat — home": "Bünyamin Katkat — ana sayfa",
+      "Larisel — home": "Larisel — ana sayfa",
       "Primary": "Ana menü"
     },
 
     ru: {
       /* head */
-      "Bünyamin Katkat — 3D & Web Developer": "Бюнямин Каткат — 3D и веб-разработчик",
+      "Larisel — 3D & Web Studio": "Larisel — 3D и веб-студия",
       "I build interactive 3D websites, product configurators and Telegram bots with Three.js, WebGL and Python — running code, not mockups.":
         "Создаю интерактивные 3D-сайты, конфигураторы товаров и Telegram-ботов на Three.js, WebGL и Python — работающий код, а не макеты.",
 
@@ -225,7 +225,7 @@
         "Опишите идею в паре предложений. Честно скажу, подходит ли она, сколько примерно займёт и сколько будет стоить, — до того как вы на что-то подпишетесь.",
 
       /* footer */
-      "Bünyamin Katkat — 3D & Web Developer ": "Бюнямин Каткат — 3D и веб-разработчик ",
+      "Larisel — 3D & Web Studio ": "Larisel — 3D и веб-студия ",
       "Built with Three.js, by hand.": "Собрано на Three.js, вручную.",
       "Email": "Почта",
 
@@ -237,7 +237,7 @@
       "Tarven Group corporate website home page": "Главная страница корпоративного сайта Tarven Group",
       "Telegram order bot interface showing a furniture catalog":
         "Интерфейс Telegram-бота заказов с каталогом мебели",
-      "Bünyamin Katkat — home": "Бюнямин Каткат — главная",
+      "Larisel — home": "Larisel — главная",
       "Primary": "Основное меню"
     }
   };
