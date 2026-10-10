@@ -320,9 +320,21 @@
     document.documentElement.setAttribute("lang", lang);
   }
 
+  /* The remembered choice, else the browser's own language when we speak it.
+     The page opts out of browser translation (translate="no"), so without
+     this a Turkish or Russian browser would simply get English. */
+  function browserLang() {
+    var prefs = navigator.languages || [navigator.language || ""];
+    for (var i = 0; i < prefs.length; i++) {
+      var code = String(prefs[i]).slice(0, 2).toLowerCase();
+      if (code === "en") return "en";
+      if (DICT[code]) return code;
+    }
+    return DEFAULT_LANG;
+  }
   function current() {
-    try { return localStorage.getItem(STORE) || DEFAULT_LANG; }
-    catch (e) { return DEFAULT_LANG; }
+    try { return localStorage.getItem(STORE) || browserLang(); }
+    catch (e) { return browserLang(); }
   }
   function remember(lang) {
     try { localStorage.setItem(STORE, lang); } catch (e) { /* private window */ }
