@@ -51,16 +51,16 @@
       "Every project below is live. Open it, rotate it, break it — that is the point.":
         "Aşağıdaki her proje canlı. Açın, döndürün, zorlayın — amaç tam olarak bu.",
 
-      "03 — Interactive site": "03 — İnteraktif site",
+      "01 — Interactive site": "01 — İnteraktif site",
       "Larisel Café": "Larisel Kafe",
       "A café site where the product is the interface: a scroll-driven film from bean to cup, a live 3D cup you design — colour, print, your name — a printed order ticket, ordering from the table by QR with a split bill, and a coffee reading from a photo of your own cup.":
         "Ürünün kendisinin arayüz olduğu bir kafe sitesi: çekirdekten bardağa kaydırmalı bir film, canlı 3B’de tasarlanan bardak (renk, desen, adın), basılı sipariş fişi, QR ile masadan sipariş ve hesap bölme, kendi fincanının fotoğrafından kahve falı.",
-      "02 — Interior configurator": "02 — İç mekân yapılandırıcı",
+      "03 — Interior configurator": "03 — İç mekân yapılandırıcı",
       "Interior materials": "İç mekân malzemeleri",
       "A room the client changes while standing in it: floor, worktop, cabinet fronts and wall colour, with a daylight-to-evening switch. Every material is generated in code, so nothing is downloaded and it opens on a phone.":
         "Müşterinin içinde dururken değiştirdiği bir oda: zemin, tezgâh, dolap kapağı ve duvar rengi; gündüzden akşama geçen ışık. Bütün malzemeler kodla üretiliyor, hiçbir şey indirilmiyor ve telefonda açılıyor.",
 
-      "01 — Product configurator": "01 — Ürün yapılandırıcı",
+      "02 — Product configurator": "02 — Ürün yapılandırıcı",
       "Armchair configurator": "Koltuk yapılandırıcı",
       "A real-time 3D configurator: six fabrics, four frame finishes, two sizes, with the price and lead time recalculating as the customer builds the product. Runs in the browser, no plugin, works on a phone.":
         "Gerçek zamanlı 3B yapılandırıcı: altı kumaş, dört gövde kaplaması, iki ölçü; müşteri ürünü kurdukça fiyat ve teslim süresi anında güncelleniyor. Tarayıcıda çalışır, eklenti istemez, telefonda da açılır.",
@@ -163,16 +163,16 @@
       "Every project below is live. Open it, rotate it, break it — that is the point.":
         "Каждый проект ниже — живой. Откройте, покрутите, попробуйте сломать: в этом и смысл.",
 
-      "03 — Interactive site": "03 — Интерактивный сайт",
+      "01 — Interactive site": "01 — Интерактивный сайт",
       "Larisel Café": "Кафе Larisel",
       "A café site where the product is the interface: a scroll-driven film from bean to cup, a live 3D cup you design — colour, print, your name — a printed order ticket, ordering from the table by QR with a split bill, and a coffee reading from a photo of your own cup.":
         "Сайт кофейни, где продукт и есть интерфейс: фильм от зерна до чашки при прокрутке, живой 3D-стакан, который вы оформляете сами, — цвет, узор, ваше имя, — печатный чек заказа, заказ со стола по QR с разделением счёта и гадание по фото вашей чашки.",
-      "02 — Interior configurator": "02 — Конфигуратор интерьера",
+      "03 — Interior configurator": "03 — Конфигуратор интерьера",
       "Interior materials": "Материалы интерьера",
       "A room the client changes while standing in it: floor, worktop, cabinet fronts and wall colour, with a daylight-to-evening switch. Every material is generated in code, so nothing is downloaded and it opens on a phone.":
         "Комната, которую клиент меняет, находясь внутри: пол, столешница, фасады и цвет стен, плюс переключение дневного и вечернего света. Все материалы генерируются кодом — ничего не скачивается, открывается с телефона.",
 
-      "01 — Product configurator": "01 — Конфигуратор товара",
+      "02 — Product configurator": "02 — Конфигуратор товара",
       "Armchair configurator": "Конфигуратор кресла",
       "A real-time 3D configurator: six fabrics, four frame finishes, two sizes, with the price and lead time recalculating as the customer builds the product. Runs in the browser, no plugin, works on a phone.":
         "3D-конфигуратор в реальном времени: шесть тканей, четыре отделки каркаса, два размера, а цена и срок пересчитываются прямо по ходу сборки. Работает в браузере, без плагинов, в том числе на телефоне.",
