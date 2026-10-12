@@ -42,6 +42,43 @@
     if (scrollY > 12) { html.classList.add("has-scrolled"); removeEventListener("scroll", once); }
   }, { passive: true });
 
+  /* Excerpts: the real sites, recorded. A landscape clip on a wide screen, a
+     phone recording on a tall one; nothing downloads until the reader is a
+     screen away, and a clip only plays while it is on screen. The window
+     settles into place as it arrives (--in, 0..1). */
+  var tall = innerHeight > innerWidth;
+  var excerpts = [].slice.call(document.querySelectorAll(".excerpt"));
+  excerpts.forEach(function (ex) {
+    var v = ex.querySelector("video");
+    if (!v) return;
+    var src = tall ? v.getAttribute("data-tall") : v.getAttribute("data-wide");
+    var poster = tall ? v.getAttribute("data-tall-poster") : v.getAttribute("data-wide-poster");
+    if (poster) v.setAttribute("poster", poster);
+    var nearIO = new IntersectionObserver(function (es) {
+      if (!es[0].isIntersecting) return;
+      nearIO.disconnect();
+      if (src) { v.src = src; v.preload = "auto"; }
+    }, { rootMargin: "100% 0px" });
+    nearIO.observe(ex);
+    new IntersectionObserver(function (es) {
+      if (es[0].isIntersecting) { var p = v.play(); if (p && p.catch) p.catch(function () {}); }
+      else v.pause();
+    }, { threshold: 0.3 }).observe(v);
+  });
+  var reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  function settle() {
+    var vh = innerHeight;
+    for (var i = 0; i < excerpts.length; i++) {
+      var r = excerpts[i].getBoundingClientRect();
+      var k = reduced ? 1 : Math.min(1, Math.max(0, (vh - r.top) / (vh * 0.75)));
+      k = 1 - Math.pow(1 - k, 3);
+      excerpts[i].style.setProperty("--in", k.toFixed(3));
+    }
+  }
+  addEventListener("scroll", settle, { passive: true });
+  addEventListener("resize", settle);
+  settle();
+
   /* the header gets its own ground only over the page, never over the film */
   var hdr = document.querySelector(".hdr");
   function stuck() {

@@ -182,8 +182,9 @@ function boot() {
     if (!running && !asleep) render();
   }
   let still = !!window.__filmStill;
-  addEventListener("film:layout", (e) => { film = e.detail; aspect = film.aspect || aspect; readScroll(); start(); });
-  addEventListener("film:still", () => { still = true; readScroll(); render(); });
+  /* the café chapter is the end of the first film ("main"); the page has others */
+  addEventListener("film:layout", (e) => { if ((e.detail.id || "main") !== "main") return; film = e.detail; aspect = film.aspect || aspect; readScroll(); start(); });
+  addEventListener("film:still", (e) => { if (e.detail && e.detail.id && e.detail.id !== "main") return; still = true; readScroll(); render(); });
   addEventListener("scroll", readScroll, { passive: true });
   addEventListener("resize", () => { layout(); readScroll(); render(); });
   if ("ResizeObserver" in window) new ResizeObserver(() => { layout(); render(); }).observe(canvas);

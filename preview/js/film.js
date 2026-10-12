@@ -7,6 +7,11 @@
    ends), the loader counting real frame downloads, and chapters that live in
    another project (a chapter "dir" may be an absolute path: the café chapter
    is played straight from /cafe-3d/, so the two sites can never drift apart).
+   The page holds SEVERAL films (one per project, data-film="<id>"): only the
+   first owns the loader and the autoplay; the others measure themselves at
+   once (so the page never jumps) and wake their GPU and downloads only when
+   the reader is within a screen and a half of them. The header's colour is
+   decided by whichever film covers the middle of the screen.
 
    A rendered frame sequence drawn by WebGL. Scroll position picks a point on
    the film's timeline; the two frames either side of that point are blended
@@ -386,11 +391,33 @@ class GLRenderer {
 }
 
 /* -------------------------------------------------------------- film */
-export async function mountFilm(root) {
+/* the header follows the film under the middle of the screen (several films set
+   their own mode; the last writer must not win) */
+const MODES = new Map();
+function arbitrate() {
+  const html = document.documentElement, mid = innerHeight / 2;
+  let m = "";
+  for (const [el, mode] of MODES) {
+    const r = el.getBoundingClientRect();
+    if (r.top <= mid && r.bottom >= mid) { m = mode; break; }
+  }
+  if (html.dataset.film !== m) html.dataset.film = m;
+}
+addEventListener("scroll", arbitrate, { passive: true });
+
+/* resolves once el is within `screens` screens of the viewport */
+const near = (el, screens = 1.5) => new Promise((done) => {
+  const io = new IntersectionObserver((es) => { if (es.some((e) => e.isIntersecting)) { io.disconnect(); done(); } },
+    { rootMargin: `${screens * 100}% 0px` });
+  io.observe(el);
+});
+
+export async function mountFilm(root, primary = true) {
+  const id = root.dataset.film || "main";
   const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
   const params = new URLSearchParams(location.search);
   const filmUrl = new URL(root.dataset.manifest, location.href);
-  const intro = window.LRIntro || { progress() {}, done() {} };   /* js/home.js: the loader */
+  const intro = (primary && window.LRIntro) || { progress() {}, done() {} };   /* js/home.js: the loader (first film only) */
   const film = await (await fetch(filmUrl)).json();
   intro.progress(0.15);
   /* the chapter manifests carry film.json's version (?v=): a manifest cached
@@ -454,6 +481,20 @@ export async function mountFilm(root) {
   const AUTO_MS = film.autoplayMs || 4200;
   const vh0 = vhAt(AUTO);
   const totalVh = Math.max(1, vhAt(n - 1) - vh0);
+  const handoff = !!film.handoff;
+  const HOLD_VH = handoff ? film.holdVh || 45 : 0;
+  /* a film shot in daylight (the armchair's studio) is "light": dark type, no
+     dark vignette on its edges, finer grain (film.json tone / vignette / grain) */
+  const TONE = film.tone === "light" ? "light" : "dark";
+  const VIG = typeof film.vignette === "number" ? film.vignette : 0.55;
+  const GRAIN = typeof film.grain === "number" ? film.grain : 0.045;
+  /* a film that turns from day to night (the interior: afternoon to blue hour)
+     flips its type at film.json "toneAt" (a fraction of its frames); a film
+     that ends on a night frame rather than on the cream page says "endTone" */
+  const TONE_AT = typeof film.toneAt === "number" ? film.toneAt : null;
+  const END_TONE = film.endTone === "dark" ? "dark" : "light";
+  let night = false;
+  root.style.height = `${(totalVh + HOLD_VH + 100).toFixed(1)}vh`;
   let tier = hd && chName === "manifest-hd.json" ? "hd" : "lite";
   /* swap every chapter to the light set (same frames, same atlas) */
   async function toLite() {
@@ -489,16 +530,16 @@ export async function mountFilm(root) {
     };
   });
   const html = document.documentElement;
-  const setMode = (m) => { if (html.dataset.film !== m) html.dataset.film = m; };
+  const setMode = (m) => { if (MODES.get(root) !== m) { MODES.set(root, m); arbitrate(); } };
   const still = () => {
     intro.done();
     root.classList.add("is-still");
     root.style.height = "";
     beats.forEach((bt, k) => bt.el.classList.toggle("is-on", k === 0));
-    new IntersectionObserver(([e]) => setMode(e.isIntersecting ? "dark" : "")).observe(root);
+    new IntersectionObserver(([e]) => setMode(e.isIntersecting ? TONE : "")).observe(root);
     /* nothing will hand over: what waits behind the film shows as it is */
-    window.__filmStill = true;
-    window.dispatchEvent(new Event("film:still"));
+    if (primary) window.__filmStill = true;
+    window.dispatchEvent(new CustomEvent("film:still", { detail: { id } }));
   };
 
   if (reduced) { still(); return; }
@@ -518,6 +559,13 @@ export async function mountFilm(root) {
   };
   const store = new FrameStore(n, urlOf, fine ? 32 : mem >= 6 ? 20 : 12, packOf);
   let renderer = null;
+  if (!primary) {
+    /* measured and laid out already; the GPU and the network wait for the reader */
+    const d0 = { start: root.getBoundingClientRect().top + scrollY + (totalVh / 100) * innerHeight, aspect, handoff, id };
+    d0.end = d0.start + (HOLD_VH / 100) * innerHeight;
+    window.dispatchEvent(new CustomEvent("film:layout", { detail: d0 }));
+    await near(root);
+  }
   try { renderer = new GLRenderer(canvas); } catch (e) { still(); return; }
   renderer.frameW = chapters[0].v.w; renderer.frameH = chapters[0].v.h;
 
@@ -576,10 +624,7 @@ export async function mountFilm(root) {
   /* The film is as long as its frames' scroll distances add up to. On the site it is followed by a HOLD: the last frame stays while
      the film fades out over the live WebGL cup drawn behind it in the same
      pose (scene.js reads where that happens from the film:layout event). */
-  const handoff = !!film.handoff;
-  const HOLD_VH = handoff ? film.holdVh || 45 : 0;
   const last = chapters[chapters.length - 1];
-  root.style.height = `${(totalVh + HOLD_VH + 100).toFixed(1)}vh`;
 
   let cw = 0, ch = 0, top = 0, span = 1, holdPx = 0;
   const measure = () => {
@@ -591,8 +636,9 @@ export async function mountFilm(root) {
     top = r.top + scrollY;
     span = Math.max(1, (totalVh / 100) * innerHeight);
     holdPx = (HOLD_VH / 100) * innerHeight;
-    const detail = { start: top + span, end: top + span + holdPx, aspect, handoff };
-    window.__filmLayout = detail;
+    const detail = { start: top + span, end: top + span + holdPx, aspect, handoff, id };
+    if (id === "main") window.__filmLayout = detail;
+    (window.__filmLayouts ||= {})[id] = detail;
     window.dispatchEvent(new CustomEvent("film:layout", { detail }));
   };
   measure();
@@ -670,7 +716,7 @@ export async function mountFilm(root) {
   };
   const INTRO_MS = 1300;
 
-  let curtain = html.classList.contains("is-loading");
+  let curtain = primary && html.classList.contains("is-loading");
   addEventListener("intro:lift", () => { curtain = false; kick(); });
   addEventListener("intro:done", () => { curtain = false; kick(); });
 
@@ -706,7 +752,7 @@ export async function mountFilm(root) {
     const ka = chOf(a), kb = chOf(b);
     const c = chapters[ka];
     const local = (shown - c.first) / Math.max(1, c.count - 1);
-    window.__filmPos = { ch: ka, local };          /* js/sound.js mixes by where the reader is */
+    if (primary) window.__filmPos = { ch: ka, local };          /* js/sound.js mixes by where the reader is */
     wanted = new Set([ka, kb]);
     if (local > 0.5 || (local > 0.25 && renderer.atlases.has(ka + 1))) wanted.add(ka + 1);
     if (local < 0.5 || (local < 0.75 && renderer.atlases.has(ka - 1))) wanted.add(ka - 1);
@@ -760,14 +806,16 @@ export async function mountFilm(root) {
        out over the end of the last chapter, then the film itself fades over
        the live cup during the hold. */
     const endP = handoff && shown >= last.first ? smooth(0.7, 0.96, (shown - last.first) / Math.max(1, last.count - 1)) : 0;
-    if (lo || hiTarget) renderer.draw(atA, a - c.first, atB, b - chapters[kb].first, t, hi, now / 1000, 0.045 * (1 - endP), cw, ch, 0.55 * (1 - endP));
+    if (lo || hiTarget) renderer.draw(atA, a - c.first, atB, b - chapters[kb].first, t, hi, now / 1000, GRAIN * (1 - endP), cw, ch, VIG * (1 - endP));
     if (Math.abs(endP - endShown) > 0.002) { endShown = endP; root.style.setProperty("--film-end", endP.toFixed(3)); }
     const o = handoff ? 1 - smooth(0.1, 0.9, hold) : 1;
     if (Math.abs(o - stageO) > 0.001) { stageO = o; stage.style.opacity = o.toFixed(3); }
     /* the page's header and rail follow what is behind them: the night film,
        the cream end of it, or (once it has ended / mostly scrolled away) the page */
     const past = scrollY - top - span - holdPx;
-    setMode(handoff ? (past >= 0 ? "" : endP < 0.5 ? "dark" : "light") : past > innerHeight * 0.5 ? "" : "dark");
+    const tone = TONE_AT !== null && shown / Math.max(1, n - 1) >= TONE_AT ? "dark" : TONE;
+    if ((tone === "dark" && TONE === "light") !== night) { night = !night; root.classList.toggle("is-night", night); }
+    setMode(handoff ? (past >= 0 ? "" : endP < 0.5 ? tone : END_TONE) : past > innerHeight * 0.5 ? "" : tone);
     if (probe) probe.log.push([now, shown, hi, store.pending.size]);
     /* the opening headline waits for the curtain (js/intro.js) */
     if (!introT0 && !curtain) { introT0 = now; root.classList.add("is-live"); }
@@ -824,5 +872,5 @@ export async function mountFilm(root) {
   kick();
 }
 
-const el = document.querySelector("[data-film]");
-if (el) mountFilm(el);
+/* a chapter still being rendered is marked data-pending: not mounted, not shown */
+document.querySelectorAll("[data-film]:not([data-pending])").forEach((el, i) => mountFilm(el, i === 0));
