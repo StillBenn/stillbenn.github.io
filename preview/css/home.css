@@ -305,6 +305,15 @@ html.has-scrolled .film__hint { opacity: 0; }
   .film--page .film__stage::after { background: linear-gradient(180deg, rgba(244, 239, 229, 0.82) 0%, rgba(244, 239, 229, 0.35) 30%, transparent 48%); }
 }
 .film--page .film__label { color: var(--c-ink-soft); }
+/* film--scrim: a photographic frame (the interior) is busy where the words sit —
+   the page-film veil was too thin to read over it (measured: the title's italic
+   line on the armchair's terracotta) */
+.film--page.film--scrim .film__stage::after {
+  background: linear-gradient(90deg, rgba(244, 239, 229, 0.94) 0%, rgba(244, 239, 229, 0.84) 27%, rgba(244, 239, 229, 0.42) 45%, transparent 61%);
+}
+@media (orientation: portrait) {
+  .film--page.film--scrim .film__stage::after { background: linear-gradient(180deg, rgba(244, 239, 229, 0.94) 0%, rgba(244, 239, 229, 0.8) 27%, rgba(244, 239, 229, 0.35) 44%, transparent 56%); }
+}
 /* film--low: the subject fills the middle of the tall frames (the armchair),
    so on a phone the words sit on the floor below it, not over it */
 @media (orientation: portrait) {

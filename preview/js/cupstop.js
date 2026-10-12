@@ -179,6 +179,9 @@ function boot() {
        motion, no WebGL) hands nothing over: the cup is simply there. */
     asleep = exit === 0 || (still ? false : !live || y < film.start - vh * 0.12);
     canvas.style.opacity = asleep ? "0" : exit.toFixed(3);
+    /* asleep, nothing draws: the labels must be cleared here or they stay where
+       the last frame left them (seen hanging over the next section) */
+    if (asleep && hud) hud.style.opacity = "0";
     canvas.classList.toggle("is-interactive", !asleep && hand < 0.05 && exit > 0.5);
     if (was && !asleep) start();
     if (!running && !asleep) render();

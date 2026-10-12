@@ -89,7 +89,10 @@
     var line = hdr.offsetHeight, night = false;
     for (var i = 0; i < nights.length && !night; i++) {
       var r = nights[i].getBoundingClientRect();
-      night = r.height > 0 && r.top <= line && r.bottom > line;
+      /* a night stop's dark plate is behind the header as soon as the stop is on
+         screen (the plate fills the view); a recording, only once it is under it */
+      var reach = nights[i].classList.contains("stop") ? innerHeight * 0.92 : line;
+      night = r.height > 0 && r.top <= reach && r.bottom > line;
     }
     hdr.classList.toggle("is-stuck", !onFilm && scrollY > 10);
     hdr.classList.toggle("is-night", !onFilm && night);

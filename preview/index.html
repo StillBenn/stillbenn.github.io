@@ -25,7 +25,7 @@
 <link rel="preload" href="../fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="./fonts/ibm-plex-mono-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="./film/film.json?v=2" as="fetch" crossorigin>
-<link rel="stylesheet" href="./css/home.css?v=7">
+<link rel="stylesheet" href="./css/home.css?v=8">
 </head>
 
 <body>
@@ -211,7 +211,7 @@
   </section>
 
   <!-- ===== Film 03 — the interior: the room grows round the chair; afternoon to blue hour ===== -->
-  <section class="film film--page" data-film="room" data-pending data-manifest="./film/film-room.json?v=1" aria-label="The interior">
+  <section class="film film--page film--scrim" data-film="room" data-manifest="./film/film-room.json?v=3" aria-label="The interior">
     <div class="film__stage">
       <picture class="film__poster">
         <source media="(orientation: portrait)" srcset="./film/room/end-9x16.webp">
@@ -236,7 +236,7 @@
       </div>
     </div>
   </section>
-  <section class="stop stop--night" data-plate="room" data-pending aria-labelledby="room-title">
+  <section class="stop stop--night" data-plate="room" aria-labelledby="room-title">
     <div class="stop__text">
       <p class="label">03 — Interiors</p>
       <h2 class="stop__title" id="room-title">Larisel Interiors</h2>
@@ -255,15 +255,15 @@
       </div>
     </div>
   </section>
-  <img class="plate" data-for="room" data-pending alt="" aria-hidden="true" data-wide="./film/room/end-16x9.webp" data-tall="./film/room/end-9x16.webp">
-  <div class="plate-shade" data-for="room" data-pending aria-hidden="true"></div>
-  <div class="pins pins--night" data-for="room" data-pending aria-hidden="true">
+  <img class="plate" data-for="room" alt="" aria-hidden="true" data-wide="./film/room/end-16x9.webp" data-tall="./film/room/end-9x16.webp">
+  <div class="plate-shade" data-for="room" aria-hidden="true"></div>
+  <div class="pins pins--night" data-for="room" aria-hidden="true">
     <svg class="pins__lines" preserveAspectRatio="none"></svg>
     <p class="pin" data-at-wide="0.6288,0.238" data-off-wide="-11,-1" data-at-tall="0.8637,0.2668" data-off-tall="-9,-5"><b>Light</b><span>Daylight or evening, one switch.</span></p>
-    <p class="pin" data-at-wide="0.6353,0.6009" data-off-wide="-11,2" data-at-tall="0.8683,0.5891" data-off-tall="-10,3"><b>Worktop</b><span>Marble, granite, oak and more.</span></p>
+    <p class="pin" data-at-wide="0.6353,0.6009" data-off-wide="-11,2" data-at-tall="" data-off-tall=""><b>Worktop</b><span>Marble, granite, oak and more.</span></p>
     <p class="pin" data-at-wide="0.752,0.8" data-off-wide="-7,4.5" data-at-tall="" data-off-tall=""><b>Fronts</b><span>Eight finishes, gloss or matt.</span></p>
   </div>
-  <section class="excerpt excerpt--night" data-excerpt="room" data-pending aria-label="The interior site, recorded">
+  <section class="excerpt excerpt--night" data-excerpt="room" aria-label="The interior site, recorded">
     <div class="excerpt__window">
       <div class="excerpt__bar" aria-hidden="true"><i></i><i></i><i></i><span>larisel.com/ic-mekan</span></div>
       <video class="excerpt__video" muted playsinline loop preload="none" width="1280" height="800"
@@ -422,9 +422,9 @@
 </footer>
 
 <script src="./js/i18n.js?v=3"></script>
-<script src="./js/home.js?v=3" defer></script>
+<script src="./js/home.js?v=4" defer></script>
 <script type="module" src="./js/film.js?v=4"></script>
-<script type="module" src="./js/cupstop.js?v=3"></script>
+<script type="module" src="./js/cupstop.js?v=4"></script>
 <script src="./js/plate.js?v=1" defer></script>
 <script src="./js/chatdemo.js?v=1" defer></script>
 <script src="./js/brief.js?v=1" defer></script>
