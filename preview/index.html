@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en" translate="no" class="is-loading">
+<head>
+<meta charset="utf-8">
+<meta name="google" content="notranslate">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- the next larisel.com, built here until it replaces the page above it -->
+<meta name="robots" content="noindex, nofollow">
+<title>Larisel — Films you scroll, 3D you can turn</title>
+<meta name="description" content="Larisel is a 3D and web studio. We turn products into films you scroll and 3D models you can turn — rendered in Blender, built in three.js, and they open on a phone.">
+<meta name="theme-color" content="#0b0b0f">
+<link rel="icon" href="../favicon.ico?v=2" sizes="32x32">
+<link rel="icon" href="../img/favicon.svg?v=2" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../img/apple-touch-icon.png?v=2">
+<link rel="preload" href="../fonts/newsreader-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="./fonts/ibm-plex-mono-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="./film/film.json?v=1" as="fetch" crossorigin>
+<link rel="stylesheet" href="./css/home.css?v=1">
+</head>
+
+<body>
+<a class="skip-link" href="#work">Skip to the work</a>
+
+<!-- The loader counts the opening's frames as they arrive; it is a curtain,
+     not a splash: it lifts the moment the film can play. -->
+<div class="loader" aria-hidden="true">
+  <span class="loader__mark">LARISEL</span>
+  <span class="loader__bar"><i></i></span>
+  <span class="loader__count">000</span>
+</div>
+
+<header class="hdr">
+  <a class="hdr__brand" href="#top" aria-label="Larisel — home">LARISEL</a>
+  <nav class="hdr__nav" aria-label="Primary">
+    <a class="hdr__link" href="#work">Work</a>
+    <a class="hdr__link" href="#contact" data-optional>Contact</a>
+    <div class="lang" role="group" aria-label="Language">
+      <button class="lang__btn" type="button" data-lang="en" aria-pressed="true">EN</button>
+      <button class="lang__btn" type="button" data-lang="tr" aria-pressed="false">TR</button>
+      <button class="lang__btn" type="button" data-lang="ru" aria-pressed="false">RU</button>
+    </div>
+    <a class="hdr__cta" href="#contact">Start a project</a>
+  </nav>
+</header>
+
+<!-- the live cup: behind the page, woken by the film's hold (js/cupstop.js) -->
+<canvas class="cupstage" aria-hidden="true"></canvas>
+
+<main id="top">
+
+  <!-- ===== The film ======================================================
+       data-ch: the chapter (1 the opening, 2 the café); data-in / data-out:
+       where a headline enters and leaves, as fractions of its chapter. -->
+  <section class="film" data-film data-manifest="./film/film.json?v=1" aria-label="Larisel — the studio's film">
+    <div class="film__stage">
+      <!-- shown only when the film cannot play (reduced motion, no WebGL): the written mark -->
+      <picture class="film__poster">
+        <source media="(orientation: portrait)" srcset="./film/poster-9x16.webp">
+        <img src="./film/poster-16x9.webp" alt="" width="1920" height="1080" decoding="async">
+      </picture>
+      <canvas class="film__canvas" aria-hidden="true"></canvas>
+
+      <div class="film__beat" data-ch="1" data-in="0" data-out="0.7">
+        <p class="film__label">Larisel — 3D &amp; web studio</p>
+        <h1 class="film__title">
+          <span class="film__line"><span>We turn your product</span></span>
+          <span class="film__line"><span>into a film you scroll</span></span>
+          <span class="film__line"><span>and <em>3D you can turn.</em></span></span>
+        </h1>
+        <p class="film__lead">Websites for cafés, furniture and interiors — rendered in Blender, built in three.js, and they open on a phone.</p>
+      </div>
+
+      <div class="film__beat" data-ch="2" data-in="0.03" data-out="0.21">
+        <p class="film__label">01 — Interactive site</p>
+        <h2 class="film__title">
+          <span class="film__line"><span>Larisel Café.</span></span>
+          <span class="film__line"><span><em>A café you order from.</em></span></span>
+        </h2>
+        <p class="film__lead">This chapter is the café's own film, playing from its own site: the coffee is poured, the lid goes on, and the cup becomes the live one below.</p>
+      </div>
+
+      <nav class="film__chapters" aria-label="Film chapters" hidden>
+        <button type="button" data-chapter="0"><span>00 Larisel</span><i></i></button>
+        <button type="button" data-chapter="1"><span>01 Café</span><i></i></button>
+      </nav>
+      <a class="film__skip" href="#work">Skip the film</a>
+      <span class="film__hint" aria-hidden="true">Scroll</span>
+    </div>
+  </section>
+
+  <!-- ===== Stop 01 — the café, live ====================================== -->
+  <section class="stop" id="work" data-stop="cafe" aria-labelledby="cafe-title">
+    <div class="stop__text">
+      <p class="label">01 — Interactive site</p>
+      <h2 class="stop__title" id="cafe-title">Larisel Café</h2>
+      <p class="stop__desc">A café website where the product is the interface: a film from bean to cup that plays as you scroll, a 3D cup the customer designs — colour, print, their name — a printed order ticket, ordering from the table by QR with a split bill, and a coffee reading from a photo of their own cup.</p>
+      <dl class="facts">
+        <div><dt>Film</dt><dd>1,020 frames, rendered in Blender</dd></div>
+        <div><dt>Live 3D</dt><dd>three.js — the cup on this page</dd></div>
+        <div><dt>Ordering</dt><dd>QR table, split bill, ticket</dd></div>
+        <div><dt>Languages</dt><dd>English · Türkçe · Русский</dd></div>
+      </dl>
+      <div class="stop__links">
+        <a class="btn btn--solid" href="/cafe-3d/" target="_blank" rel="noopener">Open the live site</a>
+        <a class="btn btn--line" href="https://github.com/StillBenn/cafe-3d" target="_blank" rel="noopener">Source</a>
+      </div>
+    </div>
+    <p class="stop__hint" aria-hidden="true"><span class="stop__hint-fine">Drag the cup to turn it</span><span class="stop__hint-touch">Swipe sideways on the cup to turn it</span></p>
+  </section>
+
+  <!-- instrument labels pinned to the live cup (positions from js/cupstop.js) -->
+  <div class="pins" aria-hidden="true">
+    <svg class="pins__lines" preserveAspectRatio="none"></svg>
+    <p class="pin" data-pin="lid"><b>Lid</b><span>Six lids — the clear one shows the coffee.</span></p>
+    <p class="pin" data-pin="print"><b>Print</b><span>The customer's name, printed as they type.</span></p>
+    <p class="pin" data-pin="sleeve"><b>Sleeve</b><span>Seven sleeves; the ribs are drawn in code.</span></p>
+    <p class="pin" data-pin="handoff"><b>Handoff</b><span>The film's last frame is this live model.</span></p>
+  </div>
+
+  <!-- ===== What comes next (the prototype ends here) ===================== -->
+  <section class="next" id="next">
+    <div class="next__inner">
+      <p class="label">02 — Product configurator</p>
+      <h2 class="next__title">Larisel Armchair</h2>
+      <p class="next__note">The film's next chapter — fabric, frame and price changing as you build the chair — is in production.</p>
+    </div>
+  </section>
+
+</main>
+
+<footer class="foot" id="contact">
+  <div class="foot__inner">
+    <p class="label">Contact</p>
+    <h2 class="foot__title">Tell us what you want to build.</h2>
+    <p class="foot__lead">Send the idea in a couple of sentences. We answer honestly whether it fits, roughly what it takes and what it would cost — before you commit to anything.</p>
+    <div class="foot__links">
+      <a class="btn btn--solid" href="mailto:studio@larisel.com">studio@larisel.com</a>
+      <a class="btn btn--line" href="https://wa.me/79031689536" target="_blank" rel="noopener">WhatsApp</a>
+      <a class="btn btn--line" href="https://t.me/Still_Benn" target="_blank" rel="noopener">Telegram</a>
+    </div>
+    <p class="foot__base"><span class="foot__word">Larisel</span><span>3D &amp; web studio · Moscow · Türkiye</span></p>
+  </div>
+</footer>
+
+<script src="./js/i18n.js?v=1"></script>
+<script src="./js/home.js?v=1" defer></script>
+<script type="module" src="./js/film.js?v=1"></script>
+<script type="module" src="./js/cupstop.js?v=1"></script>
+</body>
+</html>

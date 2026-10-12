@@ -1,0 +1,11 @@
+{
+  "vhPerFrame": 1.0,
+  "autoplay": 112,
+  "autoplayMs": 4200,
+  "chapters": [
+    { "dir": "open/", "vh": 1.3 },
+    { "dir": "/cafe-3d/film/frames/ch4/", "vh": 1.0 }
+  ],
+  "handoff": true,
+  "holdVh": 45
+}
