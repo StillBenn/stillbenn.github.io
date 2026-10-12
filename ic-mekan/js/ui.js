@@ -11,7 +11,7 @@
    host.
    ========================================================================== */
 
-import { createRoom } from "./scene.js";
+import { createRoom } from "./room.js?v=1";
 
 const FLOORS = [
   { key: "oak",    sw: "linear-gradient(135deg,#c8a074,#a97f52)" },
@@ -40,14 +40,14 @@ const FRONTS = [
   { key: "acrylicGrey", sw: "linear-gradient(135deg,#a0a3a9,#7b7e84)" }
 ];
 const WALLS = [
-  { key: "lime",     hex: 0xefeae2, sw: "#efeae2" },
-  { key: "sand",     hex: 0xded3c2, sw: "#ded3c2" },
-  { key: "cashmere", hex: 0xcfc3ad, sw: "#cfc3ad" },
-  { key: "sage",     hex: 0xa9b5a4, sw: "#a9b5a4" },
-  { key: "olive",    hex: 0x77795f, sw: "#77795f" },
-  { key: "clay",     hex: 0xc08466, sw: "#c08466" },
-  { key: "ink",      hex: 0x3c4657, sw: "#3c4657" },
-  { key: "anthra",   hex: 0x55585c, sw: "#55585c" }
+  { key: "lime",     sw: "#efeae2" },
+  { key: "sand",     sw: "#ded3c2" },
+  { key: "cashmere", sw: "#cfc3ad" },
+  { key: "sage",     sw: "#a9b5a4" },
+  { key: "olive",    sw: "#77795f" },
+  { key: "clay",     sw: "#c08466" },
+  { key: "ink",      sw: "#3c4657" },
+  { key: "anthra",   sw: "#55585c" }
 ];
 
 const DICT = {
@@ -68,7 +68,7 @@ const DICT = {
     w_lime: "Kireç beyazı", w_sand: "Kum", w_cashmere: "Kaşmir", w_sage: "Adaçayı",
     w_olive: "Zeytin", w_clay: "Kil", w_ink: "Gece mavisi", w_anthra: "Antrasit",
     cta: "Bu işi kendi projeniz için isteyin",
-    note: "Bu sahne tarayıcıda gerçek zamanlı çiziliyor — video veya render değil. Sizin projenizde kendi modelinizle çalışır."
+    note: "Her görünüm Blender'da (Cycles) ışığın yolu izlenerek render edildi: gerçek parke, gerçek sıva, pencerede şehir. Her seçim katman katman yerinde değişir. Sizin projenizde kendi modeliniz ve kendi malzemelerinizle çalışır."
   },
   en: {
     kicker: "Interior · material configurator",
@@ -87,7 +87,7 @@ const DICT = {
     w_lime: "Lime white", w_sand: "Sand", w_cashmere: "Cashmere", w_sage: "Sage",
     w_olive: "Olive", w_clay: "Clay", w_ink: "Ink blue", w_anthra: "Anthracite",
     cta: "Ask for this on your own project",
-    note: "This scene is drawn in real time in your browser — not a video, not a render. On your project it runs with your own model."
+    note: "Every view is path-traced in Blender (Cycles): real parquet, real plaster, the city in the window. Each choice changes in place, layer by layer. On your project it works with your own model and your own materials."
   },
   ru: {
     kicker: "Интерьер · конфигуратор материалов",
@@ -106,12 +106,15 @@ const DICT = {
     w_lime: "Извёстковый белый", w_sand: "Песок", w_cashmere: "Кашемир", w_sage: "Шалфей",
     w_olive: "Олива", w_clay: "Глина", w_ink: "Тёмно-синий", w_anthra: "Антрацит",
     cta: "Запросить такое для своего проекта",
-    note: "Сцена рисуется в браузере в реальном времени — это не видео и не рендер. В вашем проекте работает с вашей моделью."
+    note: "Каждый ракурс отрендерен в Blender (Cycles) с трассировкой света: настоящий паркет, настоящая штукатурка, город в окне. Каждый выбор меняется на месте, слой за слоем. В вашем проекте — с вашей моделью и вашими материалами."
   }
 };
 
-const state = { floor: "oak", counter: "marble", front: "lakeWhite", wall: "lime", evening: false };
-let lang = (localStorage.getItem("ic-lang") || (navigator.language || "en").slice(0, 2));
+/* the room opens dressed as the home film's kitchen: oak parquet, Carrara, sage lacquer, lime */
+const state = { floor: "oak", counter: "marble", front: "lakeSage", wall: "lime", evening: false };
+let saved = null;
+try { saved = localStorage.getItem("ic-lang"); } catch (e) { /* storage blocked: the browser's language */ }
+let lang = (saved || (navigator.language || "en").slice(0, 2));
 if (!DICT[lang]) lang = "en";
 
 const $ = s => document.querySelector(s);
@@ -126,9 +129,7 @@ function boot() {
   buildSwatches($("#opt-floor"), FLOORS, "floor", k => room.setFloor(k), k => k);
   buildSwatches($("#opt-counter"), COUNTERS, "counter", k => room.setCounter(k), k => "c_" + k);
   buildSwatches($("#opt-front"), FRONTS, "front", k => room.setFront(k), k => "f_" + k);
-  buildSwatches($("#opt-wall"), WALLS, "wall", k => {
-    room.setWall(WALLS.find(w => w.key === k).hex);
-  }, k => "w_" + k);
+  buildSwatches($("#opt-wall"), WALLS, "wall", k => room.setWall(k), k => "w_" + k);
 
   document.querySelectorAll("[data-light]").forEach(btn => {
     btn.addEventListener("click", () => {
@@ -145,7 +146,7 @@ function boot() {
   document.querySelectorAll(".lang__btn").forEach(b => {
     b.addEventListener("click", () => {
       lang = b.dataset.lang;
-      localStorage.setItem("ic-lang", lang);
+      try { localStorage.setItem("ic-lang", lang); } catch (e) { /* not remembered, still switched */ }
       document.documentElement.lang = lang;
       paintText();
     });
@@ -164,7 +165,9 @@ function buildSwatches(host, list, role, apply, labelKey) {
     b.dataset.key = o.key;
     b.dataset.labelKey = labelKey(o.key);
     b.setAttribute("aria-pressed", String(state[role] === o.key));
-    b.innerHTML = '<span class="sw__chip" style="background:' + o.sw + '"></span><span class="sw__name"></span>';
+    /* the chip is a rendered sample of the material (renders/swatch/), its
+       painted colour underneath until it arrives */
+    b.innerHTML = '<span class="sw__chip" style="background:url(./renders/swatch/' + role + '-' + o.key + '.webp) center / cover, ' + o.sw + '"></span><span class="sw__name"></span>';
     b.addEventListener("click", () => {
       state[role] = o.key;
       apply(o.key);
@@ -176,6 +179,9 @@ function buildSwatches(host, list, role, apply, labelKey) {
 }
 
 function paintText() {
+  /* the page's language decides its capitals: under lang="tr" an English
+     "interior" came out INTERİOR */
+  document.documentElement.lang = lang;
   document.querySelectorAll("[data-t]").forEach(el => { el.textContent = t(el.dataset.t); });
   document.querySelectorAll("[data-label-key]").forEach(el => {
     const n = el.querySelector(".sw__name");
