@@ -68,6 +68,11 @@
       var k = live ? Math.min(1, Math.max(0, (y - film.end) / (vh * 0.5))) : 0;
       var r = stop.getBoundingClientRect();
       var e = Math.min(1, Math.max(0, (r.bottom - vh * 0.5) / (vh * 0.5)));
+      /* a still film (reduced motion, no WebGL) never "ends": every plate below
+         would count as held, and the last one in the page sat behind all the
+         stops. Still, a plate shows only while its own stop comes on screen. */
+      var enter = film && film.still ? Math.min(1, Math.max(0, (vh - r.top) / (vh * 0.25))) : 1;
+      e *= enter;
       var o = asleep ? 0 : e;
       if (Math.abs(o - shown) > 0.002) { shown = o; img.style.opacity = o.toFixed(3); }
       if (shade) shade.style.opacity = (asleep ? 0 : Math.min(1, Math.max(0, (y - film.end) / (vh * 0.4))) * e).toFixed(3);
@@ -80,7 +85,7 @@
     });
     addEventListener("film:still", function (ev) {
       if ((ev.detail && ev.detail.id) !== id) return;
-      film = { handoff: true, start: -1e9, end: -1e9 }; img.setAttribute("src", src); read();
+      film = { handoff: true, start: -1e9, end: -1e9, still: true }; img.setAttribute("src", src); read();
     });
     addEventListener("scroll", read, { passive: true });
     addEventListener("resize", function () { place(); read(); });

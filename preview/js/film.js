@@ -537,7 +537,12 @@ export async function mountFilm(root, primary = true) {
     root.classList.add("is-still");
     root.style.height = "";
     beats.forEach((bt, k) => bt.el.classList.toggle("is-on", k === 0));
-    new IntersectionObserver(([e]) => setMode(e.isIntersecting ? TONE : "")).observe(root);
+    /* a page film's poster is its LAST frame (end-*.webp), so its words take the
+       end's tone — the model's dusk read as a washed cream veil otherwise; the
+       opening's poster is its written mark, in the film's own tone */
+    const stillTone = root.classList.contains("film--page") ? END_TONE : TONE;
+    root.classList.toggle("is-night", stillTone === "dark" && TONE === "light");
+    new IntersectionObserver(([e]) => setMode(e.isIntersecting ? stillTone : "")).observe(root);
     /* nothing will hand over: what waits behind the film shows as it is */
     if (primary) window.__filmStill = true;
     window.dispatchEvent(new CustomEvent("film:still", { detail: { id } }));
