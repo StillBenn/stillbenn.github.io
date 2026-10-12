@@ -233,7 +233,8 @@
       "One website for a group of three companies — clear to a customer, an investor and a job seeker alike.": "Üç şirketlik bir grup için tek web sitesi — müşteri, yatırımcı ve iş arayan için aynı ölçüde anlaşılır.",
       "$1,000 – $3,000": "1.000 – 3.000 $",
       "$3,000 – $5,000": "3.000 – 5.000 $",
-      "Above $5,000": "5.000 $ üstü"
+      "Above $5,000": "5.000 $ üstü",
+      "bot": "bot"
     },
     "ru": {
       "Larisel — Films you scroll, 3D you can turn": "Larisel — фильмы, которые листают, и 3D, которое вращают",
@@ -454,7 +455,8 @@
       "One website for a group of three companies — clear to a customer, an investor and a job seeker alike.": "Один сайт для группы из трёх компаний — одинаково понятный клиенту, инвестору и соискателю.",
       "$1,000 – $3,000": "$1 000 – $3 000",
       "$3,000 – $5,000": "$3 000 – $5 000",
-      "Above $5,000": "Больше $5 000"
+      "Above $5,000": "Больше $5 000",
+      "bot": "бот"
     }
   };
 
