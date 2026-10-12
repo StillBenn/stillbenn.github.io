@@ -37,6 +37,33 @@
   /* never trapped behind the curtain: if the film cannot start at all */
   setTimeout(lift, 12000);
 
+  /* Words arrive: each block of a stop, a recording's caption, the way we work
+     and the brief rise into place once, part after part, as they come on
+     screen — the stops used to slide in flat with the scroll. Off under
+     reduced motion; without JS nothing is hidden (html.rv is set here). */
+  var reducedMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var groups = [].slice.call(document.querySelectorAll(".stop__text, .excerpt__caption, .start__how, .brief, .chat"));
+  if (!reducedMotion && "IntersectionObserver" in window && groups.length) {
+    html.classList.add("rv");
+    groups.forEach(function (g) {
+      var parts = [];
+      [].slice.call(g.children).forEach(function (c) {
+        /* a list rises item by item */
+        if (c.matches("ol, ul")) parts = parts.concat([].slice.call(c.children));
+        else parts.push(c);
+      });
+      parts.forEach(function (el, i) { el.classList.add("rv__p"); el.style.setProperty("--i", Math.min(i, 9)); });
+    });
+    var rvIO = new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        e.target.classList.add("is-in");
+        rvIO.unobserve(e.target);
+      });
+    }, { rootMargin: "0px 0px -12% 0px", threshold: 0.01 });
+    groups.forEach(function (g) { rvIO.observe(g); });
+  }
+
   /* the reader has taken over */
   addEventListener("scroll", function once() {
     if (scrollY > 12) { html.classList.add("has-scrolled"); removeEventListener("scroll", once); }

@@ -582,6 +582,22 @@ html.has-scrolled .film__hint { opacity: 0; }
   .pin.is-left { margin-left: -10.5rem; }
 }
 
+/* ---- words arrive: part after part, once (js/home.js adds html.rv) ------------- */
+.rv .rv__p {
+  opacity: 0; transform: translate3d(0, 1.4rem, 0);
+  transition: opacity 1000ms var(--e-out), transform 1200ms var(--e-out);
+  transition-delay: calc(var(--i, 0) * 75ms);
+}
+.rv .is-in .rv__p { opacity: 1; transform: none; }
+
+/* ---- a long in-page jump fades through the page's own colour (js/scroll.js) ----- */
+.veil {
+  position: fixed; inset: 0; z-index: 29; pointer-events: none;
+  background: var(--c-cream); opacity: 0;
+  transition: opacity 560ms var(--e-out);
+}
+.veil.is-on { opacity: 1; transition: opacity 240ms ease-in; }
+
 /* ---- reduced motion: the words without the travel ------------------------------ */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { transition-duration: 1ms !important; animation: none !important; }
