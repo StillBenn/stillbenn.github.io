@@ -55,22 +55,22 @@
       "Larisel Café": "Larisel Kafe",
       "A café site where the product is the interface: a scroll-driven film from bean to cup, a live 3D cup you design — colour, print, your name — a printed order ticket, ordering from the table by QR with a split bill, and a coffee reading from a photo of your own cup.":
         "Ürünün kendisinin arayüz olduğu bir kafe sitesi: çekirdekten bardağa kaydırmalı bir film, canlı 3B’de tasarlanan bardak (renk, desen, adın), basılı sipariş fişi, QR ile masadan sipariş ve hesap bölme, kendi fincanının fotoğrafından kahve falı.",
-      "03 — Interior configurator": "03 — İç mekân yapılandırıcı",
-      "Interior materials": "İç mekân malzemeleri",
+      "04 — Interior configurator": "04 — İç mekân yapılandırıcı",
+      "Larisel Interiors": "Larisel İç Mekân",
       "A room the client changes while standing in it: floor, worktop, cabinet fronts and wall colour, with a daylight-to-evening switch. Every material is generated in code, so nothing is downloaded and it opens on a phone.":
         "Müşterinin içinde dururken değiştirdiği bir oda: zemin, tezgâh, dolap kapağı ve duvar rengi; gündüzden akşama geçen ışık. Bütün malzemeler kodla üretiliyor, hiçbir şey indirilmiyor ve telefonda açılıyor.",
 
       "02 — Product configurator": "02 — Ürün yapılandırıcı",
-      "Armchair configurator": "Koltuk yapılandırıcı",
+      "Larisel Armchair": "Larisel Koltuk",
       "A real-time 3D configurator: six fabrics, four frame finishes, two sizes, with the price and lead time recalculating as the customer builds the product. Runs in the browser, no plugin, works on a phone.":
         "Gerçek zamanlı 3B yapılandırıcı: altı kumaş, dört gövde kaplaması, iki ölçü; müşteri ürünü kurdukça fiyat ve teslim süresi anında güncelleniyor. Tarayıcıda çalışır, eklenti istemez, telefonda da açılır.",
 
-      "04 — Corporate site": "04 — Kurumsal site",
+      "03 — Corporate site": "03 — Kurumsal site",
       "A corporate site for a fictional holding working across retail, construction and energy. Three languages from a single set of pages, a 3D building model on the construction section, and a design system built on tokens rather than one-off values.":
         "Market, inşaat ve enerji alanlarında çalışan kurgusal bir holding için kurumsal site. Tek sayfa takımından üç dil, inşaat bölümünde 3B bina modeli ve tek seferlik değerler yerine token'lara dayanan bir tasarım sistemi.",
 
       "05 — Automation": "05 — Otomasyon",
-      "Furniture shop order bot": "Mobilya mağazası sipariş botu",
+      "Larisel Order Bot": "Larisel Sipariş Botu",
       "A Telegram bot that carries a catalog, a cart and a five-step checkout, with an admin panel and Excel export behind it. Built so an order can never be silently lost — every step is validated and persisted.":
         "Katalog, sepet ve beş adımlı sipariş akışı taşıyan; arkasında yönetici paneli ve Excel dışa aktarımı olan bir Telegram botu. Hiçbir sipariş sessizce kaybolmasın diye kuruldu — her adım doğrulanır ve kaydedilir.",
 
@@ -126,7 +126,7 @@
         "Meşe gövde üzerinde kum rengi kumaşla render alınmış 3B koltuk yapılandırıcı",
       "A kitchen interior configured in the browser: marble worktop, gloss fronts, oak floor":
         "Tarayıcıda yapılandırılan bir mutfak iç mekânı: mermer tezgâh, lake kapaklar, meşe zemin",
-      "Tarven Group corporate website home page": "Tarven Group kurumsal web sitesi ana sayfası",
+      "Larisel Group corporate website home page": "Larisel Group kurumsal web sitesi ana sayfası",
       "Telegram order bot interface showing a furniture catalog":
         "Mobilya kataloğunu gösteren Telegram sipariş botu arayüzü",
       "Larisel — home": "Larisel — ana sayfa",
@@ -167,22 +167,22 @@
       "Larisel Café": "Кафе Larisel",
       "A café site where the product is the interface: a scroll-driven film from bean to cup, a live 3D cup you design — colour, print, your name — a printed order ticket, ordering from the table by QR with a split bill, and a coffee reading from a photo of your own cup.":
         "Сайт кофейни, где продукт и есть интерфейс: фильм от зерна до чашки при прокрутке, живой 3D-стакан, который вы оформляете сами, — цвет, узор, ваше имя, — печатный чек заказа, заказ со стола по QR с разделением счёта и гадание по фото вашей чашки.",
-      "03 — Interior configurator": "03 — Конфигуратор интерьера",
-      "Interior materials": "Материалы интерьера",
+      "04 — Interior configurator": "04 — Конфигуратор интерьера",
+      "Larisel Interiors": "Интерьеры Larisel",
       "A room the client changes while standing in it: floor, worktop, cabinet fronts and wall colour, with a daylight-to-evening switch. Every material is generated in code, so nothing is downloaded and it opens on a phone.":
         "Комната, которую клиент меняет, находясь внутри: пол, столешница, фасады и цвет стен, плюс переключение дневного и вечернего света. Все материалы генерируются кодом — ничего не скачивается, открывается с телефона.",
 
       "02 — Product configurator": "02 — Конфигуратор товара",
-      "Armchair configurator": "Конфигуратор кресла",
+      "Larisel Armchair": "Кресло Larisel",
       "A real-time 3D configurator: six fabrics, four frame finishes, two sizes, with the price and lead time recalculating as the customer builds the product. Runs in the browser, no plugin, works on a phone.":
         "3D-конфигуратор в реальном времени: шесть тканей, четыре отделки каркаса, два размера, а цена и срок пересчитываются прямо по ходу сборки. Работает в браузере, без плагинов, в том числе на телефоне.",
 
-      "04 — Corporate site": "04 — Корпоративный сайт",
+      "03 — Corporate site": "03 — Корпоративный сайт",
       "A corporate site for a fictional holding working across retail, construction and energy. Three languages from a single set of pages, a 3D building model on the construction section, and a design system built on tokens rather than one-off values.":
         "Корпоративный сайт вымышленного холдинга, работающего в ритейле, строительстве и энергетике. Три языка на одном наборе страниц, 3D-модель здания в разделе строительства и дизайн-система на токенах вместо разовых значений.",
 
       "05 — Automation": "05 — Автоматизация",
-      "Furniture shop order bot": "Бот заказов мебельного магазина",
+      "Larisel Order Bot": "Бот заказов Larisel",
       "A Telegram bot that carries a catalog, a cart and a five-step checkout, with an admin panel and Excel export behind it. Built so an order can never be silently lost — every step is validated and persisted.":
         "Telegram-бот с каталогом, корзиной и оформлением заказа в пять шагов, с админ-панелью и выгрузкой в Excel. Сделан так, чтобы заказ не терялся молча: каждый шаг проверяется и сохраняется.",
 
@@ -236,7 +236,7 @@
         "3D-конфигуратор кресла: песочная ткань на дубовом каркасе",
       "A kitchen interior configured in the browser: marble worktop, gloss fronts, oak floor":
         "Кухонный интерьер, собранный в браузере: мраморная столешница, глянцевые фасады, дубовый пол",
-      "Tarven Group corporate website home page": "Главная страница корпоративного сайта Tarven Group",
+      "Larisel Group corporate website home page": "Главная страница корпоративного сайта Larisel Group",
       "Telegram order bot interface showing a furniture catalog":
         "Интерфейс Telegram-бота заказов с каталогом мебели",
       "Larisel — home": "Larisel — главная",
