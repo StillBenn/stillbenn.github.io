@@ -436,6 +436,15 @@ html.has-scrolled .film__hint { opacity: 0; }
     linear-gradient(180deg, rgba(5, 4, 4, 0.34) 0, transparent 8rem),
     linear-gradient(90deg, rgba(5, 4, 4, 0.55) 0%, rgba(5, 4, 4, 0.18) 36%, transparent 58%);
 }
+/* on a phone the words run across the top: the shade comes down from there
+   (the landscape band left the right half of the title unshaded) */
+@media (orientation: portrait) {
+  .film--page.is-night .film__stage::after {
+    background:
+      linear-gradient(0deg, rgba(5, 4, 4, 0.45) 0, transparent 8rem),
+      linear-gradient(180deg, rgba(5, 4, 4, 0.62) 0%, rgba(5, 4, 4, 0.24) 32%, transparent 52%);
+  }
+}
 .film--page.is-night .film__label { color: rgba(243, 237, 225, 0.6); }
 .film--page.is-night .film__title em { color: var(--c-light); }
 .film--page.is-night .film__lead { color: rgba(243, 237, 225, 0.74); }

@@ -336,6 +336,17 @@ class GLRenderer {
     this.bound[unit - 2] = tex;
   }
 
+  /* off screen: the two full frames (~8 MB each in HD) go back to 1x1. Safe —
+     a slot is only sampled again after show() has uploaded into it. */
+  shrinkFrames() {
+    const gl = this.gl;
+    for (let s = 0; s < 2; s++) {
+      gl.activeTexture(gl.TEXTURE0 + s); gl.bindTexture(gl.TEXTURE_2D, this.tex[s]);
+      gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, 1, 1, 0, gl.RGBA, gl.UNSIGNED_BYTE, new Uint8Array([0, 0, 0, 255]));
+    }
+    this.held = [-1, -1];
+  }
+
   upload(slot, index, bmp) {
     const gl = this.gl;
     gl.activeTexture(gl.TEXTURE0 + slot);
@@ -583,6 +594,10 @@ export async function mountFilm(root, primary = true) {
     return r.blob();
   }));
   let wanted = new Set([0]);
+  /* frames start arriving (and calling store.onNear) while this function is
+     still awaiting the loader — before kick()'s variables exist below; a kick
+     then threw inside the download worker and pack 0 was refetched frame by frame */
+  let booted = false;
   const making = new Set();
   const ensureAtlas = (k) => {
     if (k < 0 || k >= chapters.length || renderer.atlases.has(k) || making.has(k)) return;
@@ -607,7 +622,7 @@ export async function mountFilm(root, primary = true) {
     const mbit = (first.size * 8) / 1e6 / Math.max(0.05, (performance.now() - t0) / 1000);
     if (tier === "hd" && !forced && mbit < 5) await toLite().catch(() => {});
     await renderer.addAtlasStriped(0, first, chapters[0].v.atlas, () => true);
-    store.onNear = () => kick();
+    store.onNear = () => { if (booted) kick(); };
     store.download();
     /* The opening plays on its own, so its sharp frames must be here before
        it starts: the loader counts them (up to 60 — the rest arrive while the
@@ -637,7 +652,9 @@ export async function mountFilm(root, primary = true) {
     const dpr = Math.min(devicePixelRatio || 1, 2);
     cw = Math.round(stage.clientWidth * dpr);
     ch = Math.round(stage.clientHeight * dpr);
-    canvas.width = cw; canvas.height = ch;
+    /* only a real size change may clear the canvas: an off-screen film is not
+       redrawn until it is back (and came back with a black edge) */
+    if (canvas.width !== cw || canvas.height !== ch) { canvas.width = cw; canvas.height = ch; }
     const r = root.getBoundingClientRect();
     top = r.top + scrollY;
     span = Math.max(1, (totalVh / 100) * innerHeight);
@@ -649,7 +666,15 @@ export async function mountFilm(root, primary = true) {
   };
   measure();
   addEventListener("resize", measure);
-  if ("ResizeObserver" in window) new ResizeObserver(measure).observe(root);
+  /* the stops and captions above a film change height with the language, and
+     again when that language's web fonts land a moment later: its top moves,
+     and with it the playhead, the hold and the plate's timing. The page's own
+     height is the one signal that catches every such change (measured: a phone
+     switched to RU moved the films ~50 px, the late Cyrillic fonts another ~25). */
+  if ("ResizeObserver" in window) {
+    new ResizeObserver(measure).observe(root);
+    new ResizeObserver(() => requestAnimationFrame(measure)).observe(document.body);
+  }
 
   /* Chapters: four names along the foot of the film, each with its own
      progress line; a click is a CUT (playing the film at fast-forward to get
@@ -690,11 +715,12 @@ export async function mountFilm(root, primary = true) {
      so coming back needs no download, only a decode) */
   const release = () => {
     if (visible) return;
+    wanted = new Set();                /* an atlas still striping in sees it is unwanted and stops */
     for (const k of [...renderer.atlases.keys()]) renderer.dropAtlas(k);
     store.dgen++;                      /* decodes still in flight close themselves; downloads go on */
     for (const b of store.bitmaps.values()) b.close();
     store.bitmaps.clear(); store.pending.clear();
-    renderer.held = [-1, -1];
+    renderer.shrinkFrames();
   };
   new IntersectionObserver(([e]) => {
     visible = e.isIntersecting;
@@ -706,7 +732,8 @@ export async function mountFilm(root, primary = true) {
   if (hud) hud.hidden = false;
   const forceLo = params.has("lo");     /* debug: atlas only, to see the fallback layer */
   /* ?probe: per-frame log for the automated smoothness test (_film/perf.mjs) */
-  const probe = params.has("probe") ? (window.__film = { log: [], edges: chapters.slice(1).map((c) => c.first), get tier() { return tier; } }) : null;
+  const probe = params.has("probe") ? { log: [], edges: chapters.slice(1).map((c) => c.first), get tier() { return tier; } } : null;
+  if (probe && primary) window.__film = probe;      /* _film/perf.mjs measures the opening film; the lazy ones must not overwrite it */
   /* ?probe also lists every film's memory, to test the release above */
   if (probe) (window.__films ||= {})[id] = { get atlases() { return renderer.atlases.size; }, get decoded() { return store.bitmaps.size; }, get loaded() { return store.loaded; } };
 
@@ -891,6 +918,7 @@ export async function mountFilm(root, primary = true) {
     requestAnimationFrame(frame);
   }
   addEventListener("scroll", kick, { passive: true });
+  booted = true;
   kick();
 }
 

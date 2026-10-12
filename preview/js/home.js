@@ -86,16 +86,20 @@
   function stuck() {
     if (!hdr) return;
     var onFilm = html.dataset.film === "dark" || html.dataset.film === "light";
-    var line = hdr.offsetHeight, night = false;
-    for (var i = 0; i < nights.length && !night; i++) {
+    var line = hdr.offsetHeight, night = false, under = false;
+    for (var i = 0; i < nights.length; i++) {
       var r = nights[i].getBoundingClientRect();
+      if (!r.height || r.bottom <= line) continue;
       /* a night stop's dark plate is behind the header as soon as the stop is on
-         screen (the plate fills the view); a recording, only once it is under it */
-      var reach = nights[i].classList.contains("stop") ? innerHeight * 0.92 : line;
-      night = r.height > 0 && r.top <= reach && r.bottom > line;
+         screen (the film hands its frame to the plate the moment it ends) */
+      if (nights[i].classList.contains("stop") ? r.top < innerHeight : r.top <= line) night = true;
+      /* something dark actually under the header wins even over a film's own
+         tone: a light film whose top has not reached the header yet left ink
+         type on the black recording above it (~0.4 of a screen) */
+      if (r.top <= line) under = true;
     }
     hdr.classList.toggle("is-stuck", !onFilm && scrollY > 10);
-    hdr.classList.toggle("is-night", !onFilm && night);
+    hdr.classList.toggle("is-night", (!onFilm && night) || under);
   }
   addEventListener("scroll", stuck, { passive: true });
   new MutationObserver(stuck).observe(html, { attributes: true, attributeFilter: ["data-film"] });
