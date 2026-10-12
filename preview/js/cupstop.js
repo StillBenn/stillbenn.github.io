@@ -119,7 +119,8 @@ function boot() {
   const rAt = (y) => S.rb + (S.rt - S.rb) * (y / H);
   const PINS = [
     { id: "lid",    p: [0, H + 0.03, rAt(H) * 0.92], n: [0, 0.5, 1], wide: [-15, -7.5], tall: null },
-    { id: "print",  p: [rAt(H * 0.8) + 0.01, H * 0.8, 0], n: [1, 0, 0], wide: [7.5, -5.5], tall: [2.5, -6.5] },
+    /* on a phone the name's label cannot clear the cup (measured at 390 px): the list below says it */
+    { id: "print",  p: [rAt(H * 0.8) + 0.01, H * 0.8, 0], n: [1, 0, 0], wide: [7.5, -5.5], tall: null },
     { id: "sleeve", p: [0, H * 0.46, rAt(H * 0.46) + 0.05], n: [0, 0, 1], wide: [-15, 1.5], tall: null },
     { id: "handoff", p: [0, 0.03, S.rb], n: [0, -0.2, 1], wide: [6.5, 5], tall: [1.5, 2.4] }
   ];
@@ -166,16 +167,17 @@ function boot() {
     const k = still ? 1 : live ? Math.min(1, Math.max(0, (y - film.end) / (vh * 0.6))) : 0;   /* no film measured yet: still its pose */
     hand = 1 - k * k * (3 - 2 * k);
     const was = asleep;
-    /* sleep until just before the film's hold: before that the film covers
-       the screen and needs the GPU for its own frames. A still film (reduced
-       motion, no WebGL) hands nothing over: the cup is simply there. */
-    asleep = still ? false : !live || y < film.start - vh * 0.12;
     /* leave as the section ends, rising a little: gone BEFORE the next
        section's opaque top reaches the cup's base (~80% down) — fading while
        it climbed over the cup sliced the cup in half (measured, 1440x900) */
     const r = section.getBoundingClientRect();
     const e = Math.min(1, Math.max(0, (r.bottom - vh * 0.86) / (vh * 0.26)));
     exit = e * e * (3 - 2 * e);
+    /* sleep until just before the film's hold: before that the film covers
+       the screen and needs the GPU for its own frames — and again once the
+       section has gone, where the next films need it. A still film (reduced
+       motion, no WebGL) hands nothing over: the cup is simply there. */
+    asleep = exit === 0 || (still ? false : !live || y < film.start - vh * 0.12);
     canvas.style.opacity = asleep ? "0" : exit.toFixed(3);
     canvas.classList.toggle("is-interactive", !asleep && hand < 0.05 && exit > 0.5);
     if (was && !asleep) start();

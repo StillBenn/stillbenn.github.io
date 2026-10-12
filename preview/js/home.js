@@ -79,11 +79,20 @@
   addEventListener("resize", settle);
   settle();
 
-  /* the header gets its own ground only over the page, never over the film */
+  /* the header gets its own ground only over the page, never over the film —
+     a dark one over the night stops and recordings */
   var hdr = document.querySelector(".hdr");
+  var nights = [].slice.call(document.querySelectorAll(".stop--night, .excerpt--night"));
   function stuck() {
+    if (!hdr) return;
     var onFilm = html.dataset.film === "dark" || html.dataset.film === "light";
-    if (hdr) hdr.classList.toggle("is-stuck", !onFilm && scrollY > 10);
+    var line = hdr.offsetHeight, night = false;
+    for (var i = 0; i < nights.length && !night; i++) {
+      var r = nights[i].getBoundingClientRect();
+      night = r.height > 0 && r.top <= line && r.bottom > line;
+    }
+    hdr.classList.toggle("is-stuck", !onFilm && scrollY > 10);
+    hdr.classList.toggle("is-night", !onFilm && night);
   }
   addEventListener("scroll", stuck, { passive: true });
   new MutationObserver(stuck).observe(html, { attributes: true, attributeFilter: ["data-film"] });

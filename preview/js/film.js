@@ -131,6 +131,7 @@ class FrameStore {
     this.dir = 1;
     this.onNear = null;                /* a frame near the playhead arrived: the film wakes to decode it */
     this.gen = 0;                      /* bumped by reset(): work started before it is thrown away */
+    this.dgen = 0;                     /* bumped when decoded frames are released: only decodes are thrown away */
   }
 
   /* Another encoding of the same frames (the quality tier dropped): forget
@@ -219,10 +220,10 @@ class FrameStore {
   decode(i, urgent) {
     if (i < 0 || i >= this.count || this.bitmaps.has(i) || this.pending.has(i) || !this.blobs[i]) return;
     if (!urgent && this.pending.size >= this.maxPending) return;
-    const t = performance.now(), gen = this.gen;
+    const t = performance.now(), gen = this.gen, dg = this.dgen;
     const p = createImageBitmap(this.blobs[i], BITMAP)
       .then((bmp) => {
-        if (gen !== this.gen) { bmp.close(); return; }
+        if (gen !== this.gen || dg !== this.dgen) { bmp.close(); return; }
         this.pending.delete(i);
         this.decodeMs.push(performance.now() - t);
         if (this.decodeMs.length > 30) this.decodeMs.shift();
@@ -233,7 +234,7 @@ class FrameStore {
           ob.close();
         }
       })
-      .catch(() => { if (gen === this.gen) this.pending.delete(i); });
+      .catch(() => { if (gen === this.gen && dg === this.dgen) this.pending.delete(i); });
     this.pending.set(i, p);
   }
 }
@@ -678,10 +679,22 @@ export async function mountFilm(root, primary = true) {
   };
 
   /* Only run while the film is on screen. */
-  let visible = true;
+  let visible = true, releaseT = 0;
+  /* Five films on one page: one that has left the screen gives back its GPU
+     atlas and its decoded frames after a moment (the compressed frames stay,
+     so coming back needs no download, only a decode) */
+  const release = () => {
+    if (visible) return;
+    for (const k of [...renderer.atlases.keys()]) renderer.dropAtlas(k);
+    store.dgen++;                      /* decodes still in flight close themselves; downloads go on */
+    for (const b of store.bitmaps.values()) b.close();
+    store.bitmaps.clear(); store.pending.clear();
+    renderer.held = [-1, -1];
+  };
   new IntersectionObserver(([e]) => {
     visible = e.isIntersecting;
-    if (visible) kick(); else setMode("");
+    clearTimeout(releaseT);
+    if (visible) kick(); else { setMode(""); releaseT = setTimeout(release, 2500); }
   }).observe(root);
 
   const hud = params.has("debug") ? root.querySelector(".film__hud") : null;
@@ -689,6 +702,8 @@ export async function mountFilm(root, primary = true) {
   const forceLo = params.has("lo");     /* debug: atlas only, to see the fallback layer */
   /* ?probe: per-frame log for the automated smoothness test (_film/perf.mjs) */
   const probe = params.has("probe") ? (window.__film = { log: [], edges: chapters.slice(1).map((c) => c.first), get tier() { return tier; } }) : null;
+  /* ?probe also lists every film's memory, to test the release above */
+  if (probe) (window.__films ||= {})[id] = { get atlases() { return renderer.atlases.size; }, get decoded() { return store.bitmaps.size; }, get loaded() { return store.loaded; } };
 
   /* Touch scrolling is native and inertial, wheel scrolling is already eased
      by scroll.js — the frame still gets its own light easing so a flick reads

@@ -148,7 +148,8 @@ html:not(.is-loading) .loader { opacity: 0; visibility: hidden; }
   color: var(--c-ink);
   transition: color var(--d-base) var(--e-out), background var(--d-base) var(--e-out), box-shadow var(--d-base) var(--e-out);
 }
-.hdr.is-stuck { background: rgba(244, 239, 229, 0.94); box-shadow: 0 1px 0 var(--c-line); }
+.hdr.is-stuck { background: rgba(244, 239, 229, 0.9); box-shadow: 0 1px 0 var(--c-line);
+  -webkit-backdrop-filter: blur(14px) saturate(1.1); backdrop-filter: blur(14px) saturate(1.1); }   /* words passing under it blur instead of overlapping */
 .hdr__brand { position: relative; font: 400 0.82rem/1 var(--f-mono); letter-spacing: 0.42em; }
 .hdr__brand::after { content: ""; position: absolute; inset: -14px -10px; }       /* a 44px target */
 .hdr__nav { display: flex; align-items: center; gap: clamp(0.9rem, 0.4rem + 1.6vw, 2rem); }
@@ -168,16 +169,18 @@ html:not(.is-loading) .loader { opacity: 0; visibility: hidden; }
 .lang__btn:hover { color: var(--c-ink); }
 .lang__btn[aria-pressed="true"] { background: var(--c-ink); color: var(--c-cream); }
 
-/* over the night film: ivory type, no bar */
-html[data-film="dark"] .hdr { color: var(--c-ivory); background: transparent; box-shadow: none; }
-html[data-film="dark"] .hdr__link { color: rgba(243, 237, 225, 0.72); }
-html[data-film="dark"] .hdr__link:hover { color: var(--c-ivory); }
-html[data-film="dark"] .hdr__cta { border-color: var(--c-line-night); }
-html[data-film="dark"] .hdr__cta:hover { background: var(--c-ivory); color: var(--c-night); border-color: var(--c-ivory); }
-html[data-film="dark"] .lang { border-color: var(--c-line-night); }
-html[data-film="dark"] .lang__btn { color: rgba(243, 237, 225, 0.55); }
-html[data-film="dark"] .lang__btn:hover { color: var(--c-ivory); }
-html[data-film="dark"] .lang__btn[aria-pressed="true"] { background: var(--c-ivory); color: var(--c-night); }
+/* over the night film: ivory type, no bar — and the same type over a night
+   stop below the film, where the bar comes back dark (js/home.js) */
+html[data-film="dark"] .hdr, .hdr.is-night { color: var(--c-ivory); background: transparent; box-shadow: none; }
+html[data-film="dark"] .hdr__link, .hdr.is-night .hdr__link { color: rgba(243, 237, 225, 0.72); }
+html[data-film="dark"] .hdr__link:hover, .hdr.is-night .hdr__link:hover { color: var(--c-ivory); }
+html[data-film="dark"] .hdr__cta, .hdr.is-night .hdr__cta { border-color: var(--c-line-night); }
+html[data-film="dark"] .hdr__cta:hover, .hdr.is-night .hdr__cta:hover { background: var(--c-ivory); color: var(--c-night); border-color: var(--c-ivory); }
+html[data-film="dark"] .lang, .hdr.is-night .lang { border-color: var(--c-line-night); }
+html[data-film="dark"] .lang__btn, .hdr.is-night .lang__btn { color: rgba(243, 237, 225, 0.55); }
+html[data-film="dark"] .lang__btn:hover, .hdr.is-night .lang__btn:hover { color: var(--c-ivory); }
+html[data-film="dark"] .lang__btn[aria-pressed="true"], .hdr.is-night .lang__btn[aria-pressed="true"] { background: var(--c-ivory); color: var(--c-night); }
+.hdr.is-stuck.is-night { background: rgba(11, 11, 15, 0.8); box-shadow: 0 1px 0 var(--c-line-night); }
 html[data-film="light"] .hdr { background: transparent; box-shadow: none; }
 
 @media (max-width: 760px) {
@@ -534,7 +537,13 @@ html.has-scrolled .film__hint { opacity: 0; }
 /* ---- phones: the cup owns the top, the words sit below it ----------------------- */
 @media (orientation: portrait) {
   .stop { padding-top: 62vh; padding-top: 62svh; min-height: 150vh; display: flex; flex-direction: column; }
-  .stop__text { max-width: none; background: var(--c-cream); padding-top: var(--s-5); box-shadow: 0 -2.5rem 2.5rem -0.5rem var(--c-cream); }
+  /* the words' ground runs edge to edge (in the gutters the cup's shadow
+     showed through) and the picture above melts into it */
+  .stop__text { position: relative; max-width: none; background: var(--c-cream); margin-inline: calc(-1 * var(--pad-edge)); padding: var(--s-5) var(--pad-edge) 0; }
+  .stop__text::before { content: ""; position: absolute; left: 0; right: 0; bottom: 100%; height: 5.5rem; pointer-events: none;
+    background: linear-gradient(to top, var(--c-cream) 20%, rgba(244, 239, 229, 0)); }
+  .stop--night .stop__text { background: var(--c-night); }
+  .stop--night .stop__text::before { background: linear-gradient(to top, var(--c-night) 20%, rgba(11, 11, 15, 0)); }
   .pin { width: 10.5rem; font-size: 0.74rem; }
   .pin.is-left { margin-left: -10.5rem; }
 }
