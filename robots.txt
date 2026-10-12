@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://stillbenn.github.io/sitemap.xml
+Sitemap: https://larisel.com/sitemap.xml

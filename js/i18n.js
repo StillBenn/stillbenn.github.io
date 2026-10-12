@@ -1,18 +1,11 @@
 /* ==========================================================================
-   Language: English (source) · Türkçe · Русский
+   Language: English (source) · Türkçe · Русский — the home page
    --------------------------------------------------------------------------
-   The HTML stays English, so crawlers and a JS-less visitor get the English
-   page as written. Other languages are applied at the text-node level: any
-   string with an entry in the dictionary is swapped, anything without one
-   (names, stack labels, an email address) is left exactly as it is.
-
-   Why this and not /tr/ /ru/ subdirectories: the site is a single static file
-   with no build step. Adding a line to the dictionary is the whole cost of
-   translating a new sentence.
-
-   The original English is parked on the node itself (__src) rather than in a
-   parallel array, so switching TR → RU still translates from English and not
-   from the Turkish that is currently on screen.
+   The engine is the site's own (../js/i18n.js): the HTML stays English for
+   crawlers and a JS-less visitor, and every text node with an entry here is
+   swapped in place; the English is parked on the node (__src), so TR -> RU
+   still translates from English. Lines of a film headline are separate
+   nodes, so each language gets its own line breaks.
    ========================================================================== */
 (function () {
   "use strict";
@@ -21,226 +14,449 @@
   var DEFAULT_LANG = "en";
 
   var DICT = {
-    tr: {
-      /* head */
-      "Larisel — 3D & Web Studio": "Larisel — 3B ve Web Stüdyosu",
-      "I build interactive 3D websites, product configurators and Telegram bots with Three.js, WebGL and Python — running code, not mockups.":
-        "Three.js, WebGL ve Python ile interaktif 3B web siteleri, ürün yapılandırıcıları ve Telegram botları geliştiriyorum — maket değil, çalışan kod.",
-
-      /* chrome */
-      "Skip to content": "İçeriğe geç",
+    "tr": {
+      "Larisel — Films you scroll, 3D you can turn": "Larisel — Kaydırılan filmler, çevrilebilen 3B",
+      "Larisel is a 3D and web studio. We turn products into films you scroll and 3D models you can turn — rendered in Blender, built in three.js, and they open on a phone.": "Larisel bir 3B ve web stüdyosu. Ürünleri kaydırdıkça oynayan filmlere ve elle çevrilen 3B modellere dönüştürüyoruz — Blender'da render, three.js ile kod, telefonda açılır.",
+      "Skip to the work": "İşlere geç",
+      "Larisel — home": "Larisel — ana sayfa",
+      "Primary": "Ana menü",
       "Work": "İşler",
-      "Services": "Hizmetler",
-      "About": "Hakkımda",
+      "Process": "Süreç",
       "Contact": "İletişim",
       "Language": "Dil",
-
-      /* hero */
-      "3D & Web Developer": "3B ve Web Geliştirici",
-      "Real-time 3D,": "Gerçek zamanlı 3B,",
-      "on the open web.": "doğrudan tarayıcıda.",
-      "I build interactive 3D websites, product configurators and Telegram bots. Not videos, not mockups — running code you can open on your phone right now.":
-        "İnteraktif 3B web siteleri, ürün yapılandırıcıları ve Telegram botları geliştiriyorum. Video değil, maket değil — şu anda telefonunuzdan açabileceğiniz çalışan kod.",
-      "See the work": "İşleri gör",
-      "Start a project": "Proje başlat",
+      "Larisel — the studio's film": "Larisel — stüdyonun filmi",
+      "Larisel — 3D & web studio": "Larisel — 3B ve web stüdyosu",
+      "We turn your product": "Ürününüz:",
+      "into a film you scroll": "kaydırdıkça oynayan film",
+      "and": "ve",
+      "3D you can turn.": "elinizde dönen 3B.",
+      "Websites for cafés, furniture and interiors — rendered in Blender, built in three.js, and they open on a phone.": "Kafeler, mobilya ve iç mekân firmaları için web siteleri — Blender'da render edilir, three.js ile kodlanır ve telefonda açılır.",
+      "Larisel Café.": "Larisel Kafe.",
+      "A café you order from.": "Buradan sipariş verilir.",
+      "This chapter is the café's own film, playing from its own site: the coffee is poured, the lid goes on, and the cup becomes the live one below.": "Bu bölüm kafenin kendi filmi ve kendi sitesinden oynuyor: kahve dökülür, kapak takılır, bardak aşağıdaki canlı bardağa dönüşür.",
+      "Film chapters": "Film bölümleri",
+      "01 Café": "01 Kafe",
+      "Skip the film": "Filmi geç",
       "Scroll": "Kaydır",
-
-      /* work */
-      "Selected work": "Seçilmiş işler",
-      "Things that actually run.": "Gerçekten çalışan işler.",
-      "Every project below is live. Open it, rotate it, break it — that is the point.":
-        "Aşağıdaki her proje canlı. Açın, döndürün, zorlayın — amaç tam olarak bu.",
-
-      "01 — Interactive site": "01 — İnteraktif site",
       "Larisel Café": "Larisel Kafe",
-      "A café site where the product is the interface: a scroll-driven film from bean to cup, a live 3D cup you design — colour, print, your name — a printed order ticket, ordering from the table by QR with a split bill, and a coffee reading from a photo of your own cup.":
-        "Ürünün kendisinin arayüz olduğu bir kafe sitesi: çekirdekten bardağa kaydırmalı bir film, canlı 3B’de tasarlanan bardak (renk, desen, adın), basılı sipariş fişi, QR ile masadan sipariş ve hesap bölme, kendi fincanının fotoğrafından kahve falı.",
-      "04 — Interior configurator": "04 — İç mekân yapılandırıcı",
-      "Larisel Interiors": "Larisel İç Mekân",
-      "A room the client changes while standing in it: floor, worktop, cabinet fronts and wall colour, with a daylight-to-evening switch. Every material is generated in code, so nothing is downloaded and it opens on a phone.":
-        "Müşterinin içinde dururken değiştirdiği bir oda: zemin, tezgâh, dolap kapağı ve duvar rengi; gündüzden akşama geçen ışık. Bütün malzemeler kodla üretiliyor, hiçbir şey indirilmiyor ve telefonda açılıyor.",
-
+      "Lid": "Kapak",
+      "Sleeve": "Manşon",
       "02 — Product configurator": "02 — Ürün yapılandırıcı",
+      "The film's next chapter — fabric, frame and price changing as you build the chair — is in production.": "Filmin sonraki bölümü — siz koltuğu kurarken değişen kumaş, iskelet ve fiyat — yapım aşamasında.",
+      "Tell us what you want to build.": "Ne yapmak istediğinizi anlatın.",
+      "Send the idea in a couple of sentences. We answer honestly whether it fits, roughly what it takes and what it would cost — before you commit to anything.": "Fikrinizi iki cümleyle yazın. Size uyup uymadığını, kabaca ne gerektirdiğini ve ne tutacağını — siz hiçbir şeye bağlanmadan — dürüstçe söyleriz.",
+      "3D & web studio · Moscow · Türkiye": "3B ve web stüdyosu · Moskova · Türkiye",
+      "01 — Café": "01 — Kafe",
+      "Pick a coffee, design the cup.": "Kahveni seç, bardağı tasarla.",
+      "From the café's homepage": "Kafenin ana sayfasından",
+      "A café website that guests use the way they use the counter — and then a little more.": "Misafirlerin tezgâhı kullanır gibi kullandığı bir kafe sitesi — üstelik biraz daha fazlası.",
+      "Design the cup": "Bardağını tasarla",
+      "Choose the drink, then the cup's colour, sleeve and lid — and see your name printed on it.": "Önce içeceği, sonra bardağın rengini, manşonunu ve kapağını seç — adın da üstüne basılsın.",
+      "Order from the table": "Masadan sipariş ver",
+      "Scan the code on the table, order, and split the bill with friends.": "Masadaki kodu okut, siparişini ver, hesabı arkadaşlarınla böl.",
+      "A coffee reading": "Kahve falı",
+      "Send a photo of the empty cup and read what the grounds say.": "Boş fincanın fotoğrafını gönder, telvenin ne dediğini oku.",
+      "Visit the café": "Kafeyi ziyaret et",
+      "Pick the lid — the clear one shows your coffee.": "Kapağı seç — şeffaf olan kahveni gösterir.",
+      "Your name": "Adın",
+      "Printed on the cup as you type it.": "Yazdıkça bardağa basılır.",
+      "Kraft, linen, copper, cork — seven to choose from.": "Kraft, keten, bakır, mantar — yedi seçenek.",
+      "Turn it": "Çevir",
+      "Drag the cup — it is real 3D, not a photo.": "Bardağı sürükle — fotoğraf değil, gerçek 3B.",
+      "The café site, recorded": "Kafe sitesi, kayıttan",
+      "On the site": "Sitede",
+      "A guest designs a cup: ink blue, a copper sleeve, and her name.": "Bir misafir bardağını tasarlıyor: mürekkep mavisi, bakır manşon ve kendi adı.",
+      "The armchair": "Koltuk",
+      "02 — Armchair": "02 — Koltuk",
+      "Larisel Armchair.": "Larisel Koltuk.",
+      "Built on screen.": "Ekranda kuruluyor.",
+      "A furniture shop's product page where the customer puts the chair together — and sees it before it is made.": "Müşterinin koltuğu kendisinin kurduğu bir mobilya ürün sayfası — üstelik koltuğu yapılmadan önce görüyor.",
+      "Fabric and frame": "Kumaş ve iskelet",
+      "One tap,": "Bir dokunuş,",
+      "a different chair.": "başka bir koltuk.",
+      "Sand to graphite to terracotta, oak to brass to walnut. On the shop's page the chair changes the moment the customer chooses.": "Kumdan grafite, terakotaya; meşeden pirince, cevize. Mağazanın sayfasında koltuk, müşteri seçtiği an değişir.",
       "Larisel Armchair": "Larisel Koltuk",
-      "A real-time 3D configurator: six fabrics, four frame finishes, two sizes, with the price and lead time recalculating as the customer builds the product. Runs in the browser, no plugin, works on a phone.":
-        "Gerçek zamanlı 3B yapılandırıcı: altı kumaş, dört gövde kaplaması, iki ölçü; müşteri ürünü kurdukça fiyat ve teslim süresi anında güncelleniyor. Tarayıcıda çalışır, eklenti istemez, telefonda da açılır.",
-
-      "03 — Corporate site": "03 — Kurumsal site",
-      "A corporate site for a fictional holding working across retail, construction and energy. Three languages from a single set of pages, a 3D building model on the construction section, and a design system built on tokens rather than one-off values.":
-        "Market, inşaat ve enerji alanlarında çalışan kurgusal bir holding için kurumsal site. Tek sayfa takımından üç dil, inşaat bölümünde 3B bina modeli ve tek seferlik değerler yerine token'lara dayanan bir tasarım sistemi.",
-
-      "05 — Automation": "05 — Otomasyon",
+      "Build the chair for your own room — the model and the price change as you go.": "Koltuğu kendi odanıza göre kurun — model ve fiyat anında değişir.",
+      "From the shop's product page": "Mağazanın ürün sayfasından",
+      "A furniture product page that sells by letting the customer build the chair.": "Müşteriye koltuğu kendisi kurdurarak satan bir mobilya ürün sayfası.",
+      "Pick the fabric": "Kumaşı seç",
+      "Six colours, from sand to indigo, shown on the chair itself.": "Kumdan indigoya altı renk, doğrudan koltuğun üstünde.",
+      "Pick the frame and the size": "İskeleti ve boyutu seç",
+      "Oak, walnut, black or brass legs; standard or XL.": "Meşe, ceviz, siyah ya da pirinç ayaklar; standart ya da XL.",
+      "See the price, then order": "Fiyatı gör, sonra sipariş ver",
+      "The total follows every choice, and one tap sends the build to the workshop.": "Toplam her seçimle değişir; tek dokunuşla sipariş atölyeye gider.",
+      "Build an armchair": "Bir koltuk kur",
+      "Price": "Fiyat",
+      "Changes with every choice.": "Her seçimle değişir.",
+      "Frame": "İskelet",
+      "Oak, walnut, black or brass.": "Meşe, ceviz, siyah ya da pirinç.",
+      "Fabric": "Kumaş",
+      "Six colours to choose from.": "Altı renk seçeneği.",
+      "Size": "Boyut",
+      "Standard or XL.": "Standart ya da XL.",
+      "The armchair site, recorded": "Koltuk sitesi, kayıttan",
+      "The customer tries colour after colour — the chair and its price change with every tap.": "Müşteri renkleri tek tek deniyor — koltuk da fiyatı da her dokunuşta değişiyor.",
+      "The next chapter is being filmed: the room around this chair, a kitchen from morning to evening.": "Sonraki bölüm çekiliyor: bu koltuğun etrafındaki oda, sabahtan akşama bir mutfak.",
+      "The interior": "İç mekân",
+      "03 — Interiors": "03 — İç mekân",
+      "Larisel Interiors.": "Larisel İç Mekân.",
+      "The client chooses the room.": "Mekânı müşteri seçer.",
+      "A tool for kitchen and interior studios: floor, worktop, fronts and wall colour, changed live while the client stands in the room.": "Mutfak ve iç mimarlık stüdyoları için bir araç: zemin, tezgâh, dolap kapakları ve duvar rengi, müşteri odanın içindeyken canlı değişir.",
+      "Afternoon to evening": "Öğleden akşama",
+      "The same kitchen,": "Aynı mutfak,",
+      "after sunset.": "gün batınca.",
+      "One switch shows the materials under evening light — before a single panel is ordered.": "Tek bir düğme malzemeleri akşam ışığında gösterir — daha tek bir panel sipariş edilmeden.",
+      "Larisel Interiors": "Larisel İç Mekân",
+      "Let the client choose the room.": "Mekânı müşteri kendi seçsin.",
+      "From the configurator's homepage": "Yapılandırıcının ana sayfasından",
+      "Instead of sending renders back and forth, the studio sends one link — and the client arrives at the meeting having decided.": "Stüdyo render gönderip durmak yerine tek bir link gönderir — müşteri toplantıya kararını vermiş olarak gelir.",
+      "Try the materials": "Malzemeleri dene",
+      "Six floors, six worktops, eight cabinet fronts and eight wall colours.": "Altı zemin, altı tezgâh, sekiz dolap kapağı ve sekiz duvar rengi.",
+      "See it day and night": "Gündüz ve gece gör",
+      "The same kitchen in daylight and with the lamps on.": "Aynı mutfak gün ışığında ve lambalar yanarken.",
+      "Open it anywhere": "Her yerde aç",
+      "It runs in the browser, on a phone too; nothing to install.": "Tarayıcıda, telefonda da çalışır; kurulacak bir şey yok.",
+      "Open the room": "Odayı aç",
+      "Light": "Işık",
+      "Daylight or evening, one switch.": "Gündüz ya da akşam, tek düğme.",
+      "Worktop": "Tezgâh",
+      "Marble, granite, oak and more.": "Mermer, granit, meşe ve dahası.",
+      "Fronts": "Kapaklar",
+      "Eight finishes, gloss or matt.": "Parlak ya da mat, sekiz yüzey.",
+      "The interior site, recorded": "İç mekân sitesi, kayıttan",
+      "The client tries a walnut floor, a Calacatta worktop and sage fronts — then switches to evening.": "Müşteri ceviz zemini, kalakata tezgâhı ve adaçayı kapakları deniyor — sonra akşama geçiyor.",
+      "The corporate site": "Kurumsal site",
+      "04 — Corporate site": "04 — Kurumsal site",
+      "Larisel Group.": "Larisel Group.",
+      "Three sectors, one address.": "Üç sektör, tek adres.",
+      "The website of a group working in retail, construction and energy — one set of pages, three languages.": "Perakende, inşaat ve enerjide çalışan bir grubun sitesi — tek sayfa seti, üç dil.",
+      "Larisel Group": "Larisel Group",
+      "Retail. Construction. Energy. One group.": "Perakende. İnşaat. Enerji. Tek grup.",
+      "From the group's homepage": "Grubun ana sayfasından",
+      "A corporate website that speaks for three companies at once, and stays calm while it does.": "Aynı anda üç şirket adına konuşan ve bunu yaparken sakin kalan bir kurumsal site.",
+      "A page for each company": "Her şirkete bir sayfa",
+      "Larisel Park, Larisel İnşaat and Larisel Enerji, each with its own story and colour.": "Larisel Park, Larisel İnşaat ve Larisel Enerji; her biri kendi hikâyesi ve rengiyle.",
+      "Three languages": "Üç dil",
+      "Turkish, English and Russian from a single set of pages.": "Tek sayfa setinden Türkçe, İngilizce ve Rusça.",
+      "The building, in 3D": "Bina, 3B olarak",
+      "The construction page shows the group's project as a model you can turn.": "İnşaat sayfası grubun projesini çevrilebilen bir model olarak gösterir.",
+      "Visit the group": "Grubu ziyaret et",
+      "The corporate site, recorded": "Kurumsal site, kayıttan",
+      "Scrolling the group's homepage: the relief behind the type, the flagship project, the sectors.": "Grubun ana sayfasında geziniyoruz: yazının ardındaki kabartma, amiral proje, sektörler.",
+      "The order bot": "Sipariş botu",
+      "05 — Order bot": "05 — Sipariş botu",
+      "An order arrives": "Sipariş,",
+      "the moment it is placed.": "verildiği an gelir.",
+      "The shop's Telegram bot takes the order, checks every step and sends it to the workshop — the phone on the desk is where it lands.": "Mağazanın Telegram botu siparişi alır, her adımı kontrol eder ve atölyeye gönderir — masadaki telefon, siparişin düştüğü yer.",
       "Larisel Order Bot": "Larisel Sipariş Botu",
-      "A Telegram bot that carries a catalog, a cart and a five-step checkout, with an admin panel and Excel export behind it. Built so an order can never be silently lost — every step is validated and persisted.":
-        "Katalog, sepet ve beş adımlı sipariş akışı taşıyan; arkasında yönetici paneli ve Excel dışa aktarımı olan bir Telegram botu. Hiçbir sipariş sessizce kaybolmasın diye kuruldu — her adım doğrulanır ve kaydedilir.",
-
-      "Open live": "Canlı aç",
-      "Source": "Kaynak kod",
-
-      /* services */
-      "What I do": "Ne yapıyorum",
-      "Three things, done properly.": "Üç iş, hakkıyla.",
-      "Interactive 3D websites": "İnteraktif 3B web siteleri",
-      "A live WebGL scene that reacts to the cursor and animates on scroll — the kind of site people remember. Performance-budgeted so it still loads fast on a mid-range phone.":
-        "İmlece tepki veren, kaydırdıkça canlanan gerçek bir WebGL sahnesi — akılda kalan türden bir site. Orta seviye bir telefonda da hızlı açılsın diye performans bütçesiyle kurulur.",
-      "3D product configurators": "3B ürün yapılandırıcıları",
-      "Let customers build your product themselves — colour, material, size — and watch the price update live. People who try a product on buy it more often.":
-        "Müşteriniz ürünü kendisi kursun — renk, malzeme, ölçü — ve fiyatın anında güncellendiğini görsün. Ürünü \"üzerinde deneyen\" müşteri daha sık satın alır.",
-      "Telegram bots & automation": "Telegram botları ve otomasyon",
-      "Order flows, catalogs, notifications and admin panels in Python. The unglamorous work that quietly removes hours from your week.":
-        "Python ile sipariş akışları, kataloglar, bildirimler ve yönetici panelleri. Gösterişli olmayan ama haftanızdan sessizce saatler kazandıran iş.",
-
-      /* about */
-      "I work where 3D meets the web.": "3B ile web'in kesiştiği yerde çalışıyorum.",
-      "Most developers pick one side. I sit on the seam: enough graphics to build a scene that looks like a product render, enough web engineering to ship it as a fast, accessible, maintainable site.":
-        "Çoğu geliştirici bir tarafı seçer. Ben tam ortasında duruyorum: ürün render'ı gibi görünen bir sahne kuracak kadar grafik, onu hızlı, erişilebilir ve bakımı kolay bir site olarak yayına alacak kadar web mühendisliği.",
-      "I hand over": "Size",
-      "full source code": "kaynak kodun tamamını",
-      "and stay reachable after delivery. I also study information security, so the code I write is not the thing that gets you breached.":
-        "teslim ediyorum ve teslimattan sonra da ulaşılabilir kalıyorum. Ayrıca bilgi güvenliği çalışıyorum; yazdığım kod sizi açık veren taraf yapmaz.",
-      "Fixed scope, fixed price, and a live preview link before final delivery — you judge the work on your own phone, not on a screenshot.":
-        "Sabit kapsam, sabit fiyat ve son teslimattan önce canlı önizleme linki — işi ekran görüntüsünden değil, kendi telefonunuzdan değerlendirirsiniz.",
-
-      "Based in": "Konum",
-      "Moscow · Türkiye": "Moskova · Türkiye",
+      "Choose, confirm, done — inside Telegram.": "Seç, onayla, bitti — Telegram'ın içinde.",
+      "What the shop's customers see": "Mağazanın müşterilerinin gördüğü",
+      "A Telegram bot that carries a catalogue, a cart and a five-step checkout, with an admin panel and an Excel export behind it.": "Katalog, sepet ve beş adımlı ödeme taşıyan bir Telegram botu; arkasında yönetim paneli ve Excel dışa aktarımı.",
+      "Order in a chat": "Sohbette sipariş",
+      "No app to install: the customer orders where they already talk.": "Kurulacak uygulama yok: müşteri zaten konuştuğu yerden sipariş verir.",
+      "Nothing gets lost": "Hiçbir şey kaybolmaz",
+      "Every step is checked and saved; an order is never half-taken.": "Her adım kontrol edilir ve kaydedilir; hiçbir sipariş yarım kalmaz.",
+      "The shop sees it all": "Mağaza her şeyi görür",
+      "An admin panel for the day's orders, and Excel when the accountant asks.": "Günün siparişleri için yönetim paneli, muhasebeci isteyince de Excel.",
+      "See the code": "Kodu gör",
+      "A demo of the order bot": "Sipariş botunun demosu",
+      "Tap the answers — this is the bot's real flow, played here. Nothing is sent.": "Cevaplara dokunun — bu, botun gerçek akışı; burada oynatılıyor. Hiçbir şey gönderilmez.",
+      "Hello! I take orders for the Larisel workshop. Shall we build your armchair?": "Merhaba! Larisel atölyesinin siparişlerini alıyorum. Koltuğunu birlikte kuralım mı?",
+      "First, the fabric:": "Önce kumaş:",
+      "Now the frame:": "Şimdi iskelet:",
+      "And the size?": "Boyut?",
+      "Your order": "Siparişin",
+      "Made to order in 14 days": "14 günde siparişe göre üretilir",
+      "Confirm the order": "Siparişi onayla",
+      "Start again": "Baştan başla",
+      "Done — order": "Tamam — sipariş",
+      "is with the workshop. You will get a message here when it ships.": "atölyeye iletildi. Kargoya verildiğinde buradan mesaj gelecek.",
+      "The shop sees the same order in its admin panel, and can export the day's orders to Excel.": "Mağaza aynı siparişi yönetim panelinde görür, günün siparişlerini Excel'e aktarabilir.",
+      "Order another": "Bir tane daha sipariş et",
+      "Sand": "Kum",
+      "Graphite": "Grafit",
+      "Terracotta": "Terakota",
+      "Oak": "Meşe",
+      "Walnut": "Ceviz",
+      "Brass": "Pirinç",
+      "Standard": "Standart",
+      "XL": "XL",
+      "How we work": "Nasıl çalışıyoruz",
+      "From a call to a site": "Bir görüşmeden",
+      "you can scroll.": "kaydırılan bir siteye.",
+      "A short call": "Kısa bir görüşme",
+      "Fifteen minutes about the product, the audience and the deadline.": "Ürün, hedef kitle ve teslim tarihi üzerine on beş dakika.",
+      "The first frame": "İlk kare",
+      "Within a week you see the look — the light, the material, one shot — before anything is built.": "Bir hafta içinde görünümü görürsünüz — ışık, malzeme, tek bir çekim — daha hiçbir şey kurulmadan.",
+      "Built on your phone": "Telefonunuzda kurulur",
+      "You follow a live link as it grows, and judge it on your own screen.": "Büyüdükçe canlı bir linkten izler, kendi ekranınızda değerlendirirsiniz.",
+      "Live, and yours": "Yayında ve sizin",
+      "Launched on your domain, with the source code handed over.": "Kendi alan adınızda yayına alınır, kaynak kodu size teslim edilir.",
+      "Start a project": "Proje başlat",
+      "What do you need?": "Neye ihtiyacınız var?",
+      "A website with a film": "Filmli bir web sitesi",
+      "A product configurator": "Ürün yapılandırıcı",
+      "A corporate website": "Kurumsal web sitesi",
+      "A Telegram bot": "Telegram botu",
+      "For what kind of business?": "Ne tür bir işletme için?",
+      "Café or restaurant": "Kafe ya da restoran",
+      "Furniture or interiors": "Mobilya ya da iç mekân",
+      "Real estate or construction": "Gayrimenkul ya da inşaat",
+      "Something else": "Başka bir şey",
       "Languages": "Diller",
-      "Core stack": "Ana teknoloji",
-      "Also": "Ayrıca",
-      "Delivery": "Teslimat",
-      "Source code included": "Kaynak kod dahil",
-
-      /* contact */
-      "Tell me what you want to build.": "Ne kurmak istediğinizi anlatın.",
-      "Send the idea in a couple of sentences. I will tell you honestly whether it fits, roughly what it takes, and what it would cost — before you commit to anything.":
-        "Fikri birkaç cümleyle yazın. Size dürüstçe söyleyeyim: uygun mu, kabaca ne kadar sürer ve ne kadara mal olur — hiçbir şeye söz vermeden önce.",
-
-      /* footer */
-      "Larisel — 3D & Web Studio ": "Larisel — 3B ve Web Stüdyosu ",
-      "Built with Three.js, by hand.": "Three.js ile, elle yazıldı.",
-      /* WhatsApp and Telegram are brand names and stay as they are in every
-         language; only the generic label needs translating. */
-      "Email": "E-posta",
-
-      /* alt text */
-      "3D armchair configurator rendered in sand fabric on an oak frame":
-        "Meşe gövde üzerinde kum rengi kumaşla render alınmış 3B koltuk yapılandırıcı",
-      "A kitchen interior configured in the browser: marble worktop, gloss fronts, oak floor":
-        "Tarayıcıda yapılandırılan bir mutfak iç mekânı: mermer tezgâh, lake kapaklar, meşe zemin",
-      "Larisel Group corporate website home page": "Larisel Group kurumsal web sitesi ana sayfası",
-      "Telegram order bot interface showing a furniture catalog":
-        "Mobilya kataloğunu gösteren Telegram sipariş botu arayüzü",
-      "Larisel — home": "Larisel — ana sayfa",
-      "Primary": "Ana menü"
+      "One": "Bir",
+      "Two": "İki",
+      "Three": "Üç",
+      "When?": "Ne zaman?",
+      "Within a month": "Bir ay içinde",
+      "In two or three months": "İki üç ay içinde",
+      "No fixed date": "Belli bir tarih yok",
+      "Budget": "Bütçe",
+      "Still deciding": "Henüz karar vermedim",
+      "Up to $3,000": "3.000 $'a kadar",
+      "$3,000 – $10,000": "3.000 – 10.000 $",
+      "Above $10,000": "10.000 $ üstü",
+      "Anything else?": "Eklemek istediğiniz bir şey?",
+      "(optional)": "(isteğe bağlı)",
+      "A link, a deadline, a reference you like": "Bir link, bir tarih, beğendiğiniz bir örnek",
+      "Your brief": "Brifiniz",
+      "Send on WhatsApp": "WhatsApp ile gönder",
+      "E-mail": "E-posta",
+      "Copied — paste it into the chat.": "Kopyalandı — sohbete yapıştırın.",
+      "We answer within a day — with a price.": "Bir gün içinde dönüyoruz — fiyatıyla birlikte.",
+      "Hello Larisel, a new project:": "Merhaba Larisel, yeni bir proje:",
+      "What": "Ne",
+      "For": "Kimin için",
+      "When": "Ne zaman",
+      "Notes": "Notlar",
+      "A new project": "Yeni bir proje",
+      "One website for a group of three companies — clear to a customer, an investor and a job seeker alike.": "Üç şirketlik bir grup için tek web sitesi — müşteri, yatırımcı ve iş arayan için aynı ölçüde anlaşılır.",
+      "$1,000 – $3,000": "1.000 – 3.000 $",
+      "$3,000 – $5,000": "3.000 – 5.000 $",
+      "Above $5,000": "5.000 $ üstü",
+      "bot": "bot"
     },
-
-    ru: {
-      /* head */
-      "Larisel — 3D & Web Studio": "Larisel — 3D и веб-студия",
-      "I build interactive 3D websites, product configurators and Telegram bots with Three.js, WebGL and Python — running code, not mockups.":
-        "Создаю интерактивные 3D-сайты, конфигураторы товаров и Telegram-ботов на Three.js, WebGL и Python — работающий код, а не макеты.",
-
-      /* chrome */
-      "Skip to content": "Перейти к содержанию",
+    "ru": {
+      "Larisel — Films you scroll, 3D you can turn": "Larisel — фильмы, которые листают, и 3D, которое вращают",
+      "Larisel is a 3D and web studio. We turn products into films you scroll and 3D models you can turn — rendered in Blender, built in three.js, and they open on a phone.": "Larisel — студия 3D и веба. Превращаем продукт в фильм, который идёт при прокрутке, и в 3D-модель, которую вращают рукой: рендер в Blender, код на three.js, всё открывается на телефоне.",
+      "Skip to the work": "К работам",
+      "Larisel — home": "Larisel — главная",
+      "Primary": "Основное меню",
       "Work": "Работы",
-      "Services": "Услуги",
-      "About": "Обо мне",
+      "Process": "Процесс",
       "Contact": "Контакты",
       "Language": "Язык",
-
-      /* hero */
-      "3D & Web Developer": "3D и веб-разработчик",
-      "Real-time 3D,": "3D в реальном времени,",
-      "on the open web.": "прямо в браузере.",
-      "I build interactive 3D websites, product configurators and Telegram bots. Not videos, not mockups — running code you can open on your phone right now.":
-        "Делаю интерактивные 3D-сайты, конфигураторы товаров и Telegram-ботов. Не видео и не макеты — работающий код, который можно открыть с телефона прямо сейчас.",
-      "See the work": "Смотреть работы",
-      "Start a project": "Начать проект",
+      "Larisel — the studio's film": "Larisel — фильм студии",
+      "Larisel — 3D & web studio": "Larisel — студия 3D и веба",
+      "We turn your product": "Ваш продукт —",
+      "into a film you scroll": "фильм при прокрутке",
+      "and": "и",
+      "3D you can turn.": "3D в ваших руках.",
+      "Websites for cafés, furniture and interiors — rendered in Blender, built in three.js, and they open on a phone.": "Сайты для кофеен, мебели и интерьеров — рендер в Blender, код на three.js, и всё открывается на телефоне.",
+      "Larisel Café.": "Larisel Café.",
+      "A café you order from.": "Здесь можно заказать.",
+      "This chapter is the café's own film, playing from its own site: the coffee is poured, the lid goes on, and the cup becomes the live one below.": "Эта глава — фильм самой кофейни, он идёт с её сайта: кофе наливают, надевают крышку, и стакан становится живым — ниже.",
+      "Film chapters": "Главы фильма",
+      "01 Café": "01 Кафе",
+      "Skip the film": "Пропустить фильм",
       "Scroll": "Листайте",
-
-      /* work */
-      "Selected work": "Избранные работы",
-      "Things that actually run.": "То, что действительно работает.",
-      "Every project below is live. Open it, rotate it, break it — that is the point.":
-        "Каждый проект ниже — живой. Откройте, покрутите, попробуйте сломать: в этом и смысл.",
-
-      "01 — Interactive site": "01 — Интерактивный сайт",
-      "Larisel Café": "Кафе Larisel",
-      "A café site where the product is the interface: a scroll-driven film from bean to cup, a live 3D cup you design — colour, print, your name — a printed order ticket, ordering from the table by QR with a split bill, and a coffee reading from a photo of your own cup.":
-        "Сайт кофейни, где продукт и есть интерфейс: фильм от зерна до чашки при прокрутке, живой 3D-стакан, который вы оформляете сами, — цвет, узор, ваше имя, — печатный чек заказа, заказ со стола по QR с разделением счёта и гадание по фото вашей чашки.",
-      "04 — Interior configurator": "04 — Конфигуратор интерьера",
-      "Larisel Interiors": "Интерьеры Larisel",
-      "A room the client changes while standing in it: floor, worktop, cabinet fronts and wall colour, with a daylight-to-evening switch. Every material is generated in code, so nothing is downloaded and it opens on a phone.":
-        "Комната, которую клиент меняет, находясь внутри: пол, столешница, фасады и цвет стен, плюс переключение дневного и вечернего света. Все материалы генерируются кодом — ничего не скачивается, открывается с телефона.",
-
+      "Larisel Café": "Larisel Café",
+      "Lid": "Крышка",
+      "Sleeve": "Манжета",
       "02 — Product configurator": "02 — Конфигуратор товара",
+      "The film's next chapter — fabric, frame and price changing as you build the chair — is in production.": "Следующая глава фильма — ткань, каркас и цена меняются, пока вы собираете кресло, — в производстве.",
+      "Tell us what you want to build.": "Расскажите, что хотите сделать.",
+      "Send the idea in a couple of sentences. We answer honestly whether it fits, roughly what it takes and what it would cost — before you commit to anything.": "Опишите идею в паре предложений. Честно скажем, подходит ли она нам, что примерно потребуется и сколько это будет стоить — до того, как вы что-то решите.",
+      "3D & web studio · Moscow · Türkiye": "студия 3D и веба · Москва · Турция",
+      "01 — Café": "01 — Кофейня",
+      "Pick a coffee, design the cup.": "Кофе на выбор, стакан — ваш.",
+      "From the café's homepage": "С главной страницы кофейни",
+      "A café website that guests use the way they use the counter — and then a little more.": "Сайт кофейни, которым гости пользуются как стойкой, — и даже немного больше.",
+      "Design the cup": "Оформите стакан",
+      "Choose the drink, then the cup's colour, sleeve and lid — and see your name printed on it.": "Выберите напиток, затем цвет стакана, манжету и крышку — и увидите на нём своё имя.",
+      "Order from the table": "Заказ со стола",
+      "Scan the code on the table, order, and split the bill with friends.": "Отсканируйте код на столе, закажите и разделите счёт с друзьями.",
+      "A coffee reading": "Гадание на кофе",
+      "Send a photo of the empty cup and read what the grounds say.": "Пришлите фото пустой чашки и прочитайте, что говорит гуща.",
+      "Visit the café": "Открыть кофейню",
+      "Pick the lid — the clear one shows your coffee.": "Выберите крышку — прозрачная покажет кофе.",
+      "Your name": "Ваше имя",
+      "Printed on the cup as you type it.": "Печатается на стакане, пока вы его вводите.",
+      "Kraft, linen, copper, cork — seven to choose from.": "Крафт, лён, медь, пробка — на выбор семь.",
+      "Turn it": "Поверните",
+      "Drag the cup — it is real 3D, not a photo.": "Потяните стакан — это настоящее 3D, а не фото.",
+      "The café site, recorded": "Сайт кофейни, запись",
+      "On the site": "На сайте",
+      "A guest designs a cup: ink blue, a copper sleeve, and her name.": "Гостья оформляет стакан: чернильно-синий, медная манжета и её имя.",
+      "The armchair": "Кресло",
+      "02 — Armchair": "02 — Кресло",
+      "Larisel Armchair.": "Кресло Larisel.",
+      "Built on screen.": "Собирается на экране.",
+      "A furniture shop's product page where the customer puts the chair together — and sees it before it is made.": "Страница мебельного магазина, где покупатель сам собирает кресло — и видит его до того, как его сделают.",
+      "Fabric and frame": "Ткань и каркас",
+      "One tap,": "Одно касание —",
+      "a different chair.": "и другое кресло.",
+      "Sand to graphite to terracotta, oak to brass to walnut. On the shop's page the chair changes the moment the customer chooses.": "Песок, графит, терракота; дуб, латунь, орех. На странице магазина кресло меняется в ту же секунду, как покупатель выбирает.",
       "Larisel Armchair": "Кресло Larisel",
-      "A real-time 3D configurator: six fabrics, four frame finishes, two sizes, with the price and lead time recalculating as the customer builds the product. Runs in the browser, no plugin, works on a phone.":
-        "3D-конфигуратор в реальном времени: шесть тканей, четыре отделки каркаса, два размера, а цена и срок пересчитываются прямо по ходу сборки. Работает в браузере, без плагинов, в том числе на телефоне.",
-
-      "03 — Corporate site": "03 — Корпоративный сайт",
-      "A corporate site for a fictional holding working across retail, construction and energy. Three languages from a single set of pages, a 3D building model on the construction section, and a design system built on tokens rather than one-off values.":
-        "Корпоративный сайт вымышленного холдинга, работающего в ритейле, строительстве и энергетике. Три языка на одном наборе страниц, 3D-модель здания в разделе строительства и дизайн-система на токенах вместо разовых значений.",
-
-      "05 — Automation": "05 — Автоматизация",
+      "Build the chair for your own room — the model and the price change as you go.": "Соберите кресло под свой интерьер — модель и цена меняются сразу.",
+      "From the shop's product page": "Со страницы товара в магазине",
+      "A furniture product page that sells by letting the customer build the chair.": "Страница товара, которая продаёт, позволяя покупателю самому собрать кресло.",
+      "Pick the fabric": "Выберите ткань",
+      "Six colours, from sand to indigo, shown on the chair itself.": "Шесть цветов, от песочного до индиго, — прямо на кресле.",
+      "Pick the frame and the size": "Выберите каркас и размер",
+      "Oak, walnut, black or brass legs; standard or XL.": "Ножки из дуба, ореха, чёрные или латунные; стандарт или XL.",
+      "See the price, then order": "Узнайте цену и закажите",
+      "The total follows every choice, and one tap sends the build to the workshop.": "Итог меняется с каждым выбором, и одно касание отправляет заказ в мастерскую.",
+      "Build an armchair": "Собрать кресло",
+      "Price": "Цена",
+      "Changes with every choice.": "Меняется с каждым выбором.",
+      "Frame": "Каркас",
+      "Oak, walnut, black or brass.": "Дуб, орех, чёрный или латунь.",
+      "Fabric": "Ткань",
+      "Six colours to choose from.": "Шесть цветов на выбор.",
+      "Size": "Размер",
+      "Standard or XL.": "Стандарт или XL.",
+      "The armchair site, recorded": "Сайт кресла, запись",
+      "The customer tries colour after colour — the chair and its price change with every tap.": "Покупатель пробует цвет за цветом — кресло и цена меняются с каждым касанием.",
+      "The next chapter is being filmed: the room around this chair, a kitchen from morning to evening.": "Следующая глава снимается: комната вокруг этого кресла, кухня с утра до вечера.",
+      "The interior": "Интерьер",
+      "03 — Interiors": "03 — Интерьеры",
+      "Larisel Interiors.": "Интерьеры Larisel.",
+      "The client chooses the room.": "Интерьер выбирает клиент.",
+      "A tool for kitchen and interior studios: floor, worktop, fronts and wall colour, changed live while the client stands in the room.": "Инструмент для кухонных и интерьерных студий: пол, столешница, фасады и цвет стен меняются вживую, пока клиент стоит в комнате.",
+      "Afternoon to evening": "С полудня до вечера",
+      "The same kitchen,": "Та же кухня",
+      "after sunset.": "после заката.",
+      "One switch shows the materials under evening light — before a single panel is ordered.": "Один переключатель показывает материалы при вечернем свете — ещё до заказа первой панели.",
+      "Larisel Interiors": "Интерьеры Larisel",
+      "Let the client choose the room.": "Пусть клиент соберёт интерьер сам.",
+      "From the configurator's homepage": "С главной страницы конфигуратора",
+      "Instead of sending renders back and forth, the studio sends one link — and the client arrives at the meeting having decided.": "Вместо бесконечных рендеров студия отправляет одну ссылку — и клиент приходит на встречу, уже решив.",
+      "Try the materials": "Пробуйте материалы",
+      "Six floors, six worktops, eight cabinet fronts and eight wall colours.": "Шесть полов, шесть столешниц, восемь фасадов и восемь цветов стен.",
+      "See it day and night": "Днём и вечером",
+      "The same kitchen in daylight and with the lamps on.": "Та же кухня при дневном свете и с включёнными лампами.",
+      "Open it anywhere": "Открывается везде",
+      "It runs in the browser, on a phone too; nothing to install.": "Работает в браузере, и на телефоне тоже; ничего не нужно устанавливать.",
+      "Open the room": "Открыть комнату",
+      "Light": "Свет",
+      "Daylight or evening, one switch.": "День или вечер — одним переключателем.",
+      "Worktop": "Столешница",
+      "Marble, granite, oak and more.": "Мрамор, гранит, дуб и не только.",
+      "Fronts": "Фасады",
+      "Eight finishes, gloss or matt.": "Восемь отделок, глянец или мат.",
+      "The interior site, recorded": "Сайт интерьера, запись",
+      "The client tries a walnut floor, a Calacatta worktop and sage fronts — then switches to evening.": "Клиент пробует пол из ореха, столешницу калакатта и шалфейные фасады — и переключает на вечер.",
+      "The corporate site": "Корпоративный сайт",
+      "04 — Corporate site": "04 — Корпоративный сайт",
+      "Larisel Group.": "Larisel Group.",
+      "Three sectors, one address.": "Три отрасли, один адрес.",
+      "The website of a group working in retail, construction and energy — one set of pages, three languages.": "Сайт группы, работающей в рознице, строительстве и энергетике, — один набор страниц, три языка.",
+      "Larisel Group": "Larisel Group",
+      "Retail. Construction. Energy. One group.": "Ритейл. Строительство. Энергетика. Одна группа.",
+      "From the group's homepage": "С главной страницы группы",
+      "A corporate website that speaks for three companies at once, and stays calm while it does.": "Корпоративный сайт, который говорит сразу за три компании и остаётся спокойным.",
+      "A page for each company": "Своя страница у каждой компании",
+      "Larisel Park, Larisel İnşaat and Larisel Enerji, each with its own story and colour.": "Larisel Park, Larisel İnşaat и Larisel Enerji — у каждой своя история и свой цвет.",
+      "Three languages": "Три языка",
+      "Turkish, English and Russian from a single set of pages.": "Турецкий, английский и русский из одного набора страниц.",
+      "The building, in 3D": "Здание в 3D",
+      "The construction page shows the group's project as a model you can turn.": "Страница строительства показывает проект группы как модель, которую можно вращать.",
+      "Visit the group": "Открыть сайт группы",
+      "The corporate site, recorded": "Корпоративный сайт, запись",
+      "Scrolling the group's homepage: the relief behind the type, the flagship project, the sectors.": "Листаем главную страницу группы: рельеф за текстом, флагманский проект, направления.",
+      "The order bot": "Бот заказов",
+      "05 — Order bot": "05 — Бот заказов",
+      "An order arrives": "Заказ приходит",
+      "the moment it is placed.": "в ту же секунду.",
+      "The shop's Telegram bot takes the order, checks every step and sends it to the workshop — the phone on the desk is where it lands.": "Telegram-бот магазина принимает заказ, проверяет каждый шаг и отправляет его в мастерскую — телефон на столе и есть место, куда он приходит.",
       "Larisel Order Bot": "Бот заказов Larisel",
-      "A Telegram bot that carries a catalog, a cart and a five-step checkout, with an admin panel and Excel export behind it. Built so an order can never be silently lost — every step is validated and persisted.":
-        "Telegram-бот с каталогом, корзиной и оформлением заказа в пять шагов, с админ-панелью и выгрузкой в Excel. Сделан так, чтобы заказ не терялся молча: каждый шаг проверяется и сохраняется.",
-
-      "Open live": "Открыть",
-      "Source": "Исходный код",
-
-      /* services */
-      "What I do": "Чем занимаюсь",
-      "Three things, done properly.": "Три направления, сделанных как следует.",
-      "Interactive 3D websites": "Интерактивные 3D-сайты",
-      "A live WebGL scene that reacts to the cursor and animates on scroll — the kind of site people remember. Performance-budgeted so it still loads fast on a mid-range phone.":
-        "Живая WebGL-сцена, которая реагирует на курсор и оживает при прокрутке, — такой сайт запоминают. Собирается с бюджетом производительности, чтобы быстро открываться и на среднем телефоне.",
-      "3D product configurators": "3D-конфигураторы товаров",
-      "Let customers build your product themselves — colour, material, size — and watch the price update live. People who try a product on buy it more often.":
-        "Пусть клиент соберёт товар сам — цвет, материал, размер — и увидит, как цена меняется в реальном времени. Тот, кто «примерил» товар, покупает чаще.",
-      "Telegram bots & automation": "Telegram-боты и автоматизация",
-      "Order flows, catalogs, notifications and admin panels in Python. The unglamorous work that quietly removes hours from your week.":
-        "Оформление заказов, каталоги, уведомления и админ-панели на Python. Неэффектная работа, которая тихо освобождает часы каждую неделю.",
-
-      /* about */
-      "I work where 3D meets the web.": "Работаю на стыке 3D и веба.",
-      "Most developers pick one side. I sit on the seam: enough graphics to build a scene that looks like a product render, enough web engineering to ship it as a fast, accessible, maintainable site.":
-        "Большинство разработчиков выбирают одну сторону. Я стою на шве: достаточно графики, чтобы собрать сцену уровня продуктового рендера, и достаточно веб-инженерии, чтобы выпустить её быстрым, доступным и поддерживаемым сайтом.",
-      "I hand over": "Передаю",
-      "full source code": "полный исходный код",
-      "and stay reachable after delivery. I also study information security, so the code I write is not the thing that gets you breached.":
-        "и остаюсь на связи после сдачи. Я также изучаю информационную безопасность, поэтому мой код не станет причиной утечки.",
-      "Fixed scope, fixed price, and a live preview link before final delivery — you judge the work on your own phone, not on a screenshot.":
-        "Фиксированный объём, фиксированная цена и живая ссылка на предпросмотр до финальной сдачи — вы оцениваете работу со своего телефона, а не по скриншоту.",
-
-      "Based in": "Локация",
-      "Moscow · Türkiye": "Москва · Турция",
+      "Choose, confirm, done — inside Telegram.": "Выбрать, подтвердить, готово — прямо в Telegram.",
+      "What the shop's customers see": "Что видят покупатели магазина",
+      "A Telegram bot that carries a catalogue, a cart and a five-step checkout, with an admin panel and an Excel export behind it.": "Telegram-бот с каталогом, корзиной и оформлением в пять шагов, а за ним — админ-панель и выгрузка в Excel.",
+      "Order in a chat": "Заказ в чате",
+      "No app to install: the customer orders where they already talk.": "Ничего не нужно ставить: покупатель заказывает там, где и так общается.",
+      "Nothing gets lost": "Ничего не теряется",
+      "Every step is checked and saved; an order is never half-taken.": "Каждый шаг проверяется и сохраняется; заказ не остаётся недооформленным.",
+      "The shop sees it all": "Магазин видит всё",
+      "An admin panel for the day's orders, and Excel when the accountant asks.": "Админ-панель с заказами за день и Excel, когда спросит бухгалтер.",
+      "See the code": "Посмотреть код",
+      "A demo of the order bot": "Демо бота заказов",
+      "Tap the answers — this is the bot's real flow, played here. Nothing is sent.": "Нажимайте на ответы — это настоящий сценарий бота, воспроизведённый здесь. Ничего не отправляется.",
+      "Hello! I take orders for the Larisel workshop. Shall we build your armchair?": "Здравствуйте! Я принимаю заказы мастерской Larisel. Соберём ваше кресло?",
+      "First, the fabric:": "Сначала ткань:",
+      "Now the frame:": "Теперь каркас:",
+      "And the size?": "А размер?",
+      "Your order": "Ваш заказ",
+      "Made to order in 14 days": "Изготовим за 14 дней",
+      "Confirm the order": "Подтвердить заказ",
+      "Start again": "Начать заново",
+      "Done — order": "Готово — заказ",
+      "is with the workshop. You will get a message here when it ships.": "передан в мастерскую. Когда отправим, придёт сообщение сюда.",
+      "The shop sees the same order in its admin panel, and can export the day's orders to Excel.": "Магазин видит этот же заказ в админ-панели и может выгрузить заказы за день в Excel.",
+      "Order another": "Заказать ещё",
+      "Sand": "Песочный",
+      "Graphite": "Графит",
+      "Terracotta": "Терракота",
+      "Oak": "Дуб",
+      "Walnut": "Орех",
+      "Brass": "Латунь",
+      "Standard": "Стандарт",
+      "XL": "XL",
+      "How we work": "Как мы работаем",
+      "From a call to a site": "От звонка до сайта,",
+      "you can scroll.": "который листают.",
+      "A short call": "Короткий звонок",
+      "Fifteen minutes about the product, the audience and the deadline.": "Пятнадцать минут о продукте, аудитории и сроках.",
+      "The first frame": "Первый кадр",
+      "Within a week you see the look — the light, the material, one shot — before anything is built.": "Через неделю вы видите облик — свет, материал, один кадр — ещё до того, как что-то построено.",
+      "Built on your phone": "Собирается у вас на телефоне",
+      "You follow a live link as it grows, and judge it on your own screen.": "Вы следите за живой ссылкой и оцениваете результат на своём экране.",
+      "Live, and yours": "В сети — и ваш",
+      "Launched on your domain, with the source code handed over.": "Запускаем на вашем домене и передаём исходный код.",
+      "Start a project": "Начать проект",
+      "What do you need?": "Что вам нужно?",
+      "A website with a film": "Сайт с фильмом",
+      "A product configurator": "Конфигуратор товара",
+      "A corporate website": "Корпоративный сайт",
+      "A Telegram bot": "Telegram-бот",
+      "For what kind of business?": "Для какого бизнеса?",
+      "Café or restaurant": "Кафе или ресторан",
+      "Furniture or interiors": "Мебель или интерьеры",
+      "Real estate or construction": "Недвижимость или строительство",
+      "Something else": "Другое",
       "Languages": "Языки",
-      "Core stack": "Основной стек",
-      "Also": "Также",
-      "Delivery": "Передача",
-      "Source code included": "Исходный код included",
-
-      /* contact */
-      "Tell me what you want to build.": "Расскажите, что хотите построить.",
-      "Send the idea in a couple of sentences. I will tell you honestly whether it fits, roughly what it takes, and what it would cost — before you commit to anything.":
-        "Опишите идею в паре предложений. Честно скажу, подходит ли она, сколько примерно займёт и сколько будет стоить, — до того как вы на что-то подпишетесь.",
-
-      /* footer */
-      "Larisel — 3D & Web Studio ": "Larisel — 3D и веб-студия ",
-      "Built with Three.js, by hand.": "Собрано на Three.js, вручную.",
-      "Email": "Почта",
-
-      /* alt text */
-      "3D armchair configurator rendered in sand fabric on an oak frame":
-        "3D-конфигуратор кресла: песочная ткань на дубовом каркасе",
-      "A kitchen interior configured in the browser: marble worktop, gloss fronts, oak floor":
-        "Кухонный интерьер, собранный в браузере: мраморная столешница, глянцевые фасады, дубовый пол",
-      "Larisel Group corporate website home page": "Главная страница корпоративного сайта Larisel Group",
-      "Telegram order bot interface showing a furniture catalog":
-        "Интерфейс Telegram-бота заказов с каталогом мебели",
-      "Larisel — home": "Larisel — главная",
-      "Primary": "Основное меню"
+      "One": "Один",
+      "Two": "Два",
+      "Three": "Три",
+      "When?": "Когда?",
+      "Within a month": "В течение месяца",
+      "In two or three months": "Через два-три месяца",
+      "No fixed date": "Без жёстких сроков",
+      "Budget": "Бюджет",
+      "Still deciding": "Ещё решаю",
+      "Up to $3,000": "До $3 000",
+      "$3,000 – $10,000": "$3 000 – $10 000",
+      "Above $10,000": "Больше $10 000",
+      "Anything else?": "Что-то ещё?",
+      "(optional)": "(необязательно)",
+      "A link, a deadline, a reference you like": "Ссылка, срок, пример, который нравится",
+      "Your brief": "Ваш бриф",
+      "Send on WhatsApp": "Отправить в WhatsApp",
+      "E-mail": "Почта",
+      "Copied — paste it into the chat.": "Скопировано — вставьте в чат.",
+      "We answer within a day — with a price.": "Ответим в течение дня — с ценой.",
+      "Hello Larisel, a new project:": "Здравствуйте, Larisel! Новый проект:",
+      "What": "Что",
+      "For": "Для кого",
+      "When": "Когда",
+      "Notes": "Заметки",
+      "A new project": "Новый проект",
+      "One website for a group of three companies — clear to a customer, an investor and a job seeker alike.": "Один сайт для группы из трёх компаний — одинаково понятный клиенту, инвестору и соискателю.",
+      "$1,000 – $3,000": "$1 000 – $3 000",
+      "$3,000 – $5,000": "$3 000 – $5 000",
+      "Above $5,000": "Больше $5 000",
+      "bot": "бот"
     }
   };
 
@@ -320,7 +536,16 @@
       metaDesc.setAttribute("content", (dict && dict[norm(metaSrc)]) || metaSrc);
     }
     document.documentElement.setAttribute("lang", lang);
+    shown = lang;
+    for (var k = 0; k < listeners.length; k++) listeners[k](lang);
   }
+  var shown = DEFAULT_LANG, listeners = [];
+  /* for scripts that draw words of their own */
+  window.LR = {
+    t: function (s) { var d = DICT[shown]; return (d && d[norm(s)]) || s; },
+    lang: function () { return shown; },
+    on: function (fn) { listeners.push(fn); }
+  };
 
   /* The remembered choice, else the browser's own language when we speak it.
      The page opts out of browser translation (translate="no"), so without
