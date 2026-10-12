@@ -229,7 +229,8 @@
       "For": "Kimin için",
       "When": "Ne zaman",
       "Notes": "Notlar",
-      "A new project": "Yeni bir proje"
+      "A new project": "Yeni bir proje",
+      "One website for a group of three companies — clear to a customer, an investor and a job seeker alike.": "Üç şirketlik bir grup için tek web sitesi — müşteri, yatırımcı ve iş arayan için aynı ölçüde anlaşılır."
     },
     "ru": {
       "Larisel — Films you scroll, 3D you can turn": "Larisel — фильмы, которые листают, и 3D, которое вращают",
@@ -446,7 +447,8 @@
       "For": "Для кого",
       "When": "Когда",
       "Notes": "Заметки",
-      "A new project": "Новый проект"
+      "A new project": "Новый проект",
+      "One website for a group of three companies — clear to a customer, an investor and a job seeker alike.": "Один сайт для группы из трёх компаний — одинаково понятный клиенту, инвестору и соискателю."
     }
   };
 

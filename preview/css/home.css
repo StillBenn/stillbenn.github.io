@@ -14,12 +14,20 @@
 /* Newsreader has no Cyrillic: Russian headlines take Source Serif 4 (OFL; the
    closest editorial serif with light weights and a real italic), declared under
    the same family name for the Cyrillic range only, so a mixed line ("3D в
-   ваших руках") stays one face to the eye instead of falling to Georgia. */
-@font-face { font-family: "Newsreader"; src: url("../fonts/source-serif-4-cyrillic.woff2") format("woff2"); font-weight: 200 900; font-style: normal; font-display: swap;
+   ваших руках") stays one face to the eye instead of falling to Georgia.
+   Every face of one style must declare the SAME weight range: Chrome groups
+   faces by that range and uses one group only — a Cyrillic 200-900 beside a
+   Latin 200-800 left "Larisel" in Russian titles to a system font. */
+@font-face { font-family: "Newsreader"; src: url("../fonts/source-serif-4-cyrillic.woff2") format("woff2"); font-weight: 200 800; font-style: normal; font-display: swap;
   unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116; }
-@font-face { font-family: "Newsreader"; src: url("../fonts/source-serif-4-cyrillic-italic.woff2") format("woff2"); font-weight: 200 900; font-style: italic; font-display: swap;
+@font-face { font-family: "Newsreader"; src: url("../fonts/source-serif-4-cyrillic-italic.woff2") format("woff2"); font-weight: 200 800; font-style: italic; font-display: swap;
   unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116; }
-/* Newsreader's Latin italic is synthesised from the roman (one file per range): kept slight */
+/* Newsreader's real italic (OFL, Google Fonts) — the browser's slanted roman
+   kept the upright's double-storey a and tailless f */
+@font-face { font-family: "Newsreader"; src: url("../../fonts/newsreader-latin-italic.woff2") format("woff2"); font-weight: 200 800; font-style: italic; font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215; }
+@font-face { font-family: "Newsreader"; src: url("../../fonts/newsreader-latin-ext-italic.woff2") format("woff2"); font-weight: 200 800; font-style: italic; font-display: swap;
+  unicode-range: U+0100-02AF, U+0304, U+0308, U+0329, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF; }
 @font-face { font-family: "Inter"; src: url("../../fonts/inter-latin.woff2") format("woff2"); font-weight: 100 900; font-display: swap;
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215; }
 @font-face { font-family: "Inter"; src: url("../../fonts/inter-latin-ext.woff2") format("woff2"); font-weight: 100 900; font-display: swap;
@@ -297,6 +305,14 @@ html.has-scrolled .film__hint { opacity: 0; }
   .film--page .film__stage::after { background: linear-gradient(180deg, rgba(244, 239, 229, 0.82) 0%, rgba(244, 239, 229, 0.35) 30%, transparent 48%); }
 }
 .film--page .film__label { color: var(--c-ink-soft); }
+/* film--low: the subject fills the middle of the tall frames (the armchair),
+   so on a phone the words sit on the floor below it, not over it */
+@media (orientation: portrait) {
+  .film--low .film__beat { top: auto; bottom: calc(1.4rem + env(safe-area-inset-bottom, 0px)); }
+  .film--low.film--page .film__stage::after { background: linear-gradient(0deg, rgba(244, 239, 229, 0.9) 0%, rgba(244, 239, 229, 0.55) 26%, transparent 42%); }
+}
+/* a short phone has room under the chair for the title only; the stop below repeats the rest */
+@media (orientation: portrait) and (max-height: 760px) { .film--low .film__lead { display: none; } }
 .film--page .film__title { text-shadow: none; }
 .film--page .film__title em { color: #9a4a32; }
 .film--page .film__lead { color: var(--c-ink-soft); }

@@ -878,7 +878,9 @@ export async function mountFilm(root, primary = true) {
   }
 
   function kick() {
-    if (running) return;
+    /* a film off screen stays asleep: every scroll on the page used to draw
+       it once, reloading the memory release() had just given back */
+    if (running || !visible) return;
     running = true;
     lastT = performance.now();
     requestAnimationFrame(frame);
