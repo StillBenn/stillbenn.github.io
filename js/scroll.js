@@ -99,6 +99,7 @@
 
     window.addEventListener("wheel", function (e) {
       if (e.ctrlKey) return;                     /* pinch zoom is not a scroll */
+      if (root.classList.contains("has-modal")) return;   /* a sheet is open (js/mail.js): the page holds still, the sheet scrolls itself */
       if (ownsWheel(e.target, e.deltaY)) return;
       e.preventDefault();
       /* deltaMode 1 is lines, 2 is pages — normalise both to pixels */
@@ -122,6 +123,7 @@
       var tag = (e.target && e.target.tagName) || "";
       if (tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT" || e.target.isContentEditable) return;
       if (e.ctrlKey || e.metaKey || e.altKey) return;
+      if (root.classList.contains("has-modal")) return;
       var step = KEYS[e.key];
       if (!step) return;
       /* space on a focused button or link presses it — it must not also scroll */
