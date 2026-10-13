@@ -491,9 +491,16 @@ export async function mountFilm(root, primary = true) {
      last frame, so the first wheel notch continues the film from there. */
   const AUTO = Math.min(n - 1, film.autoplay || 0);
   const AUTO_MS = film.autoplayMs || 4200;
-  const vh0 = vhAt(AUTO);
+  /* film.json "start": the scroll timeline begins at that frame and the ones
+     before it are never shown. The armchair's first 12 frames were bare cream
+     and the next 12 dropped the chair in from above: after the café that read
+     as an empty page and then a chair arriving all at once, within one notch
+     of the wheel. It now opens on the chair already standing (28). */
+  const START = Math.min(n - 1, Math.max(AUTO, film.start || 0));
+  const vh0 = vhAt(START);
   const totalVh = Math.max(1, vhAt(n - 1) - vh0);
   const handoff = !!film.handoff;
+  const ENTER = !!film.enterFade;
   const HOLD_VH = handoff ? film.holdVh || 45 : 0;
   /* a film shot in daylight (the armchair's studio) is "light": dark type, no
      dark vignette on its edges, finer grain (film.json tone / vignette / grain) */
@@ -755,8 +762,8 @@ export async function mountFilm(root, primary = true) {
      by scroll.js — the frame still gets its own light easing so a flick reads
      as a camera move rather than a jump cut. */
   const RATE = fine ? 18 : 11;
-  let shown = 0, lastT = performance.now(), running = false, fpsT = lastT, fpsN = 0, fps = 0, stageO = 1, endShown = -1;
-  let vel = 0, lastTarget = 0, hi = 0, hiFrames = 0, loFrames = 0, ahead = 3;
+  let shown = START, lastT = performance.now(), running = false, fpsT = lastT, fpsN = 0, fps = 0, stageO = 1, endShown = -1;
+  let vel = 0, lastTarget = START, hi = 0, hiFrames = 0, loFrames = 0, ahead = 3;
   /* The opening beat (data-in="0") must not wait for a scroll: a visitor who
      has not scrolled yet is exactly who needs the headline. It enters on a
      clock once the first frame is up, and leaves by scroll like every other. */
@@ -869,7 +876,12 @@ export async function mountFilm(root, primary = true) {
     const endP = handoff && shown >= last.first ? smooth(0.7, 0.96, (shown - last.first) / Math.max(1, last.count - 1)) : 0;
     if (lo || hiTarget) renderer.draw(atA, a - c.first, atB, b - chapters[kb].first, t, hi, now / 1000, GRAIN * (1 - endP), cw, ch, VIG * (1 - endP));
     if (Math.abs(endP - endShown) > 0.002) { endShown = endP; root.style.setProperty("--film-end", endP.toFixed(3)); }
-    const o = handoff ? 1 - smooth(0.1, 0.9, hold) : 1;
+    /* film.json "enterFade": the studio comes up out of the page as the film
+       rises into view (the stage is transparent over the page's cream), fully
+       there once its top nears the top of the screen — no cut from a
+       blank page to the picture */
+    const enter = ENTER ? smooth(0.12, 0.92, (scrollY + innerHeight - top) / innerHeight) : 1;
+    const o = (handoff ? 1 - smooth(0.1, 0.9, hold) : 1) * enter;
     if (Math.abs(o - stageO) > 0.001) { stageO = o; stage.style.opacity = o.toFixed(3); }
     /* the page's header and rail follow what is behind them: the night film,
        the cream end of it, or (once it has ended / mostly scrolled away) the page */
