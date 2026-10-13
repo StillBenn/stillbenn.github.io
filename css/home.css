@@ -250,7 +250,7 @@ html[data-film="light"] .hdr { background: transparent; box-shadow: none; }
 
 .film__chapters {
   position: absolute; z-index: 3; left: var(--pad-edge); bottom: clamp(1.1rem, 4.5vh, 2.5rem);
-  display: flex; gap: clamp(0.9rem, 1.8vw, 1.75rem);
+  display: flex; gap: clamp(0.9rem, 1.6vw, 1.6rem);
   opacity: calc(1 - var(--film-end, 0)); transition: opacity 400ms var(--e-out);
 }
 .film__chapters.is-gone { opacity: 0; pointer-events: none; }
@@ -280,9 +280,19 @@ html[data-film="light"] .hdr { background: transparent; box-shadow: none; }
 @keyframes hint { 0% { transform: scaleY(0); opacity: 1; } 60% { transform: scaleY(1); opacity: 1; } 100% { transform: scaleY(1); opacity: 0; } }
 html.is-written .film__hint { opacity: 1; }
 html.has-scrolled .film__hint { opacity: 0; }
+/* six names: tighter on a narrow desk so they never run under "Skip the film" */
+@media (max-width: 1180px) {
+  .film__chapters button { min-width: 0; letter-spacing: 0.12em; }
+}
+/* a phone: two rows of three, the full width, and the skip link above them */
 @media (max-width: 720px) {
-  .film__chapters { left: var(--pad-edge); right: auto; }
-  .film__chapters button { min-width: 0; min-height: 44px; }
+  .film__chapters {
+    left: var(--pad-edge); right: var(--pad-edge);
+    display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0 0.9rem;
+  }
+  .film__chapters button { min-height: 40px; font-size: 0.6rem; letter-spacing: 0.1em; }
+  .film__chapters span { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .film__skip { bottom: calc(clamp(1.1rem, 4.5vh, 2.5rem) + 5.6rem); }
   .film__hint { display: none; }
 }
 

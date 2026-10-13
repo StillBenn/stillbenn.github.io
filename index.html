@@ -27,7 +27,7 @@
 <link rel="preload" href="./fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="./fonts/ibm-plex-mono-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="./film/film.json?v=2" as="fetch" crossorigin>
-<link rel="stylesheet" href="./css/home.css?v=11">
+<link rel="stylesheet" href="./css/home.css?v=12">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -106,9 +106,15 @@
         <p class="film__lead">This chapter is the café's own film, playing from its own site: the coffee is poured, the lid goes on, and the cup becomes the live one below.</p>
       </div>
 
-      <nav class="film__chapters" aria-label="Film chapters" hidden>
-        <button type="button" data-chapter="0"><span>00 Larisel</span><i></i></button>
+      <!-- the opening names every stop of the page: its own two chapters, then
+           the four sites further down (film.js: a tap cuts to that film) -->
+      <nav class="film__chapters" aria-label="Chapters" hidden>
+        <button type="button" data-chapter="0"><span lang="en">00 Larisel</span><i></i></button>
         <button type="button" data-chapter="1"><span>01 Café</span><i></i></button>
+        <button type="button" data-goto="chair"><span>02 Armchair</span><i></i></button>
+        <button type="button" data-goto="room"><span>03 Interiors</span><i></i></button>
+        <button type="button" data-goto="group"><span>04 Corporate site</span><i></i></button>
+        <button type="button" data-goto="studio"><span>05 Order bot</span><i></i></button>
       </nav>
       <a class="film__skip" href="#work">Skip the film</a>
       <span class="film__hint" aria-hidden="true">Scroll</span>
@@ -153,8 +159,8 @@
     <div class="excerpt__window">
       <div class="excerpt__bar" aria-hidden="true"><i></i><i></i><i></i><span>larisel.com/cafe-3d</span></div>
       <video class="excerpt__video" muted playsinline loop preload="none" width="1280" height="800"
-             data-wide="./media/cafe-design.mp4" data-wide-poster="./media/cafe-design.jpg"
-             data-tall="./media/cafe-design-phone.mp4" data-tall-poster="./media/cafe-design-phone.jpg"></video>
+             data-wide="./media/cafe-design.mp4?v=3" data-wide-poster="./media/cafe-design.jpg?v=3"
+             data-tall="./media/cafe-design-phone.mp4?v=3" data-tall-poster="./media/cafe-design-phone.jpg?v=3"></video>
     </div>
     <p class="excerpt__caption"><span class="label">On the site</span>A guest designs a cup: ink blue, a copper sleeve, and her name.</p>
   </section>
@@ -221,10 +227,10 @@
     <div class="excerpt__window">
       <div class="excerpt__bar" aria-hidden="true"><i></i><i></i><i></i><span>larisel.com/threejs-chair-configurator</span></div>
       <video class="excerpt__video" muted playsinline loop preload="none" width="1280" height="800"
-             data-wide="./media/chair-config.mp4?v=2" data-wide-poster="./media/chair-config.jpg?v=2"
-             data-tall="./media/chair-config-phone.mp4?v=2" data-tall-poster="./media/chair-config-phone.jpg?v=2"></video>
+             data-wide="./media/chair-config.mp4?v=3" data-wide-poster="./media/chair-config.jpg?v=3"
+             data-tall="./media/chair-config-phone.mp4?v=3" data-tall-poster="./media/chair-config-phone.jpg?v=3"></video>
     </div>
-    <p class="excerpt__caption"><span class="label">On the site</span>The customer tries colour after colour — the chair and its price change with every tap.</p>
+    <p class="excerpt__caption"><span class="label">On the site</span>The customer tries ready pairings, then a frame and a colour of their own — the chair and its price change with every tap.</p>
   </section>
 
   <!-- ===== Film 03 — the interior: the room grows round the chair; afternoon to blue hour ===== -->
@@ -284,8 +290,8 @@
     <div class="excerpt__window">
       <div class="excerpt__bar" aria-hidden="true"><i></i><i></i><i></i><span>larisel.com/ic-mekan</span></div>
       <video class="excerpt__video" muted playsinline loop preload="none" width="1280" height="800"
-             data-wide="./media/room-config.mp4?v=2" data-wide-poster="./media/room-config.jpg?v=2"
-             data-tall="./media/room-config-phone.mp4?v=2" data-tall-poster="./media/room-config-phone.jpg?v=2"></video>
+             data-wide="./media/room-config.mp4?v=3" data-wide-poster="./media/room-config.jpg?v=3"
+             data-tall="./media/room-config-phone.mp4?v=3" data-tall-poster="./media/room-config-phone.jpg?v=3"></video>
     </div>
     <p class="excerpt__caption"><span class="label">On the site</span>The client tries a walnut floor, a Calacatta worktop and ink-blue fronts — then switches to evening.</p>
   </section>
@@ -333,8 +339,8 @@
     <div class="excerpt__window">
       <div class="excerpt__bar" aria-hidden="true"><i></i><i></i><i></i><span>larisel.com/larisel-group</span></div>
       <video class="excerpt__video" muted playsinline loop preload="none" width="1280" height="800"
-             data-wide="./media/group-site.mp4" data-wide-poster="./media/group-site.jpg"
-             data-tall="./media/group-site-phone.mp4" data-tall-poster="./media/group-site-phone.jpg"></video>
+             data-wide="./media/group-site.mp4?v=3" data-wide-poster="./media/group-site.jpg?v=3"
+             data-tall="./media/group-site-phone.mp4?v=3" data-tall-poster="./media/group-site-phone.jpg?v=3"></video>
     </div>
     <p class="excerpt__caption"><span class="label">On the site</span>Scrolling the group's homepage: the relief behind the type, the flagship project, the sectors.</p>
   </section>
@@ -438,10 +444,10 @@
   </div>
 </footer>
 
-<script src="./js/i18n.js?v=6"></script>
+<script src="./js/i18n.js?v=8"></script>
 <script src="./js/home.js?v=6" defer></script>
-<script src="./js/scroll.js?v=2" defer></script>
-<script type="module" src="./js/film.js?v=6"></script>
+<script src="./js/scroll.js?v=3" defer></script>
+<script type="module" src="./js/film.js?v=7"></script>
 <script type="module" src="./js/cupstop.js?v=4"></script>
 <script src="./js/plate.js?v=2" defer></script>
 <script src="./js/chatdemo.js?v=1" defer></script>

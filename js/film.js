@@ -541,6 +541,16 @@ export async function mountFilm(root, primary = true) {
       rest: [...el.querySelectorAll(".film__label, .film__lead")],
     };
   });
+  /* where a chapter link lands: the moment the chapter's first headline is
+     fully in — not its first frame: chapter 4 opens from black, and a jump that
+     lands on a black screen reads as broken. Asked at the moment of the click
+     (the opening's list names every film): a film far down has not measured
+     itself yet, and the films above it may have changed height since. */
+  const jumpAt = (k) => {
+    const bt = beats.find((x) => x.ch === k);
+    return bt && bt.a > 0 ? bt.a + (bt.b - bt.a) * 0.3 : Math.max(0, vhAt(chapters[k].first) - vh0) / totalVh;
+  };
+  (window.__filmJumps ||= {})[id] = (k) => root.getBoundingClientRect().top + scrollY + jumpAt(k) * (totalVh / 100) * innerHeight + 2;
   const html = document.documentElement;
   const setMode = (m) => { if (MODES.get(root) !== m) { MODES.set(root, m); arbitrate(); } };
   const still = () => {
@@ -676,21 +686,25 @@ export async function mountFilm(root, primary = true) {
     new ResizeObserver(() => requestAnimationFrame(measure)).observe(document.body);
   }
 
-  /* Chapters: four names along the foot of the film, each with its own
-     progress line; a click is a CUT (playing the film at fast-forward to get
-     there would be the worst way to see it) to the moment the chapter's first
-     headline is fully in — not its first frame: chapter 4 opens from black,
-     and a jump that lands on a black screen reads as broken. */
+  /* Chapters: every stop of the page along the foot of the opening — its own
+     two chapters, each with its own progress line, then the four sites below.
+     A click is a CUT (playing the film at fast-forward to get there would be
+     the worst way to see it) to the moment the chapter's first headline is in
+     (jumpAt); a site further down is reached through the page's fade (scroll.js),
+     at its own film's first headline. */
   const chNav = root.querySelector(".film__chapters");
   const chBtns = chNav ? [...chNav.querySelectorAll("[data-chapter]")].filter((b) => +b.dataset.chapter < chapters.length) : [];
   if (chNav) {
     chNav.hidden = false;
     chBtns.forEach((b) => b.addEventListener("click", () => {
-      const k = +b.dataset.chapter;
-      const bt = beats.find((x) => x.ch === k);
-      const at = bt && bt.a > 0 ? bt.a + (bt.b - bt.a) * 0.3 : Math.max(0, vhAt(chapters[k].first) - vh0) / totalVh;
-      const y = top + at * span + 2;
-      window.scrollTo({ top: y, behavior: "instant" });   /* a cut: on a phone the CSS smooth scroll played the film at fast-forward */
+      window.scrollTo({ top: window.__filmJumps[id](+b.dataset.chapter), behavior: "instant" });   /* a cut: on a phone the CSS smooth scroll played the film at fast-forward */
+    }));
+    chNav.querySelectorAll("[data-goto]").forEach((b) => b.addEventListener("click", () => {
+      const to = b.dataset.goto, jump = window.__filmJumps && window.__filmJumps[to];
+      const el = document.querySelector(`[data-film="${to}"]`);
+      if (!el && !jump) return;
+      const y = jump ? jump(0) : el.getBoundingClientRect().top + scrollY + 2;
+      if (window.__fadeJump) window.__fadeJump(y); else window.scrollTo({ top: y, behavior: "instant" });
     }));
   }
   let chShown = -1;

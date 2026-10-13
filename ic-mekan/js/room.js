@@ -31,7 +31,10 @@ const GROUPS = ["floor", "front", "counter"];          // drawn in this order ov
 const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
 const small = Math.min(screen.width, screen.height) < 700;
 const saveData = !!(navigator.connection && navigator.connection.saveData);
-const BUDGET = (small ? 64 : 200) * 1048576;          // bytes of decoded frames kept
+/* bytes of decoded frames kept, per set: the light ones hold the whole arc of
+   the chosen room (~50 MB), the sharp ones a few rests — in one pool a sharp
+   frame (7.7 MB) pushed the warmed arc out */
+const BUDGET = { lite: (small ? 72 : 160) * 1048576, hd: (small ? 24 : 48) * 1048576 };
 const HOME = 6;                                       // the view the page opens on (0-based)
 const CX = 0.56, CY = 0.5;                            // what a narrow stage keeps in frame
 
@@ -53,14 +56,15 @@ export function createRoom(canvas) {
 
   /* decoded frames: the least recently used go first once over the budget */
   const cache = new Map();
-  let cacheBytes = 0;
+  const cacheBytes = { lite: 0, hd: 0 };
+  const tierOf = (key) => key.slice(0, key.indexOf("/"));
   function remember(key, bmp) {
-    const bytes = bmp.width * bmp.height * 4;
-    cache.set(key, { bmp, bytes }); cacheBytes += bytes;
+    const bytes = bmp.width * bmp.height * 4, tier = tierOf(key);
+    cache.set(key, { bmp, bytes }); cacheBytes[tier] += bytes;
     for (const [k, v] of cache) {
-      if (cacheBytes <= BUDGET) break;
-      if (k === key) continue;
-      cache.delete(k); cacheBytes -= v.bytes;
+      if (cacheBytes[tier] <= BUDGET[tier]) break;
+      if (k === key || tierOf(k) !== tier) continue;
+      cache.delete(k); cacheBytes[tier] -= v.bytes;
       if (v.bmp.close) v.bmp.close();
     }
   }
@@ -245,12 +249,12 @@ export function createRoom(canvas) {
   const shown = { key: "", sk: "", tier: "", i: -1 };
   const fadeCv = mk();
   let fade = null;
-  function startFade(dur) {
+  function startFade(dur, linear) {
     if (reducedMotion || !shown.key || dur <= 0) return;
     if (fadeCv.width !== canvas.width || fadeCv.height !== canvas.height) { fadeCv.width = canvas.width; fadeCv.height = canvas.height; }
     const f = fadeCv.getContext("2d");
     f.clearRect(0, 0, fadeCv.width, fadeCv.height); f.drawImage(canvas, 0, 0);
-    fade = { t0: performance.now(), dur };
+    fade = { t0: performance.now(), dur, linear: !!linear };
   }
   let nextFade = 380;
 
@@ -290,8 +294,9 @@ export function createRoom(canvas) {
     if (Math.abs(view.zoomTo - view.zoom) > 0.0005) busy = true; else view.zoom = view.zoomTo;
 
     /* The camera shows the nearest of its places, sharp, and steps to the next
-       through a short dissolve. Halfway blends of two places (tried first)
-       doubled every edge near the camera — the stools, the window bars. */
+       through a dissolve as long as the step. Halfway blends of two places
+       (tried first) doubled every edge near the camera — the stools, the
+       window bars. */
     const s = { ...sel }, sk = keyOf(s);
     const i0 = Math.round(clampAt(view.at));
     const rest = !moving && now - view.quietSince > 120;
@@ -315,15 +320,21 @@ export function createRoom(canvas) {
       const key = sk + "#" + i0 + "#" + tier + "#" + view.zoom.toFixed(4) + "#" + canvas.width + "x" + canvas.height;
       if (key !== shown.key || fade) {
         if (shown.sk && shown.sk !== sk) { startFade(nextFade); nextFade = 380; }
-        else if (shown.sk === sk && shown.i !== i0) startFade(reducedMotion ? 0 : 160);             // a step along the arc
+        else if (shown.sk === sk && shown.i !== i0) {
+          /* a step along the arc dissolves for as long as the step took (a
+             short fixed dissolve left the slow steps standing, which read as a
+             stutter); at rest the picture is one place, sharp */
+          startFade(reducedMotion ? 0 : Math.min(650, Math.max(120, now - (shown.stepT || now))), true);   // linear: an eased dissolve bunched each step's change in its middle and left the ends standing
+        }
         else if (shown.sk === sk && shown.tier === "lite" && tier === "hd") startFade(220);         // sharpening, no pop
         ctx.globalCompositeOperation = "source-over";
         paint(A, 1);
         if (fade) {
           const p = Math.min(1, (now - fade.t0) / fade.dur);
-          ctx.globalAlpha = 1 - ease(p); ctx.drawImage(fadeCv, 0, 0); ctx.globalAlpha = 1;
+          ctx.globalAlpha = 1 - (fade.linear ? p : ease(p)); ctx.drawImage(fadeCv, 0, 0); ctx.globalAlpha = 1;
           if (p >= 1) fade = null; else busy = true;
         }
+        if (shown.i !== i0) shown.stepT = now;
         Object.assign(shown, { key, sk, tier, i: i0 });
         if (!started) { started = true; host.classList.add("is-ready"); intro(); }
       }
@@ -332,11 +343,37 @@ export function createRoom(canvas) {
     else running = false;
   }
 
-  /* the opening: once the light frames are here, the camera steps a little
-     way along its arc and back — the room says it can be walked round */
+  /* Warm the arc: the light frames of the chosen room decoded ahead, nearest
+     places first, three at a time, as many as the budget holds (all 13). A
+     step decoded on demand waited for a full-frame decode or two — a hitch at
+     the first drag. A new choice starts over from the place on screen. */
+  let warmGen = 0;
+  function warm(s, from) {
+    const gen = ++warmGen;
+    return manifestOf(s.light).then((m) => {
+      const names = layersOf(s);
+      const perView = names.reduce((sum, n) => sum + m.layers[n].lite.boxes.reduce((a, b) => a + b[2] * b[3] * 4, 0) / VIEWS, 0);
+      const fit = Math.max(1, Math.min(VIEWS, Math.floor(BUDGET.lite * 0.85 / perView)));
+      const order = [];
+      for (let d = 0; order.length < fit && d < VIEWS; d++) {
+        if (from + d < VIEWS) order.push(from + d);
+        if (d && from - d >= 0 && order.length < fit) order.push(from - d);
+      }
+      let k = 0;
+      const next = () => {
+        if (gen !== warmGen || k >= order.length) return null;
+        const i = order[k++];
+        return Promise.all(names.map((n) => decode("lite", s.light, n, i))).then(next, next);
+      };
+      return Promise.all([next(), next(), next()]);
+    });
+  }
+
+  /* the opening: once the arc is decoded, the camera steps a little way along
+     it and back — the room says it can be walked round */
   function intro() {
     const s = { ...sel };
-    Promise.all(layersOf(s).map((n) => packOf(s.light, n))).then(() => {
+    warm(s, HOME).then(() => {
       later(preload);
       if (reducedMotion || host.classList.contains("is-moved")) return;
       view.play = { from: HOME, to: HOME, amp: -1.8, t0: performance.now(), dur: 3200 };
@@ -370,6 +407,7 @@ export function createRoom(canvas) {
     if (sel[group] === value) return;
     sel[group] = value;
     nextFade = reducedMotion ? 0 : fadeMs;
+    if (started) warm({ ...sel }, Math.round(clampAt(view.at)));    // the new room, from the place on screen
     wake();
   }
 

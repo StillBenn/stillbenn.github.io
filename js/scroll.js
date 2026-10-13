@@ -46,6 +46,14 @@
     }, 260);
   }
 
+  /* the opening film's chapter list (film.js) crosses the page through the same fade */
+  window.__fadeJump = function (to) {
+    measure();
+    to = clamp(to);
+    current = target = written = to;
+    fadeJump(to);
+  };
+
   var RATE = 5;
   var SETTLE = 0.35;     /* px: below this we snap and stop the loop */
   var target = window.scrollY, current = target, written = Math.round(current);
