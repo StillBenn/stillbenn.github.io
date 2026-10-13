@@ -496,9 +496,21 @@ html.has-scrolled .film__hint { opacity: 0; }
 
 /* ---- the order bot, playable ------------------------------------------------------ */
 .chat {
-  position: absolute; z-index: 2; pointer-events: auto;
-  right: clamp(1rem, 7vw, 8rem); top: calc(var(--hdr-h) + 14vh);
+  position: relative; z-index: 2; pointer-events: auto;
   width: min(22rem, 86vw);
+}
+/* Wide screens: the words and the phone share one centre line. The phone
+   used to hang from a fixed height at the right, higher than the words' middle,
+   so by the time the words stood centred on screen its top was already
+   under the header. Now the phone (its note hangs below it, outside the box)
+   sits level with the middle of the words wherever the page is. */
+@media (orientation: landscape) {
+  .stop:has(> .chat) {
+    display: grid; grid-template-columns: minmax(0, 31rem) auto;
+    justify-content: space-between; align-items: center; align-content: start; column-gap: var(--s-6);
+  }
+  .chat { margin-right: max(0px, calc(clamp(1rem, 7vw, 8rem) - var(--pad-edge))); }
+  .chat__note { position: absolute; left: 0; right: 0; top: 100%; }
 }
 .chat__phone {
   height: min(38rem, 72vh); border-radius: 34px; padding: 10px; background: #0d0c0c;
@@ -544,7 +556,7 @@ html.has-scrolled .film__hint { opacity: 0; }
   .chat__phone { height: 34rem; }
 }
 @media (max-width: 1100px) and (orientation: landscape) {
-  .chat { right: 1rem; width: 19rem; }
+  .chat { margin-right: 0; width: 19rem; }
 }
 
 

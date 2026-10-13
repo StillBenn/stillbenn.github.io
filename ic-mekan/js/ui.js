@@ -5,8 +5,8 @@
    akrilik, kompakt lamine, mikrobeton, Calacatta. An interior firm reading
    this page should recognise its own quotation, not a graphics demo.
 
-   Three languages because the same link goes to a kitchen firm in Gaziantep
-   and to a studio in Moscow. The dictionary is plain JS: a handful of strings
+   Three languages because the same link goes to kitchen firms in more than
+   one country. The dictionary is plain JS: a handful of strings
    does not need a framework, and a build step would make the page harder to
    host.
    ========================================================================== */
