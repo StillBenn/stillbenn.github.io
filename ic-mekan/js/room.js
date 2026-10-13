@@ -4,8 +4,10 @@
    Every view is a path-traced render (Blender, Cycles) of the home film's
    kitchen, not a live model: the parquet, the plaster and the city at dusk
    through the window are photographs, and the light is the light that
-   photograph gives. The camera stands at 13 places along an arc round the
-   island; a drag walks it along the arc.
+   photograph gives. The camera rests at 13 places along an arc round the
+   island; a drag walks it along the arc through three more renders between
+   each two (49 in all, light frames only): at 13 every step was a 3.3° jump
+   the dissolve had to hide, and a slow drag read as a stutter.
 
    Each choice is its own layer, and the page stacks the ones chosen:
      the room with the chosen wall colour   (a whole render: the walls are most
@@ -31,10 +33,11 @@ const GROUPS = ["floor", "front", "counter"];          // drawn in this order ov
 const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
 const small = Math.min(screen.width, screen.height) < 700;
 const saveData = !!(navigator.connection && navigator.connection.saveData);
-/* bytes of decoded frames kept, per set: the light ones hold the whole arc of
-   the chosen room (~50 MB), the sharp ones a few rests — in one pool a sharp
-   frame (7.7 MB) pushed the warmed arc out */
-const BUDGET = { lite: (small ? 72 : 160) * 1048576, hd: (small ? 24 : 48) * 1048576 };
+/* bytes of decoded frames kept, per set: the light ones hold the whole fine
+   arc of the chosen room on a computer (~94 MB for the room alone, more with
+   options; a phone keeps the places nearest the camera), the sharp ones a few
+   rests — in one pool a sharp frame (7.7 MB) pushed the warmed arc out */
+const BUDGET = { lite: (small ? 72 : 200) * 1048576, hd: (small ? 24 : 48) * 1048576 };
 const HOME = 6;                                       // the view the page opens on (0-based)
 const CX = 0.56, CY = 0.5;                            // what a narrow stage keeps in frame
 
@@ -48,7 +51,7 @@ export function createRoom(canvas) {
   /* --- what is loaded ---------------------------------------------------- */
   const manifests = {}, manifestSync = {};
   function manifestOf(light) {
-    return manifests[light] || (manifests[light] = fetch(RENDERS + light + "/manifest.json")
+    return manifests[light] || (manifests[light] = fetch(RENDERS + light + "/manifest.json?v=5")
       .then((r) => { if (!r.ok) throw new Error("manifest " + light); return r.json(); })
       .then((m) => (manifestSync[light] = m))
       .catch((e) => { delete manifests[light]; throw e; }));
@@ -82,7 +85,7 @@ export function createRoom(canvas) {
     if (!packs.has(id)) {
       const p = manifestOf(light).then((m) => {
         const L = m.layers[name].lite;
-        return fetch(RENDERS + light + "/" + L.pack)
+        return fetch(RENDERS + light + "/" + L.pack + (m.rev ? "?r=" + m.rev : ""))
           .then((r) => { if (!r.ok) throw new Error(L.pack); return r.arrayBuffer(); })
           .then((buf) => {
             const out = []; let at = 0;
@@ -104,7 +107,7 @@ export function createRoom(canvas) {
     if (pending.has(key)) return pending.get(key);
     const blob = tier === "lite"
       ? packOf(light, name).then((blobs) => blobs[i])
-      : manifestOf(light).then((m) => fetch(RENDERS + light + "/" + m.layers[name].hd.dir + String(i + 1).padStart(2, "0") + ".webp"))
+      : manifestOf(light).then((m) => fetch(RENDERS + light + "/" + m.layers[name].hd.dir + String(i + 1).padStart(2, "0") + ".webp" + (m.rev ? "?r=" + m.rev : "")))
           .then((r) => { if (!r.ok) throw new Error(name + " " + i); return r.blob(); });
     const p = blob.then((b) => createImageBitmap(b)).then(
       (bmp) => { pending.delete(key); remember(key, bmp); return bmp; },
@@ -164,7 +167,11 @@ export function createRoom(canvas) {
   }
 
   /* --- the camera on its arc --------------------------------------------- */
-  let VIEWS = 13;
+  /* view.at counts the 13 resting places; the light frames are FINE times as
+     dense (the manifest's "fine"), and place i of the 13 is light frame i*FINE */
+  let VIEWS = 13, FINE = 1;
+  const LITE = () => (VIEWS - 1) * FINE + 1;
+  const sharpAt = (fi) => (fi % FINE === 0 ? fi / FINE : -1);
   const view = { at: HOME, vel: 0, dragging: false, play: null, zoom: 1, zoomTo: 1, quietSince: 0 };
   const pxPerView = () => Math.max(22, canvas.clientWidth * 0.055);
   const clampAt = (v) => Math.min(VIEWS - 1, Math.max(0, v));
@@ -249,12 +256,15 @@ export function createRoom(canvas) {
   const shown = { key: "", sk: "", tier: "", i: -1 };
   const fadeCv = mk();
   let fade = null;
-  function startFade(dur, linear) {
+  /* lead: how far into the dissolve its first frame already is. A step's
+     dissolve that began at 0 drew the old picture unchanged for one frame — a
+     still frame at every step of a drag (measured: one in eight) */
+  function startFade(dur, linear, lead) {
     if (reducedMotion || !shown.key || dur <= 0) return;
     if (fadeCv.width !== canvas.width || fadeCv.height !== canvas.height) { fadeCv.width = canvas.width; fadeCv.height = canvas.height; }
     const f = fadeCv.getContext("2d");
     f.clearRect(0, 0, fadeCv.width, fadeCv.height); f.drawImage(canvas, 0, 0);
-    fade = { t0: performance.now(), dur, linear: !!linear };
+    fade = { t0: performance.now() - Math.min(lead || 0, dur * 0.5), dur, linear: !!linear };
   }
   let nextFade = 380;
 
@@ -293,38 +303,40 @@ export function createRoom(canvas) {
     view.zoom += (view.zoomTo - view.zoom) * smooth(10, dt);
     if (Math.abs(view.zoomTo - view.zoom) > 0.0005) busy = true; else view.zoom = view.zoomTo;
 
-    /* The camera shows the nearest of its places, sharp, and steps to the next
+    /* The camera shows the nearest of its places, and steps to the next
        through a dissolve as long as the step. Halfway blends of two places
        (tried first) doubled every edge near the camera — the stools, the
-       window bars. */
+       window bars. Moving, the places are the fine arc's; at rest the camera
+       has settled on one of the 13, which has its sharp frame. */
     const s = { ...sel }, sk = keyOf(s);
-    const i0 = Math.round(clampAt(view.at));
+    const fi = Math.round(clampAt(view.at) * FINE);              // light frame
+    const hi = sharpAt(fi);                                      // its sharp frame, at the 13
     const rest = !moving && now - view.quietSince > 120;
-    if (!canCompose("lite", s, i0)) want("lite", s, i0).then(wake, () => {});
-    if (rest && !canCompose("hd", s, i0)) want("hd", s, i0).then(wake, () => {});
+    if (!canCompose("lite", s, fi)) want("lite", s, fi).then(wake, () => {});
+    if (rest && hi >= 0 && !canCompose("hd", s, hi)) want("hd", s, hi).then(wake, () => {});
     if (moving) {
       const dir = view.vel < 0 || (view.play && view.play.to < view.play.from) ? -1 : 1;
-      for (let k = 1; k <= 3; k++) {
-        const j = i0 + dir * k;   // ahead of the walk
-        if (j >= 0 && j < VIEWS) for (const n of layersOf(s)) decode("lite", s.light, n, j).catch(() => {});
+      for (let k = 1; k <= 3 * FINE; k++) {
+        const j = fi + dir * k;   // ahead of the walk
+        if (j >= 0 && j < LITE()) for (const n of layersOf(s)) decode("lite", s.light, n, j).catch(() => {});
       }
     }
 
     /* the frame: sharp once the camera has rested, light while it moves */
     let A = null, tier = null;
-    if (rest && canCompose("hd", s, i0)) { tier = "hd"; A = compose("hd", s, i0, frameCv.hd); }
-    else if (canCompose("lite", s, i0)) { tier = "lite"; A = compose("lite", s, i0, frameCv.lite); }
-    else if (canCompose("hd", s, i0)) { tier = "hd"; A = compose("hd", s, i0, frameCv.hd); }
+    if (rest && hi >= 0 && canCompose("hd", s, hi)) { tier = "hd"; A = compose("hd", s, hi, frameCv.hd); }
+    else if (canCompose("lite", s, fi)) { tier = "lite"; A = compose("lite", s, fi, frameCv.lite); }
+    else if (hi >= 0 && canCompose("hd", s, hi)) { tier = "hd"; A = compose("hd", s, hi, frameCv.hd); }
 
     if (A) {
-      const key = sk + "#" + i0 + "#" + tier + "#" + view.zoom.toFixed(4) + "#" + canvas.width + "x" + canvas.height;
+      const key = sk + "#" + fi + "#" + tier + "#" + view.zoom.toFixed(4) + "#" + canvas.width + "x" + canvas.height;
       if (key !== shown.key || fade) {
         if (shown.sk && shown.sk !== sk) { startFade(nextFade); nextFade = 380; }
-        else if (shown.sk === sk && shown.i !== i0) {
+        else if (shown.sk === sk && shown.i !== fi) {
           /* a step along the arc dissolves for as long as the step took (a
              short fixed dissolve left the slow steps standing, which read as a
              stutter); at rest the picture is one place, sharp */
-          startFade(reducedMotion ? 0 : Math.min(650, Math.max(120, now - (shown.stepT || now))), true);   // linear: an eased dissolve bunched each step's change in its middle and left the ends standing
+          startFade(reducedMotion ? 0 : Math.min(650, Math.max(120 / FINE, now - (shown.stepT || now))), true, dt * 1000);   // linear: an eased dissolve bunched each step's change in its middle and left the ends standing
         }
         else if (shown.sk === sk && shown.tier === "lite" && tier === "hd") startFade(220);         // sharpening, no pop
         ctx.globalCompositeOperation = "source-over";
@@ -334,8 +346,8 @@ export function createRoom(canvas) {
           ctx.globalAlpha = 1 - (fade.linear ? p : ease(p)); ctx.drawImage(fadeCv, 0, 0); ctx.globalAlpha = 1;
           if (p >= 1) fade = null; else busy = true;
         }
-        if (shown.i !== i0) shown.stepT = now;
-        Object.assign(shown, { key, sk, tier, i: i0 });
+        if (shown.i !== fi) shown.stepT = now;
+        Object.assign(shown, { key, sk, tier, i: fi });
         if (!started) { started = true; host.classList.add("is-ready"); intro(); }
       }
     }
@@ -344,19 +356,20 @@ export function createRoom(canvas) {
   }
 
   /* Warm the arc: the light frames of the chosen room decoded ahead, nearest
-     places first, three at a time, as many as the budget holds (all 13). A
-     step decoded on demand waited for a full-frame decode or two — a hitch at
-     the first drag. A new choice starts over from the place on screen. */
+     places first, three at a time, as many as the budget holds (the whole
+     fine arc on a computer). A step decoded on demand waited for a full-frame
+     decode or two — a hitch at the first drag. A new choice starts over from
+     the place on screen (from: a light frame). */
   let warmGen = 0;
   function warm(s, from) {
     const gen = ++warmGen;
     return manifestOf(s.light).then((m) => {
-      const names = layersOf(s);
-      const perView = names.reduce((sum, n) => sum + m.layers[n].lite.boxes.reduce((a, b) => a + b[2] * b[3] * 4, 0) / VIEWS, 0);
-      const fit = Math.max(1, Math.min(VIEWS, Math.floor(BUDGET.lite * 0.85 / perView)));
+      const names = layersOf(s), N = LITE();
+      const perView = names.reduce((sum, n) => sum + m.layers[n].lite.boxes.reduce((a, b) => a + b[2] * b[3] * 4, 0) / N, 0);
+      const fit = Math.max(1, Math.min(N, Math.floor(BUDGET.lite * 0.85 / perView)));
       const order = [];
-      for (let d = 0; order.length < fit && d < VIEWS; d++) {
-        if (from + d < VIEWS) order.push(from + d);
+      for (let d = 0; order.length < fit && d < N; d++) {
+        if (from + d < N) order.push(from + d);
         if (d && from - d >= 0 && order.length < fit) order.push(from - d);
       }
       let k = 0;
@@ -373,7 +386,7 @@ export function createRoom(canvas) {
      it and back — the room says it can be walked round */
   function intro() {
     const s = { ...sel };
-    warm(s, HOME).then(() => {
+    warm(s, HOME * FINE).then(() => {
       later(preload);
       if (reducedMotion || host.classList.contains("is-moved")) return;
       view.play = { from: HOME, to: HOME, amp: -1.8, t0: performance.now(), dur: 3200 };
@@ -407,12 +420,12 @@ export function createRoom(canvas) {
     if (sel[group] === value) return;
     sel[group] = value;
     nextFade = reducedMotion ? 0 : fadeMs;
-    if (started) warm({ ...sel }, Math.round(clampAt(view.at)));    // the new room, from the place on screen
+    if (started) warm({ ...sel }, Math.round(clampAt(view.at) * FINE));    // the new room, from the place on screen
     wake();
   }
 
   manifestOf("day").then((m) => {
-    VIEWS = m.views; defaults = m.default;
+    VIEWS = m.views; FINE = m.fine || 1; defaults = m.default;
     return want("hd", { ...sel }, HOME);
   }).then(wake, () => wake());
   resize();
