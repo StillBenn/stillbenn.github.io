@@ -493,15 +493,20 @@ export async function mountFilm(root, primary = true) {
   const AUTO_MS = film.autoplayMs || 4200;
   /* film.json "start": the scroll timeline begins at that frame and the ones
      before it are never shown. The armchair's first 12 frames were bare cream
-     and the next 12 dropped the chair in from above: after the café that read
-     as an empty page and then a chair arriving all at once, within one notch
-     of the wheel. It now opens on the chair already standing (28). */
+     and the next 30 swing down onto the chair and pull back out of a blurred
+     close-up (11-16 % of the picture changing per frame, against 0.6 once it
+     stands): after the café that read as an empty page, then a smeared chair
+     arriving all at once. It opens where the chair stands sharp and still
+     (44), rising out of the page like the other films' first frames. */
   const START = Math.min(n - 1, Math.max(AUTO, film.start || 0));
   const vh0 = vhAt(START);
   const totalVh = Math.max(1, vhAt(n - 1) - vh0);
   const handoff = !!film.handoff;
   const ENTER = !!film.enterFade;
-  const HOLD_VH = handoff ? film.holdVh || 45 : 0;
+  /* the hold: the last frame stays while the film fades onto its plate (the
+     same picture). 45vh of it was a wheel flick in which nothing on screen
+     changed, and the stop's labels waited behind it (measured, deadzone.mjs). */
+  const HOLD_VH = handoff ? film.holdVh || 12 : 0;
   /* a film shot in daylight (the armchair's studio) is "light": dark type, no
      dark vignette on its edges, finer grain (film.json tone / vignette / grain) */
   const TONE = film.tone === "light" ? "light" : "dark";

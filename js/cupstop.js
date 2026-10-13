@@ -164,7 +164,11 @@ function boot() {
   function readScroll() {
     const y = scrollY, vh = innerHeight;
     const live = film && film.handoff;
-    const k = still ? 1 : live ? Math.min(1, Math.max(0, (y - film.end) / (vh * 0.6))) : 0;   /* no film measured yet: still its pose */
+    /* the cup comes free (and its labels arrive) as the film has all but faded
+       off it — late in the hold, within 0.3 of a screen. It waited for the end
+       of a 45vh hold and took 0.6 of a screen more: two flicks of the wheel
+       past a cup that had already stopped. No film measured yet: its pose. */
+    const k = still ? 1 : live ? Math.min(1, Math.max(0, (y - (film.start + (film.end - film.start) * 0.8)) / (vh * 0.3))) : 0;
     hand = 1 - k * k * (3 - 2 * k);
     const was = asleep;
     /* leave as the section ends, rising a little: gone BEFORE the next

@@ -357,7 +357,9 @@ html.has-scrolled .film__hint { opacity: 0; }
 .stop {
   position: relative; z-index: 1;
   min-height: 165vh;
-  padding: calc(var(--hdr-h) + 18vh) var(--pad-edge) 30vh;
+  /* the words rise in with the labels on the product: at 18vh above them they
+     came a wheel flick after the picture had stopped (measured, deadzone.mjs) */
+  padding: calc(var(--hdr-h) + 6vh) var(--pad-edge) 30vh;
   pointer-events: none;                 /* the cup behind takes the drag */
 }
 .stop__text { pointer-events: auto; max-width: 31rem; }

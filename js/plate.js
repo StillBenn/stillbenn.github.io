@@ -64,8 +64,11 @@
       var y = scrollY, vh = innerHeight;
       var live = film && film.handoff;
       asleep = !live || y < film.start - vh * 0.12;
-      /* the labels arrive once the film has faded off the frame */
-      var k = live ? Math.min(1, Math.max(0, (y - film.end) / (vh * 0.5))) : 0;
+      /* the labels arrive as the film fades onto the plate: from halfway
+         through the hold, within a third of a screen — they waited for the
+         end of the hold and took half a screen more, two flicks of the wheel
+         past a chair that had already stopped */
+      var k = live ? Math.min(1, Math.max(0, (y - (film.start + (film.end - film.start) * 0.5)) / (vh * 0.3))) : 0;
       var r = stop.getBoundingClientRect();
       var e = Math.min(1, Math.max(0, (r.bottom - vh * 0.5) / (vh * 0.5)));
       /* a still film (reduced motion, no WebGL) never "ends": every plate below

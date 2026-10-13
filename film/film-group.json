@@ -1,2 +1,2 @@
 { "vhPerFrame": 1.0, "tone": "light", "toneAt": 0.18, "endTone": "dark", "vignette": 0.4, "grain": 0.035,
-  "chapters": [ { "dir": "group/", "vh": 1.0 } ], "handoff": true, "holdVh": 45 }
+  "chapters": [ { "dir": "group/", "vh": 1.0 } ], "handoff": true, "holdVh": 12 }
