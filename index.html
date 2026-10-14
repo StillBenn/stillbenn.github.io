@@ -27,7 +27,7 @@
 <link rel="preload" href="./fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="./fonts/ibm-plex-mono-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="./film/film.json?v=3" as="fetch" crossorigin>
-<link rel="stylesheet" href="./css/home.css?v=15">
+<link rel="stylesheet" href="./css/home.css?v=17">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -59,7 +59,7 @@
 <header class="hdr">
   <a class="hdr__brand" href="#top" aria-label="Larisel — home">LARISEL</a>
   <nav class="hdr__nav" aria-label="Primary">
-    <a class="hdr__link" href="#work">Work</a>
+    <a class="hdr__link" href="/work/">Projects</a>
     <a class="hdr__link" href="#contact" data-optional>Contact</a>
     <div class="lang" role="group" aria-label="Language">
       <button class="lang__btn" type="button" data-lang="en" aria-pressed="true">EN</button>
@@ -98,7 +98,7 @@
       </div>
 
       <div class="film__beat" data-ch="2" data-in="0.03" data-out="0.21">
-        <p class="film__label">01 — Café</p>
+        <p class="film__label"><span data-n="cafe">01</span> — Café</p>
         <h2 class="film__title">
           <span class="film__line"><span>Larisel Café.</span></span>
           <span class="film__line"><span><em>A café you order from.</em></span></span>
@@ -107,14 +107,15 @@
       </div>
 
       <!-- the opening names every stop of the page: its own two chapters, then
-           the four sites further down (film.js: a tap cuts to that film) -->
+           the sites further down (film.js: a tap cuts to that film). The numbers
+           follow the page's order (the script at the end of the page). -->
       <nav class="film__chapters" aria-label="Chapters" hidden>
         <button type="button" data-chapter="0"><span lang="en">00 Larisel</span><i></i></button>
-        <button type="button" data-chapter="1"><span>01 Café</span><i></i></button>
-        <button type="button" data-goto="chair"><span>02 Armchair</span><i></i></button>
-        <button type="button" data-goto="room"><span>03 Interiors</span><i></i></button>
-        <button type="button" data-goto="group"><span>04 Corporate site</span><i></i></button>
-        <button type="button" data-goto="studio"><span>05 Order bot</span><i></i></button>
+        <button type="button" data-chapter="1"><span><span data-n="cafe">01</span> Café</span><i></i></button>
+        <button type="button" data-goto="chair"><span><span data-n="chair">02</span> Armchair</span><i></i></button>
+        <button type="button" data-goto="room"><span><span data-n="room">03</span> Interiors</span><i></i></button>
+        <button type="button" data-goto="group"><span><span data-n="group">04</span> Corporate site</span><i></i></button>
+        <button type="button" data-goto="studio"><span><span data-n="studio">05</span> Order bot</span><i></i></button>
       </nav>
       <a class="film__skip" href="#work">Skip the film</a>
       <span class="film__hint" aria-hidden="true">Scroll</span>
@@ -125,9 +126,9 @@
        Said the way a café owner would say it: what guests do on the site.
        The quote is the café site's own headline; the excerpt below is the
        site itself, recorded. -->
-  <section class="stop" id="work" data-stop="cafe" aria-labelledby="cafe-title">
+  <section class="stop" id="work" data-stop="cafe" data-work="cafe" aria-labelledby="cafe-title">
     <div class="stop__text">
-      <p class="label">01 — Café</p>
+      <p class="label"><span data-n="cafe">01</span> — Café</p>
       <h2 class="stop__title" id="cafe-title">Larisel Café</h2>
       <figure class="quote">
         <blockquote><p>Pick a coffee, design the cup.</p></blockquote>
@@ -141,6 +142,7 @@
       </ol>
       <div class="stop__links">
         <a class="btn btn--solid" href="/cafe-3d/" target="_blank" rel="noopener">Visit the café</a>
+        <a class="btn btn--line" href="/work/cafe/">How it was made</a>
       </div>
     </div>
   </section>
@@ -169,7 +171,7 @@
        Opens on the page's cream (the café's section above ends on it), lifts
        into a sunlit studio where a band of light re-dresses the chair, and
        ends with the chair standing on the page — the plate below holds it. -->
-  <section class="film film--page film--low" data-film="chair" data-manifest="./film/film-chair.json?v=4" aria-label="The armchair">
+  <section class="film film--page film--low" data-film="chair" data-work="chair" data-manifest="./film/film-chair.json?v=4" aria-label="The armchair">
     <div class="film__stage">
       <picture class="film__poster">
         <source media="(orientation: portrait)" srcset="./film/chair/end-9x16.webp">
@@ -177,7 +179,7 @@
       </picture>
       <canvas class="film__canvas" aria-hidden="true"></canvas>
       <div class="film__beat" data-ch="1" data-in="0.2" data-out="0.46">
-        <p class="film__label">02 — Armchair</p>
+        <p class="film__label"><span data-n="chair">02</span> — Armchair</p>
         <h2 class="film__title">
           <span class="film__line"><span>Larisel Armchair.</span></span>
           <span class="film__line"><span><em>Built on screen.</em></span></span>
@@ -196,9 +198,9 @@
   </section>
 
   <!-- ===== Stop 02 — the armchair ========================================== -->
-  <section class="stop" data-plate="chair" aria-labelledby="chair-title">
+  <section class="stop" data-plate="chair" data-work="chair" aria-labelledby="chair-title">
     <div class="stop__text">
-      <p class="label">02 — Armchair</p>
+      <p class="label"><span data-n="chair">02</span> — Armchair</p>
       <h2 class="stop__title" id="chair-title">Larisel Armchair</h2>
       <figure class="quote">
         <blockquote><p>Build the chair for your own room — the model and the price change as you go.</p></blockquote>
@@ -212,6 +214,7 @@
       </ol>
       <div class="stop__links">
         <a class="btn btn--solid" href="/threejs-chair-configurator/" target="_blank" rel="noopener">Build an armchair</a>
+        <a class="btn btn--line" href="/work/armchair/">How it was made</a>
       </div>
     </div>
   </section>
@@ -234,7 +237,7 @@
   </section>
 
   <!-- ===== Film 03 — the interior: the room grows round the chair; afternoon to blue hour ===== -->
-  <section class="film film--page film--scrim" data-film="room" data-manifest="./film/film-room.json?v=4" aria-label="The interior">
+  <section class="film film--page film--scrim" data-film="room" data-work="room" data-manifest="./film/film-room.json?v=4" aria-label="The interior">
     <div class="film__stage">
       <picture class="film__poster">
         <source media="(orientation: portrait)" srcset="./film/room/end-9x16.webp">
@@ -242,7 +245,7 @@
       </picture>
       <canvas class="film__canvas" aria-hidden="true"></canvas>
       <div class="film__beat" data-ch="1" data-in="0.24" data-out="0.5">
-        <p class="film__label">03 — Interiors</p>
+        <p class="film__label"><span data-n="room">03</span> — Interiors</p>
         <h2 class="film__title">
           <span class="film__line"><span>Larisel Interiors.</span></span>
           <span class="film__line"><span><em>The client chooses the room.</em></span></span>
@@ -259,9 +262,9 @@
       </div>
     </div>
   </section>
-  <section class="stop stop--night" data-plate="room" aria-labelledby="room-title">
+  <section class="stop stop--night" data-plate="room" data-work="room" aria-labelledby="room-title">
     <div class="stop__text">
-      <p class="label">03 — Interiors</p>
+      <p class="label"><span data-n="room">03</span> — Interiors</p>
       <h2 class="stop__title" id="room-title">Larisel Interiors</h2>
       <figure class="quote">
         <blockquote><p>Let the client choose the room.</p></blockquote>
@@ -275,6 +278,7 @@
       </ol>
       <div class="stop__links">
         <a class="btn btn--solid" href="/ic-mekan/" target="_blank" rel="noopener">Open the room</a>
+        <a class="btn btn--line" href="/work/interiors/">How it was made</a>
       </div>
     </div>
   </section>
@@ -297,7 +301,7 @@
   </section>
 
   <!-- ===== Film 04 — out of the window, over the city, to the Larisel Group building ===== -->
-  <section class="film film--page film--scrim" data-film="group" data-manifest="./film/film-group.json?v=3" aria-label="The corporate site">
+  <section class="film film--page film--scrim" data-film="group" data-work="group" data-manifest="./film/film-group.json?v=3" aria-label="The corporate site">
     <div class="film__stage">
       <picture class="film__poster">
         <source media="(orientation: portrait)" srcset="./film/group/end-9x16.webp">
@@ -305,7 +309,7 @@
       </picture>
       <canvas class="film__canvas" aria-hidden="true"></canvas>
       <div class="film__beat" data-ch="1" data-in="0.2" data-out="0.55">
-        <p class="film__label">04 — Corporate site</p>
+        <p class="film__label"><span data-n="group">04</span> — Corporate site</p>
         <h2 class="film__title">
           <span class="film__line"><span>Larisel Group.</span></span>
           <span class="film__line"><span><em>Three sectors, one address.</em></span></span>
@@ -314,9 +318,9 @@
       </div>
     </div>
   </section>
-  <section class="stop stop--night" data-plate="group" aria-labelledby="group-title">
+  <section class="stop stop--night" data-plate="group" data-work="group" aria-labelledby="group-title">
     <div class="stop__text">
-      <p class="label">04 — Corporate site</p>
+      <p class="label"><span data-n="group">04</span> — Corporate site</p>
       <h2 class="stop__title" id="group-title">Larisel Group</h2>
       <figure class="quote">
         <blockquote><p>Retail. Construction. Energy. One group.</p></blockquote>
@@ -330,6 +334,7 @@
       </ol>
       <div class="stop__links">
         <a class="btn btn--solid" href="/larisel-group/" target="_blank" rel="noopener">Visit the group</a>
+        <a class="btn btn--line" href="/work/larisel-group/">How it was made</a>
       </div>
     </div>
   </section>
@@ -346,7 +351,7 @@
   </section>
 
   <!-- ===== Film 05 — into the studio: the phone lights up with an order; the mark on the wall ===== -->
-  <section class="film" data-film="studio" data-manifest="./film/film-studio.json?v=3" aria-label="The order bot">
+  <section class="film" data-film="studio" data-work="studio" data-manifest="./film/film-studio.json?v=3" aria-label="The order bot">
     <div class="film__stage">
       <picture class="film__poster">
         <source media="(orientation: portrait)" srcset="./film/studio/end-9x16.webp">
@@ -354,7 +359,7 @@
       </picture>
       <canvas class="film__canvas" aria-hidden="true"></canvas>
       <div class="film__beat" data-ch="1" data-in="0.42" data-out="0.78">
-        <p class="film__label">05 — Order bot</p>
+        <p class="film__label"><span data-n="studio">05</span> — Order bot</p>
         <h2 class="film__title">
           <span class="film__line"><span>An order arrives</span></span>
           <span class="film__line"><span><em>the moment it is placed.</em></span></span>
@@ -363,9 +368,9 @@
       </div>
     </div>
   </section>
-  <section class="stop stop--night" data-plate="studio" aria-labelledby="studio-title">
+  <section class="stop stop--night" data-plate="studio" data-work="studio" aria-labelledby="studio-title">
     <div class="stop__text">
-      <p class="label">05 — Order bot</p>
+      <p class="label"><span data-n="studio">05</span> — Order bot</p>
       <h2 class="stop__title" id="studio-title">Larisel Order Bot</h2>
       <figure class="quote">
         <blockquote><p>Choose, confirm, done — inside Telegram.</p></blockquote>
@@ -379,6 +384,7 @@
       </ol>
       <div class="stop__links">
         <a class="btn btn--solid" href="#start">Contact us</a>
+        <a class="btn btn--line" href="/work/order-bot/">How it was made</a>
       </div>
     </div>
     <div class="chat" data-chat aria-label="A demo of the order bot">
@@ -391,6 +397,12 @@
   </section>
   <img class="plate" data-for="studio" alt="" aria-hidden="true" data-wide="./film/studio/end-16x9.webp" data-tall="./film/studio/end-9x16.webp">
   <div class="plate-shade" data-for="studio" aria-hidden="true"></div>
+
+  <!-- ===== Projects: the page of every project, with its story ============ -->
+  <section class="allwork" aria-labelledby="allwork-title">
+    <p class="label" id="allwork-title">Projects</p>
+    <a class="allwork__link" href="/work/"><span>Every project we have built,</span> <em>and how.</em><i aria-hidden="true">→</i></a>
+  </section>
 
   <!-- ===== Start a project: how we work, and a brief in four taps ======== -->
   <section class="start" id="start" aria-labelledby="start-title">
@@ -456,12 +468,43 @@
   </div>
 </footer>
 
-<script src="./js/i18n.js?v=10"></script>
+<!-- Works waiting for their client's go-ahead are not on this page at all: ?show=<id>[,<id>]
+     fetches each one's parts (work/pending/<id>.home.html) and puts them in place, for
+     review. Then every stop is numbered in page order — before i18n.js reads the page,
+     so a change of language keeps the numbers. -->
+<script>
+(function () {
+  var show = (new URLSearchParams(location.search).get("show") || "").split(",").filter(function (id) { return /^[a-z0-9-]+$/.test(id); });
+  show.forEach(function (id) {
+    var x = new XMLHttpRequest();
+    try { x.open("GET", "/work/pending/" + id + ".home.html", false); x.send(); } catch (e) { return; }
+    if (x.status !== 200) return;
+    var doc = new DOMParser().parseFromString(x.responseText, "text/html");
+    [].forEach.call(doc.querySelectorAll("template[data-before]"), function (tp) {
+      var at = document.querySelector(tp.getAttribute("data-before"));
+      if (at) at.parentNode.insertBefore(document.importNode(tp.content, true), at);
+    });
+    var words = doc.querySelector("script[data-lr-extra]"), add = words ? JSON.parse(words.textContent) : {};
+    var into = window.LR_EXTRA || (window.LR_EXTRA = {});
+    for (var l in add) { into[l] = into[l] || {}; for (var k in add[l]) into[l][k] = add[l][k]; }
+  });
+  var order = [];                      /* the sections' order (the menu above lists them too) */
+  [].forEach.call(document.querySelectorAll("section[data-work]"), function (el) {
+    var w = el.getAttribute("data-work"); if (order.indexOf(w) < 0) order.push(w);
+  });
+  [].forEach.call(document.querySelectorAll("[data-n]"), function (el) {
+    var k = order.indexOf(el.getAttribute("data-n"));
+    if (k >= 0) el.textContent = (k < 9 ? "0" : "") + (k + 1);
+  });
+  document.documentElement.setAttribute("data-stops", String(order.length));
+})();
+</script>
+<script src="./js/i18n.js?v=12"></script>
 <script src="./js/home.js?v=6" defer></script>
-<script src="./js/scroll.js?v=4" defer></script>
-<script type="module" src="./js/film.js?v=9"></script>
+<script src="./js/scroll.js?v=6" defer></script>
+<script type="module" src="./js/film.js?v=11"></script>
 <script type="module" src="./js/cupstop.js?v=5"></script>
-<script src="./js/plate.js?v=3" defer></script>
+<script src="./js/plate.js?v=4" defer></script>
 <script src="./js/chatdemo.js?v=1" defer></script>
 <script src="./js/brief.js?v=2" defer></script>
 <script src="./js/mail.js?v=1" defer></script>

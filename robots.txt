@@ -1,4 +1,6 @@
 User-agent: *
 Allow: /
+Disallow: /work/pending/
+Disallow: /work/works.json
 
 Sitemap: https://larisel.com/sitemap.xml

@@ -1,0 +1,16 @@
+{
+  "vhPerFrame": 0.8,
+  "tone": "dark",
+  "endTone": "dark",
+  "vignette": 0.3,
+  "grain": 0.018,
+  "chapters": [
+    {
+      "dir": "kitlax/",
+      "vh": 0.8
+    }
+  ],
+  "handoff": true,
+  "holdVh": 12,
+  "enterFade": true
+}

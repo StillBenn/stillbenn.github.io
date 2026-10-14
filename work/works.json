@@ -1,0 +1,732 @@
+{
+ "ui": {
+  "Every project,": {
+   "tr": "Her proje,",
+   "ru": "Каждый проект —"
+  },
+  "and its story.": {
+   "tr": "hikâyesiyle.",
+   "ru": "с его историей."
+  },
+  "Sites with scroll films, 3D product configurators, a corporate site and a Telegram bot — some for clients, some built to show what we can do.": {
+   "tr": "Kaydırma filmli siteler, 3B ürün yapılandırıcılar, bir kurumsal site ve bir Telegram botu — bir kısmı müşteriler için, bir kısmı neler yapabildiğimizi göstermek için.",
+   "ru": "Сайты с фильмами, 3D-конфигураторы товаров, корпоративный сайт и телеграм-бот — часть для клиентов, часть чтобы показать, что мы умеем."
+  },
+  "Show": {
+   "tr": "Göster",
+   "ru": "Показать"
+  },
+  "All": {
+   "tr": "Tümü",
+   "ru": "Все"
+  },
+  "Film sites": {
+   "tr": "Film siteleri",
+   "ru": "Сайты-фильмы"
+  },
+  "3D configurators": {
+   "tr": "3B yapılandırıcılar",
+   "ru": "3D-конфигураторы"
+  },
+  "Corporate sites": {
+   "tr": "Kurumsal siteler",
+   "ru": "Корпоративные сайты"
+  },
+  "Bots": {
+   "tr": "Botlar",
+   "ru": "Боты"
+  },
+  "Client": {
+   "tr": "Müşteri işi",
+   "ru": "Для клиента"
+  },
+  "Studio demo": {
+   "tr": "Stüdyo demosu",
+   "ru": "Демо студии"
+  },
+  "How it was made": {
+   "tr": "Nasıl yapıldı",
+   "ru": "Как это сделано"
+  },
+  "The task": {
+   "tr": "Görev",
+   "ru": "Задача"
+  },
+  "What we built": {
+   "tr": "Ne yaptık",
+   "ru": "Что мы сделали"
+  },
+  "How it is built": {
+   "tr": "Nasıl kuruldu",
+   "ru": "Как это устроено"
+  },
+  "Next": {
+   "tr": "Sıradaki",
+   "ru": "Дальше"
+  },
+  "Every project Larisel has built, and how: scroll-film websites, 3D product configurators, a corporate site and a Telegram bot.": {
+   "tr": "Larisel'in yaptığı her proje ve nasıl yapıldığı: kaydırma filmli siteler, 3B ürün yapılandırıcılar, bir kurumsal site ve bir Telegram botu.",
+   "ru": "Все проекты Larisel и как они сделаны: сайты с фильмами, 3D-конфигураторы, корпоративный сайт и телеграм-бот."
+  },
+  "The site, on a phone": {
+   "tr": "Site, telefonda",
+   "ru": "Сайт на телефоне"
+  },
+  "A site like this one?": {
+   "tr": "Böyle bir site mi?",
+   "ru": "Нужен такой сайт?"
+  },
+  "Start a project": {
+   "tr": "Proje başlat",
+   "ru": "Начать проект"
+  },
+  "Projects": {
+   "tr": "Projelerimiz",
+   "ru": "Проекты"
+  },
+  "Larisel — Projects": {
+   "tr": "Larisel — Projelerimiz",
+   "ru": "Larisel — Проекты"
+  },
+  "All projects": {
+   "tr": "Tüm projeler",
+   "ru": "Все проекты"
+  },
+  "Explore the site": {
+   "tr": "Siteyi incele",
+   "ru": "Изучить сайт"
+  }
+ },
+ "works": [
+  {
+   "id": "kitlax",
+   "home": "kitlax",
+   "hidden": true,
+   "kind": "client",
+   "year": 2026,
+   "category": "film",
+   "title": {
+    "en": "Kıtlax",
+    "tr": "Kıtlax",
+    "ru": "Kıtlax"
+   },
+   "type": {
+    "en": "Snack brand",
+    "tr": "Atıştırmalık markası",
+    "ru": "Бренд снеков"
+   },
+   "one": {
+    "en": "A client's website: a macaroni-crisp maker that shows how its snack is made — and sells it by the case.",
+    "tr": "Bir müşterimizin sitesi: makarna cipsini nasıl ürettiğini gösteren — ve koliyle satan — bir üretici.",
+    "ru": "Сайт нашего клиента: производитель макаронных чипсов показывает, как делает свой снек, — и продаёт его коробками."
+   },
+   "quote": {
+    "en": "Pasta at its crispiest.",
+    "tr": "Makarnanın en çıtır hali.",
+    "ru": "Макароны в самом хрустящем виде."
+   },
+   "task": {
+    "en": "The brand's old site said little about the product. The new one had to show how the snack is made, make the brand feel premium — and make it simple for a distributor to order.",
+    "tr": "Markanın eski sitesi ürün hakkında pek bir şey söylemiyordu. Yenisi atıştırmalığın nasıl yapıldığını göstermeli, markayı premium hissettirmeli — ve bir distribütörün sipariş vermesini kolaylaştırmalıydı.",
+    "ru": "Старый сайт бренда почти ничего не говорил о продукте. Новый должен был показать, как делают снек, сделать бренд премиальным — и упростить заказ для дистрибьютора."
+   },
+   "built": [
+    [
+     {
+      "en": "Watch it being made",
+      "tr": "Yapılışını izleyin",
+      "ru": "Как его делают"
+     },
+     {
+      "en": "Wheat, the mill, the bronze die, the fryer, the seasoning and the bag — one film that plays as you scroll.",
+      "tr": "Buğday, değirmen, bronz kalıp, kızartma, çeşni ve poşet — kaydırdıkça oynayan tek bir film.",
+      "ru": "Пшеница, мельница, бронзовая матрица, фритюр, приправа и пачка — один фильм, который идёт, пока вы листаете."
+     }
+    ],
+    [
+     {
+      "en": "Open a flavour",
+      "tr": "Bir aroma açın",
+      "ru": "Откройте вкус"
+     },
+     {
+      "en": "Four flavours in four shapes, each with a page of its own and the product's details.",
+      "tr": "Dört şekilde dört aroma; her birinin ürün bilgileriyle kendi sayfası var.",
+      "ru": "Четыре вкуса в четырёх формах, у каждого своя страница с данными о продукте."
+     }
+    ],
+    [
+     {
+      "en": "Become a representative",
+      "tr": "Temsilci olun",
+      "ru": "Стать представителем"
+     },
+     {
+      "en": "A message to the company, with the cases per flavour added if the visitor likes.",
+      "tr": "Firmaya bir mesaj; ziyaretçi dilerse aroma başına koli ekler.",
+      "ru": "Сообщение компании — по желанию с числом коробок по вкусам."
+     }
+    ]
+   ],
+   "how": [
+    {
+     "en": "Seven shots rendered in Blender (Cycles): the wheat field, the steel mill rollers, the bronze die, the fryer, the seasoning, the bag sealed, the four flavours.",
+     "tr": "Blender'da (Cycles) render edilmiş yedi çekim: buğday tarlası, çelik değirmen merdaneleri, bronz kalıp, kızartma, çeşni, mühürlenen poşet, dört aroma.",
+     "ru": "Семь сцен, отрендеренных в Blender (Cycles): пшеничное поле, стальные вальцы мельницы, бронзовая матрица, фритюр, приправа, запечатанная пачка, четыре вкуса."
+    },
+    {
+     "en": "A film player that keeps the picture sharp at any scroll speed, and picks its quality by the visitor's connection.",
+     "tr": "Her kaydırma hızında görüntüyü net tutan ve kaliteyi ziyaretçinin bağlantısına göre seçen bir film oynatıcı.",
+     "ru": "Плеер, который держит картинку чёткой при любой скорости прокрутки и выбирает качество по скорости соединения."
+    },
+    {
+     "en": "The mascot holds the chosen flavour's bag; a case calculator writes the distributor's request.",
+     "tr": "Maskot seçilen aromanın poşetini taşır; koli hesaplayıcı distribütörün talebini yazar.",
+     "ru": "Маскот держит пачку выбранного вкуса; калькулятор коробок пишет заявку дистрибьютора."
+    },
+    {
+     "en": "Turkish, English and Arabic — the Arabic page reads right to left.",
+     "tr": "Türkçe, İngilizce ve Arapça — Arapça sayfa sağdan sola okunur.",
+     "ru": "Турецкий, английский и арабский — арабская версия читается справа налево."
+    }
+   ],
+   "url": "/kitlax-onizleme/",
+   "urlLabel": "kitlax.com",
+   "cta": {
+    "en": "Visit the site",
+    "tr": "Siteyi ziyaret edin",
+    "ru": "Открыть сайт"
+   },
+   "media": {
+    "poster": "/media/kitlax-site.jpg?v=1",
+    "video": "/media/kitlax-site.mp4?v=1",
+    "posterTall": "/media/kitlax-site-phone.jpg?v=1",
+    "videoTall": "/media/kitlax-site-phone.mp4?v=1",
+    "still": "/film/kitlax/end-16x9.webp"
+   }
+  },
+  {
+   "id": "cafe",
+   "home": "cafe",
+   "kind": "studio",
+   "year": 2026,
+   "category": "film",
+   "title": {
+    "en": "Larisel Café",
+    "tr": "Larisel Kafe",
+    "ru": "Larisel Café"
+   },
+   "type": {
+    "en": "Café website",
+    "tr": "Kafe sitesi",
+    "ru": "Сайт кофейни"
+   },
+   "one": {
+    "en": "A café website that guests use the way they use the counter — and then a little more.",
+    "tr": "Misafirlerin tezgâhı kullanır gibi kullandığı bir kafe sitesi — üstelik biraz daha fazlası.",
+    "ru": "Сайт кофейни, которым гости пользуются как стойкой, — и даже немного больше."
+   },
+   "quote": {
+    "en": "Pick a coffee, design the cup.",
+    "tr": "Kahveni seç, bardağı tasarla.",
+    "ru": "Кофе на выбор, стакан — ваш."
+   },
+   "task": {
+    "en": "Show what a café's website can be when it is more than a menu: a place where guests choose, order and come back.",
+    "tr": "Bir kafe sitesinin menüden fazlası olunca neye dönüşebileceğini göstermek: misafirin seçtiği, sipariş verdiği ve geri döndüğü bir yer.",
+    "ru": "Показать, каким может быть сайт кофейни, если он больше, чем меню: место, где гость выбирает, заказывает и возвращается."
+   },
+   "built": [
+    [
+     {
+      "en": "Design the cup",
+      "tr": "Bardağını tasarla",
+      "ru": "Оформите стакан"
+     },
+     {
+      "en": "Choose the drink, then the cup's colour, sleeve and lid — and see your name printed on it.",
+      "tr": "Önce içeceği, sonra bardağın rengini, manşonunu ve kapağını seç — adın da üstüne basılsın.",
+      "ru": "Выберите напиток, затем цвет стакана, манжету и крышку — и увидите на нём своё имя."
+     }
+    ],
+    [
+     {
+      "en": "Order from the table",
+      "tr": "Masadan sipariş ver",
+      "ru": "Заказ со стола"
+     },
+     {
+      "en": "Scan the code on the table, order, and split the bill with friends.",
+      "tr": "Masadaki kodu okut, siparişini ver, hesabı arkadaşlarınla böl.",
+      "ru": "Отсканируйте код на столе, закажите и разделите счёт с друзьями."
+     }
+    ],
+    [
+     {
+      "en": "A coffee reading",
+      "tr": "Kahve falı",
+      "ru": "Гадание на кофе"
+     },
+     {
+      "en": "Send a photo of the empty cup and read what the grounds say.",
+      "tr": "Boş fincanın fotoğrafını gönder, telvenin ne dediğini oku.",
+      "ru": "Пришлите фото пустой чашки и прочитайте, что говорит гуща."
+     }
+    ]
+   ],
+   "how": [
+    {
+     "en": "A scroll film rendered in Blender (Cycles): the coffee is poured and the lid goes on as you scroll.",
+     "tr": "Blender'da (Cycles) render edilmiş kaydırma filmi: kaydırdıkça kahve dökülür, kapak takılır.",
+     "ru": "Фильм, отрендеренный в Blender (Cycles): кофе наливается и крышка закрывается, пока вы листаете."
+    },
+    {
+     "en": "A live three.js cup that takes the guest's colours and name.",
+     "tr": "Misafirin renklerini ve adını alan canlı bir three.js bardak.",
+     "ru": "Живой стакан на three.js, который принимает цвета и имя гостя."
+    },
+    {
+     "en": "Ordering by the QR code on the table, with the bill split.",
+     "tr": "Masadaki QR koddan sipariş ve hesabı bölüşme.",
+     "ru": "Заказ по QR-коду на столе и разделение счёта."
+    },
+    {
+     "en": "Three languages, and it opens on a phone.",
+     "tr": "Üç dil, ve telefonda açılır.",
+     "ru": "Три языка, и открывается на телефоне."
+    }
+   ],
+   "url": "/cafe-3d/",
+   "urlLabel": "larisel.com/cafe-3d",
+   "cta": {
+    "en": "Visit the café",
+    "tr": "Kafeyi ziyaret et",
+    "ru": "Открыть кофейню"
+   },
+   "media": {
+    "poster": "/media/cafe-design.jpg?v=3",
+    "video": "/media/cafe-design.mp4?v=3",
+    "posterTall": "/media/cafe-design-phone.jpg?v=3",
+    "videoTall": "/media/cafe-design-phone.mp4?v=3"
+   }
+  },
+  {
+   "id": "armchair",
+   "home": "chair",
+   "kind": "studio",
+   "year": 2026,
+   "category": "configurator",
+   "title": {
+    "en": "Larisel Armchair",
+    "tr": "Larisel Koltuk",
+    "ru": "Кресло Larisel"
+   },
+   "type": {
+    "en": "Furniture product page",
+    "tr": "Mobilya ürün sayfası",
+    "ru": "Страница мебельного товара"
+   },
+   "one": {
+    "en": "A furniture product page that sells by letting the customer build the chair.",
+    "tr": "Müşteriye koltuğu kendisi kurdurarak satan bir mobilya ürün sayfası.",
+    "ru": "Страница товара, которая продаёт, позволяя покупателю самому собрать кресло."
+   },
+   "quote": {
+    "en": "Build the chair for your own room — the model and the price change as you go.",
+    "tr": "Koltuğu kendi odanıza göre kurun — model ve fiyat anında değişir.",
+    "ru": "Соберите кресло под свой интерьер — модель и цена меняются сразу."
+   },
+   "task": {
+    "en": "A product photo cannot show twelve fabrics on eight frames. The customer needed to see their own chair before ordering it.",
+    "tr": "Bir ürün fotoğrafı sekiz gövdede on iki kumaşı gösteremez. Müşterinin sipariş vermeden önce kendi koltuğunu görmesi gerekiyordu.",
+    "ru": "Фотография товара не покажет двенадцать тканей на восьми каркасах. Покупателю нужно было увидеть своё кресло до заказа."
+   },
+   "built": [
+    [
+     {
+      "en": "Pick the fabric",
+      "tr": "Kumaşı seç",
+      "ru": "Выберите ткань"
+     },
+     {
+      "en": "Twelve colours, and six ready pairings of chair, cushion and frame.",
+      "tr": "On iki renk, bir de koltuk, yastık ve gövdeden oluşan altı hazır kombin.",
+      "ru": "Двенадцать цветов и шесть готовых сочетаний кресла, подушки и каркаса."
+     }
+    ],
+    [
+     {
+      "en": "Pick the frame and the size",
+      "tr": "İskeleti ve boyutu seç",
+      "ru": "Выберите каркас и размер"
+     },
+     {
+      "en": "Four woods and four metals, from bleached oak to brass; standard or XL.",
+      "tr": "Ağartılmış meşeden pirince dört ahşap, dört metal; standart ya da XL.",
+      "ru": "Четыре породы дерева и четыре металла, от беленого дуба до латуни; стандарт или XL."
+     }
+    ],
+    [
+     {
+      "en": "See the price, then order",
+      "tr": "Fiyatı gör, sonra sipariş ver",
+      "ru": "Узнайте цену и закажите"
+     },
+     {
+      "en": "The total follows every choice, and one tap sends the build to the workshop.",
+      "tr": "Toplam her seçimle değişir; tek dokunuşla sipariş atölyeye gider.",
+      "ru": "Итог меняется с каждым выбором, и одно касание отправляет заказ в мастерскую."
+     }
+    ]
+   ],
+   "how": [
+    {
+     "en": "Every option rendered in Blender, 72 angles each, in layers — a tap changes the chair at once.",
+     "tr": "Her seçenek Blender'da render edildi, her biri 72 açı, katman katman — dokununca koltuk anında değişir.",
+     "ru": "Каждый вариант отрендерен в Blender, по 72 ракурса, слоями — касание сразу меняет кресло."
+    },
+    {
+     "en": "Fabrics and woods shown as rendered samples, not flat colour dots.",
+     "tr": "Kumaşlar ve ahşaplar düz renk noktası değil, render edilmiş numune olarak gösterilir.",
+     "ru": "Ткани и дерево показаны отрендеренными образцами, а не плоскими кружками цвета."
+    },
+    {
+     "en": "The price follows every choice.",
+     "tr": "Fiyat her seçimi izler.",
+     "ru": "Цена следует за каждым выбором."
+    },
+    {
+     "en": "It opens on a phone.",
+     "tr": "Telefonda açılır.",
+     "ru": "Открывается на телефоне."
+    }
+   ],
+   "url": "/threejs-chair-configurator/",
+   "urlLabel": "larisel.com/threejs-chair-configurator",
+   "cta": {
+    "en": "Build an armchair",
+    "tr": "Bir koltuk kur",
+    "ru": "Собрать кресло"
+   },
+   "media": {
+    "poster": "/media/chair-config.jpg?v=3",
+    "video": "/media/chair-config.mp4?v=3",
+    "posterTall": "/media/chair-config-phone.jpg?v=3",
+    "videoTall": "/media/chair-config-phone.mp4?v=3"
+   },
+   "ask": {
+    "en": "A configurator like this one?",
+    "tr": "Böyle bir yapılandırıcı mı?",
+    "ru": "Нужен такой конфигуратор?"
+   }
+  },
+  {
+   "id": "interiors",
+   "home": "room",
+   "kind": "studio",
+   "year": 2026,
+   "category": "configurator",
+   "title": {
+    "en": "Larisel Interiors",
+    "tr": "Larisel İç Mekân",
+    "ru": "Интерьеры Larisel"
+   },
+   "type": {
+    "en": "Kitchen and interior configurator",
+    "tr": "Mutfak ve iç mekân yapılandırıcı",
+    "ru": "Конфигуратор кухни и интерьера"
+   },
+   "one": {
+    "en": "Instead of sending renders back and forth, the studio sends one link — and the client arrives at the meeting having decided.",
+    "tr": "Stüdyo render gönderip durmak yerine tek bir link gönderir — müşteri toplantıya kararını vermiş olarak gelir.",
+    "ru": "Вместо бесконечных рендеров студия отправляет одну ссылку — и клиент приходит на встречу, уже решив."
+   },
+   "quote": {
+    "en": "Let the client choose the room.",
+    "tr": "Mekânı müşteri kendi seçsin.",
+    "ru": "Пусть клиент соберёт интерьер сам."
+   },
+   "task": {
+    "en": "A kitchen studio sends render after render while the client decides. One link had to let the client try the materials alone.",
+    "tr": "Bir mutfak stüdyosu, müşteri karar verene kadar render üstüne render gönderir. Tek bir link, müşterinin malzemeleri kendi başına denemesini sağlamalıydı.",
+    "ru": "Кухонная студия отправляет рендер за рендером, пока клиент решает. Одна ссылка должна была дать клиенту самому примерить материалы."
+   },
+   "built": [
+    [
+     {
+      "en": "Try the materials",
+      "tr": "Malzemeleri dene",
+      "ru": "Пробуйте материалы"
+     },
+     {
+      "en": "Six floors, six worktops, eight cabinet fronts and eight wall colours.",
+      "tr": "Altı zemin, altı tezgâh, sekiz dolap kapağı ve sekiz duvar rengi.",
+      "ru": "Шесть полов, шесть столешниц, восемь фасадов и восемь цветов стен."
+     }
+    ],
+    [
+     {
+      "en": "See it day and night",
+      "tr": "Gündüz ve gece gör",
+      "ru": "Днём и вечером"
+     },
+     {
+      "en": "The same kitchen in daylight and with the lamps on.",
+      "tr": "Aynı mutfak gün ışığında ve lambalar yanarken.",
+      "ru": "Та же кухня при дневном свете и с включёнными лампами."
+     }
+    ],
+    [
+     {
+      "en": "Open it anywhere",
+      "tr": "Her yerde aç",
+      "ru": "Открывается везде"
+     },
+     {
+      "en": "It runs in the browser, on a phone too; nothing to install.",
+      "tr": "Tarayıcıda, telefonda da çalışır; kurulacak bir şey yok.",
+      "ru": "Работает в браузере, и на телефоне тоже; ничего не нужно устанавливать."
+     }
+    ]
+   ],
+   "how": [
+    {
+     "en": "The room rendered in Blender, each wall and surface a layer of its own, relit to match.",
+     "tr": "Oda Blender'da render edildi; her duvar ve yüzey kendi katmanı, ışığı ona göre yeniden kuruldu.",
+     "ru": "Комната отрендерена в Blender, каждая стена и поверхность — отдельный слой с согласованным светом."
+    },
+    {
+     "en": "A drag passes through 49 camera positions and rests on 13 sharp ones.",
+     "tr": "Sürükleyince kamera 49 konumdan geçer, 13 net konumda durur.",
+     "ru": "Перетаскивание проходит через 49 положений камеры и останавливается на 13 чётких."
+    },
+    {
+     "en": "Daylight or evening, one switch.",
+     "tr": "Gündüz ya da akşam, tek düğme.",
+     "ru": "День или вечер — один переключатель."
+    }
+   ],
+   "url": "/ic-mekan/",
+   "urlLabel": "larisel.com/ic-mekan",
+   "cta": {
+    "en": "Open the room",
+    "tr": "Odayı aç",
+    "ru": "Открыть комнату"
+   },
+   "media": {
+    "poster": "/media/room-config.jpg?v=4",
+    "video": "/media/room-config.mp4?v=4",
+    "posterTall": "/media/room-config-phone.jpg?v=4",
+    "videoTall": "/media/room-config-phone.mp4?v=4"
+   },
+   "ask": {
+    "en": "A configurator like this one?",
+    "tr": "Böyle bir yapılandırıcı mı?",
+    "ru": "Нужен такой конфигуратор?"
+   }
+  },
+  {
+   "id": "larisel-group",
+   "home": "group",
+   "kind": "studio",
+   "year": 2026,
+   "category": "corporate",
+   "title": {
+    "en": "Larisel Group",
+    "tr": "Larisel Group",
+    "ru": "Larisel Group"
+   },
+   "type": {
+    "en": "Corporate website",
+    "tr": "Kurumsal web sitesi",
+    "ru": "Корпоративный сайт"
+   },
+   "one": {
+    "en": "One website for a group of three companies — clear to a customer, an investor and a job seeker alike.",
+    "tr": "Üç şirketlik bir grup için tek web sitesi — müşteri, yatırımcı ve iş arayan için aynı ölçüde anlaşılır.",
+    "ru": "Один сайт для группы из трёх компаний — одинаково понятный клиенту, инвестору и соискателю."
+   },
+   "quote": {
+    "en": "Retail. Construction. Energy. One group.",
+    "tr": "Perakende. İnşaat. Enerji. Tek grup.",
+    "ru": "Ритейл. Строительство. Энергетика. Одна группа."
+   },
+   "task": {
+    "en": "Three companies under one name, each with its own audience. One site had to explain all three without turning into three sites.",
+    "tr": "Tek isim altında üç şirket, her birinin kendi kitlesi. Tek bir site, üç siteye dönüşmeden üçünü de anlatmalıydı.",
+    "ru": "Три компании под одним именем, у каждой своя аудитория. Один сайт должен был рассказать обо всех трёх и не превратиться в три сайта."
+   },
+   "built": [
+    [
+     {
+      "en": "A page for each company",
+      "tr": "Her şirkete bir sayfa",
+      "ru": "Своя страница у каждой компании"
+     },
+     {
+      "en": "Larisel Park, Larisel İnşaat and Larisel Enerji, each with its own story and colour.",
+      "tr": "Larisel Park, Larisel İnşaat ve Larisel Enerji; her biri kendi hikâyesi ve rengiyle.",
+      "ru": "Larisel Park, Larisel İnşaat и Larisel Enerji — у каждой своя история и свой цвет."
+     }
+    ],
+    [
+     {
+      "en": "Three languages",
+      "tr": "Üç dil",
+      "ru": "Три языка"
+     },
+     {
+      "en": "Turkish, English and Russian from a single set of pages.",
+      "tr": "Tek sayfa setinden Türkçe, İngilizce ve Rusça.",
+      "ru": "Турецкий, английский и русский из одного набора страниц."
+     }
+    ],
+    [
+     {
+      "en": "The building, in 3D",
+      "tr": "Bina, 3B olarak",
+      "ru": "Здание в 3D"
+     },
+     {
+      "en": "The construction page shows the group's project as a model you can turn.",
+      "tr": "İnşaat sayfası grubun projesini çevrilebilen bir model olarak gösterir.",
+      "ru": "Страница строительства показывает проект группы как модель, которую можно вращать."
+     }
+    ]
+   ],
+   "how": [
+    {
+     "en": "A relief behind the type, cast in plaster light, on every company's page.",
+     "tr": "Her şirketin sayfasında, yazının arkasında alçı ışığında bir kabartma.",
+     "ru": "Рельеф за текстом в гипсовом свете на странице каждой компании."
+    },
+    {
+     "en": "The flagship building as a 3D model you can turn.",
+     "tr": "Amiral projenin binası, çevrilebilen bir 3B model olarak.",
+     "ru": "Флагманское здание — 3D-модель, которую можно вращать."
+    },
+    {
+     "en": "One set of pages, three languages.",
+     "tr": "Tek sayfa seti, üç dil.",
+     "ru": "Один набор страниц, три языка."
+    }
+   ],
+   "url": "/larisel-group/",
+   "urlLabel": "larisel.com/larisel-group",
+   "cta": {
+    "en": "Visit the group",
+    "tr": "Grubu ziyaret et",
+    "ru": "Открыть сайт группы"
+   },
+   "media": {
+    "poster": "/media/group-site.jpg?v=3",
+    "video": "/media/group-site.mp4?v=3",
+    "posterTall": "/media/group-site-phone.jpg?v=3",
+    "videoTall": "/media/group-site-phone.mp4?v=3"
+   }
+  },
+  {
+   "id": "order-bot",
+   "home": "studio",
+   "kind": "studio",
+   "year": 2026,
+   "category": "bot",
+   "title": {
+    "en": "Larisel Order Bot",
+    "tr": "Larisel Sipariş Botu",
+    "ru": "Бот заказов Larisel"
+   },
+   "type": {
+    "en": "Telegram bot",
+    "tr": "Telegram botu",
+    "ru": "Телеграм-бот"
+   },
+   "one": {
+    "en": "A Telegram bot that carries a catalogue, a cart and a five-step checkout, with an admin panel and an Excel export behind it.",
+    "tr": "Katalog, sepet ve beş adımlı ödeme taşıyan bir Telegram botu; arkasında yönetim paneli ve Excel dışa aktarımı.",
+    "ru": "Telegram-бот с каталогом, корзиной и оформлением в пять шагов, а за ним — админ-панель и выгрузка в Excel."
+   },
+   "quote": {
+    "en": "Choose, confirm, done — inside Telegram.",
+    "tr": "Seç, onayla, bitti — Telegram'ın içinde.",
+    "ru": "Выбрать, подтвердить, готово — прямо в Telegram."
+   },
+   "task": {
+    "en": "Orders came by phone and in scattered messages, and some were lost. The shop wanted ordering where its customers already talk.",
+    "tr": "Siparişler telefonla ve dağınık mesajlarla geliyor, bazıları kayboluyordu. Dükkân, müşterilerinin zaten konuştuğu yerde sipariş almak istedi.",
+    "ru": "Заказы приходили по телефону и в разрозненных сообщениях, часть терялась. Магазин хотел принимать заказы там, где клиенты и так общаются."
+   },
+   "built": [
+    [
+     {
+      "en": "Order in a chat",
+      "tr": "Sohbette sipariş",
+      "ru": "Заказ в чате"
+     },
+     {
+      "en": "No app to install: the customer orders where they already talk.",
+      "tr": "Kurulacak uygulama yok: müşteri zaten konuştuğu yerden sipariş verir.",
+      "ru": "Ничего не нужно ставить: покупатель заказывает там, где и так общается."
+     }
+    ],
+    [
+     {
+      "en": "Nothing gets lost",
+      "tr": "Hiçbir şey kaybolmaz",
+      "ru": "Ничего не теряется"
+     },
+     {
+      "en": "Every step is checked and saved; an order is never half-taken.",
+      "tr": "Her adım kontrol edilir ve kaydedilir; hiçbir sipariş yarım kalmaz.",
+      "ru": "Каждый шаг проверяется и сохраняется; заказ не остаётся недооформленным."
+     }
+    ],
+    [
+     {
+      "en": "The shop sees it all",
+      "tr": "Mağaza her şeyi görür",
+      "ru": "Магазин видит всё"
+     },
+     {
+      "en": "An admin panel for the day's orders, and Excel when the accountant asks.",
+      "tr": "Günün siparişleri için yönetim paneli, muhasebeci isteyince de Excel.",
+      "ru": "Админ-панель с заказами за день и Excel, когда спросит бухгалтер."
+     }
+    ]
+   ],
+   "how": [
+    {
+     "en": "A catalogue, a cart and a five-step checkout, inside Telegram.",
+     "tr": "Telegram içinde katalog, sepet ve beş adımlı ödeme.",
+     "ru": "Каталог, корзина и оформление в пять шагов — внутри Telegram."
+    },
+    {
+     "en": "Every step checked and saved before the next.",
+     "tr": "Her adım bir sonrakinden önce kontrol edilip kaydedilir.",
+     "ru": "Каждый шаг проверяется и сохраняется до следующего."
+    },
+    {
+     "en": "An admin panel for the day's orders, and an Excel export.",
+     "tr": "Günün siparişleri için yönetim paneli ve Excel çıktısı.",
+     "ru": "Панель администратора для заказов дня и выгрузка в Excel."
+    }
+   ],
+   "url": "/#start",
+   "urlLabel": "",
+   "cta": {
+    "en": "Contact us",
+    "tr": "Bizimle iletişime geçin",
+    "ru": "Связаться с нами"
+   },
+   "media": {
+    "still": "/film/studio/end-16x9.webp",
+    "chat": true
+   },
+   "ask": {
+    "en": "A bot like this one?",
+    "tr": "Böyle bir bot mu?",
+    "ru": "Нужен такой бот?"
+   }
+  }
+ ]
+}

@@ -40,17 +40,23 @@
     /* where a frame fraction lands on screen (object-fit: cover, centred) */
     function place() {
       if (!pins) return;
-      var W = innerWidth, H = innerHeight, s = Math.max(W / fw, H / fh);
+      /* the plate's own box (the large viewport, like the film's stage): innerHeight shrinks while a phone's toolbar shows */
+      var W = img.clientWidth || innerWidth, H = img.clientHeight || innerHeight, s = Math.max(W / fw, H / fh);
       var ox = (W - fw * s) / 2, oy = (H - fh * s) / 2, r = rem(), m = r * 0.75;
       var hdr = document.querySelector(".hdr"), top = (hdr ? hdr.offsetHeight : 0) + m;
+      /* the words scroll up through their column: a label there would be crossed by them */
+      var words = !tall && stop.querySelector(".stop__text"), edge = words ? words.getBoundingClientRect().right + m : -1;
       svg.setAttribute("viewBox", "0 0 " + W + " " + H);
       pinEls.forEach(function (el, i) {
         var at = (el.getAttribute(tall ? "data-at-tall" : "data-at-wide") || "").split(",").map(Number);
         var off = (el.getAttribute(tall ? "data-off-tall" : "data-off-wide") || "").split(",").map(Number);
-        if (at.length < 2 || off.length < 2 || isNaN(at[0])) { el.style.display = "none"; lines[i][0].style.display = lines[i][1].style.display = "none"; return; }
+        var hide = function () { el.style.display = "none"; lines[i][0].style.display = lines[i][1].style.display = "none"; };
+        if (at.length < 2 || off.length < 2 || isNaN(at[0])) { hide(); return; }
+        el.style.display = lines[i][0].style.display = lines[i][1].style.display = "";
         var x = ox + at[0] * fw * s, y = oy + at[1] * fh * s;
         var left = off[0] < 0, w = el.offsetWidth, h = el.offsetHeight;
         var lx = left ? Math.min(W - m, Math.max(m + w, x + off[0] * r)) : Math.max(m, Math.min(W - m - w, x + off[0] * r));
+        if ((left ? lx - w : lx) < edge || x < edge) { hide(); return; }
         var ly = Math.max(top, Math.min(H - m - h, y + off[1] * r));
         el.classList.toggle("is-left", left);
         el.style.transform = "translate3d(" + lx.toFixed(1) + "px," + ly.toFixed(1) + "px,0)";

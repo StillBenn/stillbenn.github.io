@@ -3,10 +3,11 @@
    --------------------------------------------------------------------------
    A mouse wheel does not produce motion, it produces STEPS: one notch is a
    fixed jump, and on a page made of films those steps read as the film
-   stuttering. This eases the real scroll position towards a target instead,
-   so a notch becomes a short glide and a run of notches one continuous
-   movement — the feel of the café site (cafe-3d/js/scroll.js), which was
-   judged "very soft, premium" at RATE 5.
+   stuttering. The real scroll position follows a target on a critically
+   damped spring instead: a notch becomes a short glide that gathers speed
+   and settles without overshoot, and a run of notches one continuous
+   movement. (An exponential ease — the first version, the café site's RATE 5 — leaps to full speed
+   on the first frame of a notch; the spring's start is soft too.)
 
    The scroll POSITION is what gets eased, not a fake transform: the films,
    the plates, the header — everything that reads window.scrollY — follows the
@@ -36,13 +37,36 @@
   veil.className = "veil";
   veil.setAttribute("aria-hidden", "true");
   document.body.appendChild(veil);
+  var jumps = 0;
   function fadeJump(to, then) {
     if (reduced) { window.scrollTo(0, to); if (then) then(); return; }
+    var mine = ++jumps;                  /* a second jump inside the first one's fade owns the veil from then on */
     veil.classList.add("is-on");
     setTimeout(function () {
+      if (mine !== jumps) return;
+      veil.classList.add("is-on");
+      window.__filmSharpOf = {};
       window.scrollTo(0, to);
       if (then) then();
-      requestAnimationFrame(function () { requestAnimationFrame(function () { veil.classList.remove("is-on"); }); });
+      /* landing inside a film: it has cut to the new moment under the veil, and the veil
+         lifts once that moment is on screen sharp (film.js __filmSharpOf), or after 1.5 s.
+         A film's word is only taken once it has run since the jump (__filmTickOf): a film
+         that was asleep off screen still carries the state it was left in. */
+      var t0 = performance.now(), frames = 0;
+      (function lift() {
+        if (mine !== jumps) return;
+        /* the film whose stage fills the screen at the landing, if any (the page holds several) */
+        var film = null, films = document.querySelectorAll("[data-film]:not([data-pending]):not(.is-still)");
+        for (var i = 0; i < films.length; i++) {
+          var r = films[i].getBoundingClientRect();
+          if (r.top <= 1 && r.bottom >= window.innerHeight * 0.5) { film = films[i]; break; }
+        }
+        var id = film && (film.getAttribute("data-film") || "main");
+        var fresh = film && ((window.__filmTickOf || {})[id] || 0) > t0;
+        var ok = !film || (fresh && (film.classList.contains("is-faded") || (window.__filmSharpOf || {})[id]));
+        if (++frames > 2 && (ok || performance.now() - t0 > 1500)) veil.classList.remove("is-on");
+        else requestAnimationFrame(lift);
+      })();
     }, 260);
   }
 
@@ -50,13 +74,13 @@
   window.__fadeJump = function (to) {
     measure();
     to = clamp(to);
-    current = target = written = to;
+    current = target = written = to; vel = 0; running = false;   /* a glide still running would scroll there before the veil is up */
     fadeJump(to);
   };
 
-  var RATE = 5;
-  var SETTLE = 0.35;     /* px: below this we snap and stop the loop */
-  var target = window.scrollY, current = target, written = Math.round(current);
+  var OMEGA = 8;          /* the spring's stiffness: ~0.6 s to settle a notch */
+  var SETTLE = 0.35;     /* px: below this (and slow) we snap and stop the loop */
+  var target = window.scrollY, current = target, written = Math.round(current), vel = 0;
   var max = 0, running = false, last = 0;
 
   function measure() {
@@ -69,9 +93,11 @@
     if (!running) return;
     var dt = Math.min(0.05, (now - last) / 1000);
     last = now;
-    /* frame-rate independent: the same glide at 60 Hz and 144 Hz */
-    current += (target - current) * (1 - Math.exp(-RATE * dt));
-    if (Math.abs(target - current) < SETTLE) { current = target; running = false; }
+    /* the spring solved exactly over dt: the same glide at 60, 144 and 300 Hz */
+    var x0 = current - target, e = Math.exp(-OMEGA * dt), c = vel + OMEGA * x0;
+    current = target + (x0 + c * dt) * e;
+    vel = (vel - OMEGA * c * dt) * e;
+    if (Math.abs(target - current) < SETTLE && Math.abs(vel) < 6) { current = target; vel = 0; running = false; }
     written = Math.round(current);
     window.scrollTo(0, current);
     if (running) requestAnimationFrame(frame);
@@ -132,7 +158,7 @@
       measure();
       var d = step(e);
       if (d === Infinity || d === -Infinity) {
-        current = target = written = d === Infinity ? max : 0;
+        current = target = written = d === Infinity ? max : 0; vel = 0; running = false;
         fadeJump(target);
         return;
       }
@@ -142,9 +168,9 @@
 
     /* Someone else moved the page: adopt it. Compared against the last
        position WE wrote — scroll events arrive late, and comparing with
-       `current` cut fast glides short (cafe-3d, measured). */
+       `current` cut fast glides short (measured). */
     window.addEventListener("scroll", function () {
-      if (Math.abs(window.scrollY - written) > 2) current = target = written = window.scrollY;
+      if (Math.abs(window.scrollY - written) > 2) { current = target = written = window.scrollY; vel = 0; }
     }, { passive: true });
 
     window.addEventListener("resize", measure);
@@ -164,7 +190,7 @@
     var to = clamp(el.getBoundingClientRect().top + window.scrollY);
     var focus = function () { if (a.classList.contains("skip-link")) { el.setAttribute("tabindex", "-1"); el.focus({ preventScroll: true }); } };
     if (Math.abs(to - window.scrollY) > window.innerHeight * 2.5 || reduced) {
-      current = target = written = to;
+      current = target = written = to; vel = 0; running = false;
       fadeJump(to, focus);
     } else if (!fine) {
       window.scrollTo({ top: to, behavior: "smooth" });    /* a phone's own glide */
@@ -174,6 +200,7 @@
       start();
       focus();
     }
-    if (history.replaceState) history.replaceState(null, "", "#" + id);
+    /* (a page whose address holds its filter, Projects' #film…, keeps it) */
+    if (history.replaceState && !document.querySelector(".work-filter")) history.replaceState(null, "", "#" + id);
   });
 })();

@@ -198,7 +198,13 @@ html[data-film="light"] .hdr { background: transparent; box-shadow: none; }
 
 /* ---- the film --------------------------------------------------------------- */
 .film { position: relative; z-index: 1; height: 420vh; background: transparent; color: var(--c-ivory); }
-.film__stage { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; }
+/* The stage, the plates and the live cup are the LARGE viewport: a phone's toolbar sliding away must
+   uncover more picture, not the page under it (the small one left a page-coloured band at the foot of the
+   screen, seen in a phone's screen recording). The three must stay the same size, or the film's
+   hand-over to its plate (and the café's to its live cup) would jump. What sits at the stage's foot is
+   lifted by the toolbar's height while it shows (--bar). */
+.film__stage { --bar: 0px; position: sticky; top: 0; height: 100vh; height: 100lvh; overflow: hidden; }
+@supports (height: 100dvh) { .film__stage { --bar: calc(100lvh - 100dvh); } }
 .film__canvas { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; transition: opacity 700ms var(--e-out); background: var(--c-night); }
 .film.is-live .film__canvas { opacity: 1; }
 .film.is-still .film__stage { background: var(--c-night); }
@@ -217,6 +223,22 @@ html[data-film="light"] .hdr { background: transparent; box-shadow: none; }
     background:
       linear-gradient(0deg, rgba(5, 4, 4, 0.45) 0, transparent 8rem),
       linear-gradient(180deg, rgba(5, 4, 4, 0.55) 0%, rgba(5, 4, 4, 0.18) 30%, transparent 50%);
+  }
+}
+
+/* film--deep: a night film whose bright product stands right behind the words
+   (a bag that fills a phone's frame under the headline) */
+.film--deep .film__stage::after {
+  background:
+    linear-gradient(180deg, rgba(5, 4, 4, 0.34) 0, transparent 8rem),
+    linear-gradient(0deg, rgba(5, 4, 4, 0.4) 0, transparent 7rem),
+    linear-gradient(90deg, rgba(5, 4, 4, 0.72) 0%, rgba(5, 4, 4, 0.42) 32%, rgba(5, 4, 4, 0.12) 46%, transparent 60%);
+}
+@media (orientation: portrait) {
+  .film--deep .film__stage::after {
+    background:
+      linear-gradient(0deg, rgba(5, 4, 4, 0.45) 0, transparent 8rem),
+      linear-gradient(180deg, rgba(5, 4, 4, 0.82) 0%, rgba(5, 4, 4, 0.64) 26%, rgba(5, 4, 4, 0.24) 42%, transparent 54%);
   }
 }
 
@@ -249,7 +271,7 @@ html[data-film="light"] .hdr { background: transparent; box-shadow: none; }
 }
 
 .film__chapters {
-  position: absolute; z-index: 3; left: var(--pad-edge); bottom: clamp(1.1rem, 4.5vh, 2.5rem);
+  position: absolute; z-index: 3; left: var(--pad-edge); bottom: calc(clamp(1.1rem, 4.5vh, 2.5rem) + var(--bar));
   display: flex; gap: clamp(0.9rem, 1.6vw, 1.6rem);
   opacity: calc(1 - var(--film-end, 0)); transition: opacity 400ms var(--e-out);
 }
@@ -262,7 +284,7 @@ html[data-film="light"] .hdr { background: transparent; box-shadow: none; }
 .film__chapters button:hover, .film__chapters button[aria-current] { color: var(--c-ivory); }
 .film__chapters i { display: block; height: 1px; background: linear-gradient(90deg, var(--c-ivory) calc(var(--p, 0) * 100%), rgba(243, 237, 225, 0.2) 0); }
 .film__skip {
-  position: absolute; z-index: 3; right: var(--pad-edge); bottom: clamp(1.1rem, 4.5vh, 2.5rem);
+  position: absolute; z-index: 3; right: var(--pad-edge); bottom: calc(clamp(1.1rem, 4.5vh, 2.5rem) + var(--bar));
   padding: 0.7em 0.2em;
   font-family: var(--f-mono); font-size: 0.66rem; letter-spacing: 0.16em; text-transform: uppercase;
   color: rgba(243, 237, 225, 0.62); opacity: calc(1 - var(--film-end, 0));
@@ -272,7 +294,7 @@ html[data-film="light"] .hdr { background: transparent; box-shadow: none; }
 .film__skip::after { content: "  \2193"; }
 /* "Scroll": appears once the mark is written, leaves at the first scroll */
 .film__hint {
-  position: absolute; z-index: 3; left: 50%; bottom: clamp(1.4rem, 5vh, 2.8rem); transform: translateX(-50%);
+  position: absolute; z-index: 3; left: 50%; bottom: calc(clamp(1.4rem, 5vh, 2.8rem) + var(--bar)); transform: translateX(-50%);
   font-family: var(--f-mono); font-size: 0.62rem; letter-spacing: 0.3em; text-transform: uppercase; color: rgba(243, 237, 225, 0.5);
   opacity: 0; transition: opacity var(--d-slow) var(--e-out);
 }
@@ -284,15 +306,18 @@ html.has-scrolled .film__hint { opacity: 0; }
 @media (max-width: 1180px) {
   .film__chapters button { min-width: 0; letter-spacing: 0.12em; }
 }
-/* a phone: two rows of three, the full width, and the skip link above them */
-@media (max-width: 720px) {
+/* a phone or a tablet: rows of three, the full width, and the skip link above them
+   (a single row ran under "Skip the film" from 721 to ~880 px — measured at 768 and 820) */
+@media (max-width: 900px) {
   .film__chapters {
     left: var(--pad-edge); right: var(--pad-edge);
     display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0 0.9rem;
   }
   .film__chapters button { min-height: 40px; font-size: 0.6rem; letter-spacing: 0.1em; }
   .film__chapters span { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .film__skip { bottom: calc(clamp(1.1rem, 4.5vh, 2.5rem) + 5.6rem); }
+  .film__skip { bottom: calc(clamp(1.1rem, 4.5vh, 2.5rem) + 5.6rem + var(--bar)); }
+  html[data-stops="6"] .film__skip, html[data-stops="7"] .film__skip, html[data-stops="8"] .film__skip {
+    bottom: calc(clamp(1.1rem, 4.5vh, 2.5rem) + 8.1rem + var(--bar)); }   /* seven to nine names: a third row */
   .film__hint { display: none; }
 }
 
@@ -300,6 +325,7 @@ html.has-scrolled .film__hint { opacity: 0; }
 .film.is-still .film__poster { display: block; position: absolute; inset: 0; }
 .film.is-still .film__poster img { width: 100%; height: 100%; object-fit: cover; }
 .film.is-still { height: 100vh; height: 100svh; }
+.film.is-still .film__stage { height: 100%; --bar: 0px; }       /* the still poster fills its own box, no more */
 .film.is-still .film__canvas { display: none; }
 .film.is-still .film__line > span { transform: none; }
 .film.is-still .film__label, .film.is-still .film__lead { opacity: 1; }
@@ -327,7 +353,7 @@ html.has-scrolled .film__hint { opacity: 0; }
 /* film--low: the subject fills the middle of the tall frames (the armchair),
    so on a phone the words sit on the floor below it, not over it */
 @media (orientation: portrait) {
-  .film--low .film__beat { top: auto; bottom: calc(1.4rem + env(safe-area-inset-bottom, 0px)); }
+  .film--low .film__beat { top: auto; bottom: calc(1.4rem + env(safe-area-inset-bottom, 0px) + var(--bar)); }
   .film--low.film--page .film__stage::after { background: linear-gradient(0deg, rgba(244, 239, 229, 0.9) 0%, rgba(244, 239, 229, 0.55) 26%, transparent 42%); }
 }
 /* a short phone has room under the chair for the title only; the stop below repeats the rest */
@@ -339,7 +365,7 @@ html.has-scrolled .film__hint { opacity: 0; }
 /* ---- a film's last frame, held behind its stop (js/plate.js) ------------------ */
 .plate {
   position: fixed; inset: 0; z-index: 0;
-  width: 100vw; height: 100vh; height: 100svh; object-fit: cover;
+  width: 100vw; height: 100vh; height: 100lvh; object-fit: cover;
   opacity: 0; pointer-events: none;
 }
 .plate:not([src]) { visibility: hidden; }
@@ -347,7 +373,7 @@ html.has-scrolled .film__hint { opacity: 0; }
 /* ---- the live cup, behind the page ---------------------------------------- */
 .cupstage {
   position: fixed; inset: 0; z-index: 0;
-  width: 100vw; height: 100vh; height: 100svh;
+  width: 100vw; height: 100vh; height: 100lvh;
   opacity: 0; pointer-events: none; touch-action: pan-y;
 }
 .cupstage.is-interactive { pointer-events: auto; cursor: grab; }
@@ -384,7 +410,8 @@ html.has-scrolled .film__hint { opacity: 0; }
 .stop__links { display: flex; flex-wrap: wrap; gap: var(--s-3); }
 /* ---- pinned labels ------------------------------------------------------------ */
 /* the labels belong to the cup: same layer, so the page's text passes over both */
-.pins { position: fixed; inset: 0; z-index: 0; pointer-events: none; opacity: 0; }
+/* the plate's own box (the large viewport): with inset 0 a phone's toolbar squeezed the lines off their points */
+.pins { position: fixed; top: 0; left: 0; right: 0; height: 100vh; height: 100lvh; z-index: 0; pointer-events: none; opacity: 0; }
 .pins__lines { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
 .pins__lines line { stroke: rgba(23, 21, 15, 0.38); stroke-width: 1; }
 .pins__lines circle { fill: var(--c-cream); stroke: rgba(23, 21, 15, 0.7); stroke-width: 1; }
@@ -409,7 +436,8 @@ html.has-scrolled .film__hint { opacity: 0; }
 }
 .excerpt__bar { display: flex; align-items: center; gap: 7px; height: 2.4rem; padding: 0 1rem; background: #f7f4ee; border-bottom: 1px solid rgba(23, 21, 15, 0.08); }
 .excerpt__bar i { width: 9px; height: 9px; border-radius: 50%; background: rgba(23, 21, 15, 0.13); }
-.excerpt__bar span { margin: 0 auto; padding: 0.25rem 1.6rem; border-radius: 6px; background: rgba(23, 21, 15, 0.05); font: 400 0.7rem/1 var(--f-mono); letter-spacing: 0.04em; color: var(--c-ink-soft); }
+.excerpt__bar span { margin: 0 auto; padding: 0.25rem 1.6rem; border-radius: 6px; background: rgba(23, 21, 15, 0.05); font: 400 0.7rem/1 var(--f-mono); letter-spacing: 0.04em; color: var(--c-ink-soft);
+  min-width: 0; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }   /* a long address stays one line on a phone */
 .excerpt__video { display: block; width: 100%; height: auto; aspect-ratio: 16 / 10; background: #efe9de; }
 .excerpt__caption { display: flex; gap: var(--s-4); align-items: baseline; width: min(72rem, 100%); margin: var(--s-5) auto 0; color: var(--c-ink-soft); font-size: 0.95rem; }
 @media (orientation: portrait) {
@@ -438,7 +466,7 @@ html.has-scrolled .film__hint { opacity: 0; }
 .foot__base { display: flex; justify-content: space-between; align-items: baseline; gap: var(--s-4); flex-wrap: wrap; margin-top: var(--s-9); padding-top: var(--s-5); border-top: 1px solid var(--c-line-night); font: 400 0.68rem/1 var(--f-mono); letter-spacing: 0.14em; text-transform: uppercase; color: rgba(243, 237, 225, 0.45); }
 .foot__word { font-family: var(--f-display); font-size: clamp(3rem, 2rem + 6vw, 8rem); letter-spacing: -0.03em; text-transform: none; color: var(--c-ivory); line-height: 0.9; font-weight: 300; }
 
-:lang(ru) .film__title, :lang(ru) .stop__title, :lang(ru) .next__title, :lang(ru) .foot__title, :lang(ru) .quote p { font-weight: 240; }
+:lang(ru) .film__title, :lang(ru) .stop__title, :lang(ru) .next__title, :lang(ru) .foot__title, :lang(ru) .quote p, :lang(ru) .allwork__link { font-weight: 240; }
 
 
 /* ---- the interior film after sunset: back to light type on a dark scrim ----------- */
@@ -482,6 +510,8 @@ html.has-scrolled .film__hint { opacity: 0; }
 .stop--night .does b { color: var(--c-ivory); }
 .stop--night .does span { color: rgba(243, 237, 225, 0.7); }
 .stop--night .btn--solid { background: var(--c-ivory); color: var(--c-night); }
+.stop--night .btn--line { border-color: var(--c-line-night); color: var(--c-ivory); }
+.stop--night .btn--line:hover { border-color: rgba(243, 237, 225, 0.5); }
 .stop--night .btn--solid:hover { background: #fff; }
 @media (orientation: portrait) {
   .stop--night .stop__text { background: transparent; box-shadow: none; }
@@ -562,6 +592,13 @@ html.has-scrolled .film__hint { opacity: 0; }
 }
 
 
+/* ---- every project, one link away (Projects, /work/) ------------------------------ */
+.allwork { position: relative; z-index: 1; background: var(--c-cream); padding: var(--s-8) var(--pad-edge) var(--s-7); border-top: 1px solid var(--c-line); }
+.allwork__link { display: inline-flex; align-items: baseline; flex-wrap: wrap; gap: 0 0.3em; margin-top: var(--s-4); max-width: 46rem;
+  font-family: var(--f-display); font-weight: 300; font-size: var(--t-h2); line-height: 1.05; letter-spacing: -0.02em; color: var(--c-ink); }
+.allwork__link em { font-style: italic; color: #9a4a32; }
+.allwork__link i { font-style: normal; font-family: var(--f-body, inherit); font-size: 0.6em; transition: transform var(--d-fast) var(--e-out); }
+.allwork__link:hover i, .allwork__link:focus-visible i { transform: translateX(0.3em); }
 /* ---- start a project: how we work, and the brief -------------------------------- */
 .start { position: relative; z-index: 1; background: var(--c-cream); padding: var(--s-9) var(--pad-edge); border-top: 1px solid var(--c-line); }
 .start__inner { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); gap: clamp(2rem, 6vw, 7rem); max-width: 84rem; }
