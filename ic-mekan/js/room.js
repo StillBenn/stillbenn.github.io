@@ -7,7 +7,10 @@
    photograph gives. The camera rests at 13 places along an arc round the
    island; a drag walks it along the arc through three more renders between
    each two (49 in all, light frames only): at 13 every step was a 3.3° jump
-   the dissolve had to hide, and a slow drag read as a stutter.
+   the dissolve had to hide, and a slow drag read as a stutter. Between two of
+   the 49 the room is not dissolved but MOVED: the motion from each to the next
+   is known (renders/flow.webp), and the in-between is drawn by sliding both
+   towards each other (see "in-between places" below).
 
    Each choice is its own layer, and the page stacks the ones chosen:
      the room with the chosen wall colour   (a whole render: the walls are most
@@ -268,6 +271,95 @@ export function createRoom(canvas) {
   }
   let nextFade = 380;
 
+  /* --- in-between places: the motion, not a dissolve ------------------------
+     Neighbouring places are 0.8° apart, yet the stools in front of the island
+     move ~40 px (of 800) from one to the next: a dissolve drew them twice — a
+     ghost, and a pulse at every step, which a recording showed as a stutter.
+     renders/flow.webp holds the motion between every two neighbours, both ways
+     (_film/kitchen/flow_kitchen.py, from the renders themselves). At a point t
+     of the way from place k to k+1 a pixel is taken from k a fraction t back
+     along the forward motion, and from k+1 the rest of the way back along the
+     backward one; only then are the two mixed — one stool, sliding. WebGL;
+     without it (or before the motion has loaded) the dissolve stays. */
+  const warp = (() => {
+    const cv = document.createElement("canvas");
+    let gl = null;
+    try { gl = cv.getContext("webgl", { premultipliedAlpha: false, preserveDrawingBuffer: true, antialias: false, alpha: false }); } catch (e) { /* none */ }
+    if (!gl) return null;
+    const sh = (type, src) => { const o = gl.createShader(type); gl.shaderSource(o, src); gl.compileShader(o); return o; };
+    const prog = gl.createProgram();
+    gl.attachShader(prog, sh(gl.VERTEX_SHADER, "attribute vec2 p; varying vec2 v; void main() { v = vec2(p.x * 0.5 + 0.5, 0.5 - p.y * 0.5); gl_Position = vec4(p, 0.0, 1.0); }"));
+    gl.attachShader(prog, sh(gl.FRAGMENT_SHADER, `precision highp float;
+      varying vec2 v;
+      uniform sampler2D uA, uB, uF;
+      uniform vec4 uFwd, uBwd;      // a tile of the motion atlas: origin xy, size zw
+      uniform vec2 uHalf, uPx;      // half a texel of a tile; one frame pixel in uv
+      uniform float uT, uScale;
+      vec2 motion(vec4 tl) {
+        vec2 q = tl.xy + clamp(v, uHalf, 1.0 - uHalf) * tl.zw;
+        return (texture2D(uF, q).rg * 255.0 - 128.0) / uScale * uPx;
+      }
+      void main() {
+        vec3 a = texture2D(uA, v - uT * motion(uFwd)).rgb;
+        vec3 b = texture2D(uB, v - (1.0 - uT) * motion(uBwd)).rgb;
+        gl_FragColor = vec4(mix(a, b, uT), 1.0);
+      }`));
+    gl.linkProgram(prog);
+    if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) return null;
+    gl.useProgram(prog);
+    const buf = gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 1, -1, -1, 1, 1, 1]), gl.STATIC_DRAW);
+    const loc = gl.getAttribLocation(prog, "p"); gl.enableVertexAttribArray(loc); gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
+    const U = (n) => gl.getUniformLocation(prog, n);
+    const tex = (unit) => {
+      const t = gl.createTexture(); gl.activeTexture(gl.TEXTURE0 + unit); gl.bindTexture(gl.TEXTURE_2D, t);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+      return t;
+    };
+    const tA = tex(0), tB = tex(1), tF = tex(2);
+    gl.uniform1i(U("uA"), 0); gl.uniform1i(U("uB"), 1); gl.uniform1i(U("uF"), 2);
+    gl.pixelStorei(gl.UNPACK_PREMULTIPLY_ALPHA_WEBGL, false);
+    gl.pixelStorei(gl.UNPACK_COLORSPACE_CONVERSION_WEBGL, gl.NONE);
+    let info = null;
+    const ready = fetch(RENDERS + "flow.json?v=1").then((r) => { if (!r.ok) throw new Error("flow"); return r.json(); })
+      .then((m) => fetch(RENDERS + m.file + "?r=" + m.rev).then((r) => { if (!r.ok) throw new Error("flow"); return r.blob(); })
+        .then((b) => createImageBitmap(b, { premultiplyAlpha: "none", colorSpaceConversion: "none" }))
+        .then((bmp) => {
+          gl.activeTexture(gl.TEXTURE2); gl.bindTexture(gl.TEXTURE_2D, tF);
+          gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGB, gl.RGB, gl.UNSIGNED_BYTE, bmp);
+          const AW = m.cols * m.tile[0], AH = m.rows * 2 * m.tile[1];
+          gl.uniform2f(U("uHalf"), 0.5 / m.tile[0], 0.5 / m.tile[1]);
+          gl.uniform2f(U("uPx"), 1 / m.frame[0], 1 / m.frame[1]);
+          gl.uniform1f(U("uScale"), m.scale);
+          info = { ...m, AW, AH };
+          wake();
+        }));
+    ready.catch(() => {});
+    /* the two places either side, composed once each and kept while the camera stays between them */
+    const cA = mk(), cB = mk(), held = { a: "", b: "" };
+    function draw(s, sk, k, t) {
+      const a = sk + "#" + k, b = sk + "#" + (k + 1);
+      if (held.a !== a) {
+        compose("lite", s, k, cA); gl.activeTexture(gl.TEXTURE0); gl.bindTexture(gl.TEXTURE_2D, tA);
+        gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGB, gl.RGB, gl.UNSIGNED_BYTE, cA); held.a = a;
+      }
+      if (held.b !== b) {
+        compose("lite", s, k + 1, cB); gl.activeTexture(gl.TEXTURE1); gl.bindTexture(gl.TEXTURE_2D, tB);
+        gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGB, gl.RGB, gl.UNSIGNED_BYTE, cB); held.b = b;
+      }
+      if (cv.width !== cA.width || cv.height !== cA.height) { cv.width = cA.width; cv.height = cA.height; }
+      gl.viewport(0, 0, cv.width, cv.height);
+      const col = k % info.cols, row = Math.floor(k / info.cols), tw = info.tile[0] / info.AW, th = info.tile[1] / info.AH;
+      gl.uniform4f(U("uFwd"), col * tw, row * th, tw, th);
+      gl.uniform4f(U("uBwd"), col * tw, (row + info.rows) * th, tw, th);
+      gl.uniform1f(U("uT"), t);
+      gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+      return cv;
+    }
+    return { draw, ok: () => !!info };
+  })();
+
   let running = false, lastFrameT = 0, started = false;
   function wake() {
     if (running) return;
@@ -313,6 +405,10 @@ export function createRoom(canvas) {
     const hi = sharpAt(fi);                                      // its sharp frame, at the 13
     const rest = !moving && now - view.quietSince > 120;
     if (!canCompose("lite", s, fi)) want("lite", s, fi).then(wake, () => {});
+    /* the two places either side of the camera, for the in-between */
+    const pf = clampAt(view.at) * FINE, k0 = Math.max(0, Math.min(LITE() - 2, Math.floor(pf))), t0 = Math.min(1, Math.max(0, pf - k0));
+    const between = moving && warp && warp.ok() && LITE() > 1 && t0 > 0.002 && t0 < 0.998;
+    if (between) for (const j of [k0, k0 + 1]) if (!canCompose("lite", s, j)) want("lite", s, j).then(wake, () => {});
     if (rest && hi >= 0 && !canCompose("hd", s, hi)) want("hd", s, hi).then(wake, () => {});
     if (moving) {
       const dir = view.vel < 0 || (view.play && view.play.to < view.play.from) ? -1 : 1;
@@ -323,16 +419,17 @@ export function createRoom(canvas) {
     }
 
     /* the frame: sharp once the camera has rested, light while it moves */
-    let A = null, tier = null;
+    let A = null, tier = null, slide = null;
     if (rest && hi >= 0 && canCompose("hd", s, hi)) { tier = "hd"; A = compose("hd", s, hi, frameCv.hd); }
+    else if (between && canCompose("lite", s, k0) && canCompose("lite", s, k0 + 1)) { tier = "lite"; A = warp.draw(s, sk, k0, t0); slide = pf.toFixed(4); }
     else if (canCompose("lite", s, fi)) { tier = "lite"; A = compose("lite", s, fi, frameCv.lite); }
     else if (hi >= 0 && canCompose("hd", s, hi)) { tier = "hd"; A = compose("hd", s, hi, frameCv.hd); }
 
     if (A) {
-      const key = sk + "#" + fi + "#" + tier + "#" + view.zoom.toFixed(4) + "#" + canvas.width + "x" + canvas.height;
+      const key = sk + "#" + (slide !== null ? "~" + slide : fi) + "#" + tier + "#" + view.zoom.toFixed(4) + "#" + canvas.width + "x" + canvas.height;
       if (key !== shown.key || fade) {
         if (shown.sk && shown.sk !== sk) { startFade(nextFade); nextFade = 380; }
-        else if (shown.sk === sk && shown.i !== fi) {
+        else if (shown.sk === sk && shown.i !== fi && slide === null && !shown.slid) {
           /* a step along the arc dissolves for as long as the step took (a
              short fixed dissolve left the slow steps standing, which read as a
              stutter); at rest the picture is one place, sharp */
@@ -347,7 +444,7 @@ export function createRoom(canvas) {
           if (p >= 1) fade = null; else busy = true;
         }
         if (shown.i !== fi) shown.stepT = now;
-        Object.assign(shown, { key, sk, tier, i: fi });
+        Object.assign(shown, { key, sk, tier, i: fi, slid: slide !== null });
         if (!started) { started = true; host.classList.add("is-ready"); intro(); }
       }
     }

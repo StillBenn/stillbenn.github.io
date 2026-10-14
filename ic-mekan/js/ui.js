@@ -11,7 +11,7 @@
    host.
    ========================================================================== */
 
-import { createRoom } from "./room.js?v=5";
+import { createRoom } from "./room.js?v=6";
 
 const FLOORS = [
   { key: "oak",    sw: "linear-gradient(135deg,#c8a074,#a97f52)" },

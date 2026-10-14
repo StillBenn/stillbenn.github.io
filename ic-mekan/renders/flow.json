@@ -1,0 +1,16 @@
+{
+ "file": "flow.webp",
+ "rev": "000b4986",
+ "frame": [
+  800,
+  600
+ ],
+ "tile": [
+  200,
+  150
+ ],
+ "cols": 8,
+ "rows": 6,
+ "pairs": 48,
+ "scale": 1.5
+}

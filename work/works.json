@@ -427,10 +427,10 @@
     "ru": "Открыть комнату"
    },
    "media": {
-    "poster": "/media/room-config.jpg?v=4",
-    "video": "/media/room-config.mp4?v=4",
-    "posterTall": "/media/room-config-phone.jpg?v=4",
-    "videoTall": "/media/room-config-phone.mp4?v=4"
+    "poster": "/media/room-config.jpg?v=5",
+    "video": "/media/room-config.mp4?v=5",
+    "posterTall": "/media/room-config-phone.jpg?v=5",
+    "videoTall": "/media/room-config-phone.mp4?v=5"
    },
    "ask": {
     "en": "Want a configurator like this one?",
