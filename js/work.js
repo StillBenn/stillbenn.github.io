@@ -54,7 +54,7 @@
   }
 
   /* ---- words arrive ---- */
-  var groups = [].slice.call(document.querySelectorAll(".work-hero, .show__text, .show, .case-hero, .case-media, .case-story__task, .feats, .case-ask"));
+  var groups = [].slice.call(document.querySelectorAll(".work-hero, .show__text, .show, .case-hero, .case-media, .case-story__card, .case-ask"));
   if (!reduced && "IntersectionObserver" in window && groups.length) {
     document.documentElement.classList.add("rv");
     var parts = [];
