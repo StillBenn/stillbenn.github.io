@@ -44,10 +44,6 @@
    "tr": "Stüdyo demosu",
    "ru": "Демо студии"
   },
-  "How it was made": {
-   "tr": "Nasıl yapıldı",
-   "ru": "Как это сделано"
-  },
   "The task": {
    "tr": "Görev",
    "ru": "Задача"
@@ -56,14 +52,6 @@
    "tr": "Ne yaptık",
    "ru": "Что мы сделали"
   },
-  "How it is built": {
-   "tr": "Nasıl kuruldu",
-   "ru": "Как это устроено"
-  },
-  "Next": {
-   "tr": "Sıradaki",
-   "ru": "Дальше"
-  },
   "Every project Larisel has built, and how: scroll-film websites, 3D product configurators, a corporate site and a Telegram bot.": {
    "tr": "Larisel'in yaptığı her proje ve nasıl yapıldığı: kaydırma filmli siteler, 3B ürün yapılandırıcılar, bir kurumsal site ve bir Telegram botu.",
    "ru": "Все проекты Larisel и как они сделаны: сайты с фильмами, 3D-конфигураторы, корпоративный сайт и телеграм-бот."
@@ -71,14 +59,6 @@
   "The site, on a phone": {
    "tr": "Site, telefonda",
    "ru": "Сайт на телефоне"
-  },
-  "A site like this one?": {
-   "tr": "Böyle bir site mi?",
-   "ru": "Нужен такой сайт?"
-  },
-  "Start a project": {
-   "tr": "Proje başlat",
-   "ru": "Начать проект"
   },
   "Projects": {
    "tr": "Projelerimiz",
@@ -95,6 +75,22 @@
   "Explore the site": {
    "tr": "Siteyi incele",
    "ru": "Изучить сайт"
+  },
+  "Project details": {
+   "tr": "Proje detayları",
+   "ru": "Подробнее о проекте"
+  },
+  "Contact us": {
+   "tr": "Bizimle iletişime geçin",
+   "ru": "Связаться с нами"
+  },
+  "Next project": {
+   "tr": "Sıradaki proje",
+   "ru": "Следующий проект"
+  },
+  "Every project Larisel has built: scroll-film websites, 3D product configurators, a corporate site and a Telegram bot.": {
+   "tr": "Larisel'in yaptığı bütün projeler: kaydırma filmli siteler, 3B ürün yapılandırıcıları, bir kurumsal site ve bir Telegram botu.",
+   "ru": "Все проекты Larisel: сайты с фильмами, 3D-конфигураторы товаров, корпоративный сайт и телеграм-бот."
   }
  },
  "works": [
@@ -167,28 +163,6 @@
       "ru": "Сообщение компании — по желанию с числом коробок по вкусам."
      }
     ]
-   ],
-   "how": [
-    {
-     "en": "Seven shots rendered in Blender (Cycles): the wheat field, the steel mill rollers, the bronze die, the fryer, the seasoning, the bag sealed, the four flavours.",
-     "tr": "Blender'da (Cycles) render edilmiş yedi çekim: buğday tarlası, çelik değirmen merdaneleri, bronz kalıp, kızartma, çeşni, mühürlenen poşet, dört aroma.",
-     "ru": "Семь сцен, отрендеренных в Blender (Cycles): пшеничное поле, стальные вальцы мельницы, бронзовая матрица, фритюр, приправа, запечатанная пачка, четыре вкуса."
-    },
-    {
-     "en": "A film player that keeps the picture sharp at any scroll speed, and picks its quality by the visitor's connection.",
-     "tr": "Her kaydırma hızında görüntüyü net tutan ve kaliteyi ziyaretçinin bağlantısına göre seçen bir film oynatıcı.",
-     "ru": "Плеер, который держит картинку чёткой при любой скорости прокрутки и выбирает качество по скорости соединения."
-    },
-    {
-     "en": "The mascot holds the chosen flavour's bag; a case calculator writes the distributor's request.",
-     "tr": "Maskot seçilen aromanın poşetini taşır; koli hesaplayıcı distribütörün talebini yazar.",
-     "ru": "Маскот держит пачку выбранного вкуса; калькулятор коробок пишет заявку дистрибьютора."
-    },
-    {
-     "en": "Turkish, English and Arabic — the Arabic page reads right to left.",
-     "tr": "Türkçe, İngilizce ve Arapça — Arapça sayfa sağdan sola okunur.",
-     "ru": "Турецкий, английский и арабский — арабская версия читается справа налево."
-    }
    ],
    "url": "/kitlax-onizleme/",
    "urlLabel": "kitlax.com",
@@ -274,28 +248,6 @@
      }
     ]
    ],
-   "how": [
-    {
-     "en": "A scroll film rendered in Blender (Cycles): the coffee is poured and the lid goes on as you scroll.",
-     "tr": "Blender'da (Cycles) render edilmiş kaydırma filmi: kaydırdıkça kahve dökülür, kapak takılır.",
-     "ru": "Фильм, отрендеренный в Blender (Cycles): кофе наливается и крышка закрывается, пока вы листаете."
-    },
-    {
-     "en": "A live three.js cup that takes the guest's colours and name.",
-     "tr": "Misafirin renklerini ve adını alan canlı bir three.js bardak.",
-     "ru": "Живой стакан на three.js, который принимает цвета и имя гостя."
-    },
-    {
-     "en": "Ordering by the QR code on the table, with the bill split.",
-     "tr": "Masadaki QR koddan sipariş ve hesabı bölüşme.",
-     "ru": "Заказ по QR-коду на столе и разделение счёта."
-    },
-    {
-     "en": "Three languages, and it opens on a phone.",
-     "tr": "Üç dil, ve telefonda açılır.",
-     "ru": "Три языка, и открывается на телефоне."
-    }
-   ],
    "url": "/cafe-3d/",
    "urlLabel": "larisel.com/cafe-3d",
    "cta": {
@@ -379,28 +331,6 @@
      }
     ]
    ],
-   "how": [
-    {
-     "en": "Every option rendered in Blender, 72 angles each, in layers — a tap changes the chair at once.",
-     "tr": "Her seçenek Blender'da render edildi, her biri 72 açı, katman katman — dokununca koltuk anında değişir.",
-     "ru": "Каждый вариант отрендерен в Blender, по 72 ракурса, слоями — касание сразу меняет кресло."
-    },
-    {
-     "en": "Fabrics and woods shown as rendered samples, not flat colour dots.",
-     "tr": "Kumaşlar ve ahşaplar düz renk noktası değil, render edilmiş numune olarak gösterilir.",
-     "ru": "Ткани и дерево показаны отрендеренными образцами, а не плоскими кружками цвета."
-    },
-    {
-     "en": "The price follows every choice.",
-     "tr": "Fiyat her seçimi izler.",
-     "ru": "Цена следует за каждым выбором."
-    },
-    {
-     "en": "It opens on a phone.",
-     "tr": "Telefonda açılır.",
-     "ru": "Открывается на телефоне."
-    }
-   ],
    "url": "/threejs-chair-configurator/",
    "urlLabel": "larisel.com/threejs-chair-configurator",
    "cta": {
@@ -415,9 +345,9 @@
     "videoTall": "/media/chair-config-phone.mp4?v=3"
    },
    "ask": {
-    "en": "A configurator like this one?",
-    "tr": "Böyle bir yapılandırıcı mı?",
-    "ru": "Нужен такой конфигуратор?"
+    "en": "Want a configurator like this one?",
+    "tr": "Böyle bir yapılandırıcı mı istiyorsunuz?",
+    "ru": "Хотите такой конфигуратор?"
    }
   },
   {
@@ -489,23 +419,6 @@
      }
     ]
    ],
-   "how": [
-    {
-     "en": "The room rendered in Blender, each wall and surface a layer of its own, relit to match.",
-     "tr": "Oda Blender'da render edildi; her duvar ve yüzey kendi katmanı, ışığı ona göre yeniden kuruldu.",
-     "ru": "Комната отрендерена в Blender, каждая стена и поверхность — отдельный слой с согласованным светом."
-    },
-    {
-     "en": "A drag passes through 49 camera positions and rests on 13 sharp ones.",
-     "tr": "Sürükleyince kamera 49 konumdan geçer, 13 net konumda durur.",
-     "ru": "Перетаскивание проходит через 49 положений камеры и останавливается на 13 чётких."
-    },
-    {
-     "en": "Daylight or evening, one switch.",
-     "tr": "Gündüz ya da akşam, tek düğme.",
-     "ru": "День или вечер — один переключатель."
-    }
-   ],
    "url": "/ic-mekan/",
    "urlLabel": "larisel.com/ic-mekan",
    "cta": {
@@ -520,9 +433,9 @@
     "videoTall": "/media/room-config-phone.mp4?v=4"
    },
    "ask": {
-    "en": "A configurator like this one?",
-    "tr": "Böyle bir yapılandırıcı mı?",
-    "ru": "Нужен такой конфигуратор?"
+    "en": "Want a configurator like this one?",
+    "tr": "Böyle bir yapılandırıcı mı istiyorsunuz?",
+    "ru": "Хотите такой конфигуратор?"
    }
   },
   {
@@ -593,23 +506,6 @@
       "ru": "Страница строительства показывает проект группы как модель, которую можно вращать."
      }
     ]
-   ],
-   "how": [
-    {
-     "en": "A relief behind the type, cast in plaster light, on every company's page.",
-     "tr": "Her şirketin sayfasında, yazının arkasında alçı ışığında bir kabartma.",
-     "ru": "Рельеф за текстом в гипсовом свете на странице каждой компании."
-    },
-    {
-     "en": "The flagship building as a 3D model you can turn.",
-     "tr": "Amiral projenin binası, çevrilebilen bir 3B model olarak.",
-     "ru": "Флагманское здание — 3D-модель, которую можно вращать."
-    },
-    {
-     "en": "One set of pages, three languages.",
-     "tr": "Tek sayfa seti, üç dil.",
-     "ru": "Один набор страниц, три языка."
-    }
    ],
    "url": "/larisel-group/",
    "urlLabel": "larisel.com/larisel-group",
@@ -694,23 +590,6 @@
      }
     ]
    ],
-   "how": [
-    {
-     "en": "A catalogue, a cart and a five-step checkout, inside Telegram.",
-     "tr": "Telegram içinde katalog, sepet ve beş adımlı ödeme.",
-     "ru": "Каталог, корзина и оформление в пять шагов — внутри Telegram."
-    },
-    {
-     "en": "Every step checked and saved before the next.",
-     "tr": "Her adım bir sonrakinden önce kontrol edilip kaydedilir.",
-     "ru": "Каждый шаг проверяется и сохраняется до следующего."
-    },
-    {
-     "en": "An admin panel for the day's orders, and an Excel export.",
-     "tr": "Günün siparişleri için yönetim paneli ve Excel çıktısı.",
-     "ru": "Панель администратора для заказов дня и выгрузка в Excel."
-    }
-   ],
    "url": "/#start",
    "urlLabel": "",
    "cta": {
@@ -723,9 +602,9 @@
     "chat": true
    },
    "ask": {
-    "en": "A bot like this one?",
-    "tr": "Böyle bir bot mu?",
-    "ru": "Нужен такой бот?"
+    "en": "Want a bot like this one?",
+    "tr": "Böyle bir bot mu istiyorsunuz?",
+    "ru": "Хотите такого бота?"
    }
   }
  ]

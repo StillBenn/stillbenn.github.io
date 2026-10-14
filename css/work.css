@@ -5,8 +5,8 @@
    the quote, the "does" list, the browser window, the chat, the footer). The
    home page shows a few projects as films; this is where all of them live:
    one row each — the site itself playing, in a browser and on a phone, beside
-   its story, "Explore the site" and "How it was made" — and for each project
-   its task, what was built and how. Pages written by _film/home/build_work.py
+   its story, "Explore the site" and "Project details" — and for each project
+   its task and what was built. Pages written by _film/home/build_work.py
    from work/works.json.
    ========================================================================== */
 
@@ -110,30 +110,50 @@ a.show__media:hover .show__phone { transform: translate3d(0, -10px, 0); }
 .case-media--chat .chat__note { position: static; color: var(--c-ink-faint); }      /* written for the night stop: on cream it vanished */
 @media (max-width: 900px) { .case-media--chat { grid-template-columns: 1fr; } }
 
-.case-body { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(2rem, 1.2rem + 3vw, 4.5rem);
-  padding: clamp(3.5rem, 2.6rem + 4vw, 6.5rem) var(--pad-edge); max-width: 92rem; }
-.case-block .label { display: block; margin-bottom: var(--s-5); padding-bottom: var(--s-3); border-bottom: 1px solid var(--c-line); }
-.case-task { font-family: var(--f-display); font-weight: 300; font-size: clamp(1.3rem, 1.05rem + 0.75vw, 1.75rem); line-height: 1.35; letter-spacing: -0.005em; }
-.case-block .does { margin: 0; border-top: 0; max-width: none; }
-.case-block .does li:first-child { padding-top: 0; }
-.case-how { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.95rem; }
-.case-how li { position: relative; padding-left: 1.2rem; font-size: 0.95rem; line-height: 1.65; color: var(--c-ink-soft); }
-.case-how li::before { content: ""; position: absolute; left: 0; top: 0.72em; width: 0.45rem; height: 1px; background: var(--c-ink-faint); }
-@media (max-width: 960px) { .case-body { grid-template-columns: 1fr; } }
-
-.case-end { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: var(--s-6); align-items: end;
-  padding: clamp(2.5rem, 2rem + 2vw, 4rem) var(--pad-edge) clamp(4rem, 3rem + 4vw, 7rem); border-top: 1px solid var(--c-line); }
-.case-next { display: grid; gap: var(--s-3); color: inherit; }
+/* the task: one statement, set like a magazine's standfirst — the label in its own column */
+.case-task { display: grid; grid-template-columns: minmax(10rem, 0.32fr) minmax(0, 1fr); gap: var(--s-6) clamp(2rem, 1rem + 4vw, 6rem);
+  max-width: 92rem; margin: clamp(4.5rem, 3rem + 5vw, 8.5rem) 0 0; padding: clamp(2rem, 1.5rem + 1.5vw, 3rem) var(--pad-edge) clamp(4.5rem, 3rem + 5vw, 8.5rem);
+  border-top: 1px solid var(--c-line); }
+.case-task .label { padding-top: 0.9em; }
+.case-task__text { max-width: 54rem; font-family: var(--f-display); font-weight: 300; font-size: clamp(1.75rem, 1.15rem + 2.1vw, 3.1rem); line-height: 1.22; letter-spacing: -0.016em; text-wrap: pretty; }
+/* what we built: three panels on a warm ground, each with its numeral, its name and one sentence */
+.case-feats { background: #ece4d6; padding: clamp(3.5rem, 2.5rem + 4vw, 7rem) var(--pad-edge); }
+.case-feats__inner { max-width: 92rem; }
+.case-feats .label { display: block; margin-bottom: clamp(2rem, 1.4rem + 2vw, 3.5rem); }
+.feats { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.feat { display: grid; align-content: start; gap: var(--s-4); padding: 0 clamp(1.4rem, 0.8rem + 2vw, 3rem); border-left: 1px solid rgba(23, 21, 15, 0.14); }
+.feat:first-child { padding-left: 0; border-left: 0; }
+.feat__n { font-family: var(--f-display); font-style: italic; font-weight: 300; font-size: clamp(2.8rem, 2rem + 2.4vw, 4.4rem); line-height: 0.9; letter-spacing: -0.02em; color: #9a4a32; }
+.feat__title { margin: var(--s-3) 0 0; font-family: var(--f-display); font-weight: 400; font-size: clamp(1.4rem, 1.15rem + 0.8vw, 1.9rem); line-height: 1.15; letter-spacing: -0.01em; text-wrap: balance; }
+.feat__text { max-width: 24rem; font-size: 0.98rem; line-height: 1.7; color: var(--c-ink-soft); }
+@media (max-width: 900px) {
+  .case-task { grid-template-columns: 1fr; gap: var(--s-4); }
+  .case-task .label { padding-top: 0; }
+  .feats { grid-template-columns: 1fr; }
+  .feat, .feat:first-child { padding: clamp(1.8rem, 1.2rem + 2vw, 2.4rem) 0; border-left: 0; border-top: 1px solid rgba(23, 21, 15, 0.14); }
+  .feat:first-child { padding-top: 0; border-top: 0; }
+}
+/* the question, alone in the middle of the page, and the way to answer it */
+.case-ask { display: grid; justify-items: center; gap: var(--s-6); padding: clamp(5rem, 3.5rem + 6vw, 10rem) var(--pad-edge); text-align: center; }
+.case-ask__q { max-width: 18ch; font-family: var(--f-display); font-style: italic; font-weight: 300; font-size: clamp(2.3rem, 1.4rem + 3.4vw, 4.6rem); line-height: 1.04; letter-spacing: -0.02em; color: #9a4a32; text-wrap: balance; }
+/* the next project: its picture, its name, an arrow — the whole row is the link */
+.case-next { display: grid; grid-template-columns: clamp(9rem, 6rem + 10vw, 17rem) minmax(0, 1fr) auto; align-items: center; gap: clamp(1.2rem, 0.8rem + 2.5vw, 3.5rem);
+  padding: clamp(2rem, 1.5rem + 2vw, 3.25rem) var(--pad-edge); border-top: 1px solid var(--c-line); border-bottom: 1px solid var(--c-line); color: inherit; }
+.case-next__media { display: block; aspect-ratio: 16 / 10; border-radius: 12px; overflow: hidden; background: #efe9de;
+  box-shadow: 0 1px 0 rgba(23, 21, 15, 0.06), 0 24px 60px -32px rgba(40, 30, 18, 0.45), 0 0 0 1px rgba(23, 21, 15, 0.08); }
+.case-next__media img { width: 100%; height: 100%; object-fit: cover; transition: transform 1100ms var(--e-out); }
+.case-next__text { display: grid; gap: var(--s-3); }
 .case-next__title { font-family: var(--f-display); font-weight: 300; font-size: var(--t-h2); line-height: 1.02; letter-spacing: -0.02em; }
-.case-next i { font-style: normal; font-size: 1.4rem; transition: transform var(--d-base) var(--e-out); }
+.case-next__type { font-family: var(--f-mono); font-size: var(--t-label); letter-spacing: var(--ls-label); text-transform: uppercase; color: var(--c-ink-faint); }
+.case-next i { font-style: normal; font-size: clamp(1.6rem, 1.2rem + 1.2vw, 2.4rem); transition: transform var(--d-base) var(--e-out); }
+.case-next:hover .case-next__media img { transform: scale(1.04); }
 .case-next:hover i, .case-next:focus-visible i { transform: translateX(0.35em); }
-.case-ask { display: grid; justify-items: start; gap: var(--s-4); }
-.case-ask__q { font-family: var(--f-display); font-style: italic; font-weight: 300; font-size: clamp(1.3rem, 1.1rem + 0.6vw, 1.7rem); color: #9a4a32; }
-@media (max-width: 760px) { .case-end { grid-template-columns: 1fr; } }
+@media (max-width: 600px) { .case-next { grid-template-columns: minmax(0, 7rem) minmax(0, 1fr); } .case-next i { display: none; } }
 
 /* Russian headlines: Source Serif draws heavier than Newsreader (the home page's rule, for these pages' own titles) */
-:lang(ru) .work-hero__title, :lang(ru) .show__title, :lang(ru) .case-hero__title, :lang(ru) .case-task,
-:lang(ru) .case-next__title, :lang(ru) .case-ask__q, :lang(ru) .show__n { font-weight: 240; }
+:lang(ru) .work-hero__title, :lang(ru) .show__title, :lang(ru) .case-hero__title, :lang(ru) .case-task__text,
+:lang(ru) .case-next__title, :lang(ru) .case-ask__q, :lang(ru) .show__n, :lang(ru) .feat__n { font-weight: 240; }
+:lang(ru) .feat__title { font-weight: 340; }
 
 /* words and pictures arrive once as they come on screen (js/work.js adds html.rv; off without JS).
    The home sheet's own .rv moves by transform and clears it from a parent's .is-in: here each part
@@ -142,5 +162,5 @@ a.show__media:hover .show__phone { transform: translate3d(0, -10px, 0); }
 .rv .rv__p.is-in { opacity: 1; translate: none; }
 @media (prefers-reduced-motion: reduce) {
   .rv .rv__p { opacity: 1; translate: none; transition: none; }
-  .show__window, .show__phone, .case-next i { transition: none; }
+  .show__window, .show__phone, .case-next i, .case-next__media img { transition: none; }
 }

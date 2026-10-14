@@ -20,7 +20,7 @@
 <link rel="preload" href="/fonts/newsreader-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/css/home.css?v=17">
-<link rel="stylesheet" href="/css/work.css?v=2">
+<link rel="stylesheet" href="/css/work.css?v=3">
 </head>
 
 <body class="pg-work">
@@ -35,7 +35,7 @@
       <button class="lang__btn" type="button" data-lang="tr" aria-pressed="false">TR</button>
       <button class="lang__btn" type="button" data-lang="ru" aria-pressed="false">RU</button>
     </div>
-    <a class="hdr__cta" href="/#start">Start a project</a>
+    <a class="hdr__cta" href="/#start">Contact us</a>
   </nav>
 </header>
 
@@ -57,36 +57,29 @@
       <video class="case-phone__video" muted playsinline loop preload="none" width="390" height="844" poster="/media/kitlax-site-phone.jpg?v=1" data-src="/media/kitlax-site-phone.mp4?v=1"></video>
     </figure>
   </section>
-  <section class="case-body">
-    <div class="case-block">
-      <h2 class="label">The task</h2>
-      <p class="case-task">The brand&#x27;s old site said little about the product. The new one had to show how the snack is made, make the brand feel premium — and make it simple for a distributor to order.</p>
-    </div>
-    <div class="case-block">
-      <h2 class="label">What we built</h2>
-      <ol class="does">
-        <li><b>Watch it being made</b><span>Wheat, the mill, the bronze die, the fryer, the seasoning and the bag — one film that plays as you scroll.</span></li>
-        <li><b>Open a flavour</b><span>Four flavours in four shapes, each with a page of its own and the product&#x27;s details.</span></li>
-        <li><b>Become a representative</b><span>A message to the company, with the cases per flavour added if the visitor likes.</span></li>
+  <section class="case-task" aria-labelledby="task-title">
+    <h2 class="label" id="task-title">The task</h2>
+    <p class="case-task__text">The brand&#x27;s old site said little about the product. The new one had to show how the snack is made, make the brand feel premium — and make it simple for a distributor to order.</p>
+  </section>
+  <section class="case-feats" aria-labelledby="feats-title">
+    <div class="case-feats__inner">
+      <h2 class="label" id="feats-title">What we built</h2>
+      <ol class="feats">
+      <li class="feat"><span class="feat__n" aria-hidden="true">01</span><h3 class="feat__title">Watch it being made</h3><p class="feat__text">Wheat, the mill, the bronze die, the fryer, the seasoning and the bag — one film that plays as you scroll.</p></li>
+      <li class="feat"><span class="feat__n" aria-hidden="true">02</span><h3 class="feat__title">Open a flavour</h3><p class="feat__text">Four flavours in four shapes, each with a page of its own and the product&#x27;s details.</p></li>
+      <li class="feat"><span class="feat__n" aria-hidden="true">03</span><h3 class="feat__title">Become a representative</h3><p class="feat__text">A message to the company, with the cases per flavour added if the visitor likes.</p></li>
       </ol>
     </div>
-    <div class="case-block">
-      <h2 class="label">How it is built</h2>
-      <ul class="case-how">
-        <li>Seven shots rendered in Blender (Cycles): the wheat field, the steel mill rollers, the bronze die, the fryer, the seasoning, the bag sealed, the four flavours.</li>
-        <li>A film player that keeps the picture sharp at any scroll speed, and picks its quality by the visitor&#x27;s connection.</li>
-        <li>The mascot holds the chosen flavour&#x27;s bag; a case calculator writes the distributor&#x27;s request.</li>
-        <li>Turkish, English and Arabic — the Arabic page reads right to left.</li>
-      </ul>
-    </div>
   </section>
-  <section class="case-end">
-    <a class="case-next" href="/work/cafe/"><span class="label">Next</span><span class="case-next__title">Larisel Café</span><i aria-hidden="true">→</i></a>
-    <div class="case-ask">
-      <p class="case-ask__q">A site like this one?</p>
-      <a class="btn btn--solid" href="/#start">Start a project</a>
-    </div>
+  <section class="case-ask" aria-label="Want a site like this one?">
+    <p class="case-ask__q">Want a site like this one?</p>
+    <a class="btn btn--solid" href="/#start">Contact us</a>
   </section>
+  <a class="case-next" href="/work/cafe/">
+    <span class="case-next__media"><img src="/media/cafe-design.jpg?v=3" alt="" width="1280" height="800" loading="lazy" decoding="async"></span>
+    <span class="case-next__text"><span class="label">Next project</span><span class="case-next__title">Larisel Café</span><span class="case-next__type">Café website</span></span>
+    <i aria-hidden="true">→</i>
+  </a>
 </main>
 
 <footer class="foot" id="contact">
@@ -102,11 +95,11 @@
     <p class="foot__base"><span class="foot__word">Larisel</span><span>3D &amp; web studio</span></p>
   </div>
 </footer>
-<script src="/work/i18n-work.js?v=2"></script>
-<script>(function (x) { var into = window.LR_EXTRA || (window.LR_EXTRA = {}); for (var l in x) { into[l] = into[l] || {}; for (var k in x[l]) into[l][k] = x[l][k]; } })({"tr": {"Snack brand": "Atıştırmalık markası", "A client's website: a macaroni-crisp maker that shows how its snack is made — and sells it by the case.": "Bir müşterimizin sitesi: makarna cipsini nasıl ürettiğini gösteren — ve koliyle satan — bir üretici.", "Pasta at its crispiest.": "Makarnanın en çıtır hali.", "The brand's old site said little about the product. The new one had to show how the snack is made, make the brand feel premium — and make it simple for a distributor to order.": "Markanın eski sitesi ürün hakkında pek bir şey söylemiyordu. Yenisi atıştırmalığın nasıl yapıldığını göstermeli, markayı premium hissettirmeli — ve bir distribütörün sipariş vermesini kolaylaştırmalıydı.", "Visit the site": "Siteyi ziyaret edin", "Watch it being made": "Yapılışını izleyin", "Wheat, the mill, the bronze die, the fryer, the seasoning and the bag — one film that plays as you scroll.": "Buğday, değirmen, bronz kalıp, kızartma, çeşni ve poşet — kaydırdıkça oynayan tek bir film.", "Open a flavour": "Bir aroma açın", "Four flavours in four shapes, each with a page of its own and the product's details.": "Dört şekilde dört aroma; her birinin ürün bilgileriyle kendi sayfası var.", "Become a representative": "Temsilci olun", "A message to the company, with the cases per flavour added if the visitor likes.": "Firmaya bir mesaj; ziyaretçi dilerse aroma başına koli ekler.", "Seven shots rendered in Blender (Cycles): the wheat field, the steel mill rollers, the bronze die, the fryer, the seasoning, the bag sealed, the four flavours.": "Blender'da (Cycles) render edilmiş yedi çekim: buğday tarlası, çelik değirmen merdaneleri, bronz kalıp, kızartma, çeşni, mühürlenen poşet, dört aroma.", "A film player that keeps the picture sharp at any scroll speed, and picks its quality by the visitor's connection.": "Her kaydırma hızında görüntüyü net tutan ve kaliteyi ziyaretçinin bağlantısına göre seçen bir film oynatıcı.", "The mascot holds the chosen flavour's bag; a case calculator writes the distributor's request.": "Maskot seçilen aromanın poşetini taşır; koli hesaplayıcı distribütörün talebini yazar.", "Turkish, English and Arabic — the Arabic page reads right to left.": "Türkçe, İngilizce ve Arapça — Arapça sayfa sağdan sola okunur."}, "ru": {"Snack brand": "Бренд снеков", "A client's website: a macaroni-crisp maker that shows how its snack is made — and sells it by the case.": "Сайт нашего клиента: производитель макаронных чипсов показывает, как делает свой снек, — и продаёт его коробками.", "Pasta at its crispiest.": "Макароны в самом хрустящем виде.", "The brand's old site said little about the product. The new one had to show how the snack is made, make the brand feel premium — and make it simple for a distributor to order.": "Старый сайт бренда почти ничего не говорил о продукте. Новый должен был показать, как делают снек, сделать бренд премиальным — и упростить заказ для дистрибьютора.", "Visit the site": "Открыть сайт", "Watch it being made": "Как его делают", "Wheat, the mill, the bronze die, the fryer, the seasoning and the bag — one film that plays as you scroll.": "Пшеница, мельница, бронзовая матрица, фритюр, приправа и пачка — один фильм, который идёт, пока вы листаете.", "Open a flavour": "Откройте вкус", "Four flavours in four shapes, each with a page of its own and the product's details.": "Четыре вкуса в четырёх формах, у каждого своя страница с данными о продукте.", "Become a representative": "Стать представителем", "A message to the company, with the cases per flavour added if the visitor likes.": "Сообщение компании — по желанию с числом коробок по вкусам.", "Seven shots rendered in Blender (Cycles): the wheat field, the steel mill rollers, the bronze die, the fryer, the seasoning, the bag sealed, the four flavours.": "Семь сцен, отрендеренных в Blender (Cycles): пшеничное поле, стальные вальцы мельницы, бронзовая матрица, фритюр, приправа, запечатанная пачка, четыре вкуса.", "A film player that keeps the picture sharp at any scroll speed, and picks its quality by the visitor's connection.": "Плеер, который держит картинку чёткой при любой скорости прокрутки и выбирает качество по скорости соединения.", "The mascot holds the chosen flavour's bag; a case calculator writes the distributor's request.": "Маскот держит пачку выбранного вкуса; калькулятор коробок пишет заявку дистрибьютора.", "Turkish, English and Arabic — the Arabic page reads right to left.": "Турецкий, английский и арабский — арабская версия читается справа налево."}});</script>
+<script src="/work/i18n-work.js?v=3"></script>
+<script>(function (x) { var into = window.LR_EXTRA || (window.LR_EXTRA = {}); for (var l in x) { into[l] = into[l] || {}; for (var k in x[l]) into[l][k] = x[l][k]; } })({"tr": {"Snack brand": "Atıştırmalık markası", "A client's website: a macaroni-crisp maker that shows how its snack is made — and sells it by the case.": "Bir müşterimizin sitesi: makarna cipsini nasıl ürettiğini gösteren — ve koliyle satan — bir üretici.", "Pasta at its crispiest.": "Makarnanın en çıtır hali.", "The brand's old site said little about the product. The new one had to show how the snack is made, make the brand feel premium — and make it simple for a distributor to order.": "Markanın eski sitesi ürün hakkında pek bir şey söylemiyordu. Yenisi atıştırmalığın nasıl yapıldığını göstermeli, markayı premium hissettirmeli — ve bir distribütörün sipariş vermesini kolaylaştırmalıydı.", "Visit the site": "Siteyi ziyaret edin", "Watch it being made": "Yapılışını izleyin", "Wheat, the mill, the bronze die, the fryer, the seasoning and the bag — one film that plays as you scroll.": "Buğday, değirmen, bronz kalıp, kızartma, çeşni ve poşet — kaydırdıkça oynayan tek bir film.", "Open a flavour": "Bir aroma açın", "Four flavours in four shapes, each with a page of its own and the product's details.": "Dört şekilde dört aroma; her birinin ürün bilgileriyle kendi sayfası var.", "Become a representative": "Temsilci olun", "A message to the company, with the cases per flavour added if the visitor likes.": "Firmaya bir mesaj; ziyaretçi dilerse aroma başına koli ekler."}, "ru": {"Snack brand": "Бренд снеков", "A client's website: a macaroni-crisp maker that shows how its snack is made — and sells it by the case.": "Сайт нашего клиента: производитель макаронных чипсов показывает, как делает свой снек, — и продаёт его коробками.", "Pasta at its crispiest.": "Макароны в самом хрустящем виде.", "The brand's old site said little about the product. The new one had to show how the snack is made, make the brand feel premium — and make it simple for a distributor to order.": "Старый сайт бренда почти ничего не говорил о продукте. Новый должен был показать, как делают снек, сделать бренд премиальным — и упростить заказ для дистрибьютора.", "Visit the site": "Открыть сайт", "Watch it being made": "Как его делают", "Wheat, the mill, the bronze die, the fryer, the seasoning and the bag — one film that plays as you scroll.": "Пшеница, мельница, бронзовая матрица, фритюр, приправа и пачка — один фильм, который идёт, пока вы листаете.", "Open a flavour": "Откройте вкус", "Four flavours in four shapes, each with a page of its own and the product's details.": "Четыре вкуса в четырёх формах, у каждого своя страница с данными о продукте.", "Become a representative": "Стать представителем", "A message to the company, with the cases per flavour added if the visitor likes.": "Сообщение компании — по желанию с числом коробок по вкусам."}});</script>
 <script src="/js/i18n.js?v=12"></script>
 <script src="/js/scroll.js?v=6" defer></script>
-<script src="/js/work.js?v=2" defer></script>
+<script src="/js/work.js?v=3" defer></script>
 <script src="/js/mail.js?v=1" defer></script>
 </body>
 </html>

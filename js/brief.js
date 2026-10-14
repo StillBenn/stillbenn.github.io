@@ -1,5 +1,5 @@
 /* ==========================================================================
-   "Start a project" — a brief in a few taps
+   "Contact us" — a brief in a few taps
    --------------------------------------------------------------------------
    Five plain questions and an optional note; the page writes the brief as a
    card the visitor can read (the dark sheet) and as a message it hands to

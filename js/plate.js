@@ -9,7 +9,7 @@
    on this very frame, so the take is never broken.
 
    Labels are pinned to points of the product. Their positions are fractions
-   of the frame (measured in Blender at the last frame), per aspect:
+   of the frame (measured on its last picture), per aspect:
      <p class="pin" data-at-wide="0.71,0.42" data-at-tall="0.52,0.31" data-side="l|r">
    ========================================================================== */
 (function () {
