@@ -319,7 +319,7 @@ html[data-film="light"] .film__skip-track { stroke: rgba(23, 21, 15, 0.14); }
 @keyframes skip-breathe { 0%, 100% { transform: none; box-shadow: 0 0 0 0 rgba(232, 178, 122, 0); } 45% { transform: scale(1.1); box-shadow: 0 0 0 0.55rem rgba(232, 178, 122, 0.24); } }
 /* "Scroll": appears once the mark is written, leaves at the first scroll */
 .film__hint {
-  position: absolute; z-index: 3; left: 50%; bottom: calc(clamp(1.4rem, 5vh, 2.8rem) + var(--bar)); transform: translateX(-50%);
+  position: absolute; z-index: 3; left: 50%; bottom: calc(clamp(1.4rem, 5vh, 2.8rem) + 3rem + var(--bar)); transform: translateX(-50%);   /* over the chapters' names, not into them */
   font-family: var(--f-mono); font-size: 0.62rem; letter-spacing: 0.3em; text-transform: uppercase; color: rgba(243, 237, 225, 0.5);
   opacity: 0; transition: opacity var(--d-slow) var(--e-out);
 }
