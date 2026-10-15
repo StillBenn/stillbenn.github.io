@@ -269,80 +269,80 @@
    "year": 2026,
    "category": "configurator",
    "title": {
-    "en": "Larisel Armchair",
-    "tr": "Larisel Koltuk",
-    "ru": "Кресло Larisel"
+    "en": "Larisel Furniture",
+    "tr": "Larisel Mobilya",
+    "ru": "Мебель Larisel"
    },
    "type": {
-    "en": "Furniture product page",
-    "tr": "Mobilya ürün sayfası",
-    "ru": "Страница мебельного товара"
+    "en": "Furniture shop page",
+    "tr": "Mobilya mağazası sayfası",
+    "ru": "Страница мебельного магазина"
    },
    "one": {
-    "en": "A furniture product page that sells by letting the customer build the chair.",
-    "tr": "Müşteriye koltuğu kendisi kurdurarak satan bir mobilya ürün sayfası.",
-    "ru": "Страница товара, которая продаёт, позволяя покупателю самому собрать кресло."
+    "en": "A furniture page that sells by letting the customer design the sofa, the armchair or the coffee table themselves.",
+    "tr": "Müşteriye kanepeyi, koltuğu ya da sehpayı kendisi tasarlatarak satan bir mobilya sayfası.",
+    "ru": "Страница мебели, которая продаёт, позволяя покупателю самому создать диван, кресло или журнальный столик."
    },
    "quote": {
-    "en": "Build the chair for your own room — the model and the price change as you go.",
-    "tr": "Koltuğu kendi odanıza göre kurun — model ve fiyat anında değişir.",
-    "ru": "Соберите кресло под свой интерьер — модель и цена меняются сразу."
+    "en": "Two seats, three, or a corner with a chaise — in bouclé, velvet or linen, on the legs you choose.",
+    "tr": "İkili, üçlü ya da şezlonglu köşe — bukle, kadife ya da keten, seçtiğiniz ayaklarla.",
+    "ru": "Двухместный, трёхместный или угловой с оттоманкой — в букле, бархате или льне, на выбранных ножках."
    },
    "task": {
-    "en": "A product photo cannot show twelve fabrics on eight frames. The customer needed to see their own chair before ordering it.",
-    "tr": "Bir ürün fotoğrafı sekiz gövdede on iki kumaşı gösteremez. Müşterinin sipariş vermeden önce kendi koltuğunu görmesi gerekiyordu.",
-    "ru": "Фотография товара не покажет двенадцать тканей на восьми каркасах. Покупателю нужно было увидеть своё кресло до заказа."
+    "en": "A product photo cannot show a sofa in twenty-four tones, or a table in eight stones and woods, each on eight finishes. The customer needed to see their own piece before ordering it.",
+    "tr": "Bir ürün fotoğrafı yirmi dört tonda bir kanepeyi ya da sekiz taş ve ahşapta bir sehpayı, her birini sekiz farklı renkle gösteremez. Müşterinin sipariş vermeden önce kendi mobilyasını görmesi gerekiyordu.",
+    "ru": "Фотография товара не покажет диван в двадцати четырёх оттенках или столик в восьми камнях и породах дерева, каждый в восьми отделках. Покупателю нужно было увидеть свою мебель до заказа."
    },
    "built": [
     [
      {
-      "en": "Pick the fabric",
-      "tr": "Kumaşı seç",
-      "ru": "Выберите ткань"
+      "en": "Pick the piece and its shape",
+      "tr": "Mobilyayı ve formunu seç",
+      "ru": "Выберите вещь и форму"
      },
      {
-      "en": "Twelve colours, and six ready pairings of chair, cushion and frame.",
-      "tr": "On iki renk, bir de koltuk, yastık ve gövdeden oluşan altı hazır kombin.",
-      "ru": "Двенадцать цветов и шесть готовых сочетаний кресла, подушки и каркаса."
+      "en": "An armchair in two sizes; a sofa with two seats, three, or a chaise; a round, oval or long coffee table.",
+      "tr": "İki ölçüde koltuk; ikili, üçlü ya da şezlonglu kanepe; yuvarlak, oval ya da uzun sehpa.",
+      "ru": "Кресло в двух размерах; диван двухместный, трёхместный или с оттоманкой; круглый, овальный или длинный столик."
      }
     ],
     [
      {
-      "en": "Pick the frame and the size",
-      "tr": "İskeleti ve boyutu seç",
-      "ru": "Выберите каркас и размер"
+      "en": "Pick the materials",
+      "tr": "Malzemeyi seç",
+      "ru": "Выберите материалы"
      },
      {
-      "en": "Four woods and four metals, from bleached oak to brass; standard or XL.",
-      "tr": "Ağartılmış meşeden pirince dört ahşap, dört metal; standart ya da XL.",
-      "ru": "Четыре породы дерева и четыре металла, от беленого дуба до латуни; стандарт или XL."
+      "en": "Bouclé, velvet or linen in eight tones each; marble, travertine or solid wood for the table — seen up close before choosing, with ready pairings that set it all in one tap.",
+      "tr": "Her birinde sekiz tonla bukle, kadife ya da keten; sehpa için mermer, traverten ya da masif ahşap — seçmeden önce yakından görülür, hazır kombinler her şeyi tek dokunuşla ayarlar.",
+      "ru": "Букле, бархат или лён по восемь оттенков; для столика — мрамор, травертин или массив. Всё можно рассмотреть вблизи, а готовые сочетания задают выбор одним касанием."
      }
     ],
     [
      {
-      "en": "See the price, then order",
-      "tr": "Fiyatı gör, sonra sipariş ver",
-      "ru": "Узнайте цену и закажите"
+      "en": "Measure, compare, order",
+      "tr": "Ölç, karşılaştır, sipariş ver",
+      "ru": "Измерьте, сравните, закажите"
      },
      {
-      "en": "The total follows every choice, and one tap sends the build to the workshop.",
-      "tr": "Toplam her seçimle değişir; tek dokunuşla sipariş atölyeye gider.",
-      "ru": "Итог меняется с каждым выбором, и одно касание отправляет заказ в мастерскую."
+      "en": "The dimensions drawn on the piece, two designs side by side, a link to share — and a price that follows every choice.",
+      "tr": "Ölçüler mobilyanın üzerinde çizilir, iki tasarım yan yana durur, tasarım bir bağlantıyla paylaşılır — fiyat da her seçimle değişir.",
+      "ru": "Размеры нарисованы прямо на мебели, два варианта стоят рядом, дизайном можно поделиться ссылкой — а цена следует за каждым выбором."
      }
     ]
    ],
    "url": "/mobilya/",
    "urlLabel": "larisel.com/mobilya",
    "cta": {
-    "en": "Build an armchair",
-    "tr": "Bir koltuk kur",
-    "ru": "Собрать кресло"
+    "en": "Design your furniture",
+    "tr": "Mobilyanı tasarla",
+    "ru": "Создать свою мебель"
    },
    "media": {
-    "poster": "/media/chair-config.jpg?v=3",
-    "video": "/media/chair-config.mp4?v=3",
-    "posterTall": "/media/chair-config-phone.jpg?v=3",
-    "videoTall": "/media/chair-config-phone.mp4?v=3"
+    "poster": "/media/chair-config.jpg?v=4",
+    "video": "/media/chair-config.mp4?v=4",
+    "posterTall": "/media/chair-config-phone.jpg?v=4",
+    "videoTall": "/media/chair-config-phone.mp4?v=4"
    },
    "ask": {
     "en": "Want a configurator like this one?",
