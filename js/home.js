@@ -145,10 +145,11 @@
     addEventListener("resize", ring);
     ring();
     if ("IntersectionObserver" in window) {
+      /* the stage (one screen tall), not the film (many screens tall: it never shows 35% of itself) */
       var seen = new IntersectionObserver(function (es) {
         if (es[0].isIntersecting) { skip.classList.add("is-seen"); seen.disconnect(); }
-      }, { threshold: 0.35 });
-      seen.observe(filmEl);
+      }, { threshold: 0.6 });
+      seen.observe(skip.closest(".film__stage") || filmEl);
     } else skip.classList.add("is-seen");
   });
 })();
