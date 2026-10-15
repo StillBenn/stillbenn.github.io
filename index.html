@@ -27,7 +27,7 @@
 <link rel="preload" href="./fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="./fonts/ibm-plex-mono-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="./film/film.json?v=3" as="fetch" crossorigin>
-<link rel="stylesheet" href="./css/home.css?v=20">
+<link rel="stylesheet" href="./css/home.css?v=21">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -194,11 +194,12 @@
         </h2>
         <p class="film__lead">Sand to graphite to terracotta, oak to brass to walnut. On the shop's page the chair changes the moment the customer chooses.</p>
       </div>
+      <a class="film__skip" href="#furniture"><span class="film__skip-t">Skip the film</span><span class="film__skip-i" aria-hidden="true"><svg viewBox="0 0 40 40"><circle class="film__skip-track" cx="20" cy="20" r="18.25"/><circle class="film__skip-ring" cx="20" cy="20" r="18.25" pathLength="1"/><path d="M20 13.5v12.5M14.75 21 20 26.25 25.25 21"/></svg></span></a>
     </div>
   </section>
 
   <!-- ===== Stop 02 — the armchair ========================================== -->
-  <section class="stop" data-plate="chair" data-work="chair" aria-labelledby="chair-title">
+  <section id="furniture" class="stop" data-plate="chair" data-work="chair" aria-labelledby="chair-title">
     <div class="stop__text">
       <p class="label"><span data-n="chair">02</span> — Furniture</p>
       <h2 class="stop__title" id="chair-title">Larisel Furniture</h2>
@@ -260,9 +261,10 @@
         </h2>
         <p class="film__lead">One switch shows the materials under evening light — before a single panel is ordered.</p>
       </div>
+      <a class="film__skip" href="#interiors"><span class="film__skip-t">Skip the film</span><span class="film__skip-i" aria-hidden="true"><svg viewBox="0 0 40 40"><circle class="film__skip-track" cx="20" cy="20" r="18.25"/><circle class="film__skip-ring" cx="20" cy="20" r="18.25" pathLength="1"/><path d="M20 13.5v12.5M14.75 21 20 26.25 25.25 21"/></svg></span></a>
     </div>
   </section>
-  <section class="stop stop--night" data-plate="room" data-work="room" aria-labelledby="room-title">
+  <section id="interiors" class="stop stop--night" data-plate="room" data-work="room" aria-labelledby="room-title">
     <div class="stop__text">
       <p class="label"><span data-n="room">03</span> — Interiors</p>
       <h2 class="stop__title" id="room-title">Larisel Interiors</h2>
@@ -316,9 +318,10 @@
         </h2>
         <p class="film__lead">The website of a group working in retail, construction and energy — one set of pages, three languages.</p>
       </div>
+      <a class="film__skip" href="#corporate"><span class="film__skip-t">Skip the film</span><span class="film__skip-i" aria-hidden="true"><svg viewBox="0 0 40 40"><circle class="film__skip-track" cx="20" cy="20" r="18.25"/><circle class="film__skip-ring" cx="20" cy="20" r="18.25" pathLength="1"/><path d="M20 13.5v12.5M14.75 21 20 26.25 25.25 21"/></svg></span></a>
     </div>
   </section>
-  <section class="stop stop--night" data-plate="group" data-work="group" aria-labelledby="group-title">
+  <section id="corporate" class="stop stop--night" data-plate="group" data-work="group" aria-labelledby="group-title">
     <div class="stop__text">
       <p class="label"><span data-n="group">04</span> — Corporate site</p>
       <h2 class="stop__title" id="group-title">Larisel Group</h2>
@@ -366,9 +369,10 @@
         </h2>
         <p class="film__lead">The shop's Telegram bot takes the order, checks every step and sends it to the workshop — the phone on the desk is where it lands.</p>
       </div>
+      <a class="film__skip" href="#order-bot"><span class="film__skip-t">Skip the film</span><span class="film__skip-i" aria-hidden="true"><svg viewBox="0 0 40 40"><circle class="film__skip-track" cx="20" cy="20" r="18.25"/><circle class="film__skip-ring" cx="20" cy="20" r="18.25" pathLength="1"/><path d="M20 13.5v12.5M14.75 21 20 26.25 25.25 21"/></svg></span></a>
     </div>
   </section>
-  <section class="stop stop--night" data-plate="studio" data-work="studio" aria-labelledby="studio-title">
+  <section id="order-bot" class="stop stop--night" data-plate="studio" data-work="studio" aria-labelledby="studio-title">
     <div class="stop__text">
       <p class="label"><span data-n="studio">05</span> — Order bot</p>
       <h2 class="stop__title" id="studio-title">Larisel Order Bot</h2>
@@ -495,7 +499,7 @@
 })();
 </script>
 <script src="./js/i18n.js?v=15"></script>
-<script src="./js/home.js?v=7" defer></script>
+<script src="./js/home.js?v=8" defer></script>
 <script src="./js/scroll.js?v=6" defer></script>
 <script type="module" src="./js/film.js?v=11"></script>
 <script type="module" src="./js/cupstop.js?v=5"></script>

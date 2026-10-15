@@ -132,9 +132,11 @@
   new MutationObserver(stuck).observe(html, { attributes: true, attributeFilter: ["data-film"] });
   stuck();
 
-  /* "Skip the film": its ring fills with the film behind you */
-  var skip = document.querySelector(".film__skip"), filmEl = skip && skip.closest(".film");
-  if (skip && filmEl) {
+  /* "Skip the film", one in every film: its ring fills with that film behind you, and it
+     breathes once when its film first comes on screen */
+  [].forEach.call(document.querySelectorAll(".film__skip"), function (skip) {
+    var filmEl = skip.closest(".film");
+    if (!filmEl) return;
     var ring = function () {
       var r = filmEl.getBoundingClientRect(), len = r.height - innerHeight;
       skip.style.setProperty("--skip-p", (len > 0 ? Math.min(1, Math.max(0, -r.top / len)) : 0).toFixed(3));
@@ -142,5 +144,11 @@
     addEventListener("scroll", ring, { passive: true });
     addEventListener("resize", ring);
     ring();
-  }
+    if ("IntersectionObserver" in window) {
+      var seen = new IntersectionObserver(function (es) {
+        if (es[0].isIntersecting) { skip.classList.add("is-seen"); seen.disconnect(); }
+      }, { threshold: 0.35 });
+      seen.observe(filmEl);
+    } else skip.classList.add("is-seen");
+  });
 })();
