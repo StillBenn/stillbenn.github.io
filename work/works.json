@@ -263,7 +263,7 @@
    }
   },
   {
-   "id": "armchair",
+   "id": "furniture",
    "home": "chair",
    "kind": "studio",
    "year": 2026,
@@ -320,14 +320,14 @@
     ],
     [
      {
-      "en": "Measure, compare, order",
-      "tr": "Ölç, karşılaştır, sipariş ver",
-      "ru": "Измерьте, сравните, закажите"
+      "en": "A whole shop around it",
+      "tr": "Etrafında bütün bir mağaza",
+      "ru": "Целый магазин вокруг"
      },
      {
-      "en": "The dimensions drawn on the piece, two designs side by side, a link to share — and a price that follows every choice.",
-      "tr": "Ölçüler mobilyanın üzerinde çizilir, iki tasarım yan yana durur, tasarım bir bağlantıyla paylaşılır — fiyat da her seçimle değişir.",
-      "ru": "Размеры нарисованы прямо на мебели, два варианта стоят рядом, дизайном можно поделиться ссылкой — а цена следует за каждым выбором."
+      "en": "Dimensions drawn on the piece and two designs side by side — then a cart, a checkout with delivery and instalments, order tracking and a material library.",
+      "tr": "Ölçüler mobilyanın üzerinde, iki tasarım yan yana — ardından sepet, teslimat ve taksitli ödeme, sipariş takibi ve malzeme kütüphanesi.",
+      "ru": "Размеры прямо на мебели, два варианта рядом — затем корзина, оформление с доставкой и рассрочкой, отслеживание заказа и библиотека материалов."
      }
     ]
    ],
@@ -339,10 +339,10 @@
     "ru": "Создать свою мебель"
    },
    "media": {
-    "poster": "/media/chair-config.jpg?v=4",
-    "video": "/media/chair-config.mp4?v=4",
-    "posterTall": "/media/chair-config-phone.jpg?v=4",
-    "videoTall": "/media/chair-config-phone.mp4?v=4"
+    "poster": "/media/chair-config.jpg?v=5",
+    "video": "/media/chair-config.mp4?v=5",
+    "posterTall": "/media/chair-config-phone.jpg?v=5",
+    "videoTall": "/media/chair-config-phone.mp4?v=5"
    },
    "ask": {
     "en": "Want a configurator like this one?",
