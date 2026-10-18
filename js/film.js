@@ -817,7 +817,8 @@ export async function mountFilm(root, primary = true) {
     }));
     chNav.querySelectorAll("[data-goto]").forEach((b) => b.addEventListener("click", () => {
       const to = b.dataset.goto, jump = window.__filmJumps && window.__filmJumps[to];
-      const el = document.querySelector(`[data-film="${to}"]`);
+      /* a work with no film of its own (the hospital): its first section */
+      const el = document.querySelector(`[data-film="${to}"]`) || document.querySelector(`section[data-work="${to}"]`);
       if (!el && !jump) return;
       const y = jump ? jump(0) : el.getBoundingClientRect().top + scrollY + 2;
       if (window.__fadeJump) window.__fadeJump(y); else window.scrollTo({ top: y, behavior: "instant" });

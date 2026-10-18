@@ -8,10 +8,6 @@
    "tr": "hikâyesiyle.",
    "ru": "с его историей."
   },
-  "Sites with scroll films, 3D product configurators, a corporate site and a Telegram bot — some for clients, some built to show what we can do.": {
-   "tr": "Kaydırma filmli siteler, 3B ürün yapılandırıcılar, bir kurumsal site ve bir Telegram botu — bir kısmı müşteriler için, bir kısmı neler yapabildiğimizi göstermek için.",
-   "ru": "Сайты с фильмами, 3D-конфигураторы товаров, корпоративный сайт и телеграм-бот — часть для клиентов, часть чтобы показать, что мы умеем."
-  },
   "Show": {
    "tr": "Göster",
    "ru": "Показать"
@@ -88,16 +84,19 @@
    "tr": "Sıradaki proje",
    "ru": "Следующий проект"
   },
-  "Every project Larisel has built: scroll-film websites, 3D product configurators, a corporate site and a Telegram bot.": {
-   "tr": "Larisel'in yaptığı bütün projeler: kaydırma filmli siteler, 3B ürün yapılandırıcıları, bir kurumsal site ve bir Telegram botu.",
-   "ru": "Все проекты Larisel: сайты с фильмами, 3D-конфигураторы товаров, корпоративный сайт и телеграм-бот."
+  "Sites with scroll films, 3D product configurators, corporate sites and a Telegram bot — some for clients, some built to show what we can do.": {
+   "tr": "Kaydırma filmli siteler, 3B ürün yapılandırıcılar, kurumsal siteler ve bir Telegram botu — bir kısmı müşteriler için, bir kısmı neler yapabildiğimizi göstermek için.",
+   "ru": "Сайты с фильмами, 3D-конфигураторы товаров, корпоративные сайты и телеграм-бот — часть для клиентов, часть чтобы показать, что мы умеем."
+  },
+  "Every project Larisel has built: scroll-film websites, 3D product configurators, corporate sites and a Telegram bot.": {
+   "tr": "Larisel'in yaptığı bütün projeler: kaydırma filmli siteler, 3B ürün yapılandırıcıları, kurumsal siteler ve bir Telegram botu.",
+   "ru": "Все проекты Larisel: сайты с фильмами, 3D-конфигураторы товаров, корпоративные сайты и телеграм-бот."
   }
  },
  "works": [
   {
    "id": "kitlax",
    "home": "kitlax",
-   "hidden": true,
    "kind": "client",
    "year": 2026,
    "category": "film",
@@ -177,6 +176,89 @@
     "posterTall": "/media/kitlax-site-phone.jpg?v=1",
     "videoTall": "/media/kitlax-site-phone.mp4?v=1",
     "still": "/film/kitlax/end-16x9.webp"
+   }
+  },
+  {
+   "id": "emek",
+   "home": "emek",
+   "kind": "client",
+   "year": 2026,
+   "category": "corporate",
+   "title": {
+    "en": "Emek Hospital",
+    "tr": "Emek Hastanesi",
+    "ru": "Больница Emek"
+   },
+   "type": {
+    "en": "Hospital website",
+    "tr": "Hastane web sitesi",
+    "ru": "Сайт больницы"
+   },
+   "one": {
+    "en": "A client's website: a private hospital where a patient finds the right doctor and asks for an appointment in a minute.",
+    "tr": "Bir müşterimizin sitesi: hastanın doğru hekimi bulup bir dakikada randevu talep ettiği özel bir hastane.",
+    "ru": "Сайт нашего клиента: частная больница, где пациент находит нужного врача и за минуту оставляет заявку на приём."
+   },
+   "quote": {
+    "en": "Health takes effort.",
+    "tr": "Sağlık emek ister.",
+    "ru": "Здоровье требует труда."
+   },
+   "task": {
+    "en": "A private hospital with eighteen departments and twenty-five doctors. A patient — often worried, often on a phone — had to find the right doctor and ask for an appointment without calling around, and the hospital had to keep it all up to date itself.",
+    "tr": "On sekiz bölümlü, yirmi beş hekimli özel bir hastane. Çoğu zaman endişeli, çoğu zaman telefondan bakan bir hasta, oraya buraya telefon etmeden doğru hekimi bulup randevu talep edebilmeli; hastane de her şeyi kendisi güncel tutabilmeliydi.",
+    "ru": "Частная больница: восемнадцать отделений и двадцать пять врачей. Пациент — часто встревоженный, часто с телефона — должен был найти нужного врача и записаться на приём, не обзванивая всех подряд, а больница — сама поддерживать всё в актуальном виде."
+   },
+   "built": [
+    [
+     {
+      "en": "Say where it hurts",
+      "tr": "Nerenizin ağrıdığını yazın",
+      "ru": "Напишите, что беспокоит"
+     },
+     {
+      "en": "One box for a complaint, a department or a doctor's name — it answers as you type.",
+      "tr": "Şikâyet, bölüm ya da hekim adı için tek kutu — siz yazarken cevap verir.",
+      "ru": "Одно поле для жалобы, отделения или имени врача — ответ появляется, пока вы печатаете."
+     }
+    ],
+    [
+     {
+      "en": "Ask for an appointment",
+      "tr": "Randevu talep edin",
+      "ru": "Запишитесь на приём"
+     },
+     {
+      "en": "Department, doctor, day: the request reaches the call centre, which calls back to confirm.",
+      "tr": "Bölüm, hekim, gün: talep çağrı merkezine ulaşır, sizi arayıp randevuyu kesinleştirir.",
+      "ru": "Отделение, врач, день: заявка приходит в колл-центр, оттуда перезванивают и подтверждают."
+     }
+    ],
+    [
+     {
+      "en": "Run by the hospital",
+      "tr": "Hastanenin kendi elinde",
+      "ru": "В руках самой больницы"
+     },
+     {
+      "en": "A panel of its own: the staff see the requests and keep the doctors and pages up to date.",
+      "tr": "Kendi yönetim paneli: personel talepleri görür, hekimleri ve sayfaları günceller.",
+      "ru": "Собственная панель: сотрудники видят заявки и сами обновляют врачей и страницы."
+     }
+    ]
+   ],
+   "url": "/emek-onizleme/",
+   "urlLabel": "emekhastanesi.com",
+   "cta": {
+    "en": "Visit the site",
+    "tr": "Siteyi ziyaret edin",
+    "ru": "Открыть сайт"
+   },
+   "media": {
+    "poster": "/media/emek-site.jpg?v=1",
+    "video": "/media/emek-site.mp4?v=1",
+    "posterTall": "/media/emek-site-phone.jpg?v=1",
+    "videoTall": "/media/emek-site-phone.mp4?v=1"
    }
   },
   {
