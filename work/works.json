@@ -191,6 +191,26 @@
   "See our projects": {
    "tr": "Projelerimizi görün",
    "ru": "Смотреть проекты"
+  },
+  "Who we are": {
+   "tr": "Biz kimiz",
+   "ru": "Кто мы"
+  },
+  "We believe a website should be remembered, not just visited. So we never fit a business into a template: every site we make is built around the world the brand already lives in — its light, its materials, its pace — until people stay to watch it.": {
+   "tr": "Bir web sitesinin yalnızca ziyaret edilmesine değil, akılda kalmasına inanıyoruz. Bu yüzden hiçbir işletmeyi bir şablona sığdırmıyoruz: yaptığımız her site, markanın zaten içinde yaşadığı dünyanın — ışığının, dokusunun, ritminin — etrafında kurulur; ta ki insanlar onu izlemek için kalana dek.",
+   "ru": "Мы верим, что сайт должен запоминаться, а не просто посещаться. Поэтому мы никогда не втискиваем бизнес в шаблон: каждый наш сайт строится вокруг мира, в котором уже живёт бренд, — его света, его фактур, его ритма, — пока люди не начнут оставаться, чтобы его смотреть."
+  },
+  "We work closely and honestly. Before you commit, we tell you what fits and what it costs; we care about every frame and every line of text; and nothing goes live until it is right. Our aim is simple — that you, and everyone who visits your site, come back to see it again.": {
+   "tr": "Yakından ve dürüstçe çalışırız. Karar vermeden önce size neyin uygun olduğunu ve neye mal olacağını söyleriz; her karenin, her satırın üzerine titreriz; ve hiçbir şey doğru olmadan yayına çıkmaz. Amacımız basit: sizin de, sitenize gelen herkesin de onu yeniden görmek için geri dönmesi.",
+   "ru": "Мы работаем близко и честно. Ещё до вашего решения говорим, что подойдёт и сколько это стоит; бережно относимся к каждому кадру и каждой строке текста; и ничего не выходит в свет, пока не готово как надо. Наша цель проста — чтобы и вы, и каждый, кто заходит на ваш сайт, возвращались увидеть его снова."
+  },
+  "Made with care,": {
+   "tr": "Özenle,",
+   "ru": "С заботой —"
+  },
+  "down to the last frame.": {
+   "tr": "son kareye kadar.",
+   "ru": "до последнего кадра."
   }
  },
  "works": [

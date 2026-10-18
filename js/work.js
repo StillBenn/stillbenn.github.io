@@ -30,7 +30,7 @@
      its words arriving as the tube steadies. Reduced motion: the still pictures. ---- */
   var tall = innerHeight > innerWidth;
   [].forEach.call(document.querySelectorAll(".case-hero__video, .about-hero__video"), function (v) {
-    var box = v.closest(".case-hero, .about-hero"), mark = v.classList.contains("about-hero__video");
+    var box = v.closest(".case-hero, .about"), mark = v.classList.contains("about-hero__video");
     var still = function () { box.classList.add("is-still", "is-lit"); };
     if (reduced) { still(); return; }
     v.addEventListener("playing", function () { v.classList.add("is-playing"); }, { once: true });
@@ -48,6 +48,13 @@
       }).observe(box);
     }
   });
+
+  /* ---- About: the room dims a little past the opening, so the second screen's words read easily ---- */
+  var stage = document.querySelector(".about-stage");
+  if (stage) {
+    var dim = function () { stage.style.setProperty("--dim", Math.min(1, Math.max(0, scrollY / (innerHeight * 0.75))).toFixed(3)); };
+    addEventListener("scroll", dim, { passive: true }); addEventListener("resize", dim); dim();
+  }
 
   /* ---- the filter ---- */
   var chips = [].slice.call(document.querySelectorAll(".chip[data-cat]"));
@@ -93,7 +100,7 @@
 
   /* ---- words arrive ---- */
   /* (a project's opening picture is not among them: it is there from the first paint — a picture grows into it) */
-  var groups = [].slice.call(document.querySelectorAll(".work-hero, .show__text, .show, .case-hero__in, .case-media, .case-story__card, .case-ask, .tenet__in, .about-end"));
+  var groups = [].slice.call(document.querySelectorAll(".work-hero, .show__text, .show, .case-hero__in, .case-media, .case-story__card, .case-ask, .about-who__in"));
   if (!reduced && "IntersectionObserver" in window && groups.length) {
     document.documentElement.classList.add("rv");
     var parts = [];
