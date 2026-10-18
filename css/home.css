@@ -941,6 +941,7 @@ html.lx-morph.lx-out main > :not(.case-hero), html.lx-morph.lx-out .foot { opaci
    row a pair, so the hairlines meet), and the brief itself becomes one dark line at its foot beside the ways
    to send it. The words keep to the wall on the left. ================================================= */
 /* the sheet is paper on a night wall: its own words are ink (they had taken the wall's ivory and vanished) */
+.start__sign { display: none; }
 .start .brief { color: var(--c-ink); }
 .start .brief__head .label { color: var(--c-ink-soft); }
 @media (min-width: 1200px) and (min-height: 620px) {
@@ -949,6 +950,14 @@ html.lx-morph.lx-out main > :not(.case-hero), html.lx-morph.lx-out .foot { opaci
   .start__inner { grid-template-columns: minmax(0, 0.5fr) minmax(0, 1.5fr); max-width: 104rem; gap: clamp(2rem, 4vw, 5rem); align-items: center;
     min-height: calc(100vh - var(--hdr-h) - 3rem); min-height: calc(100svh - var(--hdr-h) - 3rem); }
   .start__how { position: static; align-self: center; }
+  /* the sign in its own place: under the words, whole, its wall melting into the night; the full scene behind is not
+     shown here (the sheet covered half of its sign, and the words sat on its top edge) */
+  .start { background: radial-gradient(42% 52% at 12% 66%, rgba(176, 138, 98, 0.15), rgba(176, 138, 98, 0) 100%), var(--c-night); }   /* the lamp's warmth round the sign, nothing at the section's edges */
+  .start__scene { display: none; }
+  .start__sign { display: block; width: min(100%, 25rem, calc(100vh - var(--hdr-h) - 22rem)); width: min(100%, 25rem, calc(100svh - var(--hdr-h) - 22rem)); margin-top: clamp(1.25rem, 0.6rem + 1.6vw, 2.25rem); aspect-ratio: 685 / 660; }
+  .start__sign img { width: 100%; height: 100%; object-fit: cover;
+    -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 11%, #000 89%, transparent 100%), linear-gradient(180deg, transparent 0, #000 10%, #000 90%, transparent 100%);
+    -webkit-mask-composite: source-in; mask-image: linear-gradient(90deg, transparent 0, #000 11%, #000 89%, transparent 100%), linear-gradient(180deg, transparent 0, #000 10%, #000 90%, transparent 100%); mask-composite: intersect; }
   .start__title { max-width: 9ch; margin: var(--s-4) 0 var(--s-5); }
   .brief { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: clamp(1.75rem, 3vw, 3.25rem); align-items: stretch;
     padding: clamp(1.4rem, 2vw, 2.1rem) clamp(1.6rem, 2.4vw, 2.6rem); }
