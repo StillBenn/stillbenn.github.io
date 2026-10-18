@@ -15,6 +15,7 @@
 
   var DICT = {
     "tr": {
+      "About": "Hakkımızda",
       "A patient finds": "Hasta doğru hekimi",
       "the right doctor.": "bir dakikada bulur.",
       "A private hospital's website: say where it hurts, find the doctor, ask for an appointment — in a minute.": "Özel bir hastanenin web sitesi: nerenizin ağrıdığını yazın, hekimi bulun, randevu talep edin — bir dakikada.",
@@ -300,6 +301,7 @@
       "Every project we have built,": "Yaptığımız bütün işler,"
     },
     "ru": {
+      "About": "О нас",
       "A patient finds": "Пациент находит",
       "the right doctor.": "нужного врача.",
       "A private hospital's website: say where it hurts, find the doctor, ask for an appointment — in a minute.": "Сайт частной больницы: напишите, что беспокоит, найдите врача, запишитесь на приём — за минуту.",

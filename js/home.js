@@ -109,7 +109,7 @@
   /* the header gets its own ground only over the page, never over the film —
      a dark one over the night stops and recordings */
   var hdr = document.querySelector(".hdr");
-  var nights = [].slice.call(document.querySelectorAll(".stop--night, .excerpt--night"));
+  var nights = [].slice.call(document.querySelectorAll(".stop--night, .excerpt--night, .allwork, .start, .foot"));
   function stuck() {
     if (!hdr) return;
     var onFilm = html.dataset.film === "dark" || html.dataset.film === "light";
@@ -152,4 +152,35 @@
       seen.observe(skip.closest(".film__stage") || filmEl);
     } else skip.classList.add("is-seen");
   });
+  /* ---- the projects' moments, small: each plays while it is on screen (nothing loads before it is near) ---- */
+  var tileClips = [].slice.call(document.querySelectorAll(".tile video"));
+  if (tileClips.length && !reduced && "IntersectionObserver" in window) {
+    var tio = new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        var v = e.target;
+        if (e.isIntersecting) {
+          if (!v.getAttribute("src")) v.src = v.getAttribute("data-src");
+          var p = v.play(); if (p && p.catch) p.catch(function () {});
+        } else v.pause();
+      });
+    }, { rootMargin: "160px 0px", threshold: 0.15 });
+    tileClips.forEach(function (v) {
+      v.addEventListener("playing", function () { v.classList.add("is-playing"); }, { once: true });
+      tio.observe(v);
+    });
+  }
+
+  /* ---- a phone: once the opening film is behind, the way to us stays under the thumb — but not over the
+     contact itself, nor while a window is open ---- */
+  var mcta = document.querySelector(".mcta");
+  if (mcta) {
+    var opening = document.querySelector('.film[data-film="main"]');
+    var ends = [document.getElementById("start"), document.querySelector(".foot")].filter(Boolean);
+    var ctaPlace = function () {
+      var past = opening ? opening.getBoundingClientRect().bottom < innerHeight * 0.5 : scrollY > innerHeight;
+      var near = ends.some(function (el) { var r = el.getBoundingClientRect(); return r.top < innerHeight * 0.92 && r.bottom > 0; });
+      mcta.classList.toggle("is-on", past && !near && !html.classList.contains("has-modal"));
+    };
+    addEventListener("scroll", ctaPlace, { passive: true }); addEventListener("resize", ctaPlace); ctaPlace();
+  }
 })();

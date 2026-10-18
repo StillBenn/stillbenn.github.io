@@ -15,8 +15,39 @@
   var reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   var hdr = document.querySelector(".hdr");
-  var stuck = function () { if (hdr) hdr.classList.toggle("is-stuck", scrollY > 10); };
+  /* over a page's opening picture (a project's moment, the studio's mark) the header is light and has no
+     ground; past it, its usual self. About is night all the way down. */
+  var hero = document.querySelector(".case-hero, .about-hero"), night = document.body.classList.contains("pg-about");
+  var stuck = function () {
+    if (!hdr) return;
+    var past = hero ? hero.getBoundingClientRect().bottom <= hdr.offsetHeight : true;
+    hdr.classList.toggle("is-stuck", scrollY > 10 && past);
+    hdr.classList.toggle("is-night", night || (hero && !past));
+  };
   addEventListener("scroll", stuck, { passive: true }); stuck();
+
+  /* ---- the opening picture plays: a project's moment loops; the studio's mark lights once and holds,
+     its words arriving as the tube steadies. Reduced motion: the still pictures. ---- */
+  var tall = innerHeight > innerWidth;
+  [].forEach.call(document.querySelectorAll(".case-hero__video, .about-hero__video"), function (v) {
+    var box = v.closest(".case-hero, .about-hero"), mark = v.classList.contains("about-hero__video");
+    var still = function () { box.classList.add("is-still", "is-lit"); };
+    if (reduced) { still(); return; }
+    v.addEventListener("playing", function () { v.classList.add("is-playing"); }, { once: true });
+    if (mark) {
+      v.addEventListener("timeupdate", function () { if (v.currentTime > 1.5) box.classList.add("is-lit"); });
+      v.addEventListener("ended", function () { box.classList.add("is-lit"); });
+      v.addEventListener("error", still);
+      setTimeout(function () { if (!v.classList.contains("is-playing")) still(); }, 4000);
+    }
+    v.src = v.getAttribute(tall ? "data-tall" : "data-wide");
+    var p = v.play(); if (p && p.catch) p.catch(function () { if (mark) still(); });
+    if (!mark && "IntersectionObserver" in window) {
+      new IntersectionObserver(function (es) {
+        if (es[0].isIntersecting) { var q = v.play(); if (q && q.catch) q.catch(function () {}); } else v.pause();
+      }).observe(box);
+    }
+  });
 
   /* ---- the filter ---- */
   var chips = [].slice.call(document.querySelectorAll(".chip[data-cat]"));
@@ -61,7 +92,8 @@
   }
 
   /* ---- words arrive ---- */
-  var groups = [].slice.call(document.querySelectorAll(".work-hero, .show__text, .show, .case-hero, .case-media, .case-story__card, .case-ask"));
+  /* (a project's opening picture is not among them: it is there from the first paint — a picture grows into it) */
+  var groups = [].slice.call(document.querySelectorAll(".work-hero, .show__text, .show, .case-hero__in, .case-media, .case-story__card, .case-ask, .tenet__in, .about-end"));
   if (!reduced && "IntersectionObserver" in window && groups.length) {
     document.documentElement.classList.add("rv");
     var parts = [];

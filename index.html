@@ -27,7 +27,8 @@
 <link rel="preload" href="./fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="./fonts/ibm-plex-mono-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="./film/film.json?v=3" as="fetch" crossorigin>
-<link rel="stylesheet" href="./css/home.css?v=24">
+<link rel="stylesheet" href="./css/home.css?v=25">
+<script>try{var k=sessionStorage.getItem("lr-fx");if(k){sessionStorage.removeItem("lr-fx");k=JSON.parse(k);if(Date.now()-k.t<5000&&!matchMedia("(prefers-reduced-motion: reduce)").matches)document.documentElement.classList.add(k.m?"lx-morph":"lx-in")}}catch(e){}</script>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -60,6 +61,7 @@
   <a class="hdr__brand" href="#top" aria-label="Larisel — home">LARISEL</a>
   <nav class="hdr__nav" aria-label="Primary">
     <a class="hdr__link" href="/work/">Projects</a>
+    <a class="hdr__link" href="/about/">About</a>
     <a class="hdr__link" href="#contact" data-optional>Contact</a>
     <div class="lang" role="group" aria-label="Language">
       <button class="lang__btn" type="button" data-lang="en" aria-pressed="true">EN</button>
@@ -505,7 +507,7 @@
   </section>
   <img class="plate" data-for="kitlax" data-work="kitlax" alt="" aria-hidden="true" data-wide="./film/kitlax/end-16x9.webp" data-tall="./film/kitlax/end-9x16.webp">
   <div class="plate-shade" data-for="kitlax" data-work="kitlax" aria-hidden="true"></div>
-  <section class="excerpt" data-excerpt="kitlax" data-work="kitlax" aria-label="The Kıtlax site, recorded">
+  <section class="excerpt excerpt--night" data-excerpt="kitlax" data-work="kitlax" aria-label="The Kıtlax site, recorded">
     <div class="excerpt__window">
       <div class="excerpt__bar" aria-hidden="true"><i></i><i></i><i></i><span>kitlax.com</span></div>
       <video class="excerpt__video" muted playsinline loop preload="none" width="1280" height="800"
@@ -519,10 +521,51 @@
   <section class="allwork" aria-labelledby="allwork-title">
     <p class="label" id="allwork-title">Projects</p>
     <a class="allwork__link" href="/work/"><span>Every project we have built,</span> <em>in one place.</em><i aria-hidden="true">→</i></a>
+    <ul class="tiles" role="list">
+      <li><a class="tile" href="/work/cafe/" data-morph="cafe">
+        <span class="tile__media"><img src="/media/loop/cafe-tile.jpg" alt="" width="640" height="360" loading="lazy" decoding="async"><video muted playsinline loop preload="none" width="640" height="360" data-src="/media/loop/cafe-tile.mp4"></video></span>
+        <span class="tile__cap"><span class="tile__n" data-n="cafe">00</span><span class="tile__name">Larisel Café</span><span class="tile__type">Café website</span></span>
+      </a></li>
+      <li><a class="tile" href="/work/furniture/" data-morph="furniture">
+        <span class="tile__media"><img src="/media/loop/furniture-tile.jpg" alt="" width="640" height="360" loading="lazy" decoding="async"><video muted playsinline loop preload="none" width="640" height="360" data-src="/media/loop/furniture-tile.mp4"></video></span>
+        <span class="tile__cap"><span class="tile__n" data-n="chair">00</span><span class="tile__name">Larisel Furniture</span><span class="tile__type">Furniture shop page</span></span>
+      </a></li>
+      <li><a class="tile" href="/work/interiors/" data-morph="interiors">
+        <span class="tile__media"><img src="/media/loop/interiors-tile.jpg" alt="" width="640" height="360" loading="lazy" decoding="async"><video muted playsinline loop preload="none" width="640" height="360" data-src="/media/loop/interiors-tile.mp4"></video></span>
+        <span class="tile__cap"><span class="tile__n" data-n="room">00</span><span class="tile__name">Larisel Interiors</span><span class="tile__type">Kitchen and interior configurator</span></span>
+      </a></li>
+      <li><a class="tile" href="/work/larisel-group/" data-morph="larisel-group">
+        <span class="tile__media"><img src="/media/loop/larisel-group-tile.jpg" alt="" width="640" height="360" loading="lazy" decoding="async"><video muted playsinline loop preload="none" width="640" height="360" data-src="/media/loop/larisel-group-tile.mp4"></video></span>
+        <span class="tile__cap"><span class="tile__n" data-n="group">00</span><span class="tile__name">Larisel Group</span><span class="tile__type">Corporate website</span></span>
+      </a></li>
+      <li><a class="tile" href="/work/order-bot/" data-morph="order-bot">
+        <span class="tile__media"><img src="/media/loop/order-bot-tile.jpg" alt="" width="640" height="360" loading="lazy" decoding="async"><video muted playsinline loop preload="none" width="640" height="360" data-src="/media/loop/order-bot-tile.mp4"></video></span>
+        <span class="tile__cap"><span class="tile__n" data-n="studio">00</span><span class="tile__name">Larisel Order Bot</span><span class="tile__type">Telegram bot</span></span>
+      </a></li>
+      <li><a class="tile" href="/work/emek/" data-morph="emek">
+        <span class="tile__media"><img src="/media/loop/emek-tile.jpg" alt="" width="640" height="360" loading="lazy" decoding="async"><video muted playsinline loop preload="none" width="640" height="360" data-src="/media/loop/emek-tile.mp4"></video></span>
+        <span class="tile__cap"><span class="tile__n" data-n="emek">00</span><span class="tile__name">Emek Hospital</span><span class="tile__type">Hospital website</span></span>
+      </a></li>
+      <li><a class="tile" href="/work/kitlax/" data-morph="kitlax">
+        <span class="tile__media"><img src="/media/loop/kitlax-tile.jpg" alt="" width="640" height="360" loading="lazy" decoding="async"><video muted playsinline loop preload="none" width="640" height="360" data-src="/media/loop/kitlax-tile.mp4"></video></span>
+        <span class="tile__cap"><span class="tile__n" data-n="kitlax">00</span><span class="tile__name">Kıtlax</span><span class="tile__type">Snack brand</span></span>
+      </a></li>
+      <li><a class="tile tile--all" href="/work/">
+        <span class="tile__media"><span>Every project, <em>and its story.</em> →</span></span>
+        <span class="tile__cap"><span class="tile__name">All projects</span></span>
+      </a></li>
+    </ul>
   </section>
 
   <!-- ===== Contact us: a brief in a few taps, written into a message ====== -->
   <section class="start" id="start" aria-labelledby="start-title">
+    <!-- the closing shot: the studio at night, its mark lit (the same frame /about opens on) -->
+    <div class="start__scene" aria-hidden="true">
+      <picture>
+        <source media="(orientation: portrait)" srcset="./media/about-neon-9x16.jpg">
+        <img src="./media/contact-neon-16x9.jpg" alt="" width="1920" height="1080" loading="lazy" decoding="async">
+      </picture>
+    </div>
     <div class="start__inner">
       <div class="start__how">
         <p class="label">Contact us</p>
@@ -579,6 +622,7 @@
     <p class="foot__base"><span class="foot__word">Larisel</span><span>3D &amp; web studio</span></p>
   </div>
 </footer>
+<a class="mcta" href="#start">Contact us <i aria-hidden="true">→</i></a>
 
 <!-- Works waiting for their client's go-ahead are not on this page at all: ?show=<id>[,<id>]
      fetches each one's parts (work/pending/<id>.home.html) and puts them in place, for
@@ -611,8 +655,10 @@
   document.documentElement.setAttribute("data-stops", String(order.length));
 })();
 </script>
-<script src="./js/i18n.js?v=16"></script>
-<script src="./js/home.js?v=10" defer></script>
+<script src="/work/i18n-work.js?v=9"></script>
+<script src="./js/i18n.js?v=17"></script>
+<script src="./js/home.js?v=11" defer></script>
+<script src="./js/pagefx.js?v=1" defer></script>
 <script src="./js/scroll.js?v=6" defer></script>
 <script type="module" src="./js/film.js?v=14"></script>
 <script type="module" src="./js/cupstop.js?v=5"></script>
