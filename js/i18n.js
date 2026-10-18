@@ -15,6 +15,16 @@
 
   var DICT = {
     "tr": {
+      "A patient finds": "Hasta doğru hekimi",
+      "the right doctor.": "bir dakikada bulur.",
+      "A private hospital's website: say where it hurts, find the doctor, ask for an appointment — in a minute.": "Özel bir hastanenin web sitesi: nerenizin ağrıdığını yazın, hekimi bulun, randevu talep edin — bir dakikada.",
+      "Out of the die, into the oil.": "Kalıptan çıkar, yağa düşer.",
+      "A macaroni-crisp brand's website. Its film follows the snack from durum wheat to its seasoning — it plays as you scroll.": "Bir makarna cipsi markasının web sitesi. Filmi, atıştırmalığı durum buğdayından çeşnisine kadar izliyor — kaydırdıkça oynar.",
+      "Golden in the oil": "Yağda altın rengi",
+      "Heat puffs it up,": "Isıyla kabarır,",
+      "the seasoning finishes it.": "çeşniyle tamamlanır.",
+      "Four flavours in four shapes — each with a page of its own on the site.": "Dört şekilde dört aroma — her birinin sitede kendi sayfası var.",
+      "The four flavours, each opening a page of its own, and the koala dressed in each one's colour.": "Dört aroma, her biri kendi sayfasını açar; koala da her birinin rengine bürünür.",
       "Kıtlax, the snack brand": "Kıtlax, atıştırmalık markası",
       "— Snack brand": "— Atıştırmalık markası",
       "Poured, sealed, on the shelf.": "Döküldü, mühürlendi, rafta.",
@@ -290,6 +300,16 @@
       "Every project we have built,": "Yaptığımız bütün işler,"
     },
     "ru": {
+      "A patient finds": "Пациент находит",
+      "the right doctor.": "нужного врача.",
+      "A private hospital's website: say where it hurts, find the doctor, ask for an appointment — in a minute.": "Сайт частной больницы: напишите, что беспокоит, найдите врача, запишитесь на приём — за минуту.",
+      "Out of the die, into the oil.": "Из матрицы — в масло.",
+      "A macaroni-crisp brand's website. Its film follows the snack from durum wheat to its seasoning — it plays as you scroll.": "Сайт бренда макаронных чипсов. Его фильм ведёт снек от твёрдой пшеницы до приправы — и играет, пока вы листаете.",
+      "Golden in the oil": "Золотой в масле",
+      "Heat puffs it up,": "Жар его раздувает,",
+      "the seasoning finishes it.": "приправа завершает.",
+      "Four flavours in four shapes — each with a page of its own on the site.": "Четыре вкуса в четырёх формах — у каждого на сайте своя страница.",
+      "The four flavours, each opening a page of its own, and the koala dressed in each one's colour.": "Четыре вкуса — у каждого своя страница — и коала в цвете каждого из них.",
       "Kıtlax, the snack brand": "Kıtlax, бренд снеков",
       "— Snack brand": "— Бренд снеков",
       "Poured, sealed, on the shelf.": "Насыпали, запечатали — на полку.",

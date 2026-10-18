@@ -1,0 +1,13 @@
+{
+  "vhPerFrame": 1.0,
+  "endTone": "dark",
+  "handoff": true,
+  "holdVh": 12,
+  "enterHold": true,
+  "chapters": [
+    {
+      "dir": "emek/",
+      "vh": 1.0
+    }
+  ]
+}

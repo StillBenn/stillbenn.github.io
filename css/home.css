@@ -216,7 +216,7 @@ html[data-film="light"] .hdr { background: transparent; box-shadow: none; }
     linear-gradient(180deg, rgba(5, 4, 4, 0.34) 0, transparent 8rem),
     linear-gradient(0deg, rgba(5, 4, 4, 0.4) 0, transparent 7rem),
     linear-gradient(90deg, rgba(5, 4, 4, 0.5) 0%, rgba(5, 4, 4, 0.16) 36%, transparent 58%);
-  opacity: calc(1 - var(--film-end, 0));
+  opacity: calc((1 - var(--film-end, 0)) * var(--film-in, 1));       /* --film-in: an enterHold film's shade comes up after it takes over */
 }
 @media (orientation: portrait) {
   .film__stage::after {
@@ -819,27 +819,7 @@ html.has-modal { overflow: hidden; }
   *, *::before, *::after { transition-duration: 1ms !important; animation: none !important; }
 }
 
-/* ---- Kıtlax: four bright bags stand across the whole frame — the words' side needs a deeper shade ---- */
+/* ---- Kıtlax: the seasoned wheel stands just right of the words — a shade over their column only ---- */
 @media (orientation: landscape) {
-  .plate-shade[data-for="kitlax"] { background: linear-gradient(90deg, rgba(8, 7, 7, 0.9) 0%, rgba(8, 7, 7, 0.84) 32%, rgba(8, 7, 7, 0.5) 45%, rgba(8, 7, 7, 0) 60%); }
-}
-
-/* ---- Emek Hospital: a stop with no film — the site itself, on a phone ------------- */
-/* the words on the left as at every stop; on the right the hospital's site plays on a phone
-   standing on the page's cream. Shorter than a film's stop: there is no plate to hold. */
-.stop--site { min-height: 0; padding-bottom: var(--s-8); display: grid; grid-template-columns: minmax(0, 31rem) minmax(0, 1fr);
-  align-items: center; column-gap: clamp(2rem, 6vw, 7rem); pointer-events: auto; }
-.stop__phone { justify-self: center; margin: 0; width: clamp(14rem, 9rem + 9vw, 19rem); border-radius: 38px; padding: 9px; background: #0d0c0c;
-  box-shadow: 0 0 0 1px rgba(23, 21, 15, 0.1), 0 60px 110px -40px rgba(23, 21, 15, 0.55), 0 20px 40px -24px rgba(23, 21, 15, 0.35);
-  transform: translate3d(0, calc((1 - var(--in, 1)) * 60px), 0) rotate(calc((1 - var(--in, 1)) * 2deg)); }
-.stop__phone video { display: block; width: 100%; height: auto; aspect-ratio: 390 / 844; object-fit: cover; border-radius: 30px; background: #f7f4ee; }
-/* a phone, a tablet upright: the recording below is already the phone one — words only here */
-@media (max-width: 900px), (orientation: portrait) {
-  .stop--site { display: block; padding-bottom: var(--s-6); }
-  .stop__phone { display: none; }
-}
-/* a phone's stops leave their top to a film's last frame; this one has none — the words start under the header */
-@media (orientation: portrait) {
-  .stop--site { min-height: 0; padding-top: calc(var(--hdr-h) + 6vh); }
-  .stop--site .stop__text::before { display: none; }
+  .plate-shade[data-for="kitlax"] { background: linear-gradient(90deg, rgba(8, 7, 7, 0.86) 0%, rgba(8, 7, 7, 0.72) 26%, rgba(8, 7, 7, 0.28) 40%, rgba(8, 7, 7, 0) 50%); }
 }

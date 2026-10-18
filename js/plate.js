@@ -26,7 +26,16 @@
     if (!img) return;
     var fw = tall ? 1080 : 1920, fh = tall ? 1920 : 1080;
     var src = img.getAttribute(tall ? "data-tall" : "data-wide");
-    var film = null, asleep = true, shown = -1;
+    var film = null, asleep = true, shown = -1, lit = -1;
+    /* How the plate leaves as its stop scrolls away depends on what comes up under it:
+       a film that starts on this very frame (the hospital out of the studio) — the plate stays whole
+       until the film covers the screen, the two halves are one picture; a night section (a night stop's
+       recording) — it goes dark, not clear: clear, the page's cream showed above the rising recording
+       for half a screen (measured at every night stop); anything else — it fades as before. */
+    var next = stop.nextElementSibling;
+    while (next && next.tagName !== "SECTION") next = next.nextElementSibling;
+    var mode = next && next.classList.contains("film") ? "hold"
+      : next && stop.classList.contains("stop--night") && next.classList.contains("excerpt--night") ? "dark" : "fade";
     var lines = [];
     var svg = pins && pins.querySelector("svg");
     var pinEls = pins ? [].slice.call(pins.querySelectorAll(".pin")) : [];
@@ -81,10 +90,15 @@
          would count as held, and the last one in the page sat behind all the
          stops. Still, a plate shows only while its own stop comes on screen. */
       var enter = film && film.still ? Math.min(1, Math.max(0, (vh - r.top) / (vh * 0.25))) : 1;
+      var fade = e;                                                    /* the stop's own shade leaves with its words, always */
+      if (mode === "hold") e = r.bottom > 0 ? 1 : 0;
+      var dim = 1;
+      if (mode === "dark") { dim = e; e = r.bottom > 0 ? 1 : 0; }      /* (gone once the night section covers the screen) */
       e *= enter;
       var o = asleep ? 0 : e;
       if (Math.abs(o - shown) > 0.002) { shown = o; img.style.opacity = o.toFixed(3); }
-      if (shade) shade.style.opacity = (asleep ? 0 : Math.min(1, Math.max(0, (y - film.end) / (vh * 0.4))) * e).toFixed(3);
+      if (Math.abs(dim - lit) > 0.002) { lit = dim; img.style.filter = dim < 1 ? "brightness(" + dim.toFixed(3) + ")" : ""; }
+      if (shade) shade.style.opacity = (asleep ? 0 : Math.min(1, Math.max(0, (y - film.end) / (vh * 0.4))) * (mode === "hold" ? fade * enter : e) * dim).toFixed(3);
       if (pins) pins.style.opacity = (asleep ? 0 : k * k * (3 - 2 * k) * e).toFixed(3);
       if (!asleep && !img.getAttribute("src")) img.setAttribute("src", src);
     }

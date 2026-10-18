@@ -591,6 +591,12 @@ export async function mountFilm(root, primary = true) {
   const totalVh = Math.max(1, vhAt(n - 1) - vh0);
   const handoff = !!film.handoff;
   const ENTER = !!film.enterFade;
+  /* film.json "enterHold": a film whose first frame is the plate above it (the hospital, born out of the
+     studio's last frame). Rising into view, the two would show one picture twice, a screen apart; so the
+     stage stays clear while its top climbs — the plate (fixed, the same frame) is what shows — and takes
+     over the moment it reaches the top, where its frame lies exactly on the plate. Its type shade comes up
+     over the first half screen after (the stop's own shade left with the words). */
+  const HOLD_IN = !!film.enterHold;
   /* the hold: the last frame stays while the film fades onto its plate (the
      same picture). 45vh of it was a wheel flick in which nothing on screen
      changed, and the stop's labels waited behind it (measured, deadzone.mjs). */
@@ -769,7 +775,7 @@ export async function mountFilm(root, primary = true) {
      film:layout event says where that happens). */
   const last = chapters[chapters.length - 1];
 
-  let cw = 0, ch = 0, top = 0, span = 1, holdPx = 0;
+  let cw = 0, ch = 0, top = 0, span = 1, holdPx = 0, finShown = -1;
   const measure = () => {
     const dpr = Math.min(devicePixelRatio || 1, 2);
     cw = Math.round(stage.clientWidth * dpr);
@@ -1121,7 +1127,8 @@ export async function mountFilm(root, primary = true) {
        rises into view (the stage is transparent over the page's cream), fully
        there once its top nears the top of the screen — no cut from a
        blank page to the picture */
-    const enter = ENTER ? smooth(0.12, 0.92, (scrollY + innerHeight - top) / innerHeight) : 1;
+    const enter = HOLD_IN ? (scrollY >= top - 1 ? 1 : 0) : ENTER ? smooth(0.12, 0.92, (scrollY + innerHeight - top) / innerHeight) : 1;
+    if (HOLD_IN) { const fin = smooth(0, 0.5, (scrollY - top) / innerHeight); if (Math.abs(fin - finShown) > 0.002) { finShown = fin; root.style.setProperty("--film-in", fin.toFixed(3)); } }
     const o = (handoff ? 1 - smooth(0.1, 0.9, hold) : 1) * enter;
     if (Math.abs(o - stageO) > 0.001) { stageO = o; stage.style.opacity = o.toFixed(3); root.classList.toggle("is-faded", o < 0.5); }
     /* the page's header and rail follow what is behind them: the night film,

@@ -21,9 +21,16 @@
   /* ---- the filter ---- */
   var chips = [].slice.call(document.querySelectorAll(".chip[data-cat]"));
   var rows = [].slice.call(document.querySelectorAll(".show"));
+  /* the rows on show alternate sides and count from 01 again (a filter showed "04" on its first row) */
   function sides() {
     var k = 0;
-    rows.forEach(function (r) { if (!r.classList.contains("is-out")) r.classList.toggle("is-flip", k++ % 2 === 1); });
+    rows.forEach(function (r) {
+      if (r.classList.contains("is-out")) return;
+      r.classList.toggle("is-flip", k % 2 === 1);
+      var n = r.querySelector(".show__n");
+      k++;
+      if (n) n.textContent = (k < 10 ? "0" : "") + k;
+    });
   }
   function filter(cat) {
     if (!chips.some(function (c) { return c.getAttribute("data-cat") === cat; })) cat = "all";

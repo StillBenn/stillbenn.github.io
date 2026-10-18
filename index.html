@@ -27,7 +27,7 @@
 <link rel="preload" href="./fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="./fonts/ibm-plex-mono-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="./film/film.json?v=3" as="fetch" crossorigin>
-<link rel="stylesheet" href="./css/home.css?v=22">
+<link rel="stylesheet" href="./css/home.css?v=23">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -112,12 +112,12 @@
       <nav class="film__chapters" aria-label="Chapters" hidden>
         <button type="button" data-chapter="0"><span lang="en">00 Larisel</span><i></i></button>
         <button type="button" data-chapter="1"><span><span data-n="cafe">01</span> Café</span><i></i></button>
-        <button type="button" data-goto="kitlax"><span><span data-n="kitlax">02</span> Kıtlax</span><i></i></button>
-        <button type="button" data-goto="emek"><span><span data-n="emek">03</span> Hospital</span><i></i></button>
         <button type="button" data-goto="chair"><span><span data-n="chair">02</span> Furniture</span><i></i></button>
         <button type="button" data-goto="room"><span><span data-n="room">03</span> Interiors</span><i></i></button>
         <button type="button" data-goto="group"><span><span data-n="group">04</span> Corporate site</span><i></i></button>
         <button type="button" data-goto="studio"><span><span data-n="studio">05</span> Order bot</span><i></i></button>
+        <button type="button" data-goto="emek"><span><span data-n="emek">06</span> Hospital</span><i></i></button>
+        <button type="button" data-goto="kitlax"><span><span data-n="kitlax">07</span> Kıtlax</span><i></i></button>
       </nav>
       <a class="film__skip" href="#work"><span class="film__skip-t">Skip the film</span><span class="film__skip-i" aria-hidden="true"><svg viewBox="0 0 40 40"><circle class="film__skip-track" cx="20" cy="20" r="18.25"/><circle class="film__skip-ring" cx="20" cy="20" r="18.25" pathLength="1"/><path d="M20 13.5v12.5M14.75 21 20 26.25 25.25 21"/></svg></span></a>
       <span class="film__hint" aria-hidden="true">Scroll</span>
@@ -170,108 +170,8 @@
   </section>
 
 
-  <!-- ===== Kıtlax — a client's site, between the café and the hospital =========
-       The film is the site's own last two shots: the wheels pour into the bag, the
-       jaws seal it, and the lens pulls back to the four flavours on a dark bar —
-       the frame the stop below holds. It rises out of the café's cream page. -->
-  <section class="film film--deep" data-film="kitlax" data-work="kitlax" data-manifest="./film/film-kitlax.json?v=1" aria-label="Kıtlax, the snack brand">
-    <div class="film__stage">
-      <picture class="film__poster">
-        <source media="(orientation: portrait)" srcset="./film/kitlax/end-9x16.webp">
-        <img src="./film/kitlax/end-16x9.webp" alt="" width="1920" height="1080" decoding="async" loading="lazy">
-      </picture>
-      <canvas class="film__canvas" aria-hidden="true"></canvas>
-      <div class="film__beat" data-ch="1" data-in="0.1" data-out="0.44">
-        <p class="film__label"><span data-n="kitlax">02</span> — Snack brand</p>
-        <h2 class="film__title">
-          <span class="film__line"><span>Kıtlax.</span></span>
-          <span class="film__line"><span><em>Poured, sealed, on the shelf.</em></span></span>
-        </h2>
-        <p class="film__lead">A macaroni-crisp brand's website. Its film shows how the snack is made, from durum wheat to the sealed bag.</p>
-      </div>
-      <div class="film__beat" data-ch="1" data-in="0.54" data-out="0.72">
-        <p class="film__label">Four flavours</p>
-        <h2 class="film__title">
-          <span class="film__line"><span>Four shapes,</span></span>
-          <span class="film__line"><span><em>four flavours.</em></span></span>
-        </h2>
-        <p class="film__lead">The film ends where the shop begins: every bag opens a page of its own.</p>
-      </div>
-    </div>
-  </section>
-  <section class="stop stop--night" data-plate="kitlax" data-work="kitlax" aria-labelledby="kitlax-title">
-    <div class="stop__text">
-      <p class="label"><span data-n="kitlax">02</span> — Snack brand</p>
-      <h2 class="stop__title" id="kitlax-title">Kıtlax</h2>
-      <figure class="quote">
-        <blockquote><p>Pasta at its crispiest.</p></blockquote>
-        <figcaption>From the brand's homepage</figcaption>
-      </figure>
-      <p class="stop__lead">A client's website: a macaroni-crisp maker that shows how its snack is made — and sells it by the case.</p>
-      <ol class="does">
-        <li><b>Watch it being made</b><span>Wheat, the mill, the bronze die, the fryer, the seasoning and the bag — one film that plays as you scroll.</span></li>
-        <li><b>Open a flavour</b><span>Four flavours in four shapes, each with a page of its own and the product's details.</span></li>
-        <li><b>Become a representative</b><span>A message to the company, with the cases per flavour added if the visitor likes.</span></li>
-      </ol>
-      <div class="stop__links">
-        <a class="btn btn--solid" href="/kitlax-onizleme/" target="_blank" rel="noopener">Visit the site</a>
-        <a class="btn btn--line" href="/work/kitlax/">Project details</a>
-      </div>
-    </div>
-  </section>
-  <img class="plate" data-for="kitlax" data-work="kitlax" alt="" aria-hidden="true" data-wide="./film/kitlax/end-16x9.webp" data-tall="./film/kitlax/end-9x16.webp">
-  <div class="plate-shade" data-for="kitlax" data-work="kitlax" aria-hidden="true"></div>
-  <section class="excerpt" data-excerpt="kitlax" data-work="kitlax" aria-label="The Kıtlax site, recorded">
-    <div class="excerpt__window">
-      <div class="excerpt__bar" aria-hidden="true"><i></i><i></i><i></i><span>kitlax.com</span></div>
-      <video class="excerpt__video" muted playsinline loop preload="none" width="1280" height="800"
-             data-wide="./media/kitlax-site.mp4?v=1" data-wide-poster="./media/kitlax-site.jpg?v=1"
-             data-tall="./media/kitlax-site-phone.mp4?v=1" data-tall-poster="./media/kitlax-site-phone.jpg?v=1"></video>
-    </div>
-    <p class="excerpt__caption"><span class="label">On the site</span>The film down to the sealed bag, then the four flavours, and the koala dressed in each one's colour.</p>
-  </section>
-
-  <!-- ===== Emek Hospital — a client's site, between Kıtlax and the armchair ======
-       No film: the site itself is the picture. The stop holds it on a phone (on a
-       phone the recording below is the phone one, so the stop is words only), the
-       excerpt plays a visit on the desk. Cream from Kıtlax's recording to the
-       armchair's first frame: the films on either side keep their joins. -->
-  <section class="stop stop--site" data-work="emek" aria-labelledby="emek-title">
-    <div class="stop__text">
-      <p class="label"><span data-n="emek">03</span> — Hospital</p>
-      <h2 class="stop__title" id="emek-title">Emek Hospital</h2>
-      <figure class="quote">
-        <blockquote><p>Health takes effort.</p></blockquote>
-        <figcaption>From the hospital's homepage</figcaption>
-      </figure>
-      <p class="stop__lead">A client's website: a private hospital where a patient finds the right doctor and asks for an appointment in a minute.</p>
-      <ol class="does">
-        <li><b>Say where it hurts</b><span>One box for a complaint, a department or a doctor's name — it answers as you type.</span></li>
-        <li><b>Ask for an appointment</b><span>Department, doctor, day: the request reaches the call centre, which calls back to confirm.</span></li>
-        <li><b>Run by the hospital</b><span>A panel of its own: the staff see the requests and keep the doctors and pages up to date.</span></li>
-      </ol>
-      <div class="stop__links">
-        <a class="btn btn--solid" href="/emek-onizleme/" target="_blank" rel="noopener">Visit the site</a>
-        <a class="btn btn--line" href="/work/emek/">Project details</a>
-      </div>
-    </div>
-    <figure class="stop__phone" aria-hidden="true">
-      <video muted playsinline loop preload="none" width="390" height="844"
-             data-src="./media/emek-site-phone.mp4?v=1" poster="./media/emek-site-phone.jpg?v=1"></video>
-    </figure>
-  </section>
-  <section class="excerpt" data-excerpt="emek" data-work="emek" aria-label="The hospital site, recorded">
-    <div class="excerpt__window">
-      <div class="excerpt__bar" aria-hidden="true"><i></i><i></i><i></i><span>emekhastanesi.com</span></div>
-      <video class="excerpt__video" muted playsinline loop preload="none" width="1280" height="800"
-             data-wide="./media/emek-site.mp4?v=1" data-wide-poster="./media/emek-site.jpg?v=1"
-             data-tall="./media/emek-site-phone.mp4?v=1" data-tall-poster="./media/emek-site-phone.jpg?v=1"></video>
-    </div>
-    <p class="excerpt__caption"><span class="label">On the site</span>A complaint typed into the search — it finds the department and the doctor — then the departments, the doctors and the hospital in numbers.</p>
-  </section>
-
   <!-- ===== Film 02 — the armchair ========================================
-       Opens on the page's cream (the hospital's recording above ends on it), lifts
+       Opens on the page's cream (the café's section above ends on it), lifts
        into a sunlit studio where a band of light re-dresses the chair, and
        ends with the chair standing on the page — the plate below holds it. -->
   <section class="film film--page film--low" data-film="chair" data-work="chair" data-manifest="./film/film-chair.json?v=4" aria-label="The armchair">
@@ -501,6 +401,120 @@
   <img class="plate" data-for="studio" alt="" aria-hidden="true" data-wide="./film/studio/end-16x9.webp" data-tall="./film/studio/end-9x16.webp">
   <div class="plate-shade" data-for="studio" aria-hidden="true"></div>
 
+  <!-- ===== Film 06 — the hospital: the same camera turns from the desk to a tablet ==============
+       Starts on the studio's last frame (the order bot's plate) and turns, in one move, to a walnut
+       side table by the wall the desk faces: the corner's lights come up, a tablet wakes with the
+       hospital's site, a complaint is typed into its search — the stop below holds the tablet. -->
+  <section class="film" data-film="emek" data-work="emek" data-manifest="./film/film-emek.json?v=1" aria-label="Emek Hospital">
+    <div class="film__stage">
+      <picture class="film__poster">
+        <source media="(orientation: portrait)" srcset="./film/emek/end-9x16.webp">
+        <img src="./film/emek/end-16x9.webp" alt="" width="1920" height="1080" decoding="async" loading="lazy">
+      </picture>
+      <canvas class="film__canvas" aria-hidden="true"></canvas>
+      <div class="film__beat" data-ch="1" data-in="0.46" data-out="0.86">
+        <p class="film__label"><span data-n="emek">06</span> — Hospital</p>
+        <h2 class="film__title">
+          <span class="film__line"><span>A patient finds</span></span>
+          <span class="film__line"><span><em>the right doctor.</em></span></span>
+        </h2>
+        <p class="film__lead">A private hospital's website: say where it hurts, find the doctor, ask for an appointment — in a minute.</p>
+      </div>
+    </div>
+  </section>
+  <section class="stop stop--night" data-plate="emek" data-work="emek" aria-labelledby="emek-title">
+    <div class="stop__text">
+      <p class="label"><span data-n="emek">06</span> — Hospital</p>
+      <h2 class="stop__title" id="emek-title">Emek Hospital</h2>
+      <figure class="quote">
+        <blockquote><p>Health takes effort.</p></blockquote>
+        <figcaption>From the hospital's homepage</figcaption>
+      </figure>
+      <p class="stop__lead">A client's website: a private hospital where a patient finds the right doctor and asks for an appointment in a minute.</p>
+      <ol class="does">
+        <li><b>Say where it hurts</b><span>One box for a complaint, a department or a doctor's name — it answers as you type.</span></li>
+        <li><b>Ask for an appointment</b><span>Department, doctor, day: the request reaches the call centre, which calls back to confirm.</span></li>
+        <li><b>Run by the hospital</b><span>A panel of its own: the staff see the requests and keep the doctors and pages up to date.</span></li>
+      </ol>
+      <div class="stop__links">
+        <a class="btn btn--solid" href="/emek-onizleme/" target="_blank" rel="noopener">Visit the site</a>
+        <a class="btn btn--line" href="/work/emek/">Project details</a>
+      </div>
+    </div>
+  </section>
+  <img class="plate" data-for="emek" data-work="emek" alt="" aria-hidden="true" data-wide="./film/emek/end-16x9.webp" data-tall="./film/emek/end-9x16.webp">
+  <div class="plate-shade" data-for="emek" data-work="emek" aria-hidden="true"></div>
+  <section class="excerpt excerpt--night" data-excerpt="emek" data-work="emek" aria-label="The hospital site, recorded">
+    <div class="excerpt__window">
+      <div class="excerpt__bar" aria-hidden="true"><i></i><i></i><i></i><span>emekhastanesi.com</span></div>
+      <video class="excerpt__video" muted playsinline loop preload="none" width="1280" height="800"
+             data-wide="./media/emek-site.mp4?v=1" data-wide-poster="./media/emek-site.jpg?v=1"
+             data-tall="./media/emek-site-phone.mp4?v=1" data-tall-poster="./media/emek-site-phone.jpg?v=1"></video>
+    </div>
+    <p class="excerpt__caption"><span class="label">On the site</span>A complaint typed into the search — it finds the department and the doctor — then the departments, the doctors and the hospital in numbers.</p>
+  </section>
+
+  <!-- ===== Film 07 — Kıtlax: out of the dark, the snack being made ====================
+       The site's own film, its middle: golden semolina falling in the dark, the bronze die cutting
+       the wheels, the wheels frying gold in the oil, then lifted out into the dark and seasoned —
+       the frame the stop holds. It rises out of the hospital's dark recording. -->
+  <section class="film film--deep" data-film="kitlax" data-work="kitlax" data-manifest="./film/film-kitlax.json?v=3" aria-label="Kıtlax, the snack brand">
+    <div class="film__stage">
+      <picture class="film__poster">
+        <source media="(orientation: portrait)" srcset="./film/kitlax/end-9x16.webp">
+        <img src="./film/kitlax/end-16x9.webp" alt="" width="1920" height="1080" decoding="async" loading="lazy">
+      </picture>
+      <canvas class="film__canvas" aria-hidden="true"></canvas>
+      <div class="film__beat" data-ch="1" data-in="0.08" data-out="0.38">
+        <p class="film__label"><span data-n="kitlax">07</span> — Snack brand</p>
+        <h2 class="film__title">
+          <span class="film__line"><span>Kıtlax.</span></span>
+          <span class="film__line"><span><em>Out of the die, into the oil.</em></span></span>
+        </h2>
+        <p class="film__lead">A macaroni-crisp brand's website. Its film follows the snack from durum wheat to its seasoning — it plays as you scroll.</p>
+      </div>
+      <div class="film__beat" data-ch="1" data-in="0.6" data-out="0.86">
+        <p class="film__label">Golden in the oil</p>
+        <h2 class="film__title">
+          <span class="film__line"><span>Heat puffs it up,</span></span>
+          <span class="film__line"><span><em>the seasoning finishes it.</em></span></span>
+        </h2>
+        <p class="film__lead">Four flavours in four shapes — each with a page of its own on the site.</p>
+      </div>
+    </div>
+  </section>
+  <section class="stop stop--night" data-plate="kitlax" data-work="kitlax" aria-labelledby="kitlax-title">
+    <div class="stop__text">
+      <p class="label"><span data-n="kitlax">07</span> — Snack brand</p>
+      <h2 class="stop__title" id="kitlax-title">Kıtlax</h2>
+      <figure class="quote">
+        <blockquote><p>Pasta at its crispiest.</p></blockquote>
+        <figcaption>From the brand's homepage</figcaption>
+      </figure>
+      <p class="stop__lead">A client's website: a macaroni-crisp maker that shows how its snack is made — and sells it by the case.</p>
+      <ol class="does">
+        <li><b>Watch it being made</b><span>Wheat, the mill, the bronze die, the fryer, the seasoning and the bag — one film that plays as you scroll.</span></li>
+        <li><b>Open a flavour</b><span>Four flavours in four shapes, each with a page of its own and the product's details.</span></li>
+        <li><b>Become a representative</b><span>A message to the company, with the cases per flavour added if the visitor likes.</span></li>
+      </ol>
+      <div class="stop__links">
+        <a class="btn btn--solid" href="/kitlax-onizleme/" target="_blank" rel="noopener">Visit the site</a>
+        <a class="btn btn--line" href="/work/kitlax/">Project details</a>
+      </div>
+    </div>
+  </section>
+  <img class="plate" data-for="kitlax" data-work="kitlax" alt="" aria-hidden="true" data-wide="./film/kitlax/end-16x9.webp" data-tall="./film/kitlax/end-9x16.webp">
+  <div class="plate-shade" data-for="kitlax" data-work="kitlax" aria-hidden="true"></div>
+  <section class="excerpt" data-excerpt="kitlax" data-work="kitlax" aria-label="The Kıtlax site, recorded">
+    <div class="excerpt__window">
+      <div class="excerpt__bar" aria-hidden="true"><i></i><i></i><i></i><span>kitlax.com</span></div>
+      <video class="excerpt__video" muted playsinline loop preload="none" width="1280" height="800"
+             data-wide="./media/kitlax-shop.mp4?v=1" data-wide-poster="./media/kitlax-shop.jpg?v=1"
+             data-tall="./media/kitlax-shop-phone.mp4?v=1" data-tall-poster="./media/kitlax-shop-phone.jpg?v=1"></video>
+    </div>
+    <p class="excerpt__caption"><span class="label">On the site</span>The four flavours, each opening a page of its own, and the koala dressed in each one's colour.</p>
+  </section>
+
   <!-- ===== Projects: the page of every project ============================= -->
   <section class="allwork" aria-labelledby="allwork-title">
     <p class="label" id="allwork-title">Projects</p>
@@ -600,9 +614,9 @@
 <script src="./js/i18n.js?v=16"></script>
 <script src="./js/home.js?v=10" defer></script>
 <script src="./js/scroll.js?v=6" defer></script>
-<script type="module" src="./js/film.js?v=12"></script>
+<script type="module" src="./js/film.js?v=13"></script>
 <script type="module" src="./js/cupstop.js?v=5"></script>
-<script src="./js/plate.js?v=5" defer></script>
+<script src="./js/plate.js?v=6" defer></script>
 <script src="./js/chatdemo.js?v=1" defer></script>
 <script src="./js/brief.js?v=2" defer></script>
 <script src="./js/mail.js?v=1" defer></script>

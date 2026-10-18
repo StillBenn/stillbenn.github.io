@@ -171,11 +171,11 @@
     "ru": "Открыть сайт"
    },
    "media": {
-    "poster": "/media/kitlax-site.jpg?v=1",
-    "video": "/media/kitlax-site.mp4?v=1",
-    "posterTall": "/media/kitlax-site-phone.jpg?v=1",
-    "videoTall": "/media/kitlax-site-phone.mp4?v=1",
-    "still": "/film/kitlax/end-16x9.webp"
+    "poster": "/media/kitlax-site.jpg?v=2",
+    "video": "/media/kitlax-site.mp4?v=2",
+    "posterTall": "/media/kitlax-site-phone.jpg?v=2",
+    "videoTall": "/media/kitlax-site-phone.mp4?v=2",
+    "still": "/film/kitlax/end-16x9.webp?v=2"
    }
   },
   {

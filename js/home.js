@@ -92,31 +92,14 @@
       else v.pause();
     }, { threshold: 0.3 }).observe(v);
   });
-  /* a stop with no film (the hospital): its phone plays the site's phone recording, loaded a
-     screen away and playing while on screen; where CSS hides the phone it never downloads */
-  [].slice.call(document.querySelectorAll(".stop__phone video")).forEach(function (v) {
-    if (getComputedStyle(v.parentNode).display === "none") return;
-    /* a jump from the opening's menu lands on it at once: both observers fire together, so the
-       one that plays loads it too (it played nothing and stayed paused — measured) */
-    var load = function () { if (!v.getAttribute("src")) { v.src = v.getAttribute("data-src"); v.preload = "auto"; } };
-    var nearIO = new IntersectionObserver(function (es) {
-      if (es[0].isIntersecting) { nearIO.disconnect(); load(); }
-    }, { rootMargin: "100% 0px" });
-    nearIO.observe(v);
-    new IntersectionObserver(function (es) {
-      if (es[0].isIntersecting) { load(); var p = v.play(); if (p && p.catch) p.catch(function () {}); }
-      else v.pause();
-    }, { threshold: 0.3 }).observe(v);
-  });
   var reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
-  var settlers = excerpts.concat([].slice.call(document.querySelectorAll(".stop--site")));   /* the hospital's phone settles in like a recording's window */
   function settle() {
     var vh = innerHeight;
-    for (var i = 0; i < settlers.length; i++) {
-      var r = settlers[i].getBoundingClientRect();
+    for (var i = 0; i < excerpts.length; i++) {
+      var r = excerpts[i].getBoundingClientRect();
       var k = reduced ? 1 : Math.min(1, Math.max(0, (vh - r.top) / (vh * 0.75)));
       k = 1 - Math.pow(1 - k, 3);
-      settlers[i].style.setProperty("--in", k.toFixed(3));
+      excerpts[i].style.setProperty("--in", k.toFixed(3));
     }
   }
   addEventListener("scroll", settle, { passive: true });
