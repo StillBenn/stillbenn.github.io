@@ -211,11 +211,11 @@ a.show__media:hover .show__phone { transform: translate3d(0, -10px, 0); }
 @keyframes about-bead { 0% { transform: translateY(0); opacity: 0; } 20%, 75% { opacity: 1; } 100% { transform: translateY(3rem); opacity: 0; } }
 
 .about-who { position: relative; display: grid; align-content: center; min-height: 100vh; min-height: 100svh; padding: calc(var(--hdr-h) + 1.5rem) var(--pad-edge) 2.5rem; }
-.about-who__in { max-width: 38rem; }
+.about-who__in { max-width: min(42rem, 46vw); }   /* the dark wall beside the sign, never over it */
 .about-who__title { margin: var(--s-4) 0 clamp(1.4rem, 0.8rem + 1.6vw, 2.2rem); font-family: var(--f-display); font-weight: 300; font-size: var(--t-h2); line-height: 1.06; letter-spacing: -0.02em; text-wrap: balance; }
 /* who we are, as one short letter: a first paragraph in the display face, a second in the body face, signed */
 .about-who__lead { margin: 0; padding-top: clamp(1.2rem, 0.8rem + 1vw, 1.8rem); border-top: 1px solid rgba(243, 237, 225, 0.14);
-  font-family: var(--f-display); font-weight: 300; font-size: clamp(1.25rem, 0.95rem + 0.85vw, 1.75rem); line-height: 1.45; letter-spacing: -0.008em; color: var(--c-ivory); text-wrap: pretty; }
+  font-family: var(--f-display); font-weight: 300; font-size: clamp(1.2rem, 0.95rem + 0.6vw, 1.55rem); line-height: 1.45; letter-spacing: -0.008em; color: var(--c-ivory); text-wrap: pretty; }
 .about-who__text { margin: 1.1rem 0 0; max-width: 36rem; font-size: 1rem; line-height: 1.75; color: rgba(243, 237, 225, 0.74); text-wrap: pretty; }
 .about-who__sign { margin: 1.2rem 0 0; font-family: var(--f-display); font-style: italic; font-weight: 300; font-size: clamp(1.5rem, 1.2rem + 0.8vw, 2rem); line-height: 1; color: #d9a27a; }
 .about-who__links { display: flex; flex-wrap: wrap; gap: var(--s-3); margin-top: clamp(1.4rem, 0.8rem + 1.6vw, 2.2rem); }
