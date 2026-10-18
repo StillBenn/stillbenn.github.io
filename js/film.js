@@ -597,6 +597,11 @@ export async function mountFilm(root, primary = true) {
      over the moment it reaches the top, where its frame lies exactly on the plate. Its type shade comes up
      over the first half screen after (the stop's own shade left with the words). */
   const HOLD_IN = !!film.enterHold;
+  /* film.json "enterFeather" (a share of the screen): a film rising out of a night section whose first
+     frame is not the night's own black (Kıtlax's warm dark) — faded in, its top edge still read as a
+     straight line, 3 to 9 levels within 8 px (measured). Its top is feathered into the night instead: a
+     ramp that shrinks to nothing as the film reaches the top of the screen. */
+  const FEATHER = ENTER ? +film.enterFeather || 0 : 0;
   /* the hold: the last frame stays while the film fades onto its plate (the
      same picture). 45vh of it was a wheel flick in which nothing on screen
      changed, and the stop's labels waited behind it (measured, deadzone.mjs). */
@@ -775,7 +780,7 @@ export async function mountFilm(root, primary = true) {
      film:layout event says where that happens). */
   const last = chapters[chapters.length - 1];
 
-  let cw = 0, ch = 0, top = 0, span = 1, holdPx = 0, finShown = -1;
+  let cw = 0, ch = 0, top = 0, span = 1, holdPx = 0, finShown = -1, featherShown = -1;
   const measure = () => {
     const dpr = Math.min(devicePixelRatio || 1, 2);
     cw = Math.round(stage.clientWidth * dpr);
@@ -1129,6 +1134,17 @@ export async function mountFilm(root, primary = true) {
        blank page to the picture */
     const enter = HOLD_IN ? (scrollY >= top - 1 ? 1 : 0) : ENTER ? smooth(0.12, 0.92, (scrollY + innerHeight - top) / innerHeight) : 1;
     if (HOLD_IN) { const fin = smooth(0, 0.5, (scrollY - top) / innerHeight); if (Math.abs(fin - finShown) > 0.002) { finShown = fin; root.style.setProperty("--film-in", fin.toFixed(3)); } }
+    if (FEATHER) {
+      /* it runs on a little past the moment the film reaches the top (to 1.35 screens): shrunk to nothing at
+         that moment, the last of it was a hard edge again (5.7 levels at 94 px from the top, measured) */
+      const fp = Math.max(0, (scrollY + innerHeight - top) / innerHeight);
+      const fh = Math.round((1 - smooth(0, 1.35, fp)) * FEATHER * innerHeight);
+      if (fh !== featherShown) {
+        featherShown = fh;
+        const m = fh > 1 ? `linear-gradient(180deg, transparent 0, rgba(0,0,0,0.35) ${Math.round(fh * 0.45)}px, #000 ${fh}px)` : "";
+        stage.style.maskImage = m; stage.style.webkitMaskImage = m;
+      }
+    }
     const o = (handoff ? 1 - smooth(0.1, 0.9, hold) : 1) * enter;
     if (Math.abs(o - stageO) > 0.001) { stageO = o; stage.style.opacity = o.toFixed(3); root.classList.toggle("is-faded", o < 0.5); }
     /* the page's header and rail follow what is behind them: the night film,
