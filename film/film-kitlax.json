@@ -6,6 +6,7 @@
   "grain": 0.018,
   "handoff": true,
   "holdVh": 12,
+  "enterFade": true,
   "chapters": [
     {
       "dir": "kitlax/",

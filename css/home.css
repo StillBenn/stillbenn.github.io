@@ -823,3 +823,9 @@ html.has-modal { overflow: hidden; }
 @media (orientation: landscape) {
   .plate-shade[data-for="kitlax"] { background: linear-gradient(90deg, rgba(8, 7, 7, 0.86) 0%, rgba(8, 7, 7, 0.72) 26%, rgba(8, 7, 7, 0.28) 40%, rgba(8, 7, 7, 0) 50%); }
 }
+
+/* ---- a film that rises out of a night section (Kıtlax, under the hospital's recording): its first screen is
+   the night itself, so the stage fades up out of the dark (film.json enterFade) — over the page's cream it came
+   in as a hard bright edge under the recording. The rest of the section stays clear for the hand-off to its plate. */
+.film--from-night { background: linear-gradient(180deg, var(--c-night) 0, var(--c-night) 100vh, transparent 100vh); }
+@supports (height: 100lvh) { .film--from-night { background: linear-gradient(180deg, var(--c-night) 0, var(--c-night) 100lvh, transparent 100lvh); } }   /* the stage's own height */
