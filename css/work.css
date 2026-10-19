@@ -185,7 +185,10 @@ a.show__media:hover .show__phone { transform: translate3d(0, -10px, 0); }
 .pg-about { background: var(--c-night); color: var(--c-ivory); }
 .about { position: relative; isolation: isolate; }
 .about-stage { position: sticky; top: 0; z-index: -1; height: 100vh; height: 100lvh; margin-bottom: -100vh; margin-bottom: -100lvh; overflow: hidden; background: var(--c-night); pointer-events: none; }
-.about-stage img, .about-hero__video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+/* the picture starts under the header, top-anchored: the sign's top stays in view at every size (the header had
+   covered it, 19.10); its upper edge melts into the night above */
+.about-stage img, .about-hero__video { position: absolute; left: 0; right: 0; top: var(--hdr-h); bottom: 0; width: 100%; height: calc(100% - var(--hdr-h)); object-fit: cover; object-position: 50% 0%;
+  -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 6rem); mask-image: linear-gradient(180deg, transparent 0, #000 6rem); }
 .about-stage__still { opacity: 0; transition: opacity 900ms ease; }
 .about.is-still .about-stage__still { opacity: 1; }
 /* the wall the words stand on stays dark; the sign keeps its glow */
@@ -193,6 +196,8 @@ a.show__media:hover .show__phone { transform: translate3d(0, -10px, 0); }
   background: linear-gradient(90deg, rgba(11, 11, 15, 0.74) 0%, rgba(11, 11, 15, 0.34) 40%, rgba(11, 11, 15, 0) 60%),
               linear-gradient(180deg, rgba(11, 11, 15, 0.4) 0, rgba(11, 11, 15, 0) 9rem); }
 /* past the opening, the room dims a little so the second screen's words read as easily as the first's */
+/* past the last words the room goes dark, so the page ends on night, not on half a sign (19.10) */
+.about-stage__end { position: absolute; inset: 0; z-index: 2; background: var(--c-night); opacity: var(--end, 0); will-change: opacity; }
 .about-stage__veil { position: absolute; inset: 0; z-index: 1; background: linear-gradient(90deg, rgba(11, 11, 15, 0.9) 0%, rgba(11, 11, 15, 0.66) 44%, rgba(11, 11, 15, 0.08) 66%, rgba(11, 11, 15, 0.12) 100%);
   opacity: var(--dim, 0); will-change: opacity; }
 

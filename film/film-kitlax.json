@@ -1,5 +1,5 @@
 {
-  "vhPerFrame": 1.0,
+  "vhPerFrame": 2.6,
   "tone": "dark",
   "endTone": "dark",
   "vignette": 0.3,
@@ -11,7 +11,7 @@
   "chapters": [
     {
       "dir": "kitlax/",
-      "vh": 1.0
+      "vh": 2.6
     }
   ]
 }

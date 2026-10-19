@@ -52,7 +52,13 @@
   /* ---- About: the room dims a little past the opening, so the second screen's words read easily ---- */
   var stage = document.querySelector(".about-stage");
   if (stage) {
-    var dim = function () { stage.style.setProperty("--dim", Math.min(1, Math.max(0, scrollY / (innerHeight * 0.75))).toFixed(3)); };
+    var who = document.querySelector(".about-who");
+    var dim = function () {
+      stage.style.setProperty("--dim", Math.min(1, Math.max(0, scrollY / (innerHeight * 0.75))).toFixed(3));
+      /* once the last screen starts to leave, the sign fades out with it: the page meets the footer in night */
+      var b = who ? who.getBoundingClientRect().bottom : innerHeight;
+      stage.style.setProperty("--end", Math.min(1, Math.max(0, (innerHeight - b) / (innerHeight * 0.32))).toFixed(3));
+    };
     addEventListener("scroll", dim, { passive: true }); addEventListener("resize", dim); dim();
   }
 
