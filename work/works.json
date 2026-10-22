@@ -231,9 +231,9 @@
     "ru": "Бренд снеков"
    },
    "one": {
-    "en": "A client's website: a macaroni-crisp maker that shows how its snack is made — and sells it by the case.",
-    "tr": "Bir müşterimizin sitesi: makarna cipsini nasıl ürettiğini gösteren — ve koliyle satan — bir üretici.",
-    "ru": "Сайт нашего клиента: производитель макаронных чипсов показывает, как делает свой снек, — и продаёт его коробками."
+    "en": "A client project: a macaroni-crisp brand's new website — the snack's whole journey from wheat to sealed bag told as one cinematic film, with a direct line to distributors worldwide.",
+    "tr": "Müşteri projesi: bir makarna cipsi markasının yeni yüzü — buğdaydan mühürlü poşete bütün yolculuk tek bir sinematik filmde, dünyanın dört bir yanındaki distribütörlere doğrudan bir hatla.",
+    "ru": "Проект для клиента: новый сайт бренда макаронных чипсов — весь путь от пшеницы до запаянной пачки в одном кинематографичном фильме и прямая линия для дистрибьюторов по всему миру."
    },
    "quote": {
     "en": "Pasta at its crispiest.",
@@ -241,45 +241,45 @@
     "ru": "Макароны в самом хрустящем виде."
    },
    "task": {
-    "en": "The brand's old site said little about the product. The new one had to show how the snack is made, make the brand feel premium — and make it simple for a distributor to order.",
-    "tr": "Markanın eski sitesi ürün hakkında pek bir şey söylemiyordu. Yenisi atıştırmalığın nasıl yapıldığını göstermeli, markayı premium hissettirmeli — ve bir distribütörün sipariş vermesini kolaylaştırmalıydı.",
-    "ru": "Старый сайт бренда почти ничего не говорил о продукте. Новый должен был показать, как делают снек, сделать бренд премиальным — и упростить заказ для дистрибьютора."
+    "en": "Kıtlax had a product worth showing and a website that showed almost nothing. The brief: make the making itself the star, give the brand the presence of a premium label on any shelf in the world — and turn a visitor from abroad into a distributor in a few steps.",
+    "tr": "Kıtlax'ın göstermeye değer bir ürünü vardı; sitesi ise neredeyse hiçbir şey göstermiyordu. Hedef netti: üretimin kendisini sahnenin yıldızı yapmak, markaya dünyanın her rafında premium bir duruş kazandırmak — ve yurt dışından gelen bir ziyaretçiyi birkaç adımda distribütöre dönüştürmek.",
+    "ru": "У Kıtlax был продукт, который стоит показать, и сайт, который не показывал почти ничего. Задача: сделать главным героем само производство, придать бренду облик премиальной марки на любой полке мира — и за несколько шагов превращать посетителя из-за рубежа в дистрибьютора."
    },
    "built": [
     [
      {
-      "en": "Watch it being made",
-      "tr": "Yapılışını izleyin",
-      "ru": "Как его делают"
+      "en": "A film of the making",
+      "tr": "Üretimin filmi",
+      "ru": "Фильм о производстве"
      },
      {
-      "en": "Wheat, the mill, the bronze die, the fryer, the seasoning and the bag — one film that plays as you scroll.",
-      "tr": "Buğday, değirmen, bronz kalıp, kızartma, çeşni ve poşet — kaydırdıkça oynayan tek bir film.",
-      "ru": "Пшеница, мельница, бронзовая матрица, фритюр, приправа и пачка — один фильм, который идёт, пока вы листаете."
+      "en": "From the wheat field to the sealed bag — the mill, the bronze die, the fryer, the seasoning — one continuous film that moves with the visitor's scroll.",
+      "tr": "Buğday tarlasından mühürlü poşete — değirmen, bronz kalıp, kızartma, çeşni — ziyaretçinin kaydırmasıyla akan, kesintisiz tek bir film.",
+      "ru": "От пшеничного поля до запаянной пачки — мельница, бронзовая матрица, фритюр, приправа — один непрерывный фильм, который движется вместе с прокруткой."
      }
     ],
     [
      {
-      "en": "Open a flavour",
-      "tr": "Bir aroma açın",
-      "ru": "Откройте вкус"
+      "en": "A stage for every flavour",
+      "tr": "Her aromaya bir sahne",
+      "ru": "Сцена для каждого вкуса"
      },
      {
-      "en": "Four flavours in four shapes, each with a page of its own and the product's details.",
-      "tr": "Dört şekilde dört aroma; her birinin ürün bilgileriyle kendi sayfası var.",
-      "ru": "Четыре вкуса в четырёх формах, у каждого своя страница с данными о продукте."
+      "en": "Four flavours, four signature shapes — each with a page of its own: its colours, its shape and its full product sheet.",
+      "tr": "Dört aroma, dört imza şekil — her birinin kendi renkleri, şekli ve eksiksiz ürün bilgileriyle ayrı bir sayfası.",
+      "ru": "Четыре вкуса, четыре фирменные формы — у каждого своя страница: свои цвета, своя форма и полное описание продукта."
      }
     ],
     [
      {
-      "en": "Become a representative",
-      "tr": "Temsilci olun",
-      "ru": "Стать представителем"
+      "en": "A direct line to distributors",
+      "tr": "Distribütöre doğrudan hat",
+      "ru": "Прямая линия к дистрибьюторам"
      },
      {
-      "en": "A message to the company, with the cases per flavour added if the visitor likes.",
-      "tr": "Firmaya bir mesaj; ziyaretçi dilerse aroma başına koli ekler.",
-      "ru": "Сообщение компании — по желанию с числом коробок по вкусам."
+      "en": "In Turkish, English, Arabic and Spanish, a visitor from any market writes to the company in a minute — the cases per flavour already in the request.",
+      "tr": "Türkçe, İngilizce, Arapça ve İspanyolca: hangi pazardan gelirse gelsin ziyaretçi firmaya bir dakikada yazar — aroma başına koli sayısı talebin içinde hazır.",
+      "ru": "На турецком, английском, арабском и испанском: посетитель с любого рынка за минуту пишет компании — число коробок по вкусам уже в заявке."
      }
     ]
    ],
@@ -315,9 +315,9 @@
     "ru": "Сайт больницы"
    },
    "one": {
-    "en": "A client's website: a private hospital where a patient finds the right doctor and asks for an appointment in a minute.",
-    "tr": "Bir müşterimizin sitesi: hastanın doğru hekimi bulup bir dakikada randevu talep ettiği özel bir hastane.",
-    "ru": "Сайт нашего клиента: частная больница, где пациент находит нужного врача и за минуту оставляет заявку на приём."
+    "en": "A client project: a private hospital's website, in three languages, where an anxious patient finds the right doctor and requests an appointment within a minute.",
+    "tr": "Müşteri projesi: endişeli bir hastanın doğru hekimi bulup bir dakika içinde randevu talep ettiği, üç dilli bir özel hastane sitesi.",
+    "ru": "Проект для клиента: сайт частной больницы на трёх языках, где встревоженный пациент за минуту находит нужного врача и оставляет заявку на приём."
    },
    "quote": {
     "en": "Health takes effort.",
@@ -325,45 +325,45 @@
     "ru": "Здоровье требует труда."
    },
    "task": {
-    "en": "A private hospital with eighteen departments and twenty-five doctors. A patient — often worried, often on a phone — had to find the right doctor and ask for an appointment without calling around, and the hospital had to keep it all up to date itself.",
-    "tr": "On sekiz bölümlü, yirmi beş hekimli özel bir hastane. Çoğu zaman endişeli, çoğu zaman telefondan bakan bir hasta, oraya buraya telefon etmeden doğru hekimi bulup randevu talep edebilmeli; hastane de her şeyi kendisi güncel tutabilmeliydi.",
-    "ru": "Частная больница: восемнадцать отделений и двадцать пять врачей. Пациент — часто встревоженный, часто с телефона — должен был найти нужного врача и записаться на приём, не обзванивая всех подряд, а больница — сама поддерживать всё в актуальном виде."
+    "en": "Eighteen departments, twenty-five doctors, and patients who arrive anxious and on a phone. The site had to lead each of them to the right doctor without a single phone call — and give the hospital full control of its own content.",
+    "tr": "On sekiz bölüm, yirmi beş hekim ve çoğu zaman endişeyle, telefondan gelen hastalar. Site her birini tek bir telefon görüşmesine gerek kalmadan doğru hekime ulaştırmalı — ve hastaneye kendi içeriği üzerinde tam kontrol vermeliydi.",
+    "ru": "Восемнадцать отделений, двадцать пять врачей и пациенты, которые приходят встревоженными и с телефона. Сайт должен был привести каждого к нужному врачу без единого звонка — и дать больнице полный контроль над собственным содержимым."
    },
    "built": [
     [
      {
-      "en": "Say where it hurts",
-      "tr": "Nerenizin ağrıdığını yazın",
-      "ru": "Напишите, что беспокоит"
+      "en": "Search that understands complaints",
+      "tr": "Şikâyeti anlayan arama",
+      "ru": "Поиск, который понимает жалобы"
      },
      {
-      "en": "One box for a complaint, a department or a doctor's name — it answers as you type.",
-      "tr": "Şikâyet, bölüm ya da hekim adı için tek kutu — siz yazarken cevap verir.",
-      "ru": "Одно поле для жалобы, отделения или имени врача — ответ появляется, пока вы печатаете."
+      "en": "A patient types a complaint, a department or a doctor's name — the answer takes shape with every letter.",
+      "tr": "Hasta bir şikâyet, bölüm ya da hekim adı yazar — cevap her harfle şekillenir.",
+      "ru": "Пациент вводит жалобу, отделение или имя врача — ответ складывается с каждой буквой."
      }
     ],
     [
      {
-      "en": "Ask for an appointment",
-      "tr": "Randevu talep edin",
-      "ru": "Запишитесь на приём"
+      "en": "Appointments without the phone queue",
+      "tr": "Telefon kuyruğu olmadan randevu",
+      "ru": "Запись без очереди на телефоне"
      },
      {
-      "en": "Department, doctor, day: the request reaches the call centre, which calls back to confirm.",
-      "tr": "Bölüm, hekim, gün: talep çağrı merkezine ulaşır, sizi arayıp randevuyu kesinleştirir.",
-      "ru": "Отделение, врач, день: заявка приходит в колл-центр, оттуда перезванивают и подтверждают."
+      "en": "Department, doctor, day — the request lands straight in the call centre, which calls back to confirm.",
+      "tr": "Bölüm, hekim, gün — talep doğrudan çağrı merkezine düşer; hasta aranır, randevu kesinleşir.",
+      "ru": "Отделение, врач, день — заявка сразу попадает в колл-центр, оттуда перезванивают и подтверждают приём."
      }
     ],
     [
      {
-      "en": "Run by the hospital",
-      "tr": "Hastanenin kendi elinde",
-      "ru": "В руках самой больницы"
+      "en": "The hospital in command",
+      "tr": "Kontrol hastanede",
+      "ru": "Управление — у больницы"
      },
      {
-      "en": "A panel of its own: the staff see the requests and keep the doctors and pages up to date.",
-      "tr": "Kendi yönetim paneli: personel talepleri görür, hekimleri ve sayfaları günceller.",
-      "ru": "Собственная панель: сотрудники видят заявки и сами обновляют врачей и страницы."
+      "en": "A control panel of its own: staff follow every request and update doctors and pages themselves, without waiting on anyone.",
+      "tr": "Hastaneye özel yönetim paneli: personel her talebi takip eder, hekimleri ve sayfaları kimseyi beklemeden kendisi günceller.",
+      "ru": "Собственная панель управления: сотрудники отслеживают каждую заявку и сами обновляют врачей и страницы, ни от кого не завися."
      }
     ]
    ],
@@ -398,9 +398,9 @@
     "ru": "Сайт кофейни"
    },
    "one": {
-    "en": "A café website that guests use the way they use the counter — and then a little more.",
-    "tr": "Misafirlerin tezgâhı kullanır gibi kullandığı bir kafe sitesi — üstelik biraz daha fazlası.",
-    "ru": "Сайт кофейни, которым гости пользуются как стойкой, — и даже немного больше."
+    "en": "A café website that does everything the counter does — and a few things no counter can.",
+    "tr": "Tezgâhın yaptığı her şeyi — ve hiçbir tezgâhın yapamayacağı birkaç şeyi daha — yapan bir kafe sitesi.",
+    "ru": "Сайт кофейни, который делает всё, что делает стойка, — и ещё кое-что, чего не умеет ни одна стойка."
    },
    "quote": {
     "en": "Pick a coffee, design the cup.",
@@ -408,33 +408,33 @@
     "ru": "Кофе на выбор, стакан — ваш."
    },
    "task": {
-    "en": "Show what a café's website can be when it is more than a menu: a place where guests choose, order and come back.",
-    "tr": "Bir kafe sitesinin menüden fazlası olunca neye dönüşebileceğini göstermek: misafirin seçtiği, sipariş verdiği ve geri döndüğü bir yer.",
-    "ru": "Показать, каким может быть сайт кофейни, если он больше, чем меню: место, где гость выбирает, заказывает и возвращается."
+    "en": "Prove that a café's website can be far more than a menu: a place where guests design, order, and come back for the ritual.",
+    "tr": "Bir kafe sitesinin menüden çok daha fazlası olabileceğini kanıtlamak: misafirin tasarladığı, sipariş verdiği ve ritüeli için yeniden döndüğü bir yer.",
+    "ru": "Доказать, что сайт кофейни может быть гораздо больше, чем меню: местом, где гость оформляет, заказывает и возвращается ради ритуала."
    },
    "built": [
     [
      {
-      "en": "Design the cup",
-      "tr": "Bardağını tasarla",
-      "ru": "Оформите стакан"
+      "en": "A cup with their name on it",
+      "tr": "Üstünde adı yazan bardak",
+      "ru": "Стакан с именем гостя"
      },
      {
-      "en": "Choose the drink, then the cup's colour, sleeve and lid — and see your name printed on it.",
-      "tr": "Önce içeceği, sonra bardağın rengini, manşonunu ve kapağını seç — adın da üstüne basılsın.",
-      "ru": "Выберите напиток, затем цвет стакана, манжету и крышку — и увидите на нём своё имя."
+      "en": "Drink, cup colour, sleeve and lid — chosen in seconds, with the guest's own name printed live on the cup.",
+      "tr": "İçecek, bardak rengi, manşon ve kapak saniyeler içinde seçilir; misafirin adı anında bardağa basılır.",
+      "ru": "Напиток, цвет стакана, манжета и крышка — выбор за секунды, а имя гостя тут же печатается на стакане."
      }
     ],
     [
      {
-      "en": "Order from the table",
-      "tr": "Masadan sipariş ver",
-      "ru": "Заказ со стола"
+      "en": "Ordering from the table",
+      "tr": "Masadan sipariş",
+      "ru": "Заказ прямо со стола"
      },
      {
-      "en": "Scan the code on the table, order, and split the bill with friends.",
-      "tr": "Masadaki kodu okut, siparişini ver, hesabı arkadaşlarınla böl.",
-      "ru": "Отсканируйте код на столе, закажите и разделите счёт с друзьями."
+      "en": "One scan of the table's code: the order goes in and the bill splits between friends — all from the seat.",
+      "tr": "Masadaki kod bir kez okutulur: sipariş verilir, hesap arkadaşlar arasında bölünür — hepsi oturulan yerden.",
+      "ru": "Один скан кода на столе: заказ оформлен, счёт разделён между друзьями — не вставая с места."
      }
     ],
     [
@@ -444,9 +444,9 @@
       "ru": "Гадание на кофе"
      },
      {
-      "en": "Send a photo of the empty cup and read what the grounds say.",
-      "tr": "Boş fincanın fotoğrafını gönder, telvenin ne dediğini oku.",
-      "ru": "Пришлите фото пустой чашки и прочитайте, что говорит гуща."
+      "en": "A photo of the empty cup, and a detailed reading of what the grounds have to say — the ritual guests come back for.",
+      "tr": "Boş fincanın tek bir fotoğrafı ve telvenin anlattıklarının ayrıntılı yorumu — misafiri yeniden getiren ritüel.",
+      "ru": "Фото пустой чашки — и подробное толкование того, что говорит гуща. Ритуал, ради которого возвращаются."
      }
     ]
    ],
@@ -481,9 +481,9 @@
     "ru": "Страница мебельного магазина"
    },
    "one": {
-    "en": "A furniture page that sells by letting the customer design the sofa, the armchair or the coffee table themselves.",
-    "tr": "Müşteriye kanepeyi, koltuğu ya da sehpayı kendisi tasarlatarak satan bir mobilya sayfası.",
-    "ru": "Страница мебели, которая продаёт, позволяя покупателю самому создать диван, кресло или журнальный столик."
+    "en": "A furniture shop where every customer designs their own sofa, armchair or coffee table — and orders exactly what they saw.",
+    "tr": "Her müşterinin kendi kanepesini, koltuğunu ya da sehpasını tasarladığı — ve tam olarak gördüğünü sipariş ettiği bir mobilya mağazası.",
+    "ru": "Мебельный магазин, где каждый покупатель сам создаёт свой диван, кресло или журнальный столик — и заказывает ровно то, что увидел."
    },
    "quote": {
     "en": "Two seats, three, or a corner with a chaise — in bouclé, velvet or linen, on the legs you choose.",
@@ -491,45 +491,45 @@
     "ru": "Двухместный, трёхместный или угловой с оттоманкой — в букле, бархате или льне, на выбранных ножках."
    },
    "task": {
-    "en": "A product photo cannot show a sofa in twenty-four tones, or a table in eight stones and woods, each on eight finishes. The customer needed to see their own piece before ordering it.",
-    "tr": "Bir ürün fotoğrafı yirmi dört tonda bir kanepeyi ya da sekiz taş ve ahşapta bir sehpayı, her birini sekiz farklı renkle gösteremez. Müşterinin sipariş vermeden önce kendi mobilyasını görmesi gerekiyordu.",
-    "ru": "Фотография товара не покажет диван в двадцати четырёх оттенках или столик в восьми камнях и породах дерева, каждый в восьми отделках. Покупателю нужно было увидеть свою мебель до заказа."
+    "en": "No photograph can show a sofa in twenty-four tones, or a table in eight stones and woods across eight finishes. The customer had to see their own piece — exactly, and up close — before paying for it.",
+    "tr": "Hiçbir fotoğraf bir kanepeyi yirmi dört tonda, bir sehpayı sekiz taş ve ahşapta, sekiz ayrı yüzeyle gösteremez. Müşteri, ödeme yapmadan önce kendi mobilyasını birebir ve yakından görmeliydi.",
+    "ru": "Ни одна фотография не покажет диван в двадцати четырёх оттенках или столик в восьми камнях и породах дерева с восемью отделками. Покупатель должен был увидеть свою вещь — точно и вблизи — ещё до оплаты."
    },
    "built": [
     [
      {
-      "en": "Pick the piece and its shape",
-      "tr": "Mobilyayı ve formunu seç",
-      "ru": "Выберите вещь и форму"
+      "en": "Every shape, one screen",
+      "tr": "Her form tek ekranda",
+      "ru": "Любая форма на одном экране"
      },
      {
-      "en": "An armchair in two sizes; a sofa with two seats, three, or a chaise; a round, oval or long coffee table.",
-      "tr": "İki ölçüde koltuk; ikili, üçlü ya da şezlonglu kanepe; yuvarlak, oval ya da uzun sehpa.",
-      "ru": "Кресло в двух размерах; диван двухместный, трёхместный или с оттоманкой; круглый, овальный или длинный столик."
+      "en": "An armchair in two sizes; a sofa with two seats, three or a chaise; a round, oval or long table — switched in a tap.",
+      "tr": "İki ölçüde koltuk; ikili, üçlü ya da şezlonglu kanepe; yuvarlak, oval ya da uzun sehpa — tek dokunuşla değişir.",
+      "ru": "Кресло в двух размерах; диван двухместный, трёхместный или с оттоманкой; круглый, овальный или длинный столик — смена одним касанием."
      }
     ],
     [
      {
-      "en": "Pick the materials",
-      "tr": "Malzemeyi seç",
-      "ru": "Выберите материалы"
+      "en": "Materials you can almost touch",
+      "tr": "Neredeyse dokunulan malzemeler",
+      "ru": "Материалы, которые почти можно потрогать"
      },
      {
-      "en": "Bouclé, velvet or linen in eight tones each; marble, travertine or solid wood for the table — seen up close before choosing, with ready pairings that set it all in one tap.",
-      "tr": "Her birinde sekiz tonla bukle, kadife ya da keten; sehpa için mermer, traverten ya da masif ahşap — seçmeden önce yakından görülür, hazır kombinler her şeyi tek dokunuşla ayarlar.",
-      "ru": "Букле, бархат или лён по восемь оттенков; для столика — мрамор, травертин или массив. Всё можно рассмотреть вблизи, а готовые сочетания задают выбор одним касанием."
+      "en": "Bouclé, velvet and linen in eight tones each; marble, travertine and solid wood — seen up close, with curated pairings that dress the whole piece at once.",
+      "tr": "Her birinde sekiz tonla bukle, kadife ve keten; mermer, traverten ve masif ahşap — yakından görülür, özenle seçilmiş kombinler mobilyayı tek seferde giydirir.",
+      "ru": "Букле, бархат и лён по восемь оттенков; мрамор, травертин и массив — вблизи, а продуманные сочетания одевают всю вещь сразу."
      }
     ],
     [
      {
-      "en": "A whole shop around it",
-      "tr": "Etrafında bütün bir mağaza",
-      "ru": "Целый магазин вокруг"
+      "en": "A complete shop around it",
+      "tr": "Etrafında eksiksiz bir mağaza",
+      "ru": "Полноценный магазин вокруг"
      },
      {
-      "en": "Dimensions drawn on the piece and two designs side by side — then a cart, a checkout with delivery and instalments, order tracking and a material library.",
-      "tr": "Ölçüler mobilyanın üzerinde, iki tasarım yan yana — ardından sepet, teslimat ve taksitli ödeme, sipariş takibi ve malzeme kütüphanesi.",
-      "ru": "Размеры прямо на мебели, два варианта рядом — затем корзина, оформление с доставкой и рассрочкой, отслеживание заказа и библиотека материалов."
+      "en": "Dimensions drawn on the piece and two designs side by side — then cart, delivery, instalments, order tracking and a material library.",
+      "tr": "Ölçüler mobilyanın üzerinde, iki tasarım yan yana — ardından sepet, teslimat, taksit, sipariş takibi ve malzeme kütüphanesi.",
+      "ru": "Размеры прямо на мебели и два варианта рядом — затем корзина, доставка, рассрочка, отслеживание заказа и библиотека материалов."
      }
     ]
    ],
@@ -569,9 +569,9 @@
     "ru": "Конфигуратор кухни и интерьера"
    },
    "one": {
-    "en": "Instead of sending renders back and forth, the studio sends one link — and the client arrives at the meeting having decided.",
-    "tr": "Stüdyo render gönderip durmak yerine tek bir link gönderir — müşteri toplantıya kararını vermiş olarak gelir.",
-    "ru": "Вместо бесконечных рендеров студия отправляет одну ссылку — и клиент приходит на встречу, уже решив."
+    "en": "One link replaces the endless back-and-forth of renders — the client walks into the meeting already decided.",
+    "tr": "Tek bir link, bitmek bilmeyen render trafiğinin yerini alır — müşteri toplantıya kararını vermiş olarak gelir.",
+    "ru": "Одна ссылка заменяет бесконечный обмен рендерами — клиент приходит на встречу, уже приняв решение."
    },
    "quote": {
     "en": "Let the client choose the room.",
@@ -579,45 +579,45 @@
     "ru": "Пусть клиент соберёт интерьер сам."
    },
    "task": {
-    "en": "A kitchen studio sends render after render while the client decides. One link had to let the client try the materials alone.",
-    "tr": "Bir mutfak stüdyosu, müşteri karar verene kadar render üstüne render gönderir. Tek bir link, müşterinin malzemeleri kendi başına denemesini sağlamalıydı.",
-    "ru": "Кухонная студия отправляет рендер за рендером, пока клиент решает. Одна ссылка должна была дать клиенту самому примерить материалы."
+    "en": "A kitchen studio can spend weeks sending render after render while the client makes up their mind. One link had to put every material in the client's hands — and settle the decision before the first meeting.",
+    "tr": "Bir mutfak stüdyosu, müşteri karar verene kadar haftalarca render üstüne render gönderebilir. Tek bir link bütün malzemeleri müşterinin eline vermeli — ve kararı daha ilk toplantıdan önce netleştirmeliydi.",
+    "ru": "Кухонная студия может неделями отправлять рендер за рендером, пока клиент решается. Одна ссылка должна была отдать клиенту все материалы в руки — и закрыть решение ещё до первой встречи."
    },
    "built": [
     [
      {
-      "en": "Try the materials",
-      "tr": "Malzemeleri dene",
-      "ru": "Пробуйте материалы"
+      "en": "The whole room in their hands",
+      "tr": "Bütün oda müşterinin elinde",
+      "ru": "Вся комната в руках клиента"
      },
      {
-      "en": "Six floors, six worktops, eight cabinet fronts and eight wall colours.",
-      "tr": "Altı zemin, altı tezgâh, sekiz dolap kapağı ve sekiz duvar rengi.",
-      "ru": "Шесть полов, шесть столешниц, восемь фасадов и восемь цветов стен."
+      "en": "Six floors, six worktops, eight cabinet fronts and eight wall colours — every combination one tap away.",
+      "tr": "Altı zemin, altı tezgâh, sekiz dolap kapağı ve sekiz duvar rengi — her kombinasyon bir dokunuş uzağında.",
+      "ru": "Шесть полов, шесть столешниц, восемь фасадов и восемь цветов стен — любое сочетание в одном касании."
      }
     ],
     [
      {
-      "en": "See it day and night",
-      "tr": "Gündüz ve gece gör",
-      "ru": "Днём и вечером"
+      "en": "Daylight and lamplight",
+      "tr": "Gün ışığında ve lamba ışığında",
+      "ru": "Днём и в свете ламп"
      },
      {
-      "en": "The same kitchen in daylight and with the lamps on.",
-      "tr": "Aynı mutfak gün ışığında ve lambalar yanarken.",
-      "ru": "Та же кухня при дневном свете и с включёнными лампами."
+      "en": "The same kitchen in daylight and under its own lamps — so nothing surprises the client after installation.",
+      "tr": "Aynı mutfak gün ışığında ve kendi lambalarının altında — kurulumdan sonra müşteriyi hiçbir sürpriz beklemez.",
+      "ru": "Та же кухня при дневном свете и под собственными светильниками — после монтажа клиента не ждёт ни одного сюрприза."
      }
     ],
     [
      {
-      "en": "Open it anywhere",
-      "tr": "Her yerde aç",
-      "ru": "Открывается везде"
+      "en": "Opens anywhere, instantly",
+      "tr": "Her yerde, anında açılır",
+      "ru": "Открывается везде и сразу"
      },
      {
-      "en": "It runs in the browser, on a phone too; nothing to install.",
-      "tr": "Tarayıcıda, telefonda da çalışır; kurulacak bir şey yok.",
-      "ru": "Работает в браузере, и на телефоне тоже; ничего не нужно устанавливать."
+      "en": "In any browser, on any phone — nothing to install, nothing to explain.",
+      "tr": "Her tarayıcıda, her telefonda — ne kurulacak ne de anlatılacak bir şey var.",
+      "ru": "В любом браузере, на любом телефоне — ничего не нужно ни устанавливать, ни объяснять."
      }
     ]
    ],
@@ -657,9 +657,9 @@
     "ru": "Корпоративный сайт"
    },
    "one": {
-    "en": "One website for a group of three companies — clear to a customer, an investor and a job seeker alike.",
-    "tr": "Üç şirketlik bir grup için tek web sitesi — müşteri, yatırımcı ve iş arayan için aynı ölçüde anlaşılır.",
-    "ru": "Один сайт для группы из трёх компаний — одинаково понятный клиенту, инвестору и соискателю."
+    "en": "One website speaking for three companies — equally clear to a customer, an investor and a future employee.",
+    "tr": "Üç şirket adına tek sesle konuşan bir web sitesi — müşteriye, yatırımcıya ve geleceğin çalışanına aynı netlikte.",
+    "ru": "Один сайт, который говорит от имени трёх компаний, — одинаково ясно для клиента, инвестора и будущего сотрудника."
    },
    "quote": {
     "en": "Retail. Construction. Energy. One group.",
@@ -667,45 +667,45 @@
     "ru": "Ритейл. Строительство. Энергетика. Одна группа."
    },
    "task": {
-    "en": "Three companies under one name, each with its own audience. One site had to explain all three without turning into three sites.",
-    "tr": "Tek isim altında üç şirket, her birinin kendi kitlesi. Tek bir site, üç siteye dönüşmeden üçünü de anlatmalıydı.",
-    "ru": "Три компании под одним именем, у каждой своя аудитория. Один сайт должен был рассказать обо всех трёх и не превратиться в три сайта."
+    "en": "Retail, construction and energy under one name, each with an audience of its own. One site had to carry all three in a single voice — without splintering into three sites.",
+    "tr": "Perakende, inşaat ve enerji tek bir isim altında; her birinin kendi kitlesi var. Tek bir site üçünü tek bir sesle taşımalı — üç ayrı siteye bölünmeden.",
+    "ru": "Ритейл, строительство и энергетика под одним именем, у каждого направления своя аудитория. Один сайт должен был нести все три единым голосом — не распадаясь на три сайта."
    },
    "built": [
     [
      {
-      "en": "A page for each company",
-      "tr": "Her şirkete bir sayfa",
-      "ru": "Своя страница у каждой компании"
+      "en": "Three companies, one identity",
+      "tr": "Üç şirket, tek kimlik",
+      "ru": "Три компании, одна идентичность"
      },
      {
-      "en": "Larisel Park, Larisel İnşaat and Larisel Enerji, each with its own story and colour.",
-      "tr": "Larisel Park, Larisel İnşaat ve Larisel Enerji; her biri kendi hikâyesi ve rengiyle.",
-      "ru": "Larisel Park, Larisel İnşaat и Larisel Enerji — у каждой своя история и свой цвет."
+      "en": "Larisel Park, Larisel İnşaat and Larisel Enerji — each with its own story and colour, inside one coherent brand.",
+      "tr": "Larisel Park, Larisel İnşaat ve Larisel Enerji — her biri kendi hikâyesi ve rengiyle, tek ve tutarlı bir markanın içinde.",
+      "ru": "Larisel Park, Larisel İnşaat и Larisel Enerji — у каждой своя история и свой цвет внутри одного цельного бренда."
      }
     ],
     [
      {
-      "en": "Three languages",
-      "tr": "Üç dil",
-      "ru": "Три языка"
+      "en": "Three languages, one set of pages",
+      "tr": "Üç dil, tek sayfa seti",
+      "ru": "Три языка, один набор страниц"
      },
      {
-      "en": "Turkish, English and Russian from a single set of pages.",
-      "tr": "Tek sayfa setinden Türkçe, İngilizce ve Rusça.",
-      "ru": "Турецкий, английский и русский из одного набора страниц."
+      "en": "Turkish, English and Russian — every page in every language, always in step.",
+      "tr": "Türkçe, İngilizce ve Rusça — her sayfa her dilde, her zaman eşzamanlı.",
+      "ru": "Турецкий, английский и русский — каждая страница на каждом языке, всегда синхронно."
      }
     ],
     [
      {
-      "en": "The building, in 3D",
-      "tr": "Bina, 3B olarak",
-      "ru": "Здание в 3D"
+      "en": "The flagship, in 3D",
+      "tr": "Amiral proje, 3B olarak",
+      "ru": "Флагманский проект в 3D"
      },
      {
-      "en": "The construction page shows the group's project as a model you can turn.",
-      "tr": "İnşaat sayfası grubun projesini çevrilebilen bir model olarak gösterir.",
-      "ru": "Страница строительства показывает проект группы как модель, которую можно вращать."
+      "en": "The construction page presents the group's flagship building as a model visitors turn in their own hands.",
+      "tr": "İnşaat sayfası, grubun amiral binasını ziyaretçinin kendi elinde çevirdiği bir model olarak sunar.",
+      "ru": "Страница строительства представляет флагманское здание группы как модель, которую посетитель вращает сам."
      }
     ]
    ],
@@ -740,9 +740,9 @@
     "ru": "Телеграм-бот"
    },
    "one": {
-    "en": "A Telegram bot that carries a catalogue, a cart and a five-step checkout, with an admin panel and an Excel export behind it.",
-    "tr": "Katalog, sepet ve beş adımlı ödeme taşıyan bir Telegram botu; arkasında yönetim paneli ve Excel dışa aktarımı.",
-    "ru": "Telegram-бот с каталогом, корзиной и оформлением в пять шагов, а за ним — админ-панель и выгрузка в Excel."
+    "en": "A complete shop inside Telegram — catalogue, cart and a five-step checkout, with an admin panel and Excel export behind it.",
+    "tr": "Telegram'ın içinde eksiksiz bir mağaza — katalog, sepet ve beş adımlı ödeme; arkasında yönetim paneli ve Excel aktarımı.",
+    "ru": "Полноценный магазин внутри Telegram — каталог, корзина и оформление в пять шагов, а за ними админ-панель и выгрузка в Excel."
    },
    "quote": {
     "en": "Choose, confirm, done — inside Telegram.",
@@ -750,45 +750,45 @@
     "ru": "Выбрать, подтвердить, готово — прямо в Telegram."
    },
    "task": {
-    "en": "Orders came by phone and in scattered messages, and some were lost. The shop wanted ordering where its customers already talk.",
-    "tr": "Siparişler telefonla ve dağınık mesajlarla geliyor, bazıları kayboluyordu. Dükkân, müşterilerinin zaten konuştuğu yerde sipariş almak istedi.",
-    "ru": "Заказы приходили по телефону и в разрозненных сообщениях, часть терялась. Магазин хотел принимать заказы там, где клиенты и так общаются."
+    "en": "Orders arrived by phone and in scattered messages — and some were simply lost. The shop wanted every order captured, right where its customers already talk.",
+    "tr": "Siparişler telefonla ve dağınık mesajlarla geliyor, bir kısmı da kayboluyordu. Dükkân her siparişi, müşterilerinin zaten konuştuğu yerde eksiksiz yakalamak istedi.",
+    "ru": "Заказы приходили по телефону и в разрозненных сообщениях — и часть просто терялась. Магазин хотел фиксировать каждый заказ там, где клиенты и так общаются."
    },
    "built": [
     [
      {
-      "en": "Order in a chat",
-      "tr": "Sohbette sipariş",
-      "ru": "Заказ в чате"
+      "en": "Ordering, inside the chat",
+      "tr": "Sohbetin içinde sipariş",
+      "ru": "Заказ прямо в чате"
      },
      {
-      "en": "No app to install: the customer orders where they already talk.",
-      "tr": "Kurulacak uygulama yok: müşteri zaten konuştuğu yerden sipariş verir.",
-      "ru": "Ничего не нужно ставить: покупатель заказывает там, где и так общается."
+      "en": "No app, no sign-up: the customer orders right where they already talk.",
+      "tr": "Uygulama yok, üyelik yok: müşteri zaten konuştuğu yerden sipariş verir.",
+      "ru": "Ни приложения, ни регистрации: покупатель заказывает там, где и так общается."
      }
     ],
     [
      {
-      "en": "Nothing gets lost",
-      "tr": "Hiçbir şey kaybolmaz",
-      "ru": "Ничего не теряется"
+      "en": "Not a single order lost",
+      "tr": "Tek bir sipariş bile kaybolmaz",
+      "ru": "Ни один заказ не теряется"
      },
      {
-      "en": "Every step is checked and saved; an order is never half-taken.",
-      "tr": "Her adım kontrol edilir ve kaydedilir; hiçbir sipariş yarım kalmaz.",
-      "ru": "Каждый шаг проверяется и сохраняется; заказ не остаётся недооформленным."
+      "en": "Every step is checked and saved — no order is ever left half-taken.",
+      "tr": "Her adım kontrol edilir ve kaydedilir — hiçbir sipariş yarım kalmaz.",
+      "ru": "Каждый шаг проверяется и сохраняется — ни один заказ не остаётся недооформленным."
      }
     ],
     [
      {
-      "en": "The shop sees it all",
-      "tr": "Mağaza her şeyi görür",
-      "ru": "Магазин видит всё"
+      "en": "The whole day at a glance",
+      "tr": "Bütün gün tek bakışta",
+      "ru": "Весь день как на ладони"
      },
      {
-      "en": "An admin panel for the day's orders, and Excel when the accountant asks.",
-      "tr": "Günün siparişleri için yönetim paneli, muhasebeci isteyince de Excel.",
-      "ru": "Админ-панель с заказами за день и Excel, когда спросит бухгалтер."
+      "en": "An admin panel for the day's orders — and an Excel file the moment the accountant asks.",
+      "tr": "Günün siparişleri için yönetim paneli — muhasebeci istediği an Excel dosyası.",
+      "ru": "Админ-панель с заказами за день — и файл Excel, как только попросит бухгалтер."
      }
     ]
    ],
