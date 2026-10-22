@@ -241,9 +241,9 @@
     "ru": "Макароны в самом хрустящем виде."
    },
    "task": {
-    "en": "Kıtlax had a product worth showing and a website that showed almost nothing. The brief: make the making itself the star, give the brand the presence of a premium label on any shelf in the world — and turn a visitor from abroad into a distributor in a few steps.",
-    "tr": "Kıtlax'ın göstermeye değer bir ürünü vardı; sitesi ise neredeyse hiçbir şey göstermiyordu. Hedef netti: üretimin kendisini sahnenin yıldızı yapmak, markaya dünyanın her rafında premium bir duruş kazandırmak — ve yurt dışından gelen bir ziyaretçiyi birkaç adımda distribütöre dönüştürmek.",
-    "ru": "У Kıtlax был продукт, который стоит показать, и сайт, который не показывал почти ничего. Задача: сделать главным героем само производство, придать бренду облик премиальной марки на любой полке мира — и за несколько шагов превращать посетителя из-за рубежа в дистрибьютора."
+    "en": "What sets a macaroni crisp apart from an ordinary snack is hidden in the making: durum wheat, a bronze die, the right heat. The task was to make that craft felt from the very first second, present the brand like a premium product on the shelf — and let a distributor from anywhere in the world knock on the door in a few steps.",
+    "tr": "Bir makarna cipsini sıradan bir atıştırmalıktan ayıran şey, yapılışında saklı: durum buğdayı, bronz kalıp, doğru ısı. Görev, bu ustalığı daha ilk saniyede hissettirmek, markayı premium bir raf ürünü gibi sunmak ve dünyanın her yerinden bir distribütörün kapıyı birkaç adımda çalmasını sağlamaktı.",
+    "ru": "То, что отличает макаронные чипсы от обычного снека, скрыто в их производстве: твёрдая пшеница, бронзовая матрица, точная температура. Задача — дать почувствовать это мастерство с первой секунды, представить бренд как премиальный продукт на полке и позволить дистрибьютору из любой точки мира постучаться в дверь за несколько шагов."
    },
    "built": [
     [
@@ -315,9 +315,9 @@
     "ru": "Сайт больницы"
    },
    "one": {
-    "en": "A client project: a private hospital's website, in three languages, where an anxious patient finds the right doctor and requests an appointment within a minute.",
-    "tr": "Müşteri projesi: endişeli bir hastanın doğru hekimi bulup bir dakika içinde randevu talep ettiği, üç dilli bir özel hastane sitesi.",
-    "ru": "Проект для клиента: сайт частной больницы на трёх языках, где встревоженный пациент за минуту находит нужного врача и оставляет заявку на приём."
+    "en": "A client project: a private hospital's website, in three languages, where a patient finds the right doctor and requests an appointment within a minute.",
+    "tr": "Müşteri projesi: hastanın doğru hekimi bulup bir dakika içinde randevu talep ettiği, üç dilli bir özel hastane sitesi.",
+    "ru": "Проект для клиента: сайт частной больницы на трёх языках, где пациент за минуту находит нужного врача и оставляет заявку на приём."
    },
    "quote": {
     "en": "Health takes effort.",
@@ -325,9 +325,9 @@
     "ru": "Здоровье требует труда."
    },
    "task": {
-    "en": "Eighteen departments, twenty-five doctors, and patients who arrive anxious and on a phone. The site had to lead each of them to the right doctor without a single phone call — and give the hospital full control of its own content.",
-    "tr": "On sekiz bölüm, yirmi beş hekim ve çoğu zaman endişeyle, telefondan gelen hastalar. Site her birini tek bir telefon görüşmesine gerek kalmadan doğru hekime ulaştırmalı — ve hastaneye kendi içeriği üzerinde tam kontrol vermeliydi.",
-    "ru": "Восемнадцать отделений, двадцать пять врачей и пациенты, которые приходят встревоженными и с телефона. Сайт должен был привести каждого к нужному врачу без единого звонка — и дать больнице полный контроль над собственным содержимым."
+    "en": "Eighteen departments, twenty-five doctors. The task was to bring every patient — often someone looking on a phone — to the right doctor without a single phone call, and to give the hospital full control of its own content.",
+    "tr": "On sekiz bölüm, yirmi beş hekim. Görev, her hastayı — çoğu zaman telefonundan bakan birini — tek bir arama yapmadan doğru hekime ulaştırmak ve hastaneye kendi içeriği üzerinde tam kontrol vermekti.",
+    "ru": "Восемнадцать отделений, двадцать пять врачей. Задача — привести каждого пациента, чаще всего смотрящего с телефона, к нужному врачу без единого звонка и дать больнице полный контроль над собственным содержимым."
    },
    "built": [
     [
@@ -569,9 +569,9 @@
     "ru": "Конфигуратор кухни и интерьера"
    },
    "one": {
-    "en": "One link replaces the endless back-and-forth of renders — the client walks into the meeting already decided.",
-    "tr": "Tek bir link, bitmek bilmeyen render trafiğinin yerini alır — müşteri toplantıya kararını vermiş olarak gelir.",
-    "ru": "Одна ссылка заменяет бесконечный обмен рендерами — клиент приходит на встречу, уже приняв решение."
+    "en": "One link puts the whole kitchen in the client's hands — and the client walks into the meeting already decided.",
+    "tr": "Tek bir link bütün mutfağı müşterinin eline verir — müşteri toplantıya kararını vermiş olarak gelir.",
+    "ru": "Одна ссылка отдаёт клиенту всю кухню в руки — и он приходит на встречу, уже приняв решение."
    },
    "quote": {
     "en": "Let the client choose the room.",
@@ -579,9 +579,9 @@
     "ru": "Пусть клиент соберёт интерьер сам."
    },
    "task": {
-    "en": "A kitchen studio can spend weeks sending render after render while the client makes up their mind. One link had to put every material in the client's hands — and settle the decision before the first meeting.",
-    "tr": "Bir mutfak stüdyosu, müşteri karar verene kadar haftalarca render üstüne render gönderebilir. Tek bir link bütün malzemeleri müşterinin eline vermeli — ve kararı daha ilk toplantıdan önce netleştirmeliydi.",
-    "ru": "Кухонная студия может неделями отправлять рендер за рендером, пока клиент решается. Одна ссылка должна была отдать клиенту все материалы в руки — и закрыть решение ещё до первой встречи."
+    "en": "A kitchen studio's client wants to see the room with their own eyes before deciding. The task was to put every material in the client's hands through a single link — and settle the decision before the first meeting.",
+    "tr": "Bir mutfak stüdyosunun müşterisi, karar vermeden önce mekânı kendi gözüyle görmek ister. Görev, bütün malzemeleri tek bir linkle müşterinin eline vermek ve kararı daha ilk toplantıdan önce netleştirmekti.",
+    "ru": "Клиент кухонной студии хочет увидеть пространство своими глазами, прежде чем решить. Задача — одной ссылкой отдать ему в руки все материалы и закрыть решение ещё до первой встречи."
    },
    "built": [
     [
@@ -750,9 +750,9 @@
     "ru": "Выбрать, подтвердить, готово — прямо в Telegram."
    },
    "task": {
-    "en": "Orders arrived by phone and in scattered messages — and some were simply lost. The shop wanted every order captured, right where its customers already talk.",
-    "tr": "Siparişler telefonla ve dağınık mesajlarla geliyor, bir kısmı da kayboluyordu. Dükkân her siparişi, müşterilerinin zaten konuştuğu yerde eksiksiz yakalamak istedi.",
-    "ru": "Заказы приходили по телефону и в разрозненных сообщениях — и часть просто терялась. Магазин хотел фиксировать каждый заказ там, где клиенты и так общаются."
+    "en": "A shop's orders scatter across calls, messages and notes. The task was to capture every one of them, complete, right where its customers already talk.",
+    "tr": "Bir dükkânın siparişleri telefona, mesajlara ve notlara dağılır. Görev, her siparişi müşterilerin zaten konuştuğu yerde, eksiksiz yakalamaktı.",
+    "ru": "Заказы магазина разбросаны по звонкам, сообщениям и заметкам. Задача — фиксировать каждый из них полностью, прямо там, где клиенты и так общаются."
    },
    "built": [
     [
