@@ -291,10 +291,10 @@
     "ru": "Открыть сайт"
    },
    "media": {
-    "poster": "/media/kitlax-site.jpg?v=3",
-    "video": "/media/kitlax-site.mp4?v=3",
-    "posterTall": "/media/kitlax-site-phone.jpg?v=3",
-    "videoTall": "/media/kitlax-site-phone.mp4?v=3",
+    "poster": "/media/kitlax-site.jpg?v=4",
+    "video": "/media/kitlax-site.mp4?v=4",
+    "posterTall": "/media/kitlax-site-phone.jpg?v=4",
+    "videoTall": "/media/kitlax-site-phone.mp4?v=4",
     "still": "/film/kitlax/end-16x9.webp?v=3"
    }
   },
