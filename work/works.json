@@ -231,9 +231,9 @@
     "ru": "Бренд снеков"
    },
    "one": {
-    "en": "A client project: a macaroni-crisp brand's new website — the snack's whole journey from wheat to sealed bag told as one cinematic film, with a direct line to distributors worldwide.",
-    "tr": "Müşteri projesi: bir makarna cipsi markasının yeni yüzü — buğdaydan mühürlü poşete bütün yolculuk tek bir sinematik filmde, dünyanın dört bir yanındaki distribütörlere doğrudan bir hatla.",
-    "ru": "Проект для клиента: новый сайт бренда макаронных чипсов — весь путь от пшеницы до запаянной пачки в одном кинематографичном фильме и прямая линия для дистрибьюторов по всему миру."
+    "en": "A client project: a pasta-chips brand's new website — the snack's whole journey from wheat to sealed bag told as one cinematic film, and every flavour a tap away from its online shop.",
+    "tr": "Müşteri projesi: bir makarna cipsi markasının yeni yüzü — buğdaydan mühürlü poşete bütün yolculuk tek bir sinematik filmde, her aroma online mağazasına bir dokunuş uzaklıkta.",
+    "ru": "Проект для клиента: новый сайт бренда макаронных чипсов — весь путь от пшеницы до запаянной пачки в одном кинематографичном фильме, и каждый вкус в одном касании от интернет-магазина."
    },
    "quote": {
     "en": "Pasta at its crispiest.",
@@ -241,9 +241,9 @@
     "ru": "Макароны в самом хрустящем виде."
    },
    "task": {
-    "en": "What sets a macaroni crisp apart from an ordinary snack is hidden in the making: durum wheat, a bronze die, the right heat. The task was to make that craft felt from the very first second, present the brand like a premium product on the shelf — and let a distributor from anywhere in the world knock on the door in a few steps.",
-    "tr": "Bir makarna cipsini sıradan bir atıştırmalıktan ayıran şey, yapılışında saklı: durum buğdayı, bronz kalıp, doğru ısı. Görev, bu ustalığı daha ilk saniyede hissettirmek, markayı premium bir raf ürünü gibi sunmak ve dünyanın her yerinden bir distribütörün kapıyı birkaç adımda çalmasını sağlamaktı.",
-    "ru": "То, что отличает макаронные чипсы от обычного снека, скрыто в их производстве: твёрдая пшеница, бронзовая матрица, точная температура. Задача — дать почувствовать это мастерство с первой секунды, представить бренд как премиальный продукт на полке и позволить дистрибьютору из любой точки мира постучаться в дверь за несколько шагов."
+    "en": "What sets pasta chips apart from an ordinary snack is hidden in the making: durum wheat, a bronze die, the right heat. The task was to make that craft felt from the very first second, present the brand like a premium product on the shelf — and take a visitor from the first frame to the shop in a few steps.",
+    "tr": "Bir makarna cipsini sıradan bir atıştırmalıktan ayıran şey, yapılışında saklı: durum buğdayı, bronz kalıp, doğru ısı. Görev, bu ustalığı daha ilk saniyede hissettirmek, markayı premium bir raf ürünü gibi sunmak ve ziyaretçiyi ilk kareden mağazaya birkaç adımda ulaştırmaktı.",
+    "ru": "То, что отличает макаронные чипсы от обычного снека, скрыто в их производстве: твёрдая пшеница, бронзовая матрица, точная температура. Задача — дать почувствовать это мастерство с первой секунды, представить бренд как премиальный продукт на полке и за несколько шагов довести посетителя от первого кадра до магазина."
    },
    "built": [
     [
@@ -265,21 +265,21 @@
       "ru": "Сцена для каждого вкуса"
      },
      {
-      "en": "Four flavours, four signature shapes — each with a page of its own: its colours, its shape and its full product sheet.",
-      "tr": "Dört aroma, dört imza şekil — her birinin kendi renkleri, şekli ve eksiksiz ürün bilgileriyle ayrı bir sayfası.",
-      "ru": "Четыре вкуса, четыре фирменные формы — у каждого своя страница: свои цвета, своя форма и полное описание продукта."
+      "en": "Four flavours, each with a page of its own: its colours, its ingredient and its full product sheet.",
+      "tr": "Dört aroma; her birinin kendi renkleri, malzemesi ve eksiksiz ürün bilgileriyle ayrı bir sayfası.",
+      "ru": "Четыре вкуса — у каждого своя страница: свои цвета, свой ингредиент и полное описание продукта."
      }
     ],
     [
      {
-      "en": "A direct line to distributors",
-      "tr": "Distribütöre doğrudan hat",
-      "ru": "Прямая линия к дистрибьюторам"
+      "en": "In four languages, straight to the shop",
+      "tr": "Dört dilde, doğrudan mağazaya",
+      "ru": "На четырёх языках — сразу в магазин"
      },
      {
-      "en": "In Turkish, English, Arabic and Spanish, a visitor from any market writes to the company in a minute — the cases per flavour already in the request.",
-      "tr": "Türkçe, İngilizce, Arapça ve İspanyolca: hangi pazardan gelirse gelsin ziyaretçi firmaya bir dakikada yazar — aroma başına koli sayısı talebin içinde hazır.",
-      "ru": "На турецком, английском, арабском и испанском: посетитель с любого рынка за минуту пишет компании — число коробок по вкусам уже в заявке."
+      "en": "Turkish, English, Arabic and Spanish — and every flavour one tap from the brand's online shop.",
+      "tr": "Türkçe, İngilizce, Arapça ve İspanyolca — her aroma, markanın online mağazasına bir dokunuş uzaklıkta.",
+      "ru": "Турецкий, английский, арабский и испанский — и каждый вкус в одном касании от интернет-магазина бренда."
      }
     ]
    ],
