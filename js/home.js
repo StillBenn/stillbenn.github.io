@@ -110,10 +110,21 @@
      a dark one over the night stops and recordings */
   var hdr = document.querySelector(".hdr");
   var nights = [].slice.call(document.querySelectorAll(".stop--night, .excerpt--night, .allwork, .start, .foot"));
+  var films = [].slice.call(document.querySelectorAll(".film"));
   function stuck() {
     if (!hdr) return;
-    var onFilm = html.dataset.film === "dark" || html.dataset.film === "light";
     var line = hdr.offsetHeight, night = false, under = false;
+    /* the film's tone (html[data-film]) is set once a film reaches the middle of the screen; the header
+       follows it only when that film is under the header itself — until then the section before it
+       (a recording's buttons, a site's footer) is still there, and a bare header ran into it */
+    var mode = html.dataset.film, onFilm = false;
+    if (mode === "dark" || mode === "light") {
+      for (var f = 0; f < films.length; f++) {
+        var fr = films[f].getBoundingClientRect();
+        if (fr.top <= line && fr.bottom > line) { onFilm = true; break; }
+      }
+    }
+    if ((hdr.dataset.over || "") !== (onFilm ? mode : "")) hdr.dataset.over = onFilm ? mode : "";
     for (var i = 0; i < nights.length; i++) {
       var r = nights[i].getBoundingClientRect();
       if (!r.height || r.bottom <= line) continue;
@@ -176,6 +187,8 @@
   if (mcta) {
     var opening = document.querySelector('.film[data-film="main"]');
     var ends = [document.getElementById("start"), document.querySelector(".foot")].filter(Boolean);
+    /* a stop's own "Contact us" button: while it is on screen the pill would only say it twice */
+    [].forEach.call(document.querySelectorAll('main a[href="#start"]'), function (a) { ends.push(a); });
     var ctaPlace = function () {
       var past = opening ? opening.getBoundingClientRect().bottom < innerHeight * 0.5 : scrollY > innerHeight;
       var near = ends.some(function (el) { var r = el.getBoundingClientRect(); return r.top < innerHeight * 0.92 && r.bottom > 0; });

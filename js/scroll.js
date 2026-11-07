@@ -212,9 +212,8 @@
   });
 
   /* ---- Night or day behind a point (the scrollbar and the way back up read it) ----
-     A film filling the screen says its tone (film.js html[data-film]); otherwise a film's
-     picture (its data-tone), a picture, a clip or a held frame (their own pixels behind
-     the point) or the first solid ground decides. A picture is read together with the
+     A film under the point says its tone (film.js data-tone); otherwise a picture, a clip or
+     a held frame (their own pixels behind the point) or the first solid ground decides. A picture is read together with the
      ground its section was designed on: a night section's picture sits under a shade, so
      it turns a control to ink only when it is clearly bright (a cream one's only when
      clearly dark). groundAt.clip: a playing clip was read (it may change; look again). */
@@ -246,8 +245,6 @@
   /* x, y: the point; half: half the size of the control there */
   function groundAt(x, y, half) {
     groundAt.clip = false;
-    var f = root.dataset.film;
-    if (f === "dark" || f === "light") return f === "dark" ? "night" : "day";
     var els = document.elementsFromPoint(x, y), lum = -1;
     var box = function (el) { return mediaLum(el, x - half, x + half, y - half, y + half); };
     for (var i = 0; i < els.length; i++) {
@@ -259,11 +256,12 @@
         if (lum < 0) { lum = box(el); if (el.tagName === "VIDEO" && lum >= 0) groundAt.clip = true; }
         continue;
       }
-      if (el.tagName === "CANVAS") {
-        /* a film's picture: the film says what it shows (film.js data-tone), unless it has faded out */
-        var film = el.closest("[data-film]");
-        if (film && film.dataset.tone && !film.classList.contains("is-faded")) return film.dataset.tone === "dark" ? "night" : "day";
-        continue;
+      /* inside a film (its picture, its words, its stage): the film says what it shows (film.js
+         data-tone) — not the page's film tone, which is the film at mid-screen, maybe not this point's */
+      var film = el.closest && el.closest(".film");
+      if (film) {
+        if (film.dataset.tone && !film.classList.contains("is-faded")) return film.dataset.tone === "dark" ? "night" : "day";
+        if (el.tagName === "CANVAS") continue;
       }
       if (lum < 0 && (el === document.body || el === root)) {
         /* down to the page itself: a film's last frame may be held behind it (js/plate.js .plate,
@@ -286,9 +284,7 @@
 
   /* ---- The scrollbar (home.css .sbar) ----
      Mouse pointers only; touch screens keep their own. The thumb reads what is
-     under it: a film filling the screen says its tone (film.js html[data-film]);
-     otherwise a film's picture (its data-tone), a picture, a clip or a held frame
-     (their own pixels behind the thumb) or the first solid ground decides night or day.
+     under it (groundAt above) and turns to night or day.
      Dragging it moves the page on the same spring as the wheel while the thumb
      stays under the hand; a click on the track glides there, or fades through
      when the way is long, as in-page links do. Reduced motion: no glide. */
@@ -303,7 +299,7 @@
     root.classList.add("has-sbar");
 
     var INSET = 14, MIN = 44;
-    var trackH = 0, thumbH = 0, room = 0, docMax = 0, thumbY = INSET, queued = false, toneAt = 0, sleep = 0, drag = null;
+    var trackH = 0, thumbH = 0, room = 0, docMax = 0, thumbY = INSET, queued = false, toneAt = 0, trail = 0, sleep = 0, drag = null;
 
     function geom() {
       var vh = window.innerHeight, sh = root.scrollHeight;
@@ -322,7 +318,9 @@
       queued = false;
       if (!drag) put(INSET + (docMax ? window.scrollY / docMax : 0) * room);
       var now = performance.now();
+      clearTimeout(trail);
       if (now - toneAt > 120) { toneAt = now; tone(); }
+      else trail = setTimeout(function () { toneAt = performance.now(); tone(); }, 130);   /* the last position always gets its look */
     }
     function queue() { if (!queued) { queued = true; requestAnimationFrame(place); } }
 
@@ -392,7 +390,10 @@
     window.addEventListener("scroll", function () { queue(); wake(); }, { passive: true });
     window.addEventListener("resize", function () { geom(); queue(); });
     if ("ResizeObserver" in window) new ResizeObserver(function () { geom(); queue(); }).observe(document.body);
-    new MutationObserver(function () { toneAt = 0; queue(); }).observe(root, { attributes: true, attributeFilter: ["data-film"] });
+    var retone = new MutationObserver(function () { toneAt = 0; queue(); });
+    retone.observe(root, { attributes: true, attributeFilter: ["data-film"] });
+    /* a film changing what it shows (film.js data-tone, its fade) under a thumb at rest */
+    [].forEach.call(document.querySelectorAll(".film"), function (f) { retone.observe(f, { attributes: true, attributeFilter: ["data-tone", "class"] }); });
     document.addEventListener("visibilitychange", function () { if (!document.hidden) tone(); });
     geom();
     place();
@@ -409,12 +410,18 @@
   if (up) (function () {
     var skips = document.querySelectorAll(".film__skip");
     var base = document.querySelector(".foot__base");
-    var queued = false, toneAt = 0, again = 0, glide = 0;
+    var queued = false, toneAt = 0, trail = 0, again = 0, glide = 0;
 
+    /* where the skip is heading, not where its fade is now: a jump back into the opening caught it at
+       0.01 on its way up and both stood in the corner (its opacity is 1 - the film's --film-end) */
     function skipShown() {
+      if (root.classList.contains("is-loading")) return false;
       for (var i = 0; i < skips.length; i++) {
         var r = skips[i].getBoundingClientRect();
-        if (r.bottom > 0 && r.top < window.innerHeight && parseFloat(getComputedStyle(skips[i]).opacity) > 0.05) return true;
+        if (r.bottom <= 0 || r.top >= window.innerHeight) continue;
+        var film = skips[i].closest(".film");
+        var end = film ? parseFloat(getComputedStyle(film).getPropertyValue("--film-end")) || 0 : 0;
+        if (end < 0.95) return true;
       }
       return false;
     }
@@ -439,7 +446,9 @@
       }
       up.style.setProperty("--top-lift", lift.toFixed(1) + "px");
       var now = performance.now();
+      clearTimeout(trail);
       if (on && now - toneAt > 150) { toneAt = now; tone(); }
+      else if (on) trail = setTimeout(function () { toneAt = performance.now(); tone(); }, 160);
     }
     function queue() { if (!queued) { queued = true; requestAnimationFrame(place); } }
 
@@ -486,7 +495,10 @@
 
     window.addEventListener("scroll", queue, { passive: true });
     window.addEventListener("resize", queue);
-    new MutationObserver(queue).observe(root, { attributes: true, attributeFilter: ["data-film", "class"] });
+    var watch = new MutationObserver(function () { toneAt = 0; queue(); });
+    watch.observe(root, { attributes: true, attributeFilter: ["data-film", "class"] });
+    /* style: the film's --film-end, which brings the skip back as the playhead catches up, with no scroll */
+    [].forEach.call(document.querySelectorAll(".film"), function (f) { watch.observe(f, { attributes: true, attributeFilter: ["data-tone", "class", "style"] }); });
     document.addEventListener("visibilitychange", function () { if (!document.hidden) { toneAt = 0; queue(); } });
     queue();
   })();

@@ -79,6 +79,7 @@
       "Language": "Dil",
       "Larisel — the studio's film": "Larisel — stüdyonun filmi",
       "Larisel — 3D & web studio": "Larisel — 3B ve web stüdyosu",
+      "— 3D & web studio": "— 3B ve web stüdyosu",
       "We turn your product": "Ürününüz:",
       "into a film you scroll": "kaydırdıkça oynayan film",
       "and": "ve",
@@ -366,6 +367,7 @@
       "Language": "Язык",
       "Larisel — the studio's film": "Larisel — фильм студии",
       "Larisel — 3D & web studio": "Larisel — студия 3D и веба",
+      "— 3D & web studio": "— студия 3D и веба",
       "We turn your product": "Ваш продукт —",
       "into a film you scroll": "фильм при прокрутке",
       "and": "и",
@@ -699,6 +701,10 @@
     return DEFAULT_LANG;
   }
   function current() {
+    /* a link can carry its language (?lang=tr): a page sent to a client opens in the client's
+       language whatever their browser or an earlier visit chose — and stays in it */
+    var asked = (location.search.match(/[?&]lang=([a-z]{2})(?:&|#|$)/i) || [])[1];
+    if (asked) { asked = asked.toLowerCase(); if (asked === "en" || DICT[asked]) return asked; }
     try { return localStorage.getItem(STORE) || browserLang(); }
     catch (e) { return browserLang(); }
   }

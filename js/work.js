@@ -16,12 +16,14 @@
 
   var hdr = document.querySelector(".hdr");
   /* over a page's opening picture (a project's moment, the studio's mark) the header is light and has no
-     ground; past it, its usual self. About is night all the way down. */
+     ground while the page rests at the top; once it moves, the header takes a night ground there too —
+     without it the hero's own title scrolled straight through the menu on a phone. Past the picture, its
+     usual self. About is night all the way down. */
   var hero = document.querySelector(".case-hero, .about-hero"), night = document.body.classList.contains("pg-about");
   var stuck = function () {
     if (!hdr) return;
     var past = hero ? hero.getBoundingClientRect().bottom <= hdr.offsetHeight : true;
-    hdr.classList.toggle("is-stuck", scrollY > 10 && past);
+    hdr.classList.toggle("is-stuck", scrollY > 10);
     hdr.classList.toggle("is-night", night || (hero && !past));
   };
   addEventListener("scroll", stuck, { passive: true }); stuck();

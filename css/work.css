@@ -161,9 +161,12 @@ a.show__media:hover .show__phone { transform: translate3d(0, -10px, 0); }
 .case-hero::after { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
   background: linear-gradient(0deg, rgba(8, 7, 7, 0.86) 0%, rgba(8, 7, 7, 0.55) 30%, rgba(8, 7, 7, 0) 62%),
               linear-gradient(90deg, rgba(8, 7, 7, 0.5) 0%, rgba(8, 7, 7, 0) 58%),
-              linear-gradient(180deg, rgba(8, 7, 7, 0.45) 0, rgba(8, 7, 7, 0) 9rem); }
+              linear-gradient(180deg, rgba(8, 7, 7, 0.6) 0, rgba(8, 7, 7, 0.28) 5rem, rgba(8, 7, 7, 0) 10rem); }   /* the menu reads over a pale wall too */
 .case-hero__in { max-width: 46rem; }
-.case-hero .case-back { position: absolute; top: calc(var(--hdr-h) + 0.75rem); left: var(--pad-edge); color: rgba(243, 237, 225, 0.78); }
+/* "All projects" over the opening picture: a small glass pill, readable over a pale wall as over a dark one */
+.case-hero .case-back { position: absolute; top: calc(var(--hdr-h) + 0.75rem); left: var(--pad-edge); min-height: 2.4rem; padding: 0 0.95rem 0 0.8rem;
+  border-radius: 999px; color: rgba(243, 237, 225, 0.92); background: rgba(11, 11, 15, 0.36); box-shadow: inset 0 0 0 1px rgba(243, 237, 225, 0.16);
+  -webkit-backdrop-filter: blur(12px) saturate(1.15); backdrop-filter: blur(12px) saturate(1.15); }
 .case-hero .case-back:hover { color: var(--c-ivory); }
 .case-hero .case-meta { color: rgba(243, 237, 225, 0.62); margin-top: 0; }
 .case-hero .case-hero__title { color: var(--c-ivory); margin: var(--s-4) 0 var(--s-5); }
@@ -176,7 +179,7 @@ a.show__media:hover .show__phone { transform: translate3d(0, -10px, 0); }
 .case-media { margin-top: clamp(3rem, 2rem + 4vw, 6rem); }
 @media (orientation: portrait) {
   .case-hero::after { background: linear-gradient(0deg, rgba(8, 7, 7, 0.92) 0%, rgba(8, 7, 7, 0.7) 38%, rgba(8, 7, 7, 0) 70%),
-                                  linear-gradient(180deg, rgba(8, 7, 7, 0.45) 0, rgba(8, 7, 7, 0) 9rem); }
+                                  linear-gradient(180deg, rgba(8, 7, 7, 0.6) 0, rgba(8, 7, 7, 0.28) 5rem, rgba(8, 7, 7, 0) 10rem); }
 }
 
 /* ==== About: one sign on one wall (19.10). The studio's mark lights up and stays lit behind the whole page;
@@ -233,5 +236,6 @@ a.show__media:hover .show__phone { transform: translate3d(0, -10px, 0); }
   .about-hero__more { left: 50%; }
   .about-stage::after { background: linear-gradient(0deg, rgba(11, 11, 15, 0.94) 0%, rgba(11, 11, 15, 0.62) 36%, rgba(11, 11, 15, 0) 60%); }
   .about-stage__veil { background: rgba(11, 11, 15, 0.8); }
+  .about-who__in { max-width: 36rem; }   /* the room is dimmed whole here: the words take the width (at 46vw a phone had a 180px column) */
 }
 @media (prefers-reduced-motion: reduce) { .about-hero__in, .about-hero__more { opacity: 1; transform: none; transition: none; } .about-hero__more i { animation: none; } }
