@@ -203,4 +203,186 @@
     /* (a page whose address holds its filter, Projects' #film…, keeps it) */
     if (history.replaceState && !document.querySelector(".work-filter")) history.replaceState(null, "", "#" + id);
   });
+
+  /* ---- The scrollbar (home.css .sbar) ----
+     Mouse pointers only; touch screens keep their own. The thumb reads what is
+     under it: a film filling the screen says its tone (film.js html[data-film]);
+     otherwise a film's picture (its data-tone), a picture, a clip or a held frame
+     (their own pixels behind the thumb) or the first solid ground decides night or day.
+     Dragging it moves the page on the same spring as the wheel while the thumb
+     stays under the hand; a click on the track glides there, or fades through
+     when the way is long, as in-page links do. Reduced motion: no glide. */
+  if (fine && matchMedia("(hover: hover)").matches) (function () {
+    var bar = document.createElement("div");
+    bar.className = "sbar";
+    bar.setAttribute("aria-hidden", "true");
+    var thumb = document.createElement("i");
+    thumb.className = "sbar__thumb";
+    bar.appendChild(thumb);
+    document.body.appendChild(bar);
+    root.classList.add("has-sbar");
+
+    var INSET = 14, MIN = 44;
+    var trackH = 0, thumbH = 0, room = 0, docMax = 0, thumbY = INSET, queued = false, toneAt = 0, sleep = 0, drag = null;
+
+    function geom() {
+      var vh = window.innerHeight, sh = root.scrollHeight;
+      docMax = Math.max(0, sh - vh);
+      trackH = vh - INSET * 2;
+      thumbH = Math.max(MIN, Math.min(trackH, trackH * vh / Math.max(1, sh)));
+      room = Math.max(1, trackH - thumbH);
+      thumb.style.height = thumbH + "px";
+      bar.hidden = docMax < 2;
+    }
+    function put(y) {
+      thumbY = Math.min(INSET + room, Math.max(INSET, y));
+      thumb.style.transform = "translate3d(0," + thumbY.toFixed(1) + "px,0)";
+    }
+    function place() {
+      queued = false;
+      if (!drag) put(INSET + (docMax ? window.scrollY / docMax : 0) * room);
+      var now = performance.now();
+      if (now - toneAt > 120) { toneAt = now; tone(); }
+    }
+    function queue() { if (!queued) { queued = true; requestAnimationFrame(place); } }
+
+    /* how bright a picture or clip is right behind the thumb: the strip of the source that
+       object-fit puts there, read through an 8×8 canvas (-1: not drawable yet, or not ours) */
+    var probe = document.createElement("canvas");
+    probe.width = probe.height = 8;
+    var pctx = probe.getContext("2d", { willReadFrequently: true });
+    function mediaLum(el, y) {
+      var w = el.naturalWidth || el.videoWidth, h = el.naturalHeight || el.videoHeight;
+      if (!w || !h || !pctx) return -1;
+      var r = el.getBoundingClientRect();
+      if (!r.width || !r.height) return -1;
+      var fit = getComputedStyle(el).objectFit, sx = r.width / w, sy = r.height / h;
+      if (fit === "cover") sx = sy = Math.max(sx, sy);
+      else if (fit === "contain") sx = sy = Math.min(sx, sy);
+      var ox = r.left + (r.width - w * sx) / 2, oy = r.top + (r.height - h * sy) / 2;
+      var x0 = (window.innerWidth - 20 - ox) / sx, x1 = (window.innerWidth - ox) / sx;
+      var y0 = (y - thumbH / 2 - oy) / sy, y1 = (y + thumbH / 2 - oy) / sy;
+      x0 = Math.max(0, Math.min(w - 1, x0)); x1 = Math.max(x0 + 1, Math.min(w, x1));
+      y0 = Math.max(0, Math.min(h - 1, y0)); y1 = Math.max(y0 + 1, Math.min(h, y1));
+      try {
+        pctx.clearRect(0, 0, 8, 8);
+        pctx.drawImage(el, x0, y0, x1 - x0, y1 - y0, 0, 0, 8, 8);
+        var d = pctx.getImageData(0, 0, 8, 8).data, s = 0, n = 0;
+        for (var k = 0; k < d.length; k += 4) if (d[k + 3] > 128) { s += 0.2126 * d[k] + 0.7152 * d[k + 1] + 0.0722 * d[k + 2]; n++; }
+        return n ? s / n / 255 : -1;
+      } catch (err) { return -1; }
+    }
+
+    /* night or day under the middle of the thumb. A picture or clip is read together with the
+       ground its section was designed on: a night section's picture sits under a shade, so it
+       turns the thumb to ink only when it is clearly bright (and a cream section's only when clearly dark). */
+    function ground(y) {
+      var f = root.dataset.film;
+      if (f === "dark" || f === "light") return f === "dark" ? "night" : "day";
+      var els = document.elementsFromPoint(window.innerWidth - 9, y), lum = -1;
+      for (var i = 0; i < els.length; i++) {
+        var el = els[i];
+        if (bar.contains(el) || (el.closest && el.closest(".hdr, .veil, .mcta"))) continue;
+        var cs = getComputedStyle(el);
+        if (parseFloat(cs.opacity) < 0.5) continue;
+        if (el.tagName === "IMG" || el.tagName === "VIDEO") {
+          if (lum < 0) { lum = mediaLum(el, y); if (el.tagName === "VIDEO" && lum >= 0) clip = true; }
+          continue;
+        }
+        if (el.tagName === "CANVAS") {
+          /* a film's picture: the film says what it shows (film.js data-tone), unless it has faded out */
+          var film = el.closest("[data-film]");
+          if (film && film.dataset.tone && !film.classList.contains("is-faded")) return film.dataset.tone === "dark" ? "night" : "day";
+          continue;
+        }
+        if (lum < 0 && (el === document.body || el === root)) {
+          /* down to the page itself: a film's last frame may be held behind it (js/plate.js .plate,
+             fixed and out of the pointer's way, so the point never lists it) — then it is the ground */
+          var plates = document.querySelectorAll("img.plate");
+          for (var j = 0; j < plates.length; j++) {
+            if (parseFloat(getComputedStyle(plates[j]).opacity) < 0.5) continue;
+            var pl = mediaLum(plates[j], y);
+            if (pl >= 0) return pl < 0.45 ? "night" : "day";
+          }
+        }
+        var m = cs.backgroundColor.match(/[\d.]+/g);
+        if (!m || (m.length > 3 && parseFloat(m[3]) < 0.5)) continue;
+        var night = (0.2126 * m[0] + 0.7152 * m[1] + 0.0722 * m[2]) / 255 < 0.45;
+        if (lum < 0) return night ? "night" : "day";
+        return night ? (lum > 0.58 ? "day" : "night") : (lum < 0.35 ? "night" : "day");
+      }
+      return lum >= 0 && lum < 0.45 ? "night" : "day";
+    }
+    /* a clip changes under a thumb at rest: while one is behind it, look again every second */
+    var clip = false, again = 0;
+    function tone() {
+      clip = false;
+      bar.classList.toggle("is-day", ground(thumbY + thumbH / 2) === "day");
+      clearTimeout(again);
+      if (clip) again = setTimeout(function () { if (!document.hidden) tone(); }, 1000);
+    }
+
+    function wake() {
+      bar.classList.add("is-awake");
+      clearTimeout(sleep);
+      sleep = setTimeout(function () { if (!drag) bar.classList.remove("is-awake"); tone(); }, 1300);
+    }
+
+    function go(to, glide) {
+      measure();
+      to = clamp(to);
+      if (reduced) { window.scrollTo(0, to); return; }
+      if (glide && Math.abs(to - window.scrollY) > window.innerHeight * 2.5) {
+        current = target = written = to; vel = 0; running = false;
+        fadeJump(to);
+        return;
+      }
+      target = to;
+      start();
+    }
+
+    thumb.addEventListener("pointerdown", function (e) {
+      if (e.button !== 0) return;
+      e.preventDefault();
+      e.stopPropagation();
+      geom();
+      drag = { dy: e.clientY - thumbY };
+      thumb.setPointerCapture(e.pointerId);
+      bar.classList.add("is-drag", "is-awake");
+      root.classList.add("is-sbar-drag");
+    });
+    thumb.addEventListener("pointermove", function (e) {
+      if (!drag) return;
+      put(e.clientY - drag.dy);
+      go((thumbY - INSET) / room * docMax, false);
+    });
+    function release() {
+      if (!drag) return;
+      drag = null;
+      bar.classList.remove("is-drag");
+      root.classList.remove("is-sbar-drag");
+      wake();
+      queue();
+    }
+    thumb.addEventListener("pointerup", release);
+    thumb.addEventListener("pointercancel", release);
+    thumb.addEventListener("lostpointercapture", release);
+
+    bar.addEventListener("pointerdown", function (e) {
+      if (e.button !== 0 || e.target === thumb) return;
+      e.preventDefault();
+      geom();
+      go(Math.min(1, Math.max(0, (e.clientY - INSET - thumbH / 2) / room)) * docMax, true);
+      wake();
+    });
+    bar.addEventListener("pointerenter", wake);
+
+    window.addEventListener("scroll", function () { queue(); wake(); }, { passive: true });
+    window.addEventListener("resize", function () { geom(); queue(); });
+    if ("ResizeObserver" in window) new ResizeObserver(function () { geom(); queue(); }).observe(document.body);
+    new MutationObserver(function () { toneAt = 0; queue(); }).observe(root, { attributes: true, attributeFilter: ["data-film"] });
+    document.addEventListener("visibilitychange", function () { if (!document.hidden) tone(); });
+    geom();
+    place();
+  })();
 })();

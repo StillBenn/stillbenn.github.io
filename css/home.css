@@ -829,6 +829,48 @@ html.has-modal { overflow: hidden; }
 }
 .veil.is-on { opacity: 1; transition: opacity 240ms ease-in; }
 
+/* ---- the scrollbar (js/scroll.js) ------------------------------------------------
+   The system's grey bar with its arrows was the one piece of Windows left on the
+   page. On a mouse it gives way to a hairline track and a thumb drawn like the
+   mark: a lit filament (the neon L's warm core and glow) over the night, a line
+   of ink over the cream page. It rests at half strength and wakes while the page
+   moves or the pointer comes near. Touch screens keep their own. */
+html.has-sbar { scrollbar-width: none; }
+html.has-sbar::-webkit-scrollbar { display: none; }
+html.is-sbar-drag, html.is-sbar-drag * { -webkit-user-select: none; user-select: none; }
+.sbar { position: fixed; top: 0; right: 0; bottom: 0; z-index: 35; width: 18px; }
+.sbar[hidden] { display: none; }
+.sbar::before {                                    /* the track */
+  content: ""; position: absolute; top: 14px; bottom: 14px; right: 8px; width: 1px;
+  background: rgba(243, 237, 225, 0.13); opacity: 0;
+  transition: opacity 700ms var(--e-out), background-color 500ms var(--e-out);
+}
+.sbar.is-day::before { background: rgba(23, 21, 15, 0.13); }
+.sbar__thumb {
+  position: absolute; top: 0; right: 7px; width: 3px; border-radius: 3px; will-change: transform;
+  opacity: 0.5; transition: opacity 700ms var(--e-out), width 260ms var(--e-out), right 260ms var(--e-out);
+}
+.sbar__thumb::before, .sbar__thumb::after { content: ""; position: absolute; inset: 0; border-radius: inherit; transition: opacity 500ms var(--e-out); }
+/* each keeps a hairline of the other tone: lost on its own ground, it holds the line
+   over a picture whose brightness was misread */
+.sbar__thumb::before {                             /* over the night: the tube's core, its warm light, its glow */
+  background: linear-gradient(180deg, #fff3df 0%, #f6d9b0 42%, var(--c-light) 100%);
+  box-shadow: 0 0 0 1px rgba(11, 11, 15, 0.22), 0 0 4px rgba(255, 196, 128, 0.7), 0 0 14px rgba(255, 168, 88, 0.3);
+}
+.sbar__thumb::after {                              /* over the page: ink */
+  background: rgba(23, 21, 15, 0.62); opacity: 0;
+  box-shadow: 0 0 0 1px rgba(243, 237, 225, 0.45);
+}
+.sbar.is-day .sbar__thumb::before { opacity: 0; }
+.sbar.is-day .sbar__thumb::after { opacity: 1; }
+.sbar.is-awake::before, .sbar:hover::before, .sbar.is-drag::before { opacity: 1; }
+.sbar.is-awake .sbar__thumb { opacity: 0.92; }
+.sbar:hover .sbar__thumb, .sbar.is-drag .sbar__thumb { opacity: 1; width: 5px; right: 6px; }
+html.has-modal .sbar { opacity: 0; pointer-events: none; }
+@media (prefers-reduced-motion: reduce) {
+  .sbar::before, .sbar__thumb, .sbar__thumb::before, .sbar__thumb::after { transition: none; }
+}
+
 /* ---- reduced motion: the words without the travel ------------------------------ */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { transition-duration: 1ms !important; animation: none !important; }

@@ -678,6 +678,7 @@ export async function mountFilm(root, primary = true) {
        opening's poster is its written mark, in the film's own tone */
     const stillTone = root.classList.contains("film--page") ? END_TONE : TONE;
     root.classList.toggle("is-night", stillTone === "dark" && TONE === "light");
+    root.dataset.tone = stillTone;     /* js/scroll.js: the scrollbar reads the picture it crosses */
     new IntersectionObserver(([e]) => setMode(e.isIntersecting ? stillTone : "")).observe(root);
     /* nothing will hand over: what waits behind the film shows as it is */
     if (primary) window.__filmStill = true;
@@ -1162,6 +1163,8 @@ export async function mountFilm(root, primary = true) {
     if ((tone === "dark" && TONE === "light") !== night) { night = !night; root.classList.toggle("is-night", night); }
     if ((tone === "light" && TONE === "dark") !== day) { day = !day; root.classList.toggle("is-day", day); }   /* dark type over the bright worlds */
     setMode(handoff ? (past >= 0 ? "" : endP < 0.5 ? tone : END_TONE) : past > innerHeight * 0.5 ? "" : tone);
+    const seen = handoff && endP >= 0.5 ? END_TONE : tone;     /* what the picture itself shows now (js/scroll.js) */
+    if (root.dataset.tone !== seen) root.dataset.tone = seen;
     if (probe) probe.log.push([now, shown, hiTarget ? hi : 0, store.pending.size, +behind.toFixed(2), stride, +target.toFixed(2), store.blobs[a] ? 1 : 0, store.loaded]);
     /* the opening headline waits for the curtain (js/intro.js) */
     if (!introT0 && !curtain) { introT0 = now; root.classList.add("is-live"); }
