@@ -38,9 +38,14 @@
   veil.setAttribute("aria-hidden", "true");
   document.body.appendChild(veil);
   var jumps = 0;
-  function fadeJump(to, then) {
+  var goUp = null;                       /* the way back up (set below, where the corner button lives) */
+  /* look: extra veil classes for this jump — "is-night is-soft" fades slowly through the night
+     (the way back up to a night film); the default is a quick fade through the cream page */
+  function fadeJump(to, then, look) {
     if (reduced) { window.scrollTo(0, to); if (then) then(); return; }
     var mine = ++jumps;                  /* a second jump inside the first one's fade owns the veil from then on */
+    veil.className = "veil" + (look ? " " + look : "");
+    void veil.offsetWidth;               /* the new colour and pace before the fade starts */
     veil.classList.add("is-on");
     setTimeout(function () {
       if (mine !== jumps) return;
@@ -67,7 +72,7 @@
         if (++frames > 2 && (ok || performance.now() - t0 > 1500)) veil.classList.remove("is-on");
         else requestAnimationFrame(lift);
       })();
-    }, 260);
+    }, look && look.indexOf("is-soft") >= 0 ? 560 : 260);
   }
 
   /* the opening film's chapter list (film.js) crosses the page through the same fade */
@@ -183,6 +188,8 @@
     var a = e.target.closest && e.target.closest('a[href^="#"]');
     if (!a) return;
     var id = a.getAttribute("href").slice(1);
+    /* the page's own top (the studio's name in the header): the same soft way up as the corner button */
+    if (id === "top" && goUp && !a.classList.contains("skip-link")) { e.preventDefault(); goUp(e.detail === 0); return; }
     var el = id && document.getElementById(id);
     if (!el) return;
     e.preventDefault();
@@ -203,6 +210,79 @@
     /* (a page whose address holds its filter, Projects' #film…, keeps it) */
     if (history.replaceState && !document.querySelector(".work-filter")) history.replaceState(null, "", "#" + id);
   });
+
+  /* ---- Night or day behind a point (the scrollbar and the way back up read it) ----
+     A film filling the screen says its tone (film.js html[data-film]); otherwise a film's
+     picture (its data-tone), a picture, a clip or a held frame (their own pixels behind
+     the point) or the first solid ground decides. A picture is read together with the
+     ground its section was designed on: a night section's picture sits under a shade, so
+     it turns a control to ink only when it is clearly bright (a cream one's only when
+     clearly dark). groundAt.clip: a playing clip was read (it may change; look again). */
+  var OWN = ".sbar, .totop, .hdr, .veil, .mcta";
+  var probe = document.createElement("canvas");
+  probe.width = probe.height = 8;
+  var pctx = probe.getContext("2d", { willReadFrequently: true });
+  /* how bright a picture or clip is inside a box of the viewport: the part of the source that
+     object-fit puts there, read through an 8×8 canvas (-1: not drawable yet, or not ours) */
+  function mediaLum(el, bx0, bx1, by0, by1) {
+    var w = el.naturalWidth || el.videoWidth, h = el.naturalHeight || el.videoHeight;
+    if (!w || !h || !pctx) return -1;
+    var r = el.getBoundingClientRect();
+    if (!r.width || !r.height) return -1;
+    var fit = getComputedStyle(el).objectFit, sx = r.width / w, sy = r.height / h;
+    if (fit === "cover") sx = sy = Math.max(sx, sy);
+    else if (fit === "contain") sx = sy = Math.min(sx, sy);
+    var ox = r.left + (r.width - w * sx) / 2, oy = r.top + (r.height - h * sy) / 2;
+    var x0 = Math.max(0, Math.min(w - 1, (bx0 - ox) / sx)), x1 = Math.max(x0 + 1, Math.min(w, (bx1 - ox) / sx));
+    var y0 = Math.max(0, Math.min(h - 1, (by0 - oy) / sy)), y1 = Math.max(y0 + 1, Math.min(h, (by1 - oy) / sy));
+    try {
+      pctx.clearRect(0, 0, 8, 8);
+      pctx.drawImage(el, x0, y0, x1 - x0, y1 - y0, 0, 0, 8, 8);
+      var d = pctx.getImageData(0, 0, 8, 8).data, s = 0, n = 0;
+      for (var k = 0; k < d.length; k += 4) if (d[k + 3] > 128) { s += 0.2126 * d[k] + 0.7152 * d[k + 1] + 0.0722 * d[k + 2]; n++; }
+      return n ? s / n / 255 : -1;
+    } catch (err) { return -1; }
+  }
+  /* x, y: the point; half: half the size of the control there */
+  function groundAt(x, y, half) {
+    groundAt.clip = false;
+    var f = root.dataset.film;
+    if (f === "dark" || f === "light") return f === "dark" ? "night" : "day";
+    var els = document.elementsFromPoint(x, y), lum = -1;
+    var box = function (el) { return mediaLum(el, x - half, x + half, y - half, y + half); };
+    for (var i = 0; i < els.length; i++) {
+      var el = els[i];
+      if (el.closest && el.closest(OWN)) continue;
+      var cs = getComputedStyle(el);
+      if (parseFloat(cs.opacity) < 0.5) continue;
+      if (el.tagName === "IMG" || el.tagName === "VIDEO") {
+        if (lum < 0) { lum = box(el); if (el.tagName === "VIDEO" && lum >= 0) groundAt.clip = true; }
+        continue;
+      }
+      if (el.tagName === "CANVAS") {
+        /* a film's picture: the film says what it shows (film.js data-tone), unless it has faded out */
+        var film = el.closest("[data-film]");
+        if (film && film.dataset.tone && !film.classList.contains("is-faded")) return film.dataset.tone === "dark" ? "night" : "day";
+        continue;
+      }
+      if (lum < 0 && (el === document.body || el === root)) {
+        /* down to the page itself: a film's last frame may be held behind it (js/plate.js .plate,
+           fixed and out of the pointer's way, so the point never lists it) — then it is the ground */
+        var plates = document.querySelectorAll("img.plate");
+        for (var j = 0; j < plates.length; j++) {
+          if (parseFloat(getComputedStyle(plates[j]).opacity) < 0.5) continue;
+          var pl = box(plates[j]);
+          if (pl >= 0) return pl < 0.45 ? "night" : "day";
+        }
+      }
+      var m = cs.backgroundColor.match(/[\d.]+/g);
+      if (!m || (m.length > 3 && parseFloat(m[3]) < 0.5)) continue;
+      var night = (0.2126 * m[0] + 0.7152 * m[1] + 0.0722 * m[2]) / 255 < 0.45;
+      if (lum < 0) return night ? "night" : "day";
+      return night ? (lum > 0.58 ? "day" : "night") : (lum < 0.35 ? "night" : "day");
+    }
+    return lum >= 0 && lum < 0.45 ? "night" : "day";
+  }
 
   /* ---- The scrollbar (home.css .sbar) ----
      Mouse pointers only; touch screens keep their own. The thumb reads what is
@@ -246,80 +326,12 @@
     }
     function queue() { if (!queued) { queued = true; requestAnimationFrame(place); } }
 
-    /* how bright a picture or clip is right behind the thumb: the strip of the source that
-       object-fit puts there, read through an 8×8 canvas (-1: not drawable yet, or not ours) */
-    var probe = document.createElement("canvas");
-    probe.width = probe.height = 8;
-    var pctx = probe.getContext("2d", { willReadFrequently: true });
-    function mediaLum(el, y) {
-      var w = el.naturalWidth || el.videoWidth, h = el.naturalHeight || el.videoHeight;
-      if (!w || !h || !pctx) return -1;
-      var r = el.getBoundingClientRect();
-      if (!r.width || !r.height) return -1;
-      var fit = getComputedStyle(el).objectFit, sx = r.width / w, sy = r.height / h;
-      if (fit === "cover") sx = sy = Math.max(sx, sy);
-      else if (fit === "contain") sx = sy = Math.min(sx, sy);
-      var ox = r.left + (r.width - w * sx) / 2, oy = r.top + (r.height - h * sy) / 2;
-      var x0 = (window.innerWidth - 20 - ox) / sx, x1 = (window.innerWidth - ox) / sx;
-      var y0 = (y - thumbH / 2 - oy) / sy, y1 = (y + thumbH / 2 - oy) / sy;
-      x0 = Math.max(0, Math.min(w - 1, x0)); x1 = Math.max(x0 + 1, Math.min(w, x1));
-      y0 = Math.max(0, Math.min(h - 1, y0)); y1 = Math.max(y0 + 1, Math.min(h, y1));
-      try {
-        pctx.clearRect(0, 0, 8, 8);
-        pctx.drawImage(el, x0, y0, x1 - x0, y1 - y0, 0, 0, 8, 8);
-        var d = pctx.getImageData(0, 0, 8, 8).data, s = 0, n = 0;
-        for (var k = 0; k < d.length; k += 4) if (d[k + 3] > 128) { s += 0.2126 * d[k] + 0.7152 * d[k + 1] + 0.0722 * d[k + 2]; n++; }
-        return n ? s / n / 255 : -1;
-      } catch (err) { return -1; }
-    }
-
-    /* night or day under the middle of the thumb. A picture or clip is read together with the
-       ground its section was designed on: a night section's picture sits under a shade, so it
-       turns the thumb to ink only when it is clearly bright (and a cream section's only when clearly dark). */
-    function ground(y) {
-      var f = root.dataset.film;
-      if (f === "dark" || f === "light") return f === "dark" ? "night" : "day";
-      var els = document.elementsFromPoint(window.innerWidth - 9, y), lum = -1;
-      for (var i = 0; i < els.length; i++) {
-        var el = els[i];
-        if (bar.contains(el) || (el.closest && el.closest(".hdr, .veil, .mcta"))) continue;
-        var cs = getComputedStyle(el);
-        if (parseFloat(cs.opacity) < 0.5) continue;
-        if (el.tagName === "IMG" || el.tagName === "VIDEO") {
-          if (lum < 0) { lum = mediaLum(el, y); if (el.tagName === "VIDEO" && lum >= 0) clip = true; }
-          continue;
-        }
-        if (el.tagName === "CANVAS") {
-          /* a film's picture: the film says what it shows (film.js data-tone), unless it has faded out */
-          var film = el.closest("[data-film]");
-          if (film && film.dataset.tone && !film.classList.contains("is-faded")) return film.dataset.tone === "dark" ? "night" : "day";
-          continue;
-        }
-        if (lum < 0 && (el === document.body || el === root)) {
-          /* down to the page itself: a film's last frame may be held behind it (js/plate.js .plate,
-             fixed and out of the pointer's way, so the point never lists it) — then it is the ground */
-          var plates = document.querySelectorAll("img.plate");
-          for (var j = 0; j < plates.length; j++) {
-            if (parseFloat(getComputedStyle(plates[j]).opacity) < 0.5) continue;
-            var pl = mediaLum(plates[j], y);
-            if (pl >= 0) return pl < 0.45 ? "night" : "day";
-          }
-        }
-        var m = cs.backgroundColor.match(/[\d.]+/g);
-        if (!m || (m.length > 3 && parseFloat(m[3]) < 0.5)) continue;
-        var night = (0.2126 * m[0] + 0.7152 * m[1] + 0.0722 * m[2]) / 255 < 0.45;
-        if (lum < 0) return night ? "night" : "day";
-        return night ? (lum > 0.58 ? "day" : "night") : (lum < 0.35 ? "night" : "day");
-      }
-      return lum >= 0 && lum < 0.45 ? "night" : "day";
-    }
     /* a clip changes under a thumb at rest: while one is behind it, look again every second */
-    var clip = false, again = 0;
+    var again = 0;
     function tone() {
-      clip = false;
-      bar.classList.toggle("is-day", ground(thumbY + thumbH / 2) === "day");
+      bar.classList.toggle("is-day", groundAt(window.innerWidth - 10, thumbY + thumbH / 2, Math.min(10, thumbH / 2)) === "day");
       clearTimeout(again);
-      if (clip) again = setTimeout(function () { if (!document.hidden) tone(); }, 1000);
+      if (groundAt.clip) again = setTimeout(function () { if (!document.hidden) tone(); }, 1000);
     }
 
     function wake() {
@@ -384,5 +396,98 @@
     document.addEventListener("visibilitychange", function () { if (!document.hidden) tone(); });
     geom();
     place();
+  })();
+  /* ---- The way back up (home.css .totop) ----
+     Shown once the page is more than a screen and a bit behind, and never beside the
+     opening's "Skip the film" (they share the corner). Its ring is the page behind you; it
+     takes the tone of what is behind it, and over the footer it rises above the base line.
+     The way up is soft: past a film it fades slowly through the night and opens at the top
+     (gliding back through the films would play every one of them in reverse at speed); a
+     page without films glides there on a slow ease-in-out, which a wheel, a finger or a
+     key takes back at once. Reduced motion: straight there. */
+  var up = document.querySelector(".totop");
+  if (up) (function () {
+    var skips = document.querySelectorAll(".film__skip");
+    var base = document.querySelector(".foot__base");
+    var queued = false, toneAt = 0, again = 0, glide = 0;
+
+    function skipShown() {
+      for (var i = 0; i < skips.length; i++) {
+        var r = skips[i].getBoundingClientRect();
+        if (r.bottom > 0 && r.top < window.innerHeight && parseFloat(getComputedStyle(skips[i]).opacity) > 0.05) return true;
+      }
+      return false;
+    }
+    function tone() {
+      var r = up.getBoundingClientRect();
+      if (!r.width) return;
+      up.classList.toggle("is-day", groundAt(r.left + r.width - r.height / 2, r.top + r.height / 2, r.height / 2) === "day");
+      clearTimeout(again);
+      if (groundAt.clip) again = setTimeout(function () { if (!document.hidden) tone(); }, 1000);
+    }
+    function place() {
+      queued = false;
+      var vh = window.innerHeight, max = Math.max(1, root.scrollHeight - vh), y = window.scrollY;
+      up.style.setProperty("--top-p", Math.min(1, y / max).toFixed(4));
+      var on = y > vh * 1.2 && !skipShown() && !root.classList.contains("has-modal");
+      up.classList.toggle("is-on", on);
+      /* over the footer: stay above its base line (the studio's name and "3D & web studio") */
+      var lift = 0;
+      if (base) {
+        var b = base.getBoundingClientRect(), bottom = parseFloat(getComputedStyle(up).bottom) || 0;
+        lift = Math.max(0, vh - bottom - (b.top - 14));
+      }
+      up.style.setProperty("--top-lift", lift.toFixed(1) + "px");
+      var now = performance.now();
+      if (on && now - toneAt > 150) { toneAt = now; tone(); }
+    }
+    function queue() { if (!queued) { queued = true; requestAnimationFrame(place); } }
+
+    function stopGlide() {
+      if (!glide) return;
+      cancelAnimationFrame(glide);
+      glide = 0;
+      current = target = written = window.scrollY; vel = 0;
+    }
+    function glideUp() {
+      var from = window.scrollY, t0 = 0, dur = Math.min(1500, Math.max(700, 450 + from * 0.22));
+      var ease = function (t) { return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; };
+      running = false; vel = 0;
+      glide = requestAnimationFrame(function step(now) {
+        if (!t0) t0 = now;
+        var k = Math.min(1, (now - t0) / dur), y = from * (1 - ease(k));
+        current = target = y; written = Math.round(y);
+        window.scrollTo(0, y);
+        glide = k < 1 ? requestAnimationFrame(step) : 0;
+      });
+    }
+    ["wheel", "touchstart", "keydown"].forEach(function (t) { window.addEventListener(t, stopGlide, { passive: true }); });
+
+    goUp = function (keyboard) {
+      stopGlide();
+      /* the address forgets a section it was sent to (#projects…), or a reload would land there again */
+      if (location.hash && history.replaceState && !document.querySelector(".work-filter")) history.replaceState(null, "", location.pathname + location.search);
+      measure();
+      if (reduced) window.scrollTo(0, 0);
+      else {
+        var film = document.querySelector(".film");
+        if (film && film.getBoundingClientRect().top < 0) {
+          /* films on the way: a slow fade through the opening's own colour */
+          current = target = written = 0; vel = 0; running = false;
+          fadeJump(0, null, (film.dataset.tone || "dark") === "dark" ? "is-night is-soft" : "is-soft");
+        } else glideUp();
+      }
+      if (keyboard) {
+        var home = document.querySelector(".hdr a");
+        if (home) home.focus({ preventScroll: true });
+      }
+    };
+    up.addEventListener("click", function (e) { goUp(e.detail === 0); });
+
+    window.addEventListener("scroll", queue, { passive: true });
+    window.addEventListener("resize", queue);
+    new MutationObserver(queue).observe(root, { attributes: true, attributeFilter: ["data-film", "class"] });
+    document.addEventListener("visibilitychange", function () { if (!document.hidden) { toneAt = 0; queue(); } });
+    queue();
   })();
 })();
