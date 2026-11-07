@@ -96,6 +96,7 @@
       "Order bot": "Sipariş botu",
       "Skip the film": "Filmi geç",
       "Back to top": "Başa dön",
+      "Nothing you write on this site is sent to a server: you send the message yourself, from the app you choose. No tracking or advertising cookies.": "Bu sitede yazdığınız hiçbir şey bir sunucuya gönderilmez: mesajı seçtiğiniz uygulamadan siz gönderirsiniz. İzleme ya da reklam çerezi yok.",
       "Scroll": "Kaydır",
       "Larisel Café": "Larisel Kafe",
       "Lid": "Kapak",
@@ -223,6 +224,8 @@
       "Hello! I take orders for the Larisel workshop. Shall we build your armchair?": "Merhaba! Larisel atölyesinin siparişlerini alıyorum. Koltuğunu birlikte kuralım mı?",
       "First, the fabric:": "Önce kumaş:",
       "Now the frame:": "Şimdi iskelet:",
+      "What can this bot do?": "Bu bot ne yapabilir?",
+      "Orders for the Larisel workshop, inside the chat: choose the fabric, the frame and the size, see the price, confirm. No app, no sign-up.": "Larisel atölyesinin siparişleri, sohbetin içinde: kumaşı, iskeleti ve boyutu seçin, fiyatı görün, onaylayın. Uygulama yok, üyelik yok.",
       "And the size?": "Boyut?",
       "Your order": "Siparişin",
       "Made to order in 14 days": "14 günde siparişe göre üretilir",
@@ -384,6 +387,7 @@
       "Order bot": "Бот заказов",
       "Skip the film": "Пропустить фильм",
       "Back to top": "Наверх",
+      "Nothing you write on this site is sent to a server: you send the message yourself, from the app you choose. No tracking or advertising cookies.": "Ничто из написанного на этом сайте не уходит на сервер: сообщение вы отправляете сами, из выбранного приложения. Никаких следящих и рекламных cookie.",
       "Scroll": "Листайте",
       "Larisel Café": "Larisel Café",
       "Lid": "Крышка",
@@ -511,6 +515,8 @@
       "Hello! I take orders for the Larisel workshop. Shall we build your armchair?": "Здравствуйте! Я принимаю заказы мастерской Larisel. Соберём ваше кресло?",
       "First, the fabric:": "Сначала ткань:",
       "Now the frame:": "Теперь каркас:",
+      "What can this bot do?": "Что умеет этот бот?",
+      "Orders for the Larisel workshop, inside the chat: choose the fabric, the frame and the size, see the price, confirm. No app, no sign-up.": "Заказы мастерской Larisel прямо в чате: выберите ткань, каркас и размер, узнайте цену и подтвердите. Без приложения и регистрации.",
       "And the size?": "А размер?",
       "Your order": "Ваш заказ",
       "Made to order in 14 days": "Изготовим за 14 дней",
@@ -704,7 +710,18 @@
     /* a link can carry its language (?lang=tr): a page sent to a client opens in the client's
        language whatever their browser or an earlier visit chose — and stays in it */
     var asked = (location.search.match(/[?&]lang=([a-z]{2})(?:&|#|$)/i) || [])[1];
-    if (asked) { asked = asked.toLowerCase(); if (asked === "en" || DICT[asked]) return asked; }
+    if (asked) {
+      asked = asked.toLowerCase();
+      if (DICT[asked]) {
+        /* this address is the page in that language (the head's hreflang list names it): it is its own canonical */
+        var canon = document.querySelector('link[rel="canonical"]'), og = document.querySelector('meta[property="og:url"]');
+        var self = location.origin + location.pathname + "?lang=" + asked;
+        if (canon) canon.setAttribute("href", self);
+        if (og) og.setAttribute("content", self);
+        return asked;
+      }
+      if (asked === "en") return asked;
+    }
     try { return localStorage.getItem(STORE) || browserLang(); }
     catch (e) { return browserLang(); }
   }

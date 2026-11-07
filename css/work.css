@@ -54,7 +54,7 @@ a.show__media:hover .show__phone { transform: translate3d(0, -10px, 0); }
 .show__media--chat .chat { grid-column: 2; grid-row: 1; width: min(19rem, 70vw); margin: clamp(1.5rem, 1rem + 2vw, 3rem) clamp(1rem, 0.5rem + 2vw, 2.5rem); }
 .show__media--chat .chat__phone { height: min(25rem, 54vh); }
 .show__media--chat { padding-bottom: 2.6rem; }
-.show__media--chat .chat__note { position: absolute; left: 0; right: 0; top: calc(100% + 0.7rem); color: var(--c-ink-faint); }   /* under the phone, on the page */
+.show__media--chat .chat__note { position: absolute; left: 0; right: 0; top: calc(100% + 0.7rem); color: var(--c-ink-soft); }    /* under the phone, on the page */
 
 .show__text { display: grid; gap: var(--s-4); align-content: center; max-width: 31rem; }
 .show__n { font-family: var(--f-display); font-style: italic; font-weight: 300; font-size: clamp(2.4rem, 1.8rem + 1.6vw, 3.4rem); line-height: 1; color: #9a4a32; }
@@ -107,7 +107,7 @@ a.show__media:hover .show__phone { transform: translate3d(0, -10px, 0); }
 .case-still { margin: 0; border-radius: 14px; overflow: hidden; box-shadow: 0 1px 0 rgba(23, 21, 15, 0.06), 0 30px 80px -30px rgba(40, 30, 18, 0.35), 0 0 0 1px rgba(23, 21, 15, 0.08); }
 .case-still img { width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; }
 .case-media--chat .chat { position: relative; inset: auto; transform: none; width: min(22rem, 100%); justify-self: center; }
-.case-media--chat .chat__note { position: static; color: var(--c-ink-faint); }      /* written for the night stop: on cream it vanished */
+.case-media--chat .chat__note { position: static; color: var(--c-ink-soft); }       /* written for the night stop: on cream it vanished (faint ink was 3:1) */
 @media (max-width: 900px) { .case-media--chat { grid-template-columns: 1fr; } }
 
 /* the story: one quiet card, the task on the left and what was built on the right. The card's edges are the

@@ -42,6 +42,16 @@
   unicode-range: U+0100-02AF, U+0304, U+0308, U+0329, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF; }
 @font-face { font-family: "Plex Mono"; src: url("../fonts/ibm-plex-mono-cyrillic.woff2") format("woff2"); font-weight: 400; font-display: swap;
   unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116; }
+/* The arrows (← → ↗ ↑ ↓) and the non-breaking hyphen: no slice above carries them, and the
+   browser drew them in a system face (Times New Roman after a serif heading). Inter's own, and
+   for the serif Source Serif 4's (Newsreader has none; Source Serif already stands in for its
+   Cyrillic) — tiny files, only these glyphs (OFL), under each family's own name. */
+@font-face { font-family: "Inter"; src: url("../fonts/inter-arrows.woff2") format("woff2"); font-weight: 100 900; font-display: swap;
+  unicode-range: U+2011, U+2190-2193, U+2197; }
+@font-face { font-family: "Newsreader"; src: url("../fonts/source-serif-4-arrows.woff2") format("woff2"); font-weight: 200 800; font-style: normal; font-display: swap;
+  unicode-range: U+2190-2193, U+2197; }
+@font-face { font-family: "Newsreader"; src: url("../fonts/source-serif-4-arrows.woff2") format("woff2"); font-weight: 200 800; font-style: italic; font-display: swap;
+  unicode-range: U+2190-2193, U+2197; }
 
 /* ---- tokens --------------------------------------------------------------- */
 :root {
@@ -512,6 +522,10 @@ html.has-scrolled .film__hint { opacity: 0; }
 .foot .btn--line:hover { border-color: rgba(243, 237, 225, 0.5); }
 .foot__base { display: flex; justify-content: space-between; align-items: baseline; gap: var(--s-4); flex-wrap: wrap; margin-top: var(--s-9); padding-top: var(--s-5); border-top: 1px solid var(--c-line-night); font: 400 0.68rem/1 var(--f-mono); letter-spacing: 0.14em; text-transform: uppercase; color: rgba(243, 237, 225, 0.45); }
 .foot__word { font-family: var(--f-display); font-size: clamp(3rem, 2rem + 6vw, 8rem); letter-spacing: -0.03em; text-transform: none; color: var(--c-ivory); line-height: 0.9; font-weight: 300; }
+.foot__legal { display: flex; justify-content: space-between; align-items: baseline; gap: var(--s-3) var(--s-6); flex-wrap: wrap; margin: var(--s-4) 0 0;
+  font: 400 0.74rem/1.6 var(--f-body); color: rgba(243, 237, 225, 0.48); }
+.foot__legal span:last-child { max-width: 36rem; text-align: right; }
+@media (max-width: 760px) { .foot__legal span:last-child { text-align: left; } }
 
 :lang(ru) .film__title, :lang(ru) .stop__title, :lang(ru) .next__title, :lang(ru) .foot__title, :lang(ru) .quote p, :lang(ru) .allwork__link, :lang(ru) .start__title, :lang(ru) .does li::before { font-weight: 240; }
 :lang(ru) .does b { font-weight: 340; }
@@ -614,6 +628,10 @@ html.has-scrolled .film__hint { opacity: 0; }
 .msg p + p { margin-top: 6px; }
 .msg--bot { align-self: flex-start; background: #fffdf9; border-bottom-left-radius: 6px; box-shadow: 0 1px 0 rgba(0, 0, 0, 0.05); }
 .msg--me { align-self: flex-end; background: #dcc9a8; border-bottom-right-radius: 6px; }
+.chat__log > :first-child { margin-top: auto; }   /* a short chat sits at the bottom, as in a messenger; a long one scrolls */
+.msg--intro { align-self: center; max-width: 92%; padding: 12px 14px; border-radius: 14px; background: rgba(255, 253, 249, 0.72); color: #3a332a;
+  font-size: 0.8rem; line-height: 1.5; text-align: center; box-shadow: 0 1px 0 rgba(0, 0, 0, 0.04); }
+.msg--intro b { color: #1d1a15; font-weight: 600; }
 .msg--note { align-self: center; max-width: 92%; background: transparent; color: #6c6458; font-size: 0.78rem; text-align: center; }
 .msg__total { font-family: var(--f-display); font-size: 1.5rem; letter-spacing: -0.01em; }
 .msg--typing { padding: 12px 14px; }
@@ -629,7 +647,7 @@ html.has-scrolled .film__hint { opacity: 0; }
 .kb__btn.is-picked { opacity: 1; background: #1d1a15; color: #f7f2ea; border-color: #1d1a15; }
 .kb__btn--main { background: #1d1a15; color: #f7f2ea; border-color: #1d1a15; }
 .chat__again { display: block; margin: 8px auto 0; padding: 7px 14px; border-radius: 999px; border: 1px solid rgba(29, 26, 21, 0.2); font: 500 0.78rem/1 var(--f-body); color: #3a332a; }
-.chat__note { margin-top: 0.8rem; font-family: var(--f-mono); font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(243, 237, 225, 0.5); text-align: center; }
+.chat__note { margin-top: 0.8rem; font-family: var(--f-mono); font-size: 0.64rem; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(243, 237, 225, 0.74); text-align: center; }
 @media (orientation: portrait) {
   .stop--night:has(.chat) { padding-top: 40vh; }
   .chat { position: relative; right: auto; top: auto; width: 100%; margin: var(--s-7) auto 0; }

@@ -64,9 +64,26 @@
 
   function total() { return BASE + order.fabric[1] + order.frame[1] + order.size[1]; }
 
+  /* A new chat opens the way Telegram opens one with a bot: its card ("What can this bot do?")
+     and the visitor's /start. They stand there before the phone is reached, so it never shows
+     an empty screen; the conversation then begins under them. */
+  function opening() {
+    log.innerHTML = "";
+    var card = document.createElement("div");
+    card.className = "msg msg--intro is-in";
+    card.innerHTML = "<p><b>" + t("What can this bot do?") + "</b></p><p>" +
+      t("Orders for the Larisel workshop, inside the chat: choose the fabric, the frame and the size, see the price, confirm. No app, no sign-up.") + "</p>";
+    log.appendChild(card);
+    var me = document.createElement("div");
+    me.className = "msg msg--me is-in";
+    me.innerHTML = "<p>/start</p>";
+    log.appendChild(me);
+    scroll();
+  }
+
   function start() {
     timers.forEach(clearTimeout); timers = [];
-    log.innerHTML = ""; order = {}; busy = false;
+    opening(); order = {}; busy = false;
     typing(function () {
       bubble("bot", "<p>" + t("Hello! I take orders for the Larisel workshop. Shall we build your armchair?") + "</p>");
       ask(t("First, the fabric:"), FABRIC, function (o) {
@@ -107,9 +124,10 @@
   }
 
   /* begin when the phone comes into view; again in the new language if it changes */
+  opening();
   var begun = false;
   new IntersectionObserver(function (es) {
     if (es[0].isIntersecting && !begun) { begun = true; start(); }
   }, { threshold: 0.35 }).observe(root);
-  if (window.LR) window.LR.on(function () { if (begun) start(); });
+  if (window.LR) window.LR.on(function () { if (begun) start(); else opening(); });
 })();
